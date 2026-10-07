@@ -1,0 +1,27868 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict bL7gYvsFaMEDe89cwKQXmq1XXZalAymeafPxuFbCdTgiBMDsJYbOqsJbZGEqjoJ
+
+-- Dumped from database version 15.14
+-- Dumped by pg_dump version 15.14
+
+-- Started on 2025-09-28 14:24:40
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3488 (class 1262 OID 16401)
+-- Name: db_akademik; Type: DATABASE; Schema: -; Owner: -
+--
+
+CREATE DATABASE db_akademik WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'English_Indonesia.1252';
+
+
+\unrestrict bL7gYvsFaMEDe89cwKQXmq1XXZalAymeafPxuFbCdTgiBMDsJYbOqsJbZGEqjoJ
+\connect db_akademik
+\restrict bL7gYvsFaMEDe89cwKQXmq1XXZalAymeafPxuFbCdTgiBMDsJYbOqsJbZGEqjoJ
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 235 (class 1259 OID 18358)
+-- Name: d_kelas; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.d_kelas (
+    kelas_id integer NOT NULL,
+    prodi_id bigint,
+    periode_id integer,
+    kelas_nama character varying(5),
+    dosen_id bigint
+);
+
+
+--
+-- TOC entry 3489 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: COLUMN d_kelas.dosen_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.d_kelas.dosen_id IS 'Dosen Wali';
+
+
+--
+-- TOC entry 234 (class 1259 OID 18357)
+-- Name: d_kelas_kelas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.d_kelas_kelas_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3490 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: d_kelas_kelas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.d_kelas_kelas_id_seq OWNED BY public.d_kelas.kelas_id;
+
+
+--
+-- TOC entry 237 (class 1259 OID 18384)
+-- Name: d_kelas_mahasiswa; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.d_kelas_mahasiswa (
+    kelas_mahasiswa_id integer NOT NULL,
+    kelas_id bigint,
+    mahasiswa_id bigint
+);
+
+
+--
+-- TOC entry 236 (class 1259 OID 18383)
+-- Name: d_kelas_mahasiswa_kelas_mahasiswa_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.d_kelas_mahasiswa_kelas_mahasiswa_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3491 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: d_kelas_mahasiswa_kelas_mahasiswa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.d_kelas_mahasiswa_kelas_mahasiswa_id_seq OWNED BY public.d_kelas_mahasiswa.kelas_mahasiswa_id;
+
+
+--
+-- TOC entry 239 (class 1259 OID 18410)
+-- Name: d_kuliah; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.d_kuliah (
+    kuliah_id integer NOT NULL,
+    kurikulum_mk_id bigint,
+    dosen_id bigint,
+    kelas_id bigint
+);
+
+
+--
+-- TOC entry 238 (class 1259 OID 18409)
+-- Name: d_kuliah_kuliah_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.d_kuliah_kuliah_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3492 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: d_kuliah_kuliah_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.d_kuliah_kuliah_id_seq OWNED BY public.d_kuliah.kuliah_id;
+
+
+--
+-- TOC entry 241 (class 1259 OID 18433)
+-- Name: d_kuliah_nilai; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.d_kuliah_nilai (
+    kuliah_nilai_id integer NOT NULL,
+    kuliah_id bigint,
+    mahasiswa_id bigint,
+    nilai smallint
+);
+
+
+--
+-- TOC entry 3493 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: COLUMN d_kuliah_nilai.nilai; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.d_kuliah_nilai.nilai IS 'nilai rentang 1-100';
+
+
+--
+-- TOC entry 240 (class 1259 OID 18432)
+-- Name: d_kuliah_nilai_kuliah_nilai_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.d_kuliah_nilai_kuliah_nilai_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3494 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: d_kuliah_nilai_kuliah_nilai_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.d_kuliah_nilai_kuliah_nilai_id_seq OWNED BY public.d_kuliah_nilai.kuliah_nilai_id;
+
+
+--
+-- TOC entry 229 (class 1259 OID 18287)
+-- Name: d_kurikulum; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.d_kurikulum (
+    kurikulum_id integer NOT NULL,
+    prodi_id bigint,
+    periode_id integer
+);
+
+
+--
+-- TOC entry 228 (class 1259 OID 18286)
+-- Name: d_kurikulum_kurikulum_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.d_kurikulum_kurikulum_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3495 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: d_kurikulum_kurikulum_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.d_kurikulum_kurikulum_id_seq OWNED BY public.d_kurikulum.kurikulum_id;
+
+
+--
+-- TOC entry 231 (class 1259 OID 18304)
+-- Name: d_kurikulum_mk; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.d_kurikulum_mk (
+    kurikulum_mk_id integer NOT NULL,
+    kurikulum_id bigint,
+    matakuliah_id bigint,
+    jenis_mk character varying(1),
+    sks_mk smallint,
+    jam_mk smallint
+);
+
+
+--
+-- TOC entry 3496 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: COLUMN d_kurikulum_mk.jenis_mk; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.d_kurikulum_mk.jenis_mk IS 'T (Teori) / P (Praktikum)';
+
+
+--
+-- TOC entry 230 (class 1259 OID 18303)
+-- Name: d_kurikulum_mk_kurikulum_mk_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.d_kurikulum_mk_kurikulum_mk_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3497 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: d_kurikulum_mk_kurikulum_mk_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.d_kurikulum_mk_kurikulum_mk_id_seq OWNED BY public.d_kurikulum_mk.kurikulum_mk_id;
+
+
+--
+-- TOC entry 227 (class 1259 OID 18281)
+-- Name: d_periode; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.d_periode (
+    periode_id integer NOT NULL,
+    periode_nama character varying(30),
+    periode_tahun integer,
+    periode_semester smallint
+);
+
+
+--
+-- TOC entry 3498 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: COLUMN d_periode.periode_semester; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.d_periode.periode_semester IS '1: Ganjil, 2: Genap';
+
+
+--
+-- TOC entry 233 (class 1259 OID 18336)
+-- Name: m_dosen; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.m_dosen (
+    dosen_id integer NOT NULL,
+    prodi_id bigint,
+    nama character varying(50),
+    jk character varying(1),
+    email character varying(50),
+    agama_id bigint,
+    berat_badan smallint,
+    tinggi_badan smallint,
+    tanggal_lahir date,
+    kota_id character varying(13)
+);
+
+
+--
+-- TOC entry 3499 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: COLUMN m_dosen.nama; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.m_dosen.nama IS 'L/P';
+
+
+--
+-- TOC entry 3500 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: COLUMN m_dosen.jk; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.m_dosen.jk IS 'L/P';
+
+
+--
+-- TOC entry 232 (class 1259 OID 18335)
+-- Name: m_dosen_dosen_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.m_dosen_dosen_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3501 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: m_dosen_dosen_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.m_dosen_dosen_id_seq OWNED BY public.m_dosen.dosen_id;
+
+
+--
+-- TOC entry 217 (class 1259 OID 18183)
+-- Name: r_jenjang; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.r_jenjang (
+    jenjang_id integer NOT NULL,
+    jenjang_kode character varying(2),
+    jenjang_nama character varying(30),
+    jenjang_level smallint
+);
+
+
+--
+-- TOC entry 3502 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: COLUMN r_jenjang.jenjang_level; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.r_jenjang.jenjang_level IS 'Level KKNI';
+
+
+--
+-- TOC entry 216 (class 1259 OID 18182)
+-- Name: m_jenjang_jenjang_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.m_jenjang_jenjang_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3503 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: m_jenjang_jenjang_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.m_jenjang_jenjang_id_seq OWNED BY public.r_jenjang.jenjang_id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 18176)
+-- Name: m_jurusan; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.m_jurusan (
+    jurusan_id integer NOT NULL,
+    jurusan_kode character varying(10),
+    jurusan_nama character varying(50)
+);
+
+
+--
+-- TOC entry 214 (class 1259 OID 18175)
+-- Name: m_jurusan_jurusan_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.m_jurusan_jurusan_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3504 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: m_jurusan_jurusan_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.m_jurusan_jurusan_id_seq OWNED BY public.m_jurusan.jurusan_id;
+
+
+--
+-- TOC entry 221 (class 1259 OID 18220)
+-- Name: m_mahasiswa; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.m_mahasiswa (
+    mahasiswa_id integer NOT NULL,
+    prodi_id bigint,
+    nim character varying(12),
+    nama character varying(100),
+    jk character varying(1),
+    email character varying(50),
+    agama_id bigint,
+    tahun_masuk integer,
+    berat_badan smallint,
+    tinggi_badan smallint,
+    tanggal_lahir date,
+    kota_id character varying(13)
+);
+
+
+--
+-- TOC entry 3505 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: COLUMN m_mahasiswa.jk; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.m_mahasiswa.jk IS 'L/P';
+
+
+--
+-- TOC entry 220 (class 1259 OID 18219)
+-- Name: m_mahasiswa_mahasiswa_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.m_mahasiswa_mahasiswa_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3506 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: m_mahasiswa_mahasiswa_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.m_mahasiswa_mahasiswa_id_seq OWNED BY public.m_mahasiswa.mahasiswa_id;
+
+
+--
+-- TOC entry 226 (class 1259 OID 18265)
+-- Name: m_matakuliah; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.m_matakuliah (
+    matakuliah_id integer NOT NULL,
+    prodi_id bigint,
+    matakuliah_kode character varying(12),
+    matakuliah_nama character varying(50),
+    matakuliah_semester smallint
+);
+
+
+--
+-- TOC entry 3507 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: COLUMN m_matakuliah.matakuliah_semester; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.m_matakuliah.matakuliah_semester IS '1: Ganjil, 2: Genap';
+
+
+--
+-- TOC entry 225 (class 1259 OID 18264)
+-- Name: m_matakuliah_matakuliah_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.m_matakuliah_matakuliah_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3508 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: m_matakuliah_matakuliah_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.m_matakuliah_matakuliah_id_seq OWNED BY public.m_matakuliah.matakuliah_id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 18190)
+-- Name: m_prodi; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.m_prodi (
+    prodi_id integer NOT NULL,
+    jurusan_id bigint,
+    jenjang_id bigint,
+    prodi_kode character varying(12),
+    prodi_nama character varying(80)
+);
+
+
+--
+-- TOC entry 218 (class 1259 OID 18189)
+-- Name: m_prodi_prodi_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.m_prodi_prodi_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3509 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: m_prodi_prodi_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.m_prodi_prodi_id_seq OWNED BY public.m_prodi.prodi_id;
+
+
+--
+-- TOC entry 224 (class 1259 OID 18238)
+-- Name: r_agama; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.r_agama (
+    agama_id integer NOT NULL,
+    agama_nama character varying(50)
+);
+
+
+--
+-- TOC entry 223 (class 1259 OID 18237)
+-- Name: r_agama_agama_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.r_agama_agama_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3510 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: r_agama_agama_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.r_agama_agama_id_seq OWNED BY public.r_agama.agama_id;
+
+
+--
+-- TOC entry 222 (class 1259 OID 18233)
+-- Name: r_wilayah; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.r_wilayah (
+    wilayah_id character varying(13),
+    wilayah_nama character varying(100),
+    wilayah_level smallint
+);
+
+
+--
+-- TOC entry 3250 (class 2604 OID 18361)
+-- Name: d_kelas kelas_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kelas ALTER COLUMN kelas_id SET DEFAULT nextval('public.d_kelas_kelas_id_seq'::regclass);
+
+
+--
+-- TOC entry 3251 (class 2604 OID 18387)
+-- Name: d_kelas_mahasiswa kelas_mahasiswa_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kelas_mahasiswa ALTER COLUMN kelas_mahasiswa_id SET DEFAULT nextval('public.d_kelas_mahasiswa_kelas_mahasiswa_id_seq'::regclass);
+
+
+--
+-- TOC entry 3252 (class 2604 OID 18413)
+-- Name: d_kuliah kuliah_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kuliah ALTER COLUMN kuliah_id SET DEFAULT nextval('public.d_kuliah_kuliah_id_seq'::regclass);
+
+
+--
+-- TOC entry 3253 (class 2604 OID 18436)
+-- Name: d_kuliah_nilai kuliah_nilai_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kuliah_nilai ALTER COLUMN kuliah_nilai_id SET DEFAULT nextval('public.d_kuliah_nilai_kuliah_nilai_id_seq'::regclass);
+
+
+--
+-- TOC entry 3247 (class 2604 OID 18290)
+-- Name: d_kurikulum kurikulum_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kurikulum ALTER COLUMN kurikulum_id SET DEFAULT nextval('public.d_kurikulum_kurikulum_id_seq'::regclass);
+
+
+--
+-- TOC entry 3248 (class 2604 OID 18307)
+-- Name: d_kurikulum_mk kurikulum_mk_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kurikulum_mk ALTER COLUMN kurikulum_mk_id SET DEFAULT nextval('public.d_kurikulum_mk_kurikulum_mk_id_seq'::regclass);
+
+
+--
+-- TOC entry 3249 (class 2604 OID 18339)
+-- Name: m_dosen dosen_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_dosen ALTER COLUMN dosen_id SET DEFAULT nextval('public.m_dosen_dosen_id_seq'::regclass);
+
+
+--
+-- TOC entry 3241 (class 2604 OID 18179)
+-- Name: m_jurusan jurusan_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_jurusan ALTER COLUMN jurusan_id SET DEFAULT nextval('public.m_jurusan_jurusan_id_seq'::regclass);
+
+
+--
+-- TOC entry 3244 (class 2604 OID 18223)
+-- Name: m_mahasiswa mahasiswa_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_mahasiswa ALTER COLUMN mahasiswa_id SET DEFAULT nextval('public.m_mahasiswa_mahasiswa_id_seq'::regclass);
+
+
+--
+-- TOC entry 3246 (class 2604 OID 18268)
+-- Name: m_matakuliah matakuliah_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_matakuliah ALTER COLUMN matakuliah_id SET DEFAULT nextval('public.m_matakuliah_matakuliah_id_seq'::regclass);
+
+
+--
+-- TOC entry 3243 (class 2604 OID 18193)
+-- Name: m_prodi prodi_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_prodi ALTER COLUMN prodi_id SET DEFAULT nextval('public.m_prodi_prodi_id_seq'::regclass);
+
+
+--
+-- TOC entry 3245 (class 2604 OID 18241)
+-- Name: r_agama agama_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.r_agama ALTER COLUMN agama_id SET DEFAULT nextval('public.r_agama_agama_id_seq'::regclass);
+
+
+--
+-- TOC entry 3242 (class 2604 OID 18186)
+-- Name: r_jenjang jenjang_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.r_jenjang ALTER COLUMN jenjang_id SET DEFAULT nextval('public.m_jenjang_jenjang_id_seq'::regclass);
+
+
+--
+-- TOC entry 3476 (class 0 OID 18358)
+-- Dependencies: 235
+-- Data for Name: d_kelas; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.d_kelas (kelas_id, prodi_id, periode_id, kelas_nama, dosen_id) FROM stdin;
+41	10	20221	1C	78
+113	36	20221	1A	258
+114	36	20221	1B	259
+115	37	20221	1A	262
+116	37	20221	1B	263
+1	1	20221	1A	2
+2	1	20221	1B	3
+3	1	20221	1C	4
+4	1	20221	1D	5
+5	1	20221	1E	6
+6	1	20221	1F	7
+7	1	20221	1G	8
+8	2	20221	1A	12
+9	2	20221	1B	13
+10	2	20221	1C	14
+11	2	20221	1D	15
+12	2	20221	1E	16
+13	2	20221	1F	17
+14	2	20221	1G	18
+15	3	20221	1A	22
+16	3	20221	1B	23
+17	3	20221	1C	24
+18	3	20221	1D	25
+19	3	20221	1E	26
+20	3	20221	1F	27
+21	3	20221	1G	28
+22	3	20221	1H	29
+23	3	20221	1I	30
+24	4	20221	1A	40
+25	5	20221	1A	42
+26	6	20221	1A	44
+27	6	20221	1B	45
+28	6	20221	1C	46
+29	7	20221	1A	52
+30	7	20221	1B	53
+31	8	20221	1A	56
+32	8	20221	1B	57
+33	8	20221	1C	58
+34	9	20221	1A	64
+35	9	20221	1B	65
+36	9	20221	1C	66
+37	9	20221	1D	67
+38	9	20221	1E	68
+39	10	20221	1A	76
+40	10	20221	1B	77
+89	27	20221	1C	196
+90	28	20221	1A	202
+91	28	20221	1B	203
+92	28	20221	1C	204
+93	28	20221	1D	205
+94	29	20221	1A	212
+95	29	20221	1B	213
+96	29	20221	1C	214
+97	30	20221	1A	220
+98	31	20221	1A	222
+99	31	20221	1B	223
+100	32	20221	1A	226
+101	32	20221	1B	227
+102	33	20221	1A	230
+103	33	20221	1B	231
+104	33	20221	1C	232
+105	33	20221	1D	233
+106	34	20221	1A	240
+107	34	20221	1B	241
+108	34	20221	1C	242
+109	35	20221	1A	248
+110	35	20221	1B	249
+111	35	20221	1C	250
+112	35	20221	1D	251
+42	10	20221	1D	79
+43	11	20221	1A	86
+44	11	20221	1B	87
+45	11	20221	1C	88
+46	12	20221	1A	94
+47	13	20221	1A	96
+48	13	20221	1B	97
+49	14	20221	1A	100
+50	14	20221	1B	101
+51	14	20221	1C	102
+52	14	20221	1D	103
+53	15	20221	1A	110
+54	15	20221	1B	111
+55	15	20221	1C	112
+56	16	20221	1A	118
+57	16	20221	1B	119
+58	16	20221	1C	120
+59	16	20221	1D	121
+60	17	20221	1A	128
+61	18	20221	1A	130
+62	19	20221	1A	132
+63	19	20221	1B	133
+64	19	20221	1C	134
+65	20	20221	1A	140
+66	20	20221	1B	141
+67	20	20221	1C	142
+68	20	20221	1D	143
+69	20	20221	1E	144
+70	21	20221	1A	152
+71	21	20221	1B	153
+72	22	20221	1A	156
+73	22	20221	1B	157
+74	22	20221	1C	158
+75	23	20221	1A	164
+76	23	20221	1B	165
+77	23	20221	1C	166
+78	24	20221	1A	172
+79	24	20221	1B	173
+80	24	20221	1C	174
+81	24	20221	1D	175
+82	25	20221	1A	182
+83	25	20221	1B	183
+84	25	20221	1C	184
+85	25	20221	1D	185
+86	26	20221	1A	192
+87	27	20221	1A	194
+88	27	20221	1B	195
+\.
+
+
+--
+-- TOC entry 3478 (class 0 OID 18384)
+-- Dependencies: 237
+-- Data for Name: d_kelas_mahasiswa; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.d_kelas_mahasiswa (kelas_mahasiswa_id, kelas_id, mahasiswa_id) FROM stdin;
+1	1	1
+2	1	2
+3	1	3
+4	1	4
+5	1	5
+6	1	6
+7	1	7
+8	1	8
+9	1	9
+10	1	10
+11	1	11
+12	1	12
+13	1	13
+14	1	14
+15	1	15
+16	1	16
+17	1	17
+18	1	18
+19	1	19
+20	1	20
+21	1	21
+22	1	22
+23	1	23
+24	1	24
+25	1	25
+26	1	26
+27	1	27
+28	1	28
+29	1	29
+30	1	30
+31	2	31
+32	2	32
+33	2	33
+34	2	34
+35	2	35
+36	2	36
+37	2	37
+38	2	38
+39	2	39
+40	2	40
+41	2	41
+42	2	42
+43	2	43
+44	2	44
+45	2	45
+46	2	46
+47	2	47
+48	2	48
+49	2	49
+50	2	50
+51	2	51
+52	2	52
+53	2	53
+54	2	54
+55	2	55
+56	2	56
+57	2	57
+58	2	58
+59	2	59
+60	2	60
+61	3	61
+62	3	62
+63	3	63
+64	3	64
+65	3	65
+66	3	66
+67	3	67
+68	3	68
+69	3	69
+70	3	70
+71	3	71
+72	3	72
+73	3	73
+74	3	74
+75	3	75
+76	3	76
+77	3	77
+78	3	78
+79	3	79
+80	3	80
+81	3	81
+82	3	82
+83	3	83
+84	3	84
+85	3	85
+86	3	86
+87	3	87
+88	3	88
+89	3	89
+90	3	90
+91	4	91
+92	4	92
+93	4	93
+94	4	94
+95	4	95
+96	4	96
+97	4	97
+98	4	98
+99	4	99
+100	4	100
+101	4	101
+102	4	102
+103	4	103
+104	4	104
+105	4	105
+106	4	106
+107	4	107
+108	4	108
+109	4	109
+110	4	110
+111	4	111
+112	4	112
+113	4	113
+114	4	114
+115	4	115
+116	4	116
+117	4	117
+118	4	118
+119	4	119
+120	4	120
+121	5	121
+122	5	122
+123	5	123
+124	5	124
+125	5	125
+126	5	126
+127	5	127
+128	5	128
+129	5	129
+130	5	130
+131	5	131
+132	5	132
+133	5	133
+134	5	134
+135	5	135
+136	5	136
+137	5	137
+138	5	138
+139	5	139
+140	5	140
+141	5	141
+142	5	142
+143	5	143
+144	5	144
+145	5	145
+146	5	146
+147	5	147
+148	5	148
+149	5	149
+150	5	150
+151	6	151
+152	6	152
+153	6	153
+154	6	154
+155	6	155
+156	6	156
+157	6	157
+158	6	158
+159	6	159
+160	6	160
+161	6	161
+162	6	162
+163	6	163
+164	6	164
+165	6	165
+166	6	166
+167	6	167
+168	6	168
+169	6	169
+170	6	170
+171	6	171
+172	6	172
+173	6	173
+174	6	174
+175	6	175
+176	6	176
+177	6	177
+178	6	178
+179	6	179
+180	6	180
+181	7	181
+182	7	182
+183	7	183
+184	7	184
+185	7	185
+186	7	186
+187	7	187
+188	7	188
+189	7	189
+190	7	190
+191	7	191
+192	7	192
+193	7	193
+194	7	194
+195	7	195
+196	7	196
+197	7	197
+198	7	198
+199	7	199
+200	7	200
+201	7	201
+202	7	202
+203	7	203
+204	7	204
+205	7	205
+206	7	206
+207	7	207
+208	7	208
+209	7	209
+210	7	210
+211	8	211
+212	8	212
+213	8	213
+214	8	214
+215	8	215
+216	8	216
+217	8	217
+218	8	218
+219	8	219
+220	8	220
+221	8	221
+222	8	222
+223	8	223
+224	8	224
+225	8	225
+226	8	226
+227	8	227
+228	8	228
+229	8	229
+230	8	230
+231	8	231
+232	8	232
+233	8	233
+234	8	234
+235	8	235
+236	8	236
+237	8	237
+238	8	238
+239	8	239
+240	8	240
+241	9	241
+242	9	242
+243	9	243
+244	9	244
+245	9	245
+246	9	246
+247	9	247
+248	9	248
+249	9	249
+250	9	250
+251	9	251
+252	9	252
+253	9	253
+254	9	254
+255	9	255
+256	9	256
+257	9	257
+258	9	258
+259	9	259
+260	9	260
+261	9	261
+262	9	262
+263	9	263
+264	9	264
+265	9	265
+266	9	266
+267	9	267
+268	9	268
+269	9	269
+270	9	270
+271	10	271
+272	10	272
+273	10	273
+274	10	274
+275	10	275
+276	10	276
+277	10	277
+278	10	278
+279	10	279
+280	10	280
+281	10	281
+282	10	282
+283	10	283
+284	10	284
+285	10	285
+286	10	286
+287	10	287
+288	10	288
+289	10	289
+290	10	290
+291	10	291
+292	10	292
+293	10	293
+294	10	294
+295	10	295
+296	10	296
+297	10	297
+298	10	298
+299	10	299
+300	10	300
+301	11	301
+302	11	302
+303	11	303
+304	11	304
+305	11	305
+306	11	306
+307	11	307
+308	11	308
+309	11	309
+310	11	310
+311	11	311
+312	11	312
+313	11	313
+314	11	314
+315	11	315
+316	11	316
+317	11	317
+318	11	318
+319	11	319
+320	11	320
+321	11	321
+322	11	322
+323	11	323
+324	11	324
+325	11	325
+326	11	326
+327	11	327
+328	11	328
+329	11	329
+330	11	330
+331	12	331
+332	12	332
+333	12	333
+334	12	334
+335	12	335
+336	12	336
+337	12	337
+338	12	338
+339	12	339
+340	12	340
+341	12	341
+342	12	342
+343	12	343
+344	12	344
+345	12	345
+346	12	346
+347	12	347
+348	12	348
+349	12	349
+350	12	350
+351	12	351
+352	12	352
+353	12	353
+354	12	354
+355	12	355
+356	12	356
+357	12	357
+358	12	358
+359	12	359
+360	12	360
+361	13	361
+362	13	362
+363	13	363
+364	13	364
+365	13	365
+366	13	366
+367	13	367
+368	13	368
+369	13	369
+370	13	370
+371	13	371
+372	13	372
+373	13	373
+374	13	374
+375	13	375
+376	13	376
+377	13	377
+378	13	378
+379	13	379
+380	13	380
+381	13	381
+382	13	382
+383	13	383
+384	13	384
+385	13	385
+386	13	386
+387	13	387
+388	13	388
+389	13	389
+390	13	390
+391	14	391
+392	14	392
+393	14	393
+394	14	394
+395	14	395
+396	14	396
+397	14	397
+398	14	398
+399	14	399
+400	14	400
+401	14	401
+402	14	402
+403	14	403
+404	14	404
+405	14	405
+406	14	406
+407	14	407
+408	14	408
+409	14	409
+410	14	410
+411	14	411
+412	14	412
+413	14	413
+414	14	414
+415	14	415
+416	14	416
+417	14	417
+418	14	418
+419	14	419
+420	14	420
+421	15	421
+422	15	422
+423	15	423
+424	15	424
+425	15	425
+426	15	426
+427	15	427
+428	15	428
+429	15	429
+430	15	430
+431	15	431
+432	15	432
+433	15	433
+434	15	434
+435	15	435
+436	15	436
+437	15	437
+438	15	438
+439	15	439
+440	15	440
+441	15	441
+442	15	442
+443	15	443
+444	15	444
+445	15	445
+446	15	446
+447	15	447
+448	15	448
+449	15	449
+450	15	450
+451	16	451
+452	16	452
+453	16	453
+454	16	454
+455	16	455
+456	16	456
+457	16	457
+458	16	458
+459	16	459
+460	16	460
+461	16	461
+462	16	462
+463	16	463
+464	16	464
+465	16	465
+466	16	466
+467	16	467
+468	16	468
+469	16	469
+470	16	470
+471	16	471
+472	16	472
+473	16	473
+474	16	474
+475	16	475
+476	16	476
+477	16	477
+478	16	478
+479	16	479
+480	16	480
+481	17	481
+482	17	482
+483	17	483
+484	17	484
+485	17	485
+486	17	486
+487	17	487
+488	17	488
+489	17	489
+490	17	490
+491	17	491
+492	17	492
+493	17	493
+494	17	494
+495	17	495
+496	17	496
+497	17	497
+498	17	498
+499	17	499
+500	17	500
+501	17	501
+502	17	502
+503	17	503
+504	17	504
+505	17	505
+506	17	506
+507	17	507
+508	17	508
+509	17	509
+510	17	510
+511	18	511
+512	18	512
+513	18	513
+514	18	514
+515	18	515
+516	18	516
+517	18	517
+518	18	518
+519	18	519
+520	18	520
+521	18	521
+522	18	522
+523	18	523
+524	18	524
+525	18	525
+526	18	526
+527	18	527
+528	18	528
+529	18	529
+530	18	530
+531	18	531
+532	18	532
+533	18	533
+534	18	534
+535	18	535
+536	18	536
+537	18	537
+538	18	538
+539	18	539
+540	18	540
+541	19	541
+542	19	542
+543	19	543
+544	19	544
+545	19	545
+546	19	546
+547	19	547
+548	19	548
+549	19	549
+550	19	550
+551	19	551
+552	19	552
+553	19	553
+554	19	554
+555	19	555
+556	19	556
+557	19	557
+558	19	558
+559	19	559
+560	19	560
+561	19	561
+562	19	562
+563	19	563
+564	19	564
+565	19	565
+566	19	566
+567	19	567
+568	19	568
+569	19	569
+570	19	570
+571	20	571
+572	20	572
+573	20	573
+574	20	574
+575	20	575
+576	20	576
+577	20	577
+578	20	578
+579	20	579
+580	20	580
+581	20	581
+582	20	582
+583	20	583
+584	20	584
+585	20	585
+586	20	586
+587	20	587
+588	20	588
+589	20	589
+590	20	590
+591	20	591
+592	20	592
+593	20	593
+594	20	594
+595	20	595
+596	20	596
+597	20	597
+598	20	598
+599	20	599
+600	20	600
+601	21	601
+602	21	602
+603	21	603
+604	21	604
+605	21	605
+606	21	606
+607	21	607
+608	21	608
+609	21	609
+610	21	610
+611	21	611
+612	21	612
+613	21	613
+614	21	614
+615	21	615
+616	21	616
+617	21	617
+618	21	618
+619	21	619
+620	21	620
+621	21	621
+622	21	622
+623	21	623
+624	21	624
+625	21	625
+626	21	626
+627	21	627
+628	21	628
+629	21	629
+630	21	630
+631	22	631
+632	22	632
+633	22	633
+634	22	634
+635	22	635
+636	22	636
+637	22	637
+638	22	638
+639	22	639
+640	22	640
+641	22	641
+642	22	642
+643	22	643
+644	22	644
+645	22	645
+646	22	646
+647	22	647
+648	22	648
+649	22	649
+650	22	650
+651	22	651
+652	22	652
+653	22	653
+654	22	654
+655	22	655
+656	22	656
+657	22	657
+658	22	658
+659	22	659
+660	22	660
+661	23	661
+662	23	662
+663	23	663
+664	23	664
+665	23	665
+666	23	666
+667	23	667
+668	23	668
+669	23	669
+670	23	670
+671	23	671
+672	23	672
+673	23	673
+674	23	674
+675	23	675
+676	23	676
+677	23	677
+678	23	678
+679	23	679
+680	23	680
+681	23	681
+682	23	682
+683	23	683
+684	23	684
+685	23	685
+686	23	686
+687	23	687
+688	23	688
+689	23	689
+690	23	690
+691	24	691
+692	24	692
+693	24	693
+694	24	694
+695	24	695
+696	24	696
+697	24	697
+698	24	698
+699	24	699
+700	24	700
+701	24	701
+702	24	702
+703	24	703
+704	24	704
+705	24	705
+706	24	706
+707	24	707
+708	24	708
+709	24	709
+710	24	710
+711	24	711
+712	24	712
+713	24	713
+714	24	714
+715	24	715
+716	24	716
+717	24	717
+718	24	718
+719	24	719
+720	24	720
+721	25	721
+722	25	722
+723	25	723
+724	25	724
+725	25	725
+726	25	726
+727	25	727
+728	25	728
+729	25	729
+730	25	730
+731	25	731
+732	25	732
+733	25	733
+734	25	734
+735	25	735
+736	25	736
+737	25	737
+738	25	738
+739	25	739
+740	25	740
+741	25	741
+742	25	742
+743	25	743
+744	25	744
+745	25	745
+746	25	746
+747	25	747
+748	25	748
+749	25	749
+750	25	750
+751	26	751
+752	26	752
+753	26	753
+754	26	754
+755	26	755
+756	26	756
+757	26	757
+758	26	758
+759	26	759
+760	26	760
+761	26	761
+762	26	762
+763	26	763
+764	26	764
+765	26	765
+766	26	766
+767	26	767
+768	26	768
+769	26	769
+770	26	770
+771	26	771
+772	26	772
+773	26	773
+774	26	774
+775	26	775
+776	26	776
+777	26	777
+778	26	778
+779	26	779
+780	26	780
+781	27	781
+782	27	782
+783	27	783
+784	27	784
+785	27	785
+786	27	786
+787	27	787
+788	27	788
+789	27	789
+790	27	790
+791	27	791
+792	27	792
+793	27	793
+794	27	794
+795	27	795
+796	27	796
+797	27	797
+798	27	798
+799	27	799
+800	27	800
+801	27	801
+802	27	802
+803	27	803
+804	27	804
+805	27	805
+806	27	806
+807	27	807
+808	27	808
+809	27	809
+810	27	810
+811	28	811
+812	28	812
+813	28	813
+814	28	814
+815	28	815
+816	28	816
+817	28	817
+818	28	818
+819	28	819
+820	28	820
+821	28	821
+822	28	822
+823	28	823
+824	28	824
+825	28	825
+826	28	826
+827	28	827
+828	28	828
+829	28	829
+830	28	830
+831	28	831
+832	28	832
+833	28	833
+834	28	834
+835	28	835
+836	28	836
+837	28	837
+838	28	838
+839	28	839
+840	28	840
+841	29	841
+842	29	842
+843	29	843
+844	29	844
+845	29	845
+846	29	846
+847	29	847
+848	29	848
+849	29	849
+850	29	850
+851	29	851
+852	29	852
+853	29	853
+854	29	854
+855	29	855
+856	29	856
+857	29	857
+858	29	858
+859	29	859
+860	29	860
+861	29	861
+862	29	862
+863	29	863
+864	29	864
+865	29	865
+866	29	866
+867	29	867
+868	29	868
+869	29	869
+870	29	870
+871	30	871
+872	30	872
+873	30	873
+874	30	874
+875	30	875
+876	30	876
+877	30	877
+878	30	878
+879	30	879
+880	30	880
+881	30	881
+882	30	882
+883	30	883
+884	30	884
+885	30	885
+886	30	886
+887	30	887
+888	30	888
+889	30	889
+890	30	890
+891	30	891
+892	30	892
+893	30	893
+894	30	894
+895	30	895
+896	30	896
+897	30	897
+898	30	898
+899	30	899
+900	30	900
+901	31	901
+902	31	902
+903	31	903
+904	31	904
+905	31	905
+906	31	906
+907	31	907
+908	31	908
+909	31	909
+910	31	910
+911	31	911
+912	31	912
+913	31	913
+914	31	914
+915	31	915
+916	31	916
+917	31	917
+918	31	918
+919	31	919
+920	31	920
+921	31	921
+922	31	922
+923	31	923
+924	31	924
+925	31	925
+926	31	926
+927	31	927
+928	31	928
+929	31	929
+930	31	930
+931	32	931
+932	32	932
+933	32	933
+934	32	934
+935	32	935
+936	32	936
+937	32	937
+938	32	938
+939	32	939
+940	32	940
+941	32	941
+942	32	942
+943	32	943
+944	32	944
+945	32	945
+946	32	946
+947	32	947
+948	32	948
+949	32	949
+950	32	950
+951	32	951
+952	32	952
+953	32	953
+954	32	954
+955	32	955
+956	32	956
+957	32	957
+958	32	958
+959	32	959
+960	32	960
+961	33	961
+962	33	962
+963	33	963
+964	33	964
+965	33	965
+966	33	966
+967	33	967
+968	33	968
+969	33	969
+970	33	970
+971	33	971
+972	33	972
+973	33	973
+974	33	974
+975	33	975
+976	33	976
+977	33	977
+978	33	978
+979	33	979
+980	33	980
+981	33	981
+982	33	982
+983	33	983
+984	33	984
+985	33	985
+986	33	986
+987	33	987
+988	33	988
+989	33	989
+990	33	990
+991	34	991
+992	34	992
+993	34	993
+994	34	994
+995	34	995
+996	34	996
+997	34	997
+998	34	998
+999	34	999
+1000	34	1000
+1001	34	1001
+1002	34	1002
+1003	34	1003
+1004	34	1004
+1005	34	1005
+1006	34	1006
+1007	34	1007
+1008	34	1008
+1009	34	1009
+1010	34	1010
+1011	34	1011
+1012	34	1012
+1013	34	1013
+1014	34	1014
+1015	34	1015
+1016	34	1016
+1017	34	1017
+1018	34	1018
+1019	34	1019
+1020	34	1020
+1021	35	1021
+1022	35	1022
+1023	35	1023
+1024	35	1024
+1025	35	1025
+1026	35	1026
+1027	35	1027
+1028	35	1028
+1029	35	1029
+1030	35	1030
+1031	35	1031
+1032	35	1032
+1033	35	1033
+1034	35	1034
+1035	35	1035
+1036	35	1036
+1037	35	1037
+1038	35	1038
+1039	35	1039
+1040	35	1040
+1041	35	1041
+1042	35	1042
+1043	35	1043
+1044	35	1044
+1045	35	1045
+1046	35	1046
+1047	35	1047
+1048	35	1048
+1049	35	1049
+1050	35	1050
+1051	36	1051
+1052	36	1052
+1053	36	1053
+1054	36	1054
+1055	36	1055
+1056	36	1056
+1057	36	1057
+1058	36	1058
+1059	36	1059
+1060	36	1060
+1061	36	1061
+1062	36	1062
+1063	36	1063
+1064	36	1064
+1065	36	1065
+1066	36	1066
+1067	36	1067
+1068	36	1068
+1069	36	1069
+1070	36	1070
+1071	36	1071
+1072	36	1072
+1073	36	1073
+1074	36	1074
+1075	36	1075
+1076	36	1076
+1077	36	1077
+1078	36	1078
+1079	36	1079
+1080	36	1080
+1081	37	1081
+1082	37	1082
+1083	37	1083
+1084	37	1084
+1085	37	1085
+1086	37	1086
+1087	37	1087
+1088	37	1088
+1089	37	1089
+1090	37	1090
+1091	37	1091
+1092	37	1092
+1093	37	1093
+1094	37	1094
+1095	37	1095
+1096	37	1096
+1097	37	1097
+1098	37	1098
+1099	37	1099
+1100	37	1100
+1101	37	1101
+1102	37	1102
+1103	37	1103
+1104	37	1104
+1105	37	1105
+1106	37	1106
+1107	37	1107
+1108	37	1108
+1109	37	1109
+1110	37	1110
+1111	38	1111
+1112	38	1112
+1113	38	1113
+1114	38	1114
+1115	38	1115
+1116	38	1116
+1117	38	1117
+1118	38	1118
+1119	38	1119
+1120	38	1120
+1121	38	1121
+1122	38	1122
+1123	38	1123
+1124	38	1124
+1125	38	1125
+1126	38	1126
+1127	38	1127
+1128	38	1128
+1129	38	1129
+1130	38	1130
+1131	38	1131
+1132	38	1132
+1133	38	1133
+1134	38	1134
+1135	38	1135
+1136	38	1136
+1137	38	1137
+1138	38	1138
+1139	38	1139
+1140	38	1140
+1141	39	1141
+1142	39	1142
+1143	39	1143
+1144	39	1144
+1145	39	1145
+1146	39	1146
+1147	39	1147
+1148	39	1148
+1149	39	1149
+1150	39	1150
+1151	39	1151
+1152	39	1152
+1153	39	1153
+1154	39	1154
+1155	39	1155
+1156	39	1156
+1157	39	1157
+1158	39	1158
+1159	39	1159
+1160	39	1160
+1161	39	1161
+1162	39	1162
+1163	39	1163
+1164	39	1164
+1165	39	1165
+1166	39	1166
+1167	39	1167
+1168	39	1168
+1169	39	1169
+1170	39	1170
+1171	40	1171
+1172	40	1172
+1173	40	1173
+1174	40	1174
+1175	40	1175
+1176	40	1176
+1177	40	1177
+1178	40	1178
+1179	40	1179
+1180	40	1180
+1181	40	1181
+1182	40	1182
+1183	40	1183
+1184	40	1184
+1185	40	1185
+1186	40	1186
+1187	40	1187
+1188	40	1188
+1189	40	1189
+1190	40	1190
+1191	40	1191
+1192	40	1192
+1193	40	1193
+1194	40	1194
+1195	40	1195
+1196	40	1196
+1197	40	1197
+1198	40	1198
+1199	40	1199
+1200	40	1200
+1201	41	1201
+1202	41	1202
+1203	41	1203
+1204	41	1204
+1205	41	1205
+1206	41	1206
+1207	41	1207
+1208	41	1208
+1209	41	1209
+1210	41	1210
+1211	41	1211
+1212	41	1212
+1213	41	1213
+1214	41	1214
+1215	41	1215
+1216	41	1216
+1217	41	1217
+1218	41	1218
+1219	41	1219
+1220	41	1220
+1221	41	1221
+1222	41	1222
+1223	41	1223
+1224	41	1224
+1225	41	1225
+1226	41	1226
+1227	41	1227
+1228	41	1228
+1229	41	1229
+1230	41	1230
+1231	42	1231
+1232	42	1232
+1233	42	1233
+1234	42	1234
+1235	42	1235
+1236	42	1236
+1237	42	1237
+1238	42	1238
+1239	42	1239
+1240	42	1240
+1241	42	1241
+1242	42	1242
+1243	42	1243
+1244	42	1244
+1245	42	1245
+1246	42	1246
+1247	42	1247
+1248	42	1248
+1249	42	1249
+1250	42	1250
+1251	42	1251
+1252	42	1252
+1253	42	1253
+1254	42	1254
+1255	42	1255
+1256	42	1256
+1257	42	1257
+1258	42	1258
+1259	42	1259
+1260	42	1260
+1261	43	1261
+1262	43	1262
+1263	43	1263
+1264	43	1264
+1265	43	1265
+1266	43	1266
+1267	43	1267
+1268	43	1268
+1269	43	1269
+1270	43	1270
+1271	43	1271
+1272	43	1272
+1273	43	1273
+1274	43	1274
+1275	43	1275
+1276	43	1276
+1277	43	1277
+1278	43	1278
+1279	43	1279
+1280	43	1280
+1281	43	1281
+1282	43	1282
+1283	43	1283
+1284	43	1284
+1285	43	1285
+1286	43	1286
+1287	43	1287
+1288	43	1288
+1289	43	1289
+1290	43	1290
+1291	44	1291
+1292	44	1292
+1293	44	1293
+1294	44	1294
+1295	44	1295
+1296	44	1296
+1297	44	1297
+1298	44	1298
+1299	44	1299
+1300	44	1300
+1301	44	1301
+1302	44	1302
+1303	44	1303
+1304	44	1304
+1305	44	1305
+1306	44	1306
+1307	44	1307
+1308	44	1308
+1309	44	1309
+1310	44	1310
+1311	44	1311
+1312	44	1312
+1313	44	1313
+1314	44	1314
+1315	44	1315
+1316	44	1316
+1317	44	1317
+1318	44	1318
+1319	44	1319
+1320	44	1320
+1321	45	1321
+1322	45	1322
+1323	45	1323
+1324	45	1324
+1325	45	1325
+1326	45	1326
+1327	45	1327
+1328	45	1328
+1329	45	1329
+1330	45	1330
+1331	45	1331
+1332	45	1332
+1333	45	1333
+1334	45	1334
+1335	45	1335
+1336	45	1336
+1337	45	1337
+1338	45	1338
+1339	45	1339
+1340	45	1340
+1341	45	1341
+1342	45	1342
+1343	45	1343
+1344	45	1344
+1345	45	1345
+1346	45	1346
+1347	45	1347
+1348	45	1348
+1349	45	1349
+1350	45	1350
+1351	46	1351
+1352	46	1352
+1353	46	1353
+1354	46	1354
+1355	46	1355
+1356	46	1356
+1357	46	1357
+1358	46	1358
+1359	46	1359
+1360	46	1360
+1361	46	1361
+1362	46	1362
+1363	46	1363
+1364	46	1364
+1365	46	1365
+1366	46	1366
+1367	46	1367
+1368	46	1368
+1369	46	1369
+1370	46	1370
+1371	46	1371
+1372	46	1372
+1373	46	1373
+1374	46	1374
+1375	46	1375
+1376	46	1376
+1377	46	1377
+1378	46	1378
+1379	46	1379
+1380	46	1380
+1381	47	1381
+1382	47	1382
+1383	47	1383
+1384	47	1384
+1385	47	1385
+1386	47	1386
+1387	47	1387
+1388	47	1388
+1389	47	1389
+1390	47	1390
+1391	47	1391
+1392	47	1392
+1393	47	1393
+1394	47	1394
+1395	47	1395
+1396	47	1396
+1397	47	1397
+1398	47	1398
+1399	47	1399
+1400	47	1400
+1401	47	1401
+1402	47	1402
+1403	47	1403
+1404	47	1404
+1405	47	1405
+1406	47	1406
+1407	47	1407
+1408	47	1408
+1409	47	1409
+1410	47	1410
+1411	48	1411
+1412	48	1412
+1413	48	1413
+1414	48	1414
+1415	48	1415
+1416	48	1416
+1417	48	1417
+1418	48	1418
+1419	48	1419
+1420	48	1420
+1421	48	1421
+1422	48	1422
+1423	48	1423
+1424	48	1424
+1425	48	1425
+1426	48	1426
+1427	48	1427
+1428	48	1428
+1429	48	1429
+1430	48	1430
+1431	48	1431
+1432	48	1432
+1433	48	1433
+1434	48	1434
+1435	48	1435
+1436	48	1436
+1437	48	1437
+1438	48	1438
+1439	48	1439
+1440	48	1440
+1441	49	1441
+1442	49	1442
+1443	49	1443
+1444	49	1444
+1445	49	1445
+1446	49	1446
+1447	49	1447
+1448	49	1448
+1449	49	1449
+1450	49	1450
+1451	49	1451
+1452	49	1452
+1453	49	1453
+1454	49	1454
+1455	49	1455
+1456	49	1456
+1457	49	1457
+1458	49	1458
+1459	49	1459
+1460	49	1460
+1461	49	1461
+1462	49	1462
+1463	49	1463
+1464	49	1464
+1465	49	1465
+1466	49	1466
+1467	49	1467
+1468	49	1468
+1469	49	1469
+1470	49	1470
+1471	50	1471
+1472	50	1472
+1473	50	1473
+1474	50	1474
+1475	50	1475
+1476	50	1476
+1477	50	1477
+1478	50	1478
+1479	50	1479
+1480	50	1480
+1481	50	1481
+1482	50	1482
+1483	50	1483
+1484	50	1484
+1485	50	1485
+1486	50	1486
+1487	50	1487
+1488	50	1488
+1489	50	1489
+1490	50	1490
+1491	50	1491
+1492	50	1492
+1493	50	1493
+1494	50	1494
+1495	50	1495
+1496	50	1496
+1497	50	1497
+1498	50	1498
+1499	50	1499
+1500	50	1500
+1501	51	1501
+1502	51	1502
+1503	51	1503
+1504	51	1504
+1505	51	1505
+1506	51	1506
+1507	51	1507
+1508	51	1508
+1509	51	1509
+1510	51	1510
+1511	51	1511
+1512	51	1512
+1513	51	1513
+1514	51	1514
+1515	51	1515
+1516	51	1516
+1517	51	1517
+1518	51	1518
+1519	51	1519
+1520	51	1520
+1521	51	1521
+1522	51	1522
+1523	51	1523
+1524	51	1524
+1525	51	1525
+1526	51	1526
+1527	51	1527
+1528	51	1528
+1529	51	1529
+1530	51	1530
+1531	52	1531
+1532	52	1532
+1533	52	1533
+1534	52	1534
+1535	52	1535
+1536	52	1536
+1537	52	1537
+1538	52	1538
+1539	52	1539
+1540	52	1540
+1541	52	1541
+1542	52	1542
+1543	52	1543
+1544	52	1544
+1545	52	1545
+1546	52	1546
+1547	52	1547
+1548	52	1548
+1549	52	1549
+1550	52	1550
+1551	52	1551
+1552	52	1552
+1553	52	1553
+1554	52	1554
+1555	52	1555
+1556	52	1556
+1557	52	1557
+1558	52	1558
+1559	52	1559
+1560	52	1560
+1561	53	1561
+1562	53	1562
+1563	53	1563
+1564	53	1564
+1565	53	1565
+1566	53	1566
+1567	53	1567
+1568	53	1568
+1569	53	1569
+1570	53	1570
+1571	53	1571
+1572	53	1572
+1573	53	1573
+1574	53	1574
+1575	53	1575
+1576	53	1576
+1577	53	1577
+1578	53	1578
+1579	53	1579
+1580	53	1580
+1581	53	1581
+1582	53	1582
+1583	53	1583
+1584	53	1584
+1585	53	1585
+1586	53	1586
+1587	53	1587
+1588	53	1588
+1589	53	1589
+1590	53	1590
+1591	54	1591
+1592	54	1592
+1593	54	1593
+1594	54	1594
+1595	54	1595
+1596	54	1596
+1597	54	1597
+1598	54	1598
+1599	54	1599
+1600	54	1600
+1601	54	1601
+1602	54	1602
+1603	54	1603
+1604	54	1604
+1605	54	1605
+1606	54	1606
+1607	54	1607
+1608	54	1608
+1609	54	1609
+1610	54	1610
+1611	54	1611
+1612	54	1612
+1613	54	1613
+1614	54	1614
+1615	54	1615
+1616	54	1616
+1617	54	1617
+1618	54	1618
+1619	54	1619
+1620	54	1620
+1621	55	1621
+1622	55	1622
+1623	55	1623
+1624	55	1624
+1625	55	1625
+1626	55	1626
+1627	55	1627
+1628	55	1628
+1629	55	1629
+1630	55	1630
+1631	55	1631
+1632	55	1632
+1633	55	1633
+1634	55	1634
+1635	55	1635
+1636	55	1636
+1637	55	1637
+1638	55	1638
+1639	55	1639
+1640	55	1640
+1641	55	1641
+1642	55	1642
+1643	55	1643
+1644	55	1644
+1645	55	1645
+1646	55	1646
+1647	55	1647
+1648	55	1648
+1649	55	1649
+1650	55	1650
+1651	56	1651
+1652	56	1652
+1653	56	1653
+1654	56	1654
+1655	56	1655
+1656	56	1656
+1657	56	1657
+1658	56	1658
+1659	56	1659
+1660	56	1660
+1661	56	1661
+1662	56	1662
+1663	56	1663
+1664	56	1664
+1665	56	1665
+1666	56	1666
+1667	56	1667
+1668	56	1668
+1669	56	1669
+1670	56	1670
+1671	56	1671
+1672	56	1672
+1673	56	1673
+1674	56	1674
+1675	56	1675
+1676	56	1676
+1677	56	1677
+1678	56	1678
+1679	56	1679
+1680	56	1680
+1681	57	1681
+1682	57	1682
+1683	57	1683
+1684	57	1684
+1685	57	1685
+1686	57	1686
+1687	57	1687
+1688	57	1688
+1689	57	1689
+1690	57	1690
+1691	57	1691
+1692	57	1692
+1693	57	1693
+1694	57	1694
+1695	57	1695
+1696	57	1696
+1697	57	1697
+1698	57	1698
+1699	57	1699
+1700	57	1700
+1701	57	1701
+1702	57	1702
+1703	57	1703
+1704	57	1704
+1705	57	1705
+1706	57	1706
+1707	57	1707
+1708	57	1708
+1709	57	1709
+1710	57	1710
+1711	58	1711
+1712	58	1712
+1713	58	1713
+1714	58	1714
+1715	58	1715
+1716	58	1716
+1717	58	1717
+1718	58	1718
+1719	58	1719
+1720	58	1720
+1721	58	1721
+1722	58	1722
+1723	58	1723
+1724	58	1724
+1725	58	1725
+1726	58	1726
+1727	58	1727
+1728	58	1728
+1729	58	1729
+1730	58	1730
+1731	58	1731
+1732	58	1732
+1733	58	1733
+1734	58	1734
+1735	58	1735
+1736	58	1736
+1737	58	1737
+1738	58	1738
+1739	58	1739
+1740	58	1740
+1741	59	1741
+1742	59	1742
+1743	59	1743
+1744	59	1744
+1745	59	1745
+1746	59	1746
+1747	59	1747
+1748	59	1748
+1749	59	1749
+1750	59	1750
+1751	59	1751
+1752	59	1752
+1753	59	1753
+1754	59	1754
+1755	59	1755
+1756	59	1756
+1757	59	1757
+1758	59	1758
+1759	59	1759
+1760	59	1760
+1761	59	1761
+1762	59	1762
+1763	59	1763
+1764	59	1764
+1765	59	1765
+1766	59	1766
+1767	59	1767
+1768	59	1768
+1769	59	1769
+1770	59	1770
+1771	60	1771
+1772	60	1772
+1773	60	1773
+1774	60	1774
+1775	60	1775
+1776	60	1776
+1777	60	1777
+1778	60	1778
+1779	60	1779
+1780	60	1780
+1781	60	1781
+1782	60	1782
+1783	60	1783
+1784	60	1784
+1785	60	1785
+1786	60	1786
+1787	60	1787
+1788	60	1788
+1789	60	1789
+1790	60	1790
+1791	60	1791
+1792	60	1792
+1793	60	1793
+1794	60	1794
+1795	60	1795
+1796	60	1796
+1797	60	1797
+1798	60	1798
+1799	60	1799
+1800	60	1800
+1801	61	1801
+1802	61	1802
+1803	61	1803
+1804	61	1804
+1805	61	1805
+1806	61	1806
+1807	61	1807
+1808	61	1808
+1809	61	1809
+1810	61	1810
+1811	61	1811
+1812	61	1812
+1813	61	1813
+1814	61	1814
+1815	61	1815
+1816	61	1816
+1817	61	1817
+1818	61	1818
+1819	61	1819
+1820	61	1820
+1821	62	1821
+1822	62	1822
+1823	62	1823
+1824	62	1824
+1825	62	1825
+1826	62	1826
+1827	62	1827
+1828	62	1828
+1829	62	1829
+1830	62	1830
+1831	62	1831
+1832	62	1832
+1833	62	1833
+1834	62	1834
+1835	62	1835
+1836	62	1836
+1837	62	1837
+1838	62	1838
+1839	62	1839
+1840	62	1840
+1841	62	1841
+1842	62	1842
+1843	62	1843
+1844	62	1844
+1845	62	1845
+1846	62	1846
+1847	62	1847
+1848	62	1848
+1849	62	1849
+1850	62	1850
+1851	63	1851
+1852	63	1852
+1853	63	1853
+1854	63	1854
+1855	63	1855
+1856	63	1856
+1857	63	1857
+1858	63	1858
+1859	63	1859
+1860	63	1860
+1861	63	1861
+1862	63	1862
+1863	63	1863
+1864	63	1864
+1865	63	1865
+1866	63	1866
+1867	63	1867
+1868	63	1868
+1869	63	1869
+1870	63	1870
+1871	63	1871
+1872	63	1872
+1873	63	1873
+1874	63	1874
+1875	63	1875
+1876	63	1876
+1877	63	1877
+1878	63	1878
+1879	63	1879
+1880	63	1880
+1881	64	1881
+1882	64	1882
+1883	64	1883
+1884	64	1884
+1885	64	1885
+1886	64	1886
+1887	64	1887
+1888	64	1888
+1889	64	1889
+1890	64	1890
+1891	64	1891
+1892	64	1892
+1893	64	1893
+1894	64	1894
+1895	64	1895
+1896	64	1896
+1897	64	1897
+1898	64	1898
+1899	64	1899
+1900	64	1900
+1901	64	1901
+1902	64	1902
+1903	64	1903
+1904	64	1904
+1905	64	1905
+1906	64	1906
+1907	64	1907
+1908	64	1908
+1909	64	1909
+1910	64	1910
+1911	65	1911
+1912	65	1912
+1913	65	1913
+1914	65	1914
+1915	65	1915
+1916	65	1916
+1917	65	1917
+1918	65	1918
+1919	65	1919
+1920	65	1920
+1921	65	1921
+1922	65	1922
+1923	65	1923
+1924	65	1924
+1925	65	1925
+1926	65	1926
+1927	65	1927
+1928	65	1928
+1929	65	1929
+1930	65	1930
+1931	65	1931
+1932	65	1932
+1933	65	1933
+1934	65	1934
+1935	65	1935
+1936	65	1936
+1937	65	1937
+1938	65	1938
+1939	65	1939
+1940	65	1940
+1941	66	1941
+1942	66	1942
+1943	66	1943
+1944	66	1944
+1945	66	1945
+1946	66	1946
+1947	66	1947
+1948	66	1948
+1949	66	1949
+1950	66	1950
+1951	66	1951
+1952	66	1952
+1953	66	1953
+1954	66	1954
+1955	66	1955
+1956	66	1956
+1957	66	1957
+1958	66	1958
+1959	66	1959
+1960	66	1960
+1961	66	1961
+1962	66	1962
+1963	66	1963
+1964	66	1964
+1965	66	1965
+1966	66	1966
+1967	66	1967
+1968	66	1968
+1969	66	1969
+1970	66	1970
+1971	67	1971
+1972	67	1972
+1973	67	1973
+1974	67	1974
+1975	67	1975
+1976	67	1976
+1977	67	1977
+1978	67	1978
+1979	67	1979
+1980	67	1980
+1981	67	1981
+1982	67	1982
+1983	67	1983
+1984	67	1984
+1985	67	1985
+1986	67	1986
+1987	67	1987
+1988	67	1988
+1989	67	1989
+1990	67	1990
+1991	67	1991
+1992	67	1992
+1993	67	1993
+1994	67	1994
+1995	67	1995
+1996	67	1996
+1997	67	1997
+1998	67	1998
+1999	67	1999
+2000	67	2000
+2001	68	2001
+2002	68	2002
+2003	68	2003
+2004	68	2004
+2005	68	2005
+2006	68	2006
+2007	68	2007
+2008	68	2008
+2009	68	2009
+2010	68	2010
+2011	68	2011
+2012	68	2012
+2013	68	2013
+2014	68	2014
+2015	68	2015
+2016	68	2016
+2017	68	2017
+2018	68	2018
+2019	68	2019
+2020	68	2020
+2021	68	2021
+2022	68	2022
+2023	68	2023
+2024	68	2024
+2025	68	2025
+2026	68	2026
+2027	68	2027
+2028	68	2028
+2029	68	2029
+2030	68	2030
+2031	69	2031
+2032	69	2032
+2033	69	2033
+2034	69	2034
+2035	69	2035
+2036	69	2036
+2037	69	2037
+2038	69	2038
+2039	69	2039
+2040	69	2040
+2041	69	2041
+2042	69	2042
+2043	69	2043
+2044	69	2044
+2045	69	2045
+2046	69	2046
+2047	69	2047
+2048	69	2048
+2049	69	2049
+2050	69	2050
+2051	69	2051
+2052	69	2052
+2053	69	2053
+2054	69	2054
+2055	69	2055
+2056	69	2056
+2057	69	2057
+2058	69	2058
+2059	69	2059
+2060	69	2060
+2061	70	2061
+2062	70	2062
+2063	70	2063
+2064	70	2064
+2065	70	2065
+2066	70	2066
+2067	70	2067
+2068	70	2068
+2069	70	2069
+2070	70	2070
+2071	70	2071
+2072	70	2072
+2073	70	2073
+2074	70	2074
+2075	70	2075
+2076	70	2076
+2077	70	2077
+2078	70	2078
+2079	70	2079
+2080	70	2080
+2081	70	2081
+2082	70	2082
+2083	70	2083
+2084	70	2084
+2085	70	2085
+2086	70	2086
+2087	70	2087
+2088	70	2088
+2089	70	2089
+2090	70	2090
+2091	71	2091
+2092	71	2092
+2093	71	2093
+2094	71	2094
+2095	71	2095
+2096	71	2096
+2097	71	2097
+2098	71	2098
+2099	71	2099
+2100	71	2100
+2101	71	2101
+2102	71	2102
+2103	71	2103
+2104	71	2104
+2105	71	2105
+2106	71	2106
+2107	71	2107
+2108	71	2108
+2109	71	2109
+2110	71	2110
+2111	71	2111
+2112	71	2112
+2113	71	2113
+2114	71	2114
+2115	71	2115
+2116	71	2116
+2117	71	2117
+2118	71	2118
+2119	71	2119
+2120	71	2120
+2121	72	2121
+2122	72	2122
+2123	72	2123
+2124	72	2124
+2125	72	2125
+2126	72	2126
+2127	72	2127
+2128	72	2128
+2129	72	2129
+2130	72	2130
+2131	72	2131
+2132	72	2132
+2133	72	2133
+2134	72	2134
+2135	72	2135
+2136	72	2136
+2137	72	2137
+2138	72	2138
+2139	72	2139
+2140	72	2140
+2141	72	2141
+2142	72	2142
+2143	72	2143
+2144	72	2144
+2145	72	2145
+2146	72	2146
+2147	72	2147
+2148	72	2148
+2149	72	2149
+2150	72	2150
+2151	73	2151
+2152	73	2152
+2153	73	2153
+2154	73	2154
+2155	73	2155
+2156	73	2156
+2157	73	2157
+2158	73	2158
+2159	73	2159
+2160	73	2160
+2161	73	2161
+2162	73	2162
+2163	73	2163
+2164	73	2164
+2165	73	2165
+2166	73	2166
+2167	73	2167
+2168	73	2168
+2169	73	2169
+2170	73	2170
+2171	73	2171
+2172	73	2172
+2173	73	2173
+2174	73	2174
+2175	73	2175
+2176	73	2176
+2177	73	2177
+2178	73	2178
+2179	73	2179
+2180	73	2180
+2181	74	2181
+2182	74	2182
+2183	74	2183
+2184	74	2184
+2185	74	2185
+2186	74	2186
+2187	74	2187
+2188	74	2188
+2189	74	2189
+2190	74	2190
+2191	74	2191
+2192	74	2192
+2193	74	2193
+2194	74	2194
+2195	74	2195
+2196	74	2196
+2197	74	2197
+2198	74	2198
+2199	74	2199
+2200	74	2200
+2201	74	2201
+2202	74	2202
+2203	74	2203
+2204	74	2204
+2205	74	2205
+2206	74	2206
+2207	74	2207
+2208	74	2208
+2209	74	2209
+2210	74	2210
+2211	75	2211
+2212	75	2212
+2213	75	2213
+2214	75	2214
+2215	75	2215
+2216	75	2216
+2217	75	2217
+2218	75	2218
+2219	75	2219
+2220	75	2220
+2221	75	2221
+2222	75	2222
+2223	75	2223
+2224	75	2224
+2225	75	2225
+2226	75	2226
+2227	75	2227
+2228	75	2228
+2229	75	2229
+2230	75	2230
+2231	75	2231
+2232	75	2232
+2233	75	2233
+2234	75	2234
+2235	75	2235
+2236	75	2236
+2237	75	2237
+2238	75	2238
+2239	75	2239
+2240	75	2240
+2241	76	2241
+2242	76	2242
+2243	76	2243
+2244	76	2244
+2245	76	2245
+2246	76	2246
+2247	76	2247
+2248	76	2248
+2249	76	2249
+2250	76	2250
+2251	76	2251
+2252	76	2252
+2253	76	2253
+2254	76	2254
+2255	76	2255
+2256	76	2256
+2257	76	2257
+2258	76	2258
+2259	76	2259
+2260	76	2260
+2261	76	2261
+2262	76	2262
+2263	76	2263
+2264	76	2264
+2265	76	2265
+2266	76	2266
+2267	76	2267
+2268	76	2268
+2269	76	2269
+2270	76	2270
+2271	77	2271
+2272	77	2272
+2273	77	2273
+2274	77	2274
+2275	77	2275
+2276	77	2276
+2277	77	2277
+2278	77	2278
+2279	77	2279
+2280	77	2280
+2281	77	2281
+2282	77	2282
+2283	77	2283
+2284	77	2284
+2285	77	2285
+2286	77	2286
+2287	77	2287
+2288	77	2288
+2289	77	2289
+2290	77	2290
+2291	77	2291
+2292	77	2292
+2293	77	2293
+2294	77	2294
+2295	77	2295
+2296	77	2296
+2297	77	2297
+2298	77	2298
+2299	77	2299
+2300	77	2300
+2301	78	2301
+2302	78	2302
+2303	78	2303
+2304	78	2304
+2305	78	2305
+2306	78	2306
+2307	78	2307
+2308	78	2308
+2309	78	2309
+2310	78	2310
+2311	78	2311
+2312	78	2312
+2313	78	2313
+2314	78	2314
+2315	78	2315
+2316	78	2316
+2317	78	2317
+2318	78	2318
+2319	78	2319
+2320	78	2320
+2321	78	2321
+2322	78	2322
+2323	78	2323
+2324	78	2324
+2325	78	2325
+2326	78	2326
+2327	78	2327
+2328	78	2328
+2329	78	2329
+2330	78	2330
+2331	79	2331
+2332	79	2332
+2333	79	2333
+2334	79	2334
+2335	79	2335
+2336	79	2336
+2337	79	2337
+2338	79	2338
+2339	79	2339
+2340	79	2340
+2341	79	2341
+2342	79	2342
+2343	79	2343
+2344	79	2344
+2345	79	2345
+2346	79	2346
+2347	79	2347
+2348	79	2348
+2349	79	2349
+2350	79	2350
+2351	79	2351
+2352	79	2352
+2353	79	2353
+2354	79	2354
+2355	79	2355
+2356	79	2356
+2357	79	2357
+2358	79	2358
+2359	79	2359
+2360	79	2360
+2361	80	2361
+2362	80	2362
+2363	80	2363
+2364	80	2364
+2365	80	2365
+2366	80	2366
+2367	80	2367
+2368	80	2368
+2369	80	2369
+2370	80	2370
+2371	80	2371
+2372	80	2372
+2373	80	2373
+2374	80	2374
+2375	80	2375
+2376	80	2376
+2377	80	2377
+2378	80	2378
+2379	80	2379
+2380	80	2380
+2381	80	2381
+2382	80	2382
+2383	80	2383
+2384	80	2384
+2385	80	2385
+2386	80	2386
+2387	80	2387
+2388	80	2388
+2389	80	2389
+2390	80	2390
+2391	81	2391
+2392	81	2392
+2393	81	2393
+2394	81	2394
+2395	81	2395
+2396	81	2396
+2397	81	2397
+2398	81	2398
+2399	81	2399
+2400	81	2400
+2401	81	2401
+2402	81	2402
+2403	81	2403
+2404	81	2404
+2405	81	2405
+2406	81	2406
+2407	81	2407
+2408	81	2408
+2409	81	2409
+2410	81	2410
+2411	81	2411
+2412	81	2412
+2413	81	2413
+2414	81	2414
+2415	81	2415
+2416	81	2416
+2417	81	2417
+2418	81	2418
+2419	81	2419
+2420	81	2420
+2421	82	2421
+2422	82	2422
+2423	82	2423
+2424	82	2424
+2425	82	2425
+2426	82	2426
+2427	82	2427
+2428	82	2428
+2429	82	2429
+2430	82	2430
+2431	82	2431
+2432	82	2432
+2433	82	2433
+2434	82	2434
+2435	82	2435
+2436	82	2436
+2437	82	2437
+2438	82	2438
+2439	82	2439
+2440	82	2440
+2441	82	2441
+2442	82	2442
+2443	82	2443
+2444	82	2444
+2445	82	2445
+2446	82	2446
+2447	82	2447
+2448	82	2448
+2449	82	2449
+2450	82	2450
+2451	83	2451
+2452	83	2452
+2453	83	2453
+2454	83	2454
+2455	83	2455
+2456	83	2456
+2457	83	2457
+2458	83	2458
+2459	83	2459
+2460	83	2460
+2461	83	2461
+2462	83	2462
+2463	83	2463
+2464	83	2464
+2465	83	2465
+2466	83	2466
+2467	83	2467
+2468	83	2468
+2469	83	2469
+2470	83	2470
+2471	83	2471
+2472	83	2472
+2473	83	2473
+2474	83	2474
+2475	83	2475
+2476	83	2476
+2477	83	2477
+2478	83	2478
+2479	83	2479
+2480	83	2480
+2481	84	2481
+2482	84	2482
+2483	84	2483
+2484	84	2484
+2485	84	2485
+2486	84	2486
+2487	84	2487
+2488	84	2488
+2489	84	2489
+2490	84	2490
+2491	84	2491
+2492	84	2492
+2493	84	2493
+2494	84	2494
+2495	84	2495
+2496	84	2496
+2497	84	2497
+2498	84	2498
+2499	84	2499
+2500	84	2500
+2501	84	2501
+2502	84	2502
+2503	84	2503
+2504	84	2504
+2505	84	2505
+2506	84	2506
+2507	84	2507
+2508	84	2508
+2509	84	2509
+2510	84	2510
+2511	85	2511
+2512	85	2512
+2513	85	2513
+2514	85	2514
+2515	85	2515
+2516	85	2516
+2517	85	2517
+2518	85	2518
+2519	85	2519
+2520	85	2520
+2521	85	2521
+2522	85	2522
+2523	85	2523
+2524	85	2524
+2525	85	2525
+2526	85	2526
+2527	85	2527
+2528	85	2528
+2529	85	2529
+2530	85	2530
+2531	85	2531
+2532	85	2532
+2533	85	2533
+2534	85	2534
+2535	85	2535
+2536	85	2536
+2537	85	2537
+2538	85	2538
+2539	85	2539
+2540	85	2540
+2541	86	2541
+2542	86	2542
+2543	86	2543
+2544	86	2544
+2545	86	2545
+2546	86	2546
+2547	86	2547
+2548	86	2548
+2549	86	2549
+2550	86	2550
+2551	86	2551
+2552	86	2552
+2553	86	2553
+2554	86	2554
+2555	86	2555
+2556	86	2556
+2557	86	2557
+2558	86	2558
+2559	86	2559
+2560	86	2560
+2561	86	2561
+2562	86	2562
+2563	86	2563
+2564	86	2564
+2565	86	2565
+2566	86	2566
+2567	86	2567
+2568	86	2568
+2569	86	2569
+2570	86	2570
+2571	87	2571
+2572	87	2572
+2573	87	2573
+2574	87	2574
+2575	87	2575
+2576	87	2576
+2577	87	2577
+2578	87	2578
+2579	87	2579
+2580	87	2580
+2581	87	2581
+2582	87	2582
+2583	87	2583
+2584	87	2584
+2585	87	2585
+2586	87	2586
+2587	87	2587
+2588	87	2588
+2589	87	2589
+2590	87	2590
+2591	87	2591
+2592	87	2592
+2593	87	2593
+2594	87	2594
+2595	87	2595
+2596	87	2596
+2597	87	2597
+2598	87	2598
+2599	87	2599
+2600	87	2600
+2601	88	2601
+2602	88	2602
+2603	88	2603
+2604	88	2604
+2605	88	2605
+2606	88	2606
+2607	88	2607
+2608	88	2608
+2609	88	2609
+2610	88	2610
+2611	88	2611
+2612	88	2612
+2613	88	2613
+2614	88	2614
+2615	88	2615
+2616	88	2616
+2617	88	2617
+2618	88	2618
+2619	88	2619
+2620	88	2620
+2621	88	2621
+2622	88	2622
+2623	88	2623
+2624	88	2624
+2625	88	2625
+2626	88	2626
+2627	88	2627
+2628	88	2628
+2629	88	2629
+2630	88	2630
+2631	89	2631
+2632	89	2632
+2633	89	2633
+2634	89	2634
+2635	89	2635
+2636	89	2636
+2637	89	2637
+2638	89	2638
+2639	89	2639
+2640	89	2640
+2641	89	2641
+2642	89	2642
+2643	89	2643
+2644	89	2644
+2645	89	2645
+2646	89	2646
+2647	89	2647
+2648	89	2648
+2649	89	2649
+2650	89	2650
+2651	89	2651
+2652	89	2652
+2653	89	2653
+2654	89	2654
+2655	89	2655
+2656	89	2656
+2657	89	2657
+2658	89	2658
+2659	89	2659
+2660	89	2660
+2661	90	2661
+2662	90	2662
+2663	90	2663
+2664	90	2664
+2665	90	2665
+2666	90	2666
+2667	90	2667
+2668	90	2668
+2669	90	2669
+2670	90	2670
+2671	90	2671
+2672	90	2672
+2673	90	2673
+2674	90	2674
+2675	90	2675
+2676	90	2676
+2677	90	2677
+2678	90	2678
+2679	90	2679
+2680	90	2680
+2681	90	2681
+2682	90	2682
+2683	90	2683
+2684	90	2684
+2685	90	2685
+2686	90	2686
+2687	90	2687
+2688	90	2688
+2689	90	2689
+2690	90	2690
+2691	91	2691
+2692	91	2692
+2693	91	2693
+2694	91	2694
+2695	91	2695
+2696	91	2696
+2697	91	2697
+2698	91	2698
+2699	91	2699
+2700	91	2700
+2701	91	2701
+2702	91	2702
+2703	91	2703
+2704	91	2704
+2705	91	2705
+2706	91	2706
+2707	91	2707
+2708	91	2708
+2709	91	2709
+2710	91	2710
+2711	91	2711
+2712	91	2712
+2713	91	2713
+2714	91	2714
+2715	91	2715
+2716	91	2716
+2717	91	2717
+2718	91	2718
+2719	91	2719
+2720	91	2720
+2721	92	2721
+2722	92	2722
+2723	92	2723
+2724	92	2724
+2725	92	2725
+2726	92	2726
+2727	92	2727
+2728	92	2728
+2729	92	2729
+2730	92	2730
+2731	92	2731
+2732	92	2732
+2733	92	2733
+2734	92	2734
+2735	92	2735
+2736	92	2736
+2737	92	2737
+2738	92	2738
+2739	92	2739
+2740	92	2740
+2741	92	2741
+2742	92	2742
+2743	92	2743
+2744	92	2744
+2745	92	2745
+2746	92	2746
+2747	92	2747
+2748	92	2748
+2749	92	2749
+2750	92	2750
+2751	93	2751
+2752	93	2752
+2753	93	2753
+2754	93	2754
+2755	93	2755
+2756	93	2756
+2757	93	2757
+2758	93	2758
+2759	93	2759
+2760	93	2760
+2761	93	2761
+2762	93	2762
+2763	93	2763
+2764	93	2764
+2765	93	2765
+2766	93	2766
+2767	93	2767
+2768	93	2768
+2769	93	2769
+2770	93	2770
+2771	93	2771
+2772	93	2772
+2773	93	2773
+2774	93	2774
+2775	93	2775
+2776	93	2776
+2777	93	2777
+2778	93	2778
+2779	93	2779
+2780	93	2780
+2781	94	2781
+2782	94	2782
+2783	94	2783
+2784	94	2784
+2785	94	2785
+2786	94	2786
+2787	94	2787
+2788	94	2788
+2789	94	2789
+2790	94	2790
+2791	94	2791
+2792	94	2792
+2793	94	2793
+2794	94	2794
+2795	94	2795
+2796	94	2796
+2797	94	2797
+2798	94	2798
+2799	94	2799
+2800	94	2800
+2801	94	2801
+2802	94	2802
+2803	94	2803
+2804	94	2804
+2805	94	2805
+2806	94	2806
+2807	94	2807
+2808	94	2808
+2809	94	2809
+2810	94	2810
+2811	95	2811
+2812	95	2812
+2813	95	2813
+2814	95	2814
+2815	95	2815
+2816	95	2816
+2817	95	2817
+2818	95	2818
+2819	95	2819
+2820	95	2820
+2821	95	2821
+2822	95	2822
+2823	95	2823
+2824	95	2824
+2825	95	2825
+2826	95	2826
+2827	95	2827
+2828	95	2828
+2829	95	2829
+2830	95	2830
+2831	95	2831
+2832	95	2832
+2833	95	2833
+2834	95	2834
+2835	95	2835
+2836	95	2836
+2837	95	2837
+2838	95	2838
+2839	95	2839
+2840	95	2840
+2841	96	2841
+2842	96	2842
+2843	96	2843
+2844	96	2844
+2845	96	2845
+2846	96	2846
+2847	96	2847
+2848	96	2848
+2849	96	2849
+2850	96	2850
+2851	96	2851
+2852	96	2852
+2853	96	2853
+2854	96	2854
+2855	96	2855
+2856	96	2856
+2857	96	2857
+2858	96	2858
+2859	96	2859
+2860	96	2860
+2861	96	2861
+2862	96	2862
+2863	96	2863
+2864	96	2864
+2865	96	2865
+2866	96	2866
+2867	96	2867
+2868	96	2868
+2869	96	2869
+2870	96	2870
+2871	97	2871
+2872	97	2872
+2873	97	2873
+2874	97	2874
+2875	97	2875
+2876	97	2876
+2877	97	2877
+2878	97	2878
+2879	97	2879
+2880	97	2880
+2881	97	2881
+2882	97	2882
+2883	97	2883
+2884	97	2884
+2885	97	2885
+2886	97	2886
+2887	97	2887
+2888	97	2888
+2889	97	2889
+2890	97	2890
+2891	97	2891
+2892	97	2892
+2893	97	2893
+2894	97	2894
+2895	97	2895
+2896	97	2896
+2897	97	2897
+2898	97	2898
+2899	97	2899
+2900	97	2900
+2901	98	2901
+2902	98	2902
+2903	98	2903
+2904	98	2904
+2905	98	2905
+2906	98	2906
+2907	98	2907
+2908	98	2908
+2909	98	2909
+2910	98	2910
+2911	98	2911
+2912	98	2912
+2913	98	2913
+2914	98	2914
+2915	98	2915
+2916	98	2916
+2917	98	2917
+2918	98	2918
+2919	98	2919
+2920	98	2920
+2921	98	2921
+2922	98	2922
+2923	98	2923
+2924	98	2924
+2925	98	2925
+2926	98	2926
+2927	98	2927
+2928	98	2928
+2929	98	2929
+2930	98	2930
+2931	99	2931
+2932	99	2932
+2933	99	2933
+2934	99	2934
+2935	99	2935
+2936	99	2936
+2937	99	2937
+2938	99	2938
+2939	99	2939
+2940	99	2940
+2941	99	2941
+2942	99	2942
+2943	99	2943
+2944	99	2944
+2945	99	2945
+2946	99	2946
+2947	99	2947
+2948	99	2948
+2949	99	2949
+2950	99	2950
+2951	99	2951
+2952	99	2952
+2953	99	2953
+2954	99	2954
+2955	99	2955
+2956	99	2956
+2957	99	2957
+2958	99	2958
+2959	99	2959
+2960	99	2960
+2961	100	2961
+2962	100	2962
+2963	100	2963
+2964	100	2964
+2965	100	2965
+2966	100	2966
+2967	100	2967
+2968	100	2968
+2969	100	2969
+2970	100	2970
+2971	100	2971
+2972	100	2972
+2973	100	2973
+2974	100	2974
+2975	100	2975
+2976	100	2976
+2977	100	2977
+2978	100	2978
+2979	100	2979
+2980	100	2980
+2981	100	2981
+2982	100	2982
+2983	100	2983
+2984	100	2984
+2985	100	2985
+2986	100	2986
+2987	100	2987
+2988	100	2988
+2989	100	2989
+2990	100	2990
+2991	101	2991
+2992	101	2992
+2993	101	2993
+2994	101	2994
+2995	101	2995
+2996	101	2996
+2997	101	2997
+2998	101	2998
+2999	101	2999
+3000	101	3000
+3001	101	3001
+3002	101	3002
+3003	101	3003
+3004	101	3004
+3005	101	3005
+3006	101	3006
+3007	101	3007
+3008	101	3008
+3009	101	3009
+3010	101	3010
+3011	101	3011
+3012	101	3012
+3013	101	3013
+3014	101	3014
+3015	101	3015
+3016	101	3016
+3017	101	3017
+3018	101	3018
+3019	101	3019
+3020	101	3020
+3021	102	3021
+3022	102	3022
+3023	102	3023
+3024	102	3024
+3025	102	3025
+3026	102	3026
+3027	102	3027
+3028	102	3028
+3029	102	3029
+3030	102	3030
+3031	102	3031
+3032	102	3032
+3033	102	3033
+3034	102	3034
+3035	102	3035
+3036	102	3036
+3037	102	3037
+3038	102	3038
+3039	102	3039
+3040	102	3040
+3041	102	3041
+3042	102	3042
+3043	102	3043
+3044	102	3044
+3045	102	3045
+3046	102	3046
+3047	102	3047
+3048	102	3048
+3049	102	3049
+3050	102	3050
+3051	103	3051
+3052	103	3052
+3053	103	3053
+3054	103	3054
+3055	103	3055
+3056	103	3056
+3057	103	3057
+3058	103	3058
+3059	103	3059
+3060	103	3060
+3061	103	3061
+3062	103	3062
+3063	103	3063
+3064	103	3064
+3065	103	3065
+3066	103	3066
+3067	103	3067
+3068	103	3068
+3069	103	3069
+3070	103	3070
+3071	103	3071
+3072	103	3072
+3073	103	3073
+3074	103	3074
+3075	103	3075
+3076	103	3076
+3077	103	3077
+3078	103	3078
+3079	103	3079
+3080	103	3080
+3081	104	3081
+3082	104	3082
+3083	104	3083
+3084	104	3084
+3085	104	3085
+3086	104	3086
+3087	104	3087
+3088	104	3088
+3089	104	3089
+3090	104	3090
+3091	104	3091
+3092	104	3092
+3093	104	3093
+3094	104	3094
+3095	104	3095
+3096	104	3096
+3097	104	3097
+3098	104	3098
+3099	104	3099
+3100	104	3100
+3101	104	3101
+3102	104	3102
+3103	104	3103
+3104	104	3104
+3105	104	3105
+3106	104	3106
+3107	104	3107
+3108	104	3108
+3109	104	3109
+3110	104	3110
+3111	105	3111
+3112	105	3112
+3113	105	3113
+3114	105	3114
+3115	105	3115
+3116	105	3116
+3117	105	3117
+3118	105	3118
+3119	105	3119
+3120	105	3120
+3121	105	3121
+3122	105	3122
+3123	105	3123
+3124	105	3124
+3125	105	3125
+3126	105	3126
+3127	105	3127
+3128	105	3128
+3129	105	3129
+3130	105	3130
+3131	105	3131
+3132	105	3132
+3133	105	3133
+3134	105	3134
+3135	105	3135
+3136	105	3136
+3137	105	3137
+3138	105	3138
+3139	105	3139
+3140	105	3140
+3141	106	3141
+3142	106	3142
+3143	106	3143
+3144	106	3144
+3145	106	3145
+3146	106	3146
+3147	106	3147
+3148	106	3148
+3149	106	3149
+3150	106	3150
+3151	106	3151
+3152	106	3152
+3153	106	3153
+3154	106	3154
+3155	106	3155
+3156	106	3156
+3157	106	3157
+3158	106	3158
+3159	106	3159
+3160	106	3160
+3161	106	3161
+3162	106	3162
+3163	106	3163
+3164	106	3164
+3165	106	3165
+3166	106	3166
+3167	106	3167
+3168	106	3168
+3169	106	3169
+3170	106	3170
+3171	107	3171
+3172	107	3172
+3173	107	3173
+3174	107	3174
+3175	107	3175
+3176	107	3176
+3177	107	3177
+3178	107	3178
+3179	107	3179
+3180	107	3180
+3181	107	3181
+3182	107	3182
+3183	107	3183
+3184	107	3184
+3185	107	3185
+3186	107	3186
+3187	107	3187
+3188	107	3188
+3189	107	3189
+3190	107	3190
+3191	107	3191
+3192	107	3192
+3193	107	3193
+3194	107	3194
+3195	107	3195
+3196	107	3196
+3197	107	3197
+3198	107	3198
+3199	107	3199
+3200	107	3200
+3201	108	3201
+3202	108	3202
+3203	108	3203
+3204	108	3204
+3205	108	3205
+3206	108	3206
+3207	108	3207
+3208	108	3208
+3209	108	3209
+3210	108	3210
+3211	108	3211
+3212	108	3212
+3213	108	3213
+3214	108	3214
+3215	108	3215
+3216	108	3216
+3217	108	3217
+3218	108	3218
+3219	108	3219
+3220	108	3220
+3221	108	3221
+3222	108	3222
+3223	108	3223
+3224	108	3224
+3225	108	3225
+3226	108	3226
+3227	108	3227
+3228	108	3228
+3229	108	3229
+3230	108	3230
+3231	109	3231
+3232	109	3232
+3233	109	3233
+3234	109	3234
+3235	109	3235
+3236	109	3236
+3237	109	3237
+3238	109	3238
+3239	109	3239
+3240	109	3240
+3241	109	3241
+3242	109	3242
+3243	109	3243
+3244	109	3244
+3245	109	3245
+3246	109	3246
+3247	109	3247
+3248	109	3248
+3249	109	3249
+3250	109	3250
+3251	109	3251
+3252	109	3252
+3253	109	3253
+3254	109	3254
+3255	109	3255
+3256	109	3256
+3257	109	3257
+3258	109	3258
+3259	109	3259
+3260	109	3260
+3261	110	3261
+3262	110	3262
+3263	110	3263
+3264	110	3264
+3265	110	3265
+3266	110	3266
+3267	110	3267
+3268	110	3268
+3269	110	3269
+3270	110	3270
+3271	110	3271
+3272	110	3272
+3273	110	3273
+3274	110	3274
+3275	110	3275
+3276	110	3276
+3277	110	3277
+3278	110	3278
+3279	110	3279
+3280	110	3280
+3281	110	3281
+3282	110	3282
+3283	110	3283
+3284	110	3284
+3285	110	3285
+3286	110	3286
+3287	110	3287
+3288	110	3288
+3289	110	3289
+3290	110	3290
+3291	111	3291
+3292	111	3292
+3293	111	3293
+3294	111	3294
+3295	111	3295
+3296	111	3296
+3297	111	3297
+3298	111	3298
+3299	111	3299
+3300	111	3300
+3301	111	3301
+3302	111	3302
+3303	111	3303
+3304	111	3304
+3305	111	3305
+3306	111	3306
+3307	111	3307
+3308	111	3308
+3309	111	3309
+3310	111	3310
+3311	111	3311
+3312	111	3312
+3313	111	3313
+3314	111	3314
+3315	111	3315
+3316	111	3316
+3317	111	3317
+3318	111	3318
+3319	111	3319
+3320	111	3320
+3321	112	3321
+3322	112	3322
+3323	112	3323
+3324	112	3324
+3325	112	3325
+3326	112	3326
+3327	112	3327
+3328	112	3328
+3329	112	3329
+3330	112	3330
+3331	112	3331
+3332	112	3332
+3333	112	3333
+3334	112	3334
+3335	112	3335
+3336	112	3336
+3337	112	3337
+3338	112	3338
+3339	112	3339
+3340	112	3340
+3341	112	3341
+3342	112	3342
+3343	112	3343
+3344	112	3344
+3345	112	3345
+3346	112	3346
+3347	112	3347
+3348	112	3348
+3349	112	3349
+3350	112	3350
+3351	113	3351
+3352	113	3352
+3353	113	3353
+3354	113	3354
+3355	113	3355
+3356	113	3356
+3357	113	3357
+3358	113	3358
+3359	113	3359
+3360	113	3360
+3361	113	3361
+3362	113	3362
+3363	113	3363
+3364	113	3364
+3365	113	3365
+3366	113	3366
+3367	113	3367
+3368	113	3368
+3369	113	3369
+3370	113	3370
+3371	113	3371
+3372	113	3372
+3373	113	3373
+3374	113	3374
+3375	113	3375
+3376	113	3376
+3377	113	3377
+3378	113	3378
+3379	113	3379
+3380	113	3380
+3381	114	3381
+3382	114	3382
+3383	114	3383
+3384	114	3384
+3385	114	3385
+3386	114	3386
+3387	114	3387
+3388	114	3388
+3389	114	3389
+3390	114	3390
+3391	114	3391
+3392	114	3392
+3393	114	3393
+3394	114	3394
+3395	114	3395
+3396	114	3396
+3397	114	3397
+3398	114	3398
+3399	114	3399
+3400	114	3400
+3401	114	3401
+3402	114	3402
+3403	114	3403
+3404	114	3404
+3405	114	3405
+3406	114	3406
+3407	114	3407
+3408	114	3408
+3409	114	3409
+3410	114	3410
+3411	115	3411
+3412	115	3412
+3413	115	3413
+3414	115	3414
+3415	115	3415
+3416	115	3416
+3417	115	3417
+3418	115	3418
+3419	115	3419
+3420	115	3420
+3421	115	3421
+3422	115	3422
+3423	115	3423
+3424	115	3424
+3425	115	3425
+3426	115	3426
+3427	115	3427
+3428	115	3428
+3429	115	3429
+3430	115	3430
+3431	115	3431
+3432	115	3432
+3433	115	3433
+3434	115	3434
+3435	115	3435
+3436	115	3436
+3437	115	3437
+3438	115	3438
+3439	115	3439
+3440	115	3440
+3441	116	3441
+3442	116	3442
+3443	116	3443
+3444	116	3444
+3445	116	3445
+3446	116	3446
+3447	116	3447
+3448	116	3448
+3449	116	3449
+3450	116	3450
+3451	116	3451
+3452	116	3452
+3453	116	3453
+3454	116	3454
+3455	116	3455
+3456	116	3456
+3457	116	3457
+3458	116	3458
+3459	116	3459
+3460	116	3460
+3461	116	3461
+3462	116	3462
+3463	116	3463
+3464	116	3464
+3465	116	3465
+3466	116	3466
+3467	116	3467
+3468	116	3468
+3469	116	3469
+3470	116	3470
+\.
+
+
+--
+-- TOC entry 3480 (class 0 OID 18410)
+-- Dependencies: 239
+-- Data for Name: d_kuliah; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.d_kuliah (kuliah_id, kurikulum_mk_id, dosen_id, kelas_id) FROM stdin;
+211	61	154	71
+214	64	155	72
+215	65	156	72
+216	66	157	72
+217	64	158	73
+218	65	159	73
+219	66	160	73
+220	64	161	74
+221	65	162	74
+223	67	163	75
+224	68	164	75
+225	69	165	75
+226	67	166	76
+262	79	193	88
+263	80	194	88
+212	62	152	71
+213	63	154	71
+222	66	162	74
+206	59	143	69
+207	60	140	69
+51	9	21	17
+52	7	22	18
+53	8	23	18
+54	9	24	18
+55	7	25	19
+56	8	26	19
+57	9	27	19
+58	7	28	20
+59	8	29	20
+60	9	30	20
+61	7	31	21
+62	8	32	21
+63	9	33	21
+194	59	139	65
+195	60	140	65
+196	58	141	66
+197	59	142	66
+198	60	143	66
+199	58	144	67
+200	59	145	67
+201	60	146	67
+202	58	147	68
+203	59	148	68
+204	60	149	68
+205	58	150	69
+208	61	151	70
+209	62	152	70
+210	63	153	70
+76	16	43	26
+77	17	44	26
+78	18	45	26
+79	16	46	27
+80	17	47	27
+81	18	48	27
+82	16	49	28
+83	17	50	28
+85	19	51	29
+86	20	52	29
+84	18	49	28
+278	83	210	93
+279	84	205	93
+288	87	211	96
+291	90	220	97
+296	92	221	99
+297	93	222	99
+302	95	226	101
+303	96	227	101
+258	78	191	86
+261	81	197	87
+72	12	39	24
+75	15	41	25
+264	81	195	88
+265	79	196	89
+266	80	197	89
+267	81	198	89
+268	82	201	90
+269	83	202	90
+270	84	203	90
+271	82	204	91
+272	83	205	91
+273	84	206	91
+274	82	207	92
+275	83	208	92
+276	84	209	92
+277	82	210	93
+280	85	211	94
+281	86	212	94
+282	87	213	94
+283	85	214	95
+284	86	215	95
+285	87	216	95
+286	85	217	96
+287	86	218	96
+289	88	219	97
+290	89	220	97
+292	91	221	98
+293	92	222	98
+294	93	223	98
+295	91	224	99
+298	94	225	100
+299	95	226	100
+300	96	227	100
+301	94	228	101
+304	97	229	102
+305	98	230	102
+251	74	181	84
+252	75	182	84
+253	73	183	85
+254	74	184	85
+255	75	185	85
+256	76	191	86
+257	77	192	86
+259	79	199	87
+260	80	200	87
+70	10	39	24
+71	11	40	24
+73	13	41	25
+74	14	42	25
+147	42	101	49
+148	40	102	50
+149	41	103	50
+150	42	104	50
+151	40	105	51
+152	41	106	51
+153	42	107	51
+154	40	108	52
+155	41	104	52
+89	20	51	30
+90	21	53	30
+99	24	61	33
+112	25	73	38
+113	26	73	38
+114	27	74	38
+125	29	77	42
+126	30	77	42
+135	33	91	45
+138	36	94	46
+143	38	97	48
+144	39	98	48
+87	21	53	29
+88	19	54	30
+91	22	55	31
+92	23	56	31
+93	24	57	31
+94	22	58	32
+95	23	59	32
+96	24	60	32
+97	22	61	33
+98	23	62	33
+100	25	63	34
+101	26	64	34
+102	27	65	34
+103	25	66	35
+104	26	67	35
+105	27	68	35
+106	25	69	36
+107	26	70	36
+108	27	71	36
+109	25	72	37
+110	26	73	37
+111	27	74	37
+115	28	75	39
+116	29	76	39
+117	30	77	39
+118	28	78	40
+119	29	79	40
+120	30	80	40
+121	28	81	41
+122	29	82	41
+123	30	83	41
+124	28	84	42
+127	31	85	43
+128	32	86	43
+129	33	87	43
+130	31	88	44
+131	32	89	44
+132	33	90	44
+133	31	91	45
+134	32	92	45
+136	34	93	46
+137	35	94	46
+139	37	95	47
+140	38	96	47
+141	39	97	47
+142	37	98	48
+145	40	99	49
+146	41	100	49
+22	4	11	8
+23	5	12	8
+24	6	13	8
+12	3	6	4
+13	1	1	5
+14	2	7	5
+15	3	8	5
+16	1	5	6
+17	2	5	6
+18	3	7	6
+19	1	6	7
+20	2	5	7
+21	3	1	7
+156	42	108	52
+32	5	16	11
+33	6	15	11
+34	4	16	12
+35	5	18	12
+36	6	17	12
+37	4	15	13
+38	5	11	13
+39	6	12	13
+157	43	109	53
+158	44	110	53
+2	2	1	1
+3	3	2	1
+4	1	3	2
+5	2	4	2
+6	3	5	2
+7	1	6	3
+8	2	7	3
+9	3	8	3
+10	1	9	4
+11	2	10	4
+25	4	14	9
+26	5	15	9
+27	6	16	9
+28	4	17	10
+29	5	18	10
+30	6	19	10
+31	4	20	11
+43	7	34	15
+44	8	35	15
+45	9	36	15
+46	7	37	16
+47	8	38	16
+245	74	186	82
+246	75	187	82
+247	73	188	83
+248	74	189	83
+249	75	190	83
+40	4	18	14
+41	5	13	14
+42	6	12	14
+48	9	30	16
+49	7	30	17
+50	8	36	17
+1	1	8	1
+250	73	187	84
+165	45	113	55
+176	47	120	59
+177	48	120	59
+180	50	127	60
+183	54	129	61
+192	57	133	64
+193	58	141	65
+159	45	111	53
+160	43	112	54
+161	44	113	54
+162	45	114	54
+163	43	115	55
+164	44	116	55
+166	46	117	56
+167	47	118	56
+168	48	119	56
+169	46	120	57
+170	47	121	57
+171	48	122	57
+172	46	123	58
+173	47	124	58
+174	48	125	58
+175	46	126	59
+178	51	127	60
+179	49	128	60
+181	52	129	61
+182	53	130	61
+184	55	131	62
+185	56	132	62
+186	57	133	62
+187	55	134	63
+188	56	135	63
+189	57	136	63
+190	55	137	64
+191	56	138	64
+241	70	180	81
+242	71	179	81
+243	72	173	81
+244	73	190	82
+314	98	234	105
+315	99	234	105
+324	102	244	108
+335	104	252	112
+336	105	252	112
+341	107	258	114
+342	108	260	114
+347	110	262	116
+348	111	263	116
+64	7	30	22
+65	8	27	22
+66	9	31	22
+67	7	28	23
+68	8	21	23
+69	9	35	23
+231	69	164	77
+306	99	231	102
+307	97	232	103
+308	98	233	103
+309	99	234	103
+310	97	235	104
+311	98	236	104
+312	99	237	104
+313	97	238	105
+316	100	239	106
+317	101	240	106
+318	102	241	106
+319	100	242	107
+320	101	243	107
+321	102	244	107
+322	100	245	108
+323	101	246	108
+325	103	247	109
+326	104	248	109
+327	105	249	109
+328	103	250	110
+329	104	251	110
+330	105	252	110
+331	103	253	111
+332	104	254	111
+333	105	255	111
+334	103	256	112
+337	106	257	113
+338	107	258	113
+339	108	259	113
+340	106	260	114
+343	109	261	115
+344	110	262	115
+345	111	263	115
+346	109	264	116
+227	68	167	76
+228	69	168	76
+229	67	169	77
+230	68	170	77
+232	70	171	78
+233	71	172	78
+234	72	173	78
+235	70	174	79
+236	71	175	79
+237	72	176	79
+238	70	177	80
+239	71	178	80
+240	72	179	80
+\.
+
+
+--
+-- TOC entry 3482 (class 0 OID 18433)
+-- Dependencies: 241
+-- Data for Name: d_kuliah_nilai; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.d_kuliah_nilai (kuliah_nilai_id, kuliah_id, mahasiswa_id, nilai) FROM stdin;
+1	211	2091	67
+2	211	2092	44
+3	211	2093	99
+4	211	2094	83
+5	211	2095	85
+6	211	2096	56
+7	211	2097	91
+8	211	2098	70
+9	211	2099	51
+10	211	2100	88
+11	211	2101	99
+12	211	2102	74
+13	211	2103	74
+14	211	2104	88
+15	211	2105	53
+16	211	2106	43
+17	211	2107	44
+18	211	2108	82
+19	211	2109	42
+20	211	2110	65
+21	211	2111	80
+22	211	2112	96
+23	211	2113	64
+24	211	2114	82
+25	211	2115	81
+26	211	2116	98
+27	211	2117	88
+28	211	2118	90
+29	211	2119	69
+30	211	2120	59
+31	214	2121	93
+32	214	2122	88
+33	214	2123	47
+34	214	2124	71
+35	214	2125	45
+36	214	2126	68
+37	214	2127	99
+38	214	2128	44
+39	214	2129	77
+40	214	2130	70
+41	214	2131	64
+42	214	2132	41
+43	214	2133	83
+44	214	2134	72
+45	214	2135	59
+46	214	2136	57
+47	214	2137	55
+48	214	2138	76
+49	214	2139	45
+50	214	2140	41
+51	214	2141	44
+52	214	2142	62
+53	214	2143	46
+54	214	2144	67
+55	214	2145	68
+56	214	2146	98
+57	214	2147	77
+58	214	2148	77
+59	214	2149	66
+60	214	2150	94
+61	215	2121	95
+62	215	2122	54
+63	215	2123	44
+64	215	2124	81
+65	215	2125	71
+66	215	2126	75
+67	215	2127	92
+68	215	2128	90
+69	215	2129	81
+70	215	2130	51
+71	215	2131	78
+72	215	2132	80
+73	215	2133	95
+74	215	2134	61
+75	215	2135	76
+76	215	2136	81
+77	215	2137	64
+78	215	2138	73
+79	215	2139	48
+80	215	2140	85
+81	215	2141	64
+82	215	2142	51
+83	215	2143	74
+84	215	2144	61
+85	215	2145	99
+86	215	2146	84
+87	215	2147	96
+88	215	2148	79
+89	215	2149	71
+90	215	2150	53
+91	216	2121	62
+92	216	2122	83
+93	216	2123	58
+94	216	2124	74
+95	216	2125	74
+96	216	2126	64
+97	216	2127	60
+98	216	2128	99
+99	216	2129	93
+100	216	2130	95
+101	216	2131	85
+102	216	2132	79
+103	216	2133	89
+104	216	2134	44
+105	216	2135	49
+106	216	2136	59
+107	216	2137	62
+108	216	2138	50
+109	216	2139	46
+110	216	2140	69
+111	216	2141	90
+112	216	2142	49
+113	216	2143	49
+114	216	2144	68
+115	216	2145	58
+116	216	2146	80
+117	216	2147	55
+118	216	2148	62
+119	216	2149	61
+120	216	2150	49
+121	217	2151	41
+122	217	2152	62
+123	217	2153	48
+124	217	2154	56
+125	217	2155	52
+126	217	2156	59
+127	217	2157	72
+128	217	2158	55
+129	217	2159	62
+130	217	2160	85
+131	217	2161	75
+132	217	2162	41
+133	217	2163	55
+134	217	2164	60
+135	217	2165	98
+136	217	2166	68
+137	217	2167	96
+138	217	2168	65
+139	217	2169	63
+140	217	2170	85
+141	217	2171	47
+142	217	2172	67
+143	217	2173	50
+144	217	2174	52
+145	217	2175	55
+146	217	2176	64
+147	217	2177	69
+148	217	2178	43
+149	217	2179	74
+150	217	2180	45
+151	218	2151	69
+152	218	2152	88
+153	218	2153	49
+154	218	2154	58
+155	218	2155	62
+156	218	2156	79
+157	218	2157	64
+158	218	2158	43
+159	218	2159	63
+160	218	2160	41
+161	218	2161	45
+162	218	2162	69
+163	218	2163	67
+164	218	2164	51
+165	218	2165	55
+166	218	2166	68
+167	218	2167	41
+168	218	2168	41
+169	218	2169	83
+170	218	2170	81
+171	218	2171	71
+172	218	2172	68
+173	218	2173	76
+174	218	2174	83
+175	218	2175	47
+176	218	2176	86
+177	218	2177	50
+178	218	2178	97
+179	218	2179	94
+180	218	2180	57
+181	219	2151	43
+182	219	2152	83
+183	219	2153	71
+184	219	2154	50
+185	219	2155	55
+186	219	2156	76
+187	219	2157	52
+188	219	2158	99
+189	219	2159	94
+190	219	2160	91
+191	219	2161	86
+192	219	2162	94
+193	219	2163	58
+194	219	2164	79
+195	219	2165	98
+196	219	2166	92
+197	219	2167	48
+198	219	2168	95
+199	219	2169	97
+200	219	2170	63
+201	219	2171	82
+202	219	2172	83
+203	219	2173	44
+204	219	2174	94
+205	219	2175	65
+206	219	2176	41
+207	219	2177	65
+208	219	2178	51
+209	219	2179	99
+210	219	2180	93
+211	220	2181	58
+212	220	2182	64
+213	220	2183	78
+214	220	2184	46
+215	220	2185	82
+216	220	2186	59
+217	220	2187	96
+218	220	2188	56
+219	220	2189	70
+220	220	2190	65
+221	220	2191	79
+222	220	2192	42
+223	220	2193	78
+224	220	2194	83
+225	220	2195	59
+226	220	2196	78
+227	220	2197	55
+228	220	2198	41
+229	220	2199	42
+230	220	2200	90
+231	220	2201	59
+232	220	2202	65
+233	220	2203	54
+234	220	2204	91
+235	220	2205	81
+236	220	2206	78
+237	220	2207	77
+238	220	2208	44
+239	220	2209	64
+240	220	2210	43
+241	221	2181	50
+242	221	2182	73
+243	221	2183	43
+244	221	2184	81
+245	221	2185	46
+246	221	2186	62
+247	221	2187	89
+248	221	2188	96
+249	221	2189	82
+250	221	2190	63
+251	221	2191	61
+252	221	2192	74
+253	221	2193	45
+254	221	2194	60
+255	221	2195	88
+256	221	2196	79
+257	221	2197	64
+258	221	2198	69
+259	221	2199	99
+260	221	2200	96
+261	221	2201	60
+262	221	2202	68
+263	221	2203	99
+264	221	2204	41
+265	221	2205	53
+266	221	2206	75
+267	221	2207	88
+268	221	2208	82
+269	221	2209	59
+270	221	2210	44
+271	223	2211	41
+272	223	2212	49
+273	223	2213	55
+274	223	2214	59
+275	223	2215	61
+276	223	2216	42
+277	223	2217	92
+278	223	2218	80
+279	223	2219	70
+280	223	2220	52
+281	223	2221	43
+282	223	2222	95
+283	223	2223	91
+284	223	2224	90
+285	223	2225	77
+286	223	2226	44
+287	223	2227	53
+288	223	2228	81
+289	223	2229	65
+290	223	2230	76
+291	223	2231	73
+292	223	2232	89
+293	223	2233	62
+294	223	2234	99
+295	223	2235	88
+296	223	2236	89
+297	223	2237	68
+298	223	2238	93
+299	223	2239	93
+300	223	2240	72
+301	224	2211	43
+302	224	2212	63
+303	224	2213	90
+304	224	2214	50
+305	224	2215	76
+306	224	2216	62
+307	224	2217	92
+308	224	2218	92
+309	224	2219	94
+310	224	2220	88
+311	224	2221	70
+312	224	2222	95
+313	224	2223	76
+314	224	2224	54
+315	224	2225	83
+316	224	2226	79
+317	224	2227	59
+318	224	2228	46
+319	224	2229	96
+320	224	2230	66
+321	224	2231	85
+322	224	2232	79
+323	224	2233	89
+324	224	2234	73
+325	224	2235	83
+326	224	2236	62
+327	224	2237	94
+328	224	2238	47
+329	224	2239	45
+330	224	2240	74
+331	225	2211	68
+332	225	2212	51
+333	225	2213	54
+334	225	2214	47
+335	225	2215	65
+336	225	2216	45
+337	225	2217	61
+338	225	2218	43
+339	225	2219	51
+340	225	2220	95
+341	225	2221	83
+342	225	2222	99
+343	225	2223	93
+344	225	2224	61
+345	225	2225	53
+346	225	2226	74
+347	225	2227	62
+348	225	2228	88
+349	225	2229	48
+350	225	2230	91
+351	225	2231	65
+352	225	2232	74
+353	225	2233	78
+354	225	2234	70
+355	225	2235	50
+356	225	2236	57
+357	225	2237	86
+358	225	2238	67
+359	225	2239	43
+360	225	2240	58
+361	226	2241	47
+362	226	2242	41
+363	226	2243	87
+364	226	2244	97
+365	226	2245	73
+366	226	2246	94
+367	226	2247	80
+368	226	2248	84
+369	226	2249	81
+370	226	2250	69
+371	226	2251	93
+372	226	2252	43
+373	226	2253	86
+374	226	2254	51
+375	226	2255	53
+376	226	2256	81
+377	226	2257	51
+378	226	2258	57
+379	226	2259	42
+380	226	2260	69
+381	226	2261	89
+382	226	2262	62
+383	226	2263	81
+384	226	2264	67
+385	226	2265	95
+386	226	2266	66
+387	226	2267	73
+388	226	2268	84
+389	226	2269	41
+390	226	2270	67
+391	262	2601	58
+392	262	2602	52
+393	262	2603	81
+394	262	2604	99
+395	262	2605	55
+396	262	2606	80
+397	262	2607	67
+398	262	2608	57
+399	262	2609	94
+400	262	2610	94
+401	262	2611	92
+402	262	2612	51
+403	262	2613	80
+404	262	2614	76
+405	262	2615	52
+406	262	2616	70
+407	262	2617	91
+408	262	2618	60
+409	262	2619	69
+410	262	2620	77
+411	262	2621	89
+412	262	2622	70
+413	262	2623	59
+414	262	2624	43
+415	262	2625	72
+416	262	2626	82
+417	262	2627	56
+418	262	2628	83
+419	262	2629	64
+420	262	2630	84
+421	263	2601	61
+422	263	2602	61
+423	263	2603	65
+424	263	2604	81
+425	263	2605	58
+426	263	2606	66
+427	263	2607	95
+428	263	2608	91
+429	263	2609	46
+430	263	2610	80
+431	263	2611	72
+432	263	2612	74
+433	263	2613	96
+434	263	2614	78
+435	263	2615	80
+436	263	2616	96
+437	263	2617	78
+438	263	2618	67
+439	263	2619	49
+440	263	2620	87
+441	263	2621	44
+442	263	2622	70
+443	263	2623	91
+444	263	2624	60
+445	263	2625	97
+446	263	2626	79
+447	263	2627	46
+448	263	2628	53
+449	263	2629	60
+450	263	2630	93
+451	212	2091	81
+452	212	2092	97
+453	212	2093	59
+454	212	2094	57
+455	212	2095	49
+456	212	2096	89
+457	212	2097	80
+458	212	2098	81
+459	212	2099	70
+460	212	2100	80
+461	212	2101	77
+462	212	2102	57
+463	212	2103	89
+464	212	2104	70
+465	212	2105	49
+466	212	2106	51
+467	212	2107	75
+468	212	2108	66
+469	212	2109	56
+470	212	2110	82
+471	212	2111	67
+472	212	2112	66
+473	212	2113	76
+474	212	2114	50
+475	212	2115	52
+476	212	2116	97
+477	212	2117	55
+478	212	2118	49
+479	212	2119	63
+480	212	2120	79
+481	213	2091	76
+482	213	2092	49
+483	213	2093	83
+484	213	2094	45
+485	213	2095	82
+486	213	2096	63
+487	213	2097	77
+488	213	2098	43
+489	213	2099	53
+490	213	2100	98
+491	213	2101	78
+492	213	2102	63
+493	213	2103	54
+494	213	2104	44
+495	213	2105	74
+496	213	2106	74
+497	213	2107	84
+498	213	2108	73
+499	213	2109	65
+500	213	2110	44
+501	213	2111	91
+502	213	2112	45
+503	213	2113	75
+504	213	2114	87
+505	213	2115	66
+506	213	2116	62
+507	213	2117	62
+508	213	2118	47
+509	213	2119	91
+510	213	2120	79
+511	222	2181	61
+512	222	2182	78
+513	222	2183	81
+514	222	2184	93
+515	222	2185	55
+516	222	2186	94
+517	222	2187	88
+518	222	2188	92
+519	222	2189	53
+520	222	2190	65
+521	222	2191	74
+522	222	2192	90
+523	222	2193	60
+524	222	2194	64
+525	222	2195	80
+526	222	2196	45
+527	222	2197	46
+528	222	2198	69
+529	222	2199	64
+530	222	2200	89
+531	222	2201	96
+532	222	2202	79
+533	222	2203	47
+534	222	2204	51
+535	222	2205	73
+536	222	2206	83
+537	222	2207	93
+538	222	2208	50
+539	222	2209	44
+540	222	2210	44
+541	206	2031	42
+542	206	2032	50
+543	206	2033	65
+544	206	2034	48
+545	206	2035	74
+546	206	2036	63
+547	206	2037	90
+548	206	2038	48
+549	206	2039	77
+550	206	2040	71
+551	206	2041	67
+552	206	2042	65
+553	206	2043	44
+554	206	2044	46
+555	206	2045	74
+556	206	2046	90
+557	206	2047	96
+558	206	2048	85
+559	206	2049	84
+560	206	2050	78
+561	206	2051	48
+562	206	2052	81
+563	206	2053	44
+564	206	2054	61
+565	206	2055	50
+566	206	2056	76
+567	206	2057	87
+568	206	2058	87
+569	206	2059	98
+570	206	2060	70
+571	207	2031	42
+572	207	2032	84
+573	207	2033	41
+574	207	2034	90
+575	207	2035	90
+576	207	2036	66
+577	207	2037	75
+578	207	2038	52
+579	207	2039	52
+580	207	2040	58
+581	207	2041	59
+582	207	2042	52
+583	207	2043	93
+584	207	2044	84
+585	207	2045	41
+586	207	2046	87
+587	207	2047	91
+588	207	2048	56
+589	207	2049	75
+590	207	2050	83
+591	207	2051	43
+592	207	2052	86
+593	207	2053	97
+594	207	2054	98
+595	207	2055	68
+596	207	2056	45
+597	207	2057	43
+598	207	2058	94
+599	207	2059	97
+600	207	2060	52
+601	51	481	42
+602	51	482	57
+603	51	483	47
+604	51	484	85
+605	51	485	51
+606	51	486	76
+607	51	487	90
+608	51	488	93
+609	51	489	54
+610	51	490	78
+611	51	491	82
+612	51	492	90
+613	51	493	98
+614	51	494	58
+615	51	495	45
+616	51	496	68
+617	51	497	99
+618	51	498	68
+619	51	499	74
+620	51	500	48
+621	51	501	86
+622	51	502	51
+623	51	503	89
+624	51	504	57
+625	51	505	77
+626	51	506	42
+627	51	507	91
+628	51	508	91
+629	51	509	86
+630	51	510	50
+631	52	511	72
+632	52	512	92
+633	52	513	53
+634	52	514	48
+635	52	515	77
+636	52	516	84
+637	52	517	71
+638	52	518	73
+639	52	519	49
+640	52	520	66
+641	52	521	69
+642	52	522	50
+643	52	523	80
+644	52	524	44
+645	52	525	92
+646	52	526	92
+647	52	527	96
+648	52	528	91
+649	52	529	84
+650	52	530	99
+651	52	531	84
+652	52	532	85
+653	52	533	79
+654	52	534	99
+655	52	535	50
+656	52	536	86
+657	52	537	78
+658	52	538	96
+659	52	539	90
+660	52	540	82
+661	53	511	79
+662	53	512	57
+663	53	513	57
+664	53	514	53
+665	53	515	51
+666	53	516	89
+667	53	517	68
+668	53	518	88
+669	53	519	81
+670	53	520	55
+671	53	521	52
+672	53	522	46
+673	53	523	51
+674	53	524	70
+675	53	525	61
+676	53	526	77
+677	53	527	48
+678	53	528	85
+679	53	529	70
+680	53	530	57
+681	53	531	84
+682	53	532	99
+683	53	533	86
+684	53	534	83
+685	53	535	52
+686	53	536	45
+687	53	537	49
+688	53	538	53
+689	53	539	52
+690	53	540	71
+691	54	511	71
+692	54	512	52
+693	54	513	84
+694	54	514	62
+695	54	515	79
+696	54	516	63
+697	54	517	67
+698	54	518	81
+699	54	519	68
+700	54	520	95
+701	54	521	71
+702	54	522	54
+703	54	523	83
+704	54	524	99
+705	54	525	60
+706	54	526	68
+707	54	527	80
+708	54	528	99
+709	54	529	75
+710	54	530	66
+711	54	531	82
+712	54	532	73
+713	54	533	82
+714	54	534	64
+715	54	535	75
+716	54	536	77
+717	54	537	82
+718	54	538	93
+719	54	539	46
+720	54	540	59
+721	55	541	65
+722	55	542	97
+723	55	543	68
+724	55	544	75
+725	55	545	68
+726	55	546	83
+727	55	547	50
+728	55	548	81
+729	55	549	68
+730	55	550	52
+731	55	551	56
+732	55	552	56
+733	55	553	65
+734	55	554	91
+735	55	555	71
+736	55	556	63
+737	55	557	56
+738	55	558	78
+739	55	559	48
+740	55	560	80
+741	55	561	86
+742	55	562	66
+743	55	563	70
+744	55	564	58
+745	55	565	59
+746	55	566	48
+747	55	567	89
+748	55	568	70
+749	55	569	93
+750	55	570	84
+751	56	541	95
+752	56	542	54
+753	56	543	64
+754	56	544	73
+755	56	545	41
+756	56	546	83
+757	56	547	44
+758	56	548	88
+759	56	549	95
+760	56	550	99
+761	56	551	57
+762	56	552	45
+763	56	553	93
+764	56	554	60
+765	56	555	51
+766	56	556	84
+767	56	557	90
+768	56	558	80
+769	56	559	89
+770	56	560	70
+771	56	561	55
+772	56	562	60
+773	56	563	46
+774	56	564	47
+775	56	565	46
+776	56	566	59
+777	56	567	57
+778	56	568	55
+779	56	569	60
+780	56	570	41
+781	57	541	75
+782	57	542	86
+783	57	543	63
+784	57	544	60
+785	57	545	54
+786	57	546	52
+787	57	547	81
+788	57	548	69
+789	57	549	86
+790	57	550	55
+791	57	551	62
+792	57	552	85
+793	57	553	72
+794	57	554	68
+795	57	555	95
+796	57	556	65
+797	57	557	95
+798	57	558	80
+799	57	559	91
+800	57	560	47
+801	57	561	55
+802	57	562	81
+803	57	563	83
+804	57	564	97
+805	57	565	82
+806	57	566	78
+807	57	567	98
+808	57	568	54
+809	57	569	60
+810	57	570	52
+811	58	571	60
+812	58	572	77
+813	58	573	53
+814	58	574	67
+815	58	575	73
+816	58	576	49
+817	58	577	88
+818	58	578	74
+819	58	579	81
+820	58	580	48
+821	58	581	75
+822	58	582	62
+823	58	583	78
+824	58	584	60
+825	58	585	47
+826	58	586	71
+827	58	587	78
+828	58	588	54
+829	58	589	58
+830	58	590	68
+831	58	591	94
+832	58	592	62
+833	58	593	92
+834	58	594	90
+835	58	595	72
+836	58	596	99
+837	58	597	54
+838	58	598	81
+839	58	599	88
+840	58	600	85
+841	59	571	44
+842	59	572	96
+843	59	573	83
+844	59	574	78
+845	59	575	58
+846	59	576	79
+847	59	577	43
+848	59	578	78
+849	59	579	82
+850	59	580	95
+851	59	581	52
+852	59	582	51
+853	59	583	58
+854	59	584	95
+855	59	585	82
+856	59	586	85
+857	59	587	49
+858	59	588	65
+859	59	589	95
+860	59	590	42
+861	59	591	54
+862	59	592	61
+863	59	593	87
+864	59	594	43
+865	59	595	44
+866	59	596	44
+867	59	597	74
+868	59	598	81
+869	59	599	47
+870	59	600	93
+871	60	571	42
+872	60	572	82
+873	60	573	74
+874	60	574	76
+875	60	575	65
+876	60	576	56
+877	60	577	66
+878	60	578	96
+879	60	579	56
+880	60	580	41
+881	60	581	68
+882	60	582	98
+883	60	583	95
+884	60	584	82
+885	60	585	70
+886	60	586	51
+887	60	587	99
+888	60	588	41
+889	60	589	43
+890	60	590	72
+891	60	591	88
+892	60	592	44
+893	60	593	60
+894	60	594	99
+895	60	595	63
+896	60	596	93
+897	60	597	95
+898	60	598	60
+899	60	599	80
+900	60	600	79
+901	61	601	41
+902	61	602	60
+903	61	603	73
+904	61	604	43
+905	61	605	74
+906	61	606	64
+907	61	607	84
+908	61	608	62
+909	61	609	79
+910	61	610	66
+911	61	611	81
+912	61	612	60
+913	61	613	89
+914	61	614	66
+915	61	615	82
+916	61	616	80
+917	61	617	62
+918	61	618	61
+919	61	619	89
+920	61	620	88
+921	61	621	42
+922	61	622	64
+923	61	623	83
+924	61	624	70
+925	61	625	46
+926	61	626	76
+927	61	627	66
+928	61	628	81
+929	61	629	72
+930	61	630	67
+931	62	601	89
+932	62	602	43
+933	62	603	87
+934	62	604	87
+935	62	605	83
+936	62	606	61
+937	62	607	63
+938	62	608	54
+939	62	609	83
+940	62	610	49
+941	62	611	92
+942	62	612	74
+943	62	613	95
+944	62	614	61
+945	62	615	51
+946	62	616	57
+947	62	617	88
+948	62	618	90
+949	62	619	62
+950	62	620	83
+951	62	621	66
+952	62	622	81
+953	62	623	94
+954	62	624	79
+955	62	625	88
+956	62	626	62
+957	62	627	96
+958	62	628	76
+959	62	629	98
+960	62	630	79
+961	63	601	79
+962	63	602	54
+963	63	603	95
+964	63	604	80
+965	63	605	70
+966	63	606	95
+967	63	607	86
+968	63	608	54
+969	63	609	55
+970	63	610	60
+971	63	611	81
+972	63	612	55
+973	63	613	93
+974	63	614	96
+975	63	615	57
+976	63	616	67
+977	63	617	53
+978	63	618	45
+979	63	619	60
+980	63	620	68
+981	63	621	99
+982	63	622	53
+983	63	623	63
+984	63	624	68
+985	63	625	43
+986	63	626	70
+987	63	627	91
+988	63	628	51
+989	63	629	60
+990	63	630	69
+991	194	1911	58
+992	194	1912	65
+993	194	1913	96
+994	194	1914	55
+995	194	1915	59
+996	194	1916	91
+997	194	1917	79
+998	194	1918	48
+999	194	1919	54
+1000	194	1920	65
+1001	194	1921	90
+1002	194	1922	66
+1003	194	1923	85
+1004	194	1924	83
+1005	194	1925	95
+1006	194	1926	42
+1007	194	1927	96
+1008	194	1928	49
+1009	194	1929	52
+1010	194	1930	46
+1011	194	1931	88
+1012	194	1932	59
+1013	194	1933	42
+1014	194	1934	45
+1015	194	1935	76
+1016	194	1936	68
+1017	194	1937	89
+1018	194	1938	48
+1019	194	1939	79
+1020	194	1940	99
+1021	195	1911	72
+1022	195	1912	89
+1023	195	1913	91
+1024	195	1914	69
+1025	195	1915	50
+1026	195	1916	41
+1027	195	1917	97
+1028	195	1918	90
+1029	195	1919	76
+1030	195	1920	61
+1031	195	1921	70
+1032	195	1922	87
+1033	195	1923	56
+1034	195	1924	47
+1035	195	1925	59
+1036	195	1926	63
+1037	195	1927	45
+1038	195	1928	61
+1039	195	1929	93
+1040	195	1930	47
+1041	195	1931	45
+1042	195	1932	43
+1043	195	1933	81
+1044	195	1934	58
+1045	195	1935	87
+1046	195	1936	84
+1047	195	1937	69
+1048	195	1938	64
+1049	195	1939	77
+1050	195	1940	44
+1051	196	1941	47
+1052	196	1942	87
+1053	196	1943	69
+1054	196	1944	44
+1055	196	1945	61
+1056	196	1946	62
+1057	196	1947	97
+1058	196	1948	42
+1059	196	1949	98
+1060	196	1950	74
+1061	196	1951	71
+1062	196	1952	91
+1063	196	1953	84
+1064	196	1954	92
+1065	196	1955	66
+1066	196	1956	63
+1067	196	1957	57
+1068	196	1958	44
+1069	196	1959	52
+1070	196	1960	96
+1071	196	1961	70
+1072	196	1962	69
+1073	196	1963	73
+1074	196	1964	50
+1075	196	1965	89
+1076	196	1966	59
+1077	196	1967	76
+1078	196	1968	85
+1079	196	1969	94
+1080	196	1970	70
+1081	197	1941	79
+1082	197	1942	98
+1083	197	1943	83
+1084	197	1944	91
+1085	197	1945	96
+1086	197	1946	93
+1087	197	1947	72
+1088	197	1948	84
+1089	197	1949	70
+1090	197	1950	88
+1091	197	1951	85
+1092	197	1952	80
+1093	197	1953	77
+1094	197	1954	69
+1095	197	1955	61
+1096	197	1956	83
+1097	197	1957	42
+1098	197	1958	91
+1099	197	1959	75
+1100	197	1960	44
+1101	197	1961	70
+1102	197	1962	55
+1103	197	1963	74
+1104	197	1964	41
+1105	197	1965	95
+1106	197	1966	95
+1107	197	1967	42
+1108	197	1968	75
+1109	197	1969	76
+1110	197	1970	68
+1111	198	1941	46
+1112	198	1942	47
+1113	198	1943	91
+1114	198	1944	79
+1115	198	1945	43
+1116	198	1946	85
+1117	198	1947	48
+1118	198	1948	41
+1119	198	1949	61
+1120	198	1950	79
+1121	198	1951	69
+1122	198	1952	98
+1123	198	1953	48
+1124	198	1954	47
+1125	198	1955	89
+1126	198	1956	41
+1127	198	1957	89
+1128	198	1958	43
+1129	198	1959	99
+1130	198	1960	61
+1131	198	1961	75
+1132	198	1962	72
+1133	198	1963	71
+1134	198	1964	64
+1135	198	1965	97
+1136	198	1966	42
+1137	198	1967	98
+1138	198	1968	76
+1139	198	1969	55
+1140	198	1970	72
+1141	199	1971	63
+1142	199	1972	65
+1143	199	1973	67
+1144	199	1974	50
+1145	199	1975	98
+1146	199	1976	86
+1147	199	1977	78
+1148	199	1978	62
+1149	199	1979	51
+1150	199	1980	84
+1151	199	1981	96
+1152	199	1982	64
+1153	199	1983	73
+1154	199	1984	69
+1155	199	1985	76
+1156	199	1986	83
+1157	199	1987	99
+1158	199	1988	79
+1159	199	1989	70
+1160	199	1990	89
+1161	199	1991	42
+1162	199	1992	78
+1163	199	1993	94
+1164	199	1994	46
+1165	199	1995	55
+1166	199	1996	57
+1167	199	1997	49
+1168	199	1998	79
+1169	199	1999	51
+1170	199	2000	82
+1171	200	1971	86
+1172	200	1972	46
+1173	200	1973	95
+1174	200	1974	66
+1175	200	1975	42
+1176	200	1976	69
+1177	200	1977	93
+1178	200	1978	84
+1179	200	1979	53
+1180	200	1980	49
+1181	200	1981	99
+1182	200	1982	52
+1183	200	1983	47
+1184	200	1984	81
+1185	200	1985	42
+1186	200	1986	83
+1187	200	1987	58
+1188	200	1988	78
+1189	200	1989	50
+1190	200	1990	69
+1191	200	1991	69
+1192	200	1992	96
+1193	200	1993	57
+1194	200	1994	63
+1195	200	1995	44
+1196	200	1996	52
+1197	200	1997	75
+1198	200	1998	72
+1199	200	1999	60
+1200	200	2000	45
+1201	201	1971	78
+1202	201	1972	99
+1203	201	1973	77
+1204	201	1974	53
+1205	201	1975	42
+1206	201	1976	89
+1207	201	1977	49
+1208	201	1978	45
+1209	201	1979	47
+1210	201	1980	79
+1211	201	1981	97
+1212	201	1982	74
+1213	201	1983	81
+1214	201	1984	64
+1215	201	1985	49
+1216	201	1986	90
+1217	201	1987	49
+1218	201	1988	67
+1219	201	1989	83
+1220	201	1990	82
+1221	201	1991	41
+1222	201	1992	45
+1223	201	1993	91
+1224	201	1994	76
+1225	201	1995	79
+1226	201	1996	60
+1227	201	1997	83
+1228	201	1998	68
+1229	201	1999	46
+1230	201	2000	89
+1231	202	2001	55
+1232	202	2002	49
+1233	202	2003	67
+1234	202	2004	48
+1235	202	2005	41
+1236	202	2006	42
+1237	202	2007	59
+1238	202	2008	68
+1239	202	2009	53
+1240	202	2010	61
+1241	202	2011	47
+1242	202	2012	41
+1243	202	2013	52
+1244	202	2014	49
+1245	202	2015	71
+1246	202	2016	91
+1247	202	2017	97
+1248	202	2018	86
+1249	202	2019	73
+1250	202	2020	50
+1251	202	2021	59
+1252	202	2022	97
+1253	202	2023	86
+1254	202	2024	72
+1255	202	2025	74
+1256	202	2026	74
+1257	202	2027	47
+1258	202	2028	74
+1259	202	2029	48
+1260	202	2030	70
+1261	203	2001	90
+1262	203	2002	49
+1263	203	2003	98
+1264	203	2004	80
+1265	203	2005	81
+1266	203	2006	44
+1267	203	2007	80
+1268	203	2008	73
+1269	203	2009	80
+1270	203	2010	71
+1271	203	2011	76
+1272	203	2012	62
+1273	203	2013	92
+1274	203	2014	58
+1275	203	2015	64
+1276	203	2016	82
+1277	203	2017	58
+1278	203	2018	42
+1279	203	2019	91
+1280	203	2020	84
+1281	203	2021	81
+1282	203	2022	50
+1283	203	2023	50
+1284	203	2024	91
+1285	203	2025	56
+1286	203	2026	77
+1287	203	2027	83
+1288	203	2028	49
+1289	203	2029	41
+1290	203	2030	90
+1291	204	2001	81
+1292	204	2002	68
+1293	204	2003	88
+1294	204	2004	87
+1295	204	2005	93
+1296	204	2006	63
+1297	204	2007	68
+1298	204	2008	83
+1299	204	2009	82
+1300	204	2010	77
+1301	204	2011	42
+1302	204	2012	91
+1303	204	2013	53
+1304	204	2014	67
+1305	204	2015	53
+1306	204	2016	66
+1307	204	2017	95
+1308	204	2018	80
+1309	204	2019	75
+1310	204	2020	52
+1311	204	2021	70
+1312	204	2022	83
+1313	204	2023	56
+1314	204	2024	97
+1315	204	2025	61
+1316	204	2026	86
+1317	204	2027	41
+1318	204	2028	44
+1319	204	2029	75
+1320	204	2030	49
+1321	205	2031	70
+1322	205	2032	71
+1323	205	2033	63
+1324	205	2034	71
+1325	205	2035	55
+1326	205	2036	70
+1327	205	2037	65
+1328	205	2038	79
+1329	205	2039	71
+1330	205	2040	66
+1331	205	2041	61
+1332	205	2042	80
+1333	205	2043	63
+1334	205	2044	79
+1335	205	2045	93
+1336	205	2046	73
+1337	205	2047	45
+1338	205	2048	94
+1339	205	2049	96
+1340	205	2050	44
+1341	205	2051	55
+1342	205	2052	43
+1343	205	2053	97
+1344	205	2054	63
+1345	205	2055	79
+1346	205	2056	93
+1347	205	2057	96
+1348	205	2058	72
+1349	205	2059	89
+1350	205	2060	48
+1351	208	2061	87
+1352	208	2062	87
+1353	208	2063	50
+1354	208	2064	45
+1355	208	2065	83
+1356	208	2066	82
+1357	208	2067	46
+1358	208	2068	67
+1359	208	2069	78
+1360	208	2070	85
+1361	208	2071	84
+1362	208	2072	75
+1363	208	2073	67
+1364	208	2074	43
+1365	208	2075	56
+1366	208	2076	86
+1367	208	2077	44
+1368	208	2078	61
+1369	208	2079	96
+1370	208	2080	99
+1371	208	2081	57
+1372	208	2082	89
+1373	208	2083	47
+1374	208	2084	93
+1375	208	2085	57
+1376	208	2086	75
+1377	208	2087	42
+1378	208	2088	49
+1379	208	2089	85
+1380	208	2090	60
+1381	209	2061	54
+1382	209	2062	62
+1383	209	2063	48
+1384	209	2064	82
+1385	209	2065	88
+1386	209	2066	71
+1387	209	2067	73
+1388	209	2068	84
+1389	209	2069	64
+1390	209	2070	68
+1391	209	2071	98
+1392	209	2072	93
+1393	209	2073	54
+1394	209	2074	58
+1395	209	2075	41
+1396	209	2076	90
+1397	209	2077	87
+1398	209	2078	60
+1399	209	2079	48
+1400	209	2080	70
+1401	209	2081	70
+1402	209	2082	73
+1403	209	2083	56
+1404	209	2084	73
+1405	209	2085	42
+1406	209	2086	85
+1407	209	2087	92
+1408	209	2088	46
+1409	209	2089	51
+1410	209	2090	49
+1411	210	2061	46
+1412	210	2062	76
+1413	210	2063	41
+1414	210	2064	64
+1415	210	2065	89
+1416	210	2066	78
+1417	210	2067	63
+1418	210	2068	82
+1419	210	2069	51
+1420	210	2070	86
+1421	210	2071	53
+1422	210	2072	82
+1423	210	2073	95
+1424	210	2074	81
+1425	210	2075	85
+1426	210	2076	77
+1427	210	2077	48
+1428	210	2078	58
+1429	210	2079	42
+1430	210	2080	57
+1431	210	2081	81
+1432	210	2082	66
+1433	210	2083	74
+1434	210	2084	65
+1435	210	2085	89
+1436	210	2086	55
+1437	210	2087	70
+1438	210	2088	42
+1439	210	2089	67
+1440	210	2090	97
+1441	76	751	79
+1442	76	752	86
+1443	76	753	96
+1444	76	754	47
+1445	76	755	58
+1446	76	756	61
+1447	76	757	71
+1448	76	758	90
+1449	76	759	42
+1450	76	760	77
+1451	76	761	60
+1452	76	762	98
+1453	76	763	92
+1454	76	764	63
+1455	76	765	85
+1456	76	766	90
+1457	76	767	91
+1458	76	768	81
+1459	76	769	91
+1460	76	770	97
+1461	76	771	52
+1462	76	772	75
+1463	76	773	76
+1464	76	774	89
+1465	76	775	65
+1466	76	776	57
+1467	76	777	51
+1468	76	778	78
+1469	76	779	93
+1470	76	780	92
+1471	77	751	53
+1472	77	752	65
+1473	77	753	47
+1474	77	754	93
+1475	77	755	68
+1476	77	756	75
+1477	77	757	57
+1478	77	758	74
+1479	77	759	83
+1480	77	760	71
+1481	77	761	58
+1482	77	762	49
+1483	77	763	95
+1484	77	764	88
+1485	77	765	62
+1486	77	766	54
+1487	77	767	81
+1488	77	768	94
+1489	77	769	81
+1490	77	770	66
+1491	77	771	61
+1492	77	772	98
+1493	77	773	50
+1494	77	774	98
+1495	77	775	85
+1496	77	776	66
+1497	77	777	75
+1498	77	778	85
+1499	77	779	65
+1500	77	780	93
+1501	78	751	98
+1502	78	752	62
+1503	78	753	77
+1504	78	754	55
+1505	78	755	99
+1506	78	756	82
+1507	78	757	44
+1508	78	758	59
+1509	78	759	46
+1510	78	760	65
+1511	78	761	67
+1512	78	762	92
+1513	78	763	79
+1514	78	764	81
+1515	78	765	75
+1516	78	766	59
+1517	78	767	72
+1518	78	768	91
+1519	78	769	57
+1520	78	770	87
+1521	78	771	95
+1522	78	772	57
+1523	78	773	49
+1524	78	774	44
+1525	78	775	75
+1526	78	776	81
+1527	78	777	96
+1528	78	778	67
+1529	78	779	51
+1530	78	780	47
+1531	79	781	63
+1532	79	782	80
+1533	79	783	79
+1534	79	784	52
+1535	79	785	84
+1536	79	786	76
+1537	79	787	95
+1538	79	788	80
+1539	79	789	87
+1540	79	790	69
+1541	79	791	58
+1542	79	792	77
+1543	79	793	76
+1544	79	794	62
+1545	79	795	80
+1546	79	796	84
+1547	79	797	83
+1548	79	798	69
+1549	79	799	71
+1550	79	800	82
+1551	79	801	59
+1552	79	802	94
+1553	79	803	42
+1554	79	804	68
+1555	79	805	65
+1556	79	806	50
+1557	79	807	83
+1558	79	808	72
+1559	79	809	45
+1560	79	810	73
+1561	80	781	93
+1562	80	782	92
+1563	80	783	91
+1564	80	784	94
+1565	80	785	78
+1566	80	786	89
+1567	80	787	74
+1568	80	788	86
+1569	80	789	44
+1570	80	790	51
+1571	80	791	66
+1572	80	792	46
+1573	80	793	41
+1574	80	794	59
+1575	80	795	79
+1576	80	796	89
+1577	80	797	43
+1578	80	798	79
+1579	80	799	57
+1580	80	800	42
+1581	80	801	63
+1582	80	802	48
+1583	80	803	77
+1584	80	804	77
+1585	80	805	46
+1586	80	806	66
+1587	80	807	83
+1588	80	808	51
+1589	80	809	94
+1590	80	810	80
+1591	81	781	70
+1592	81	782	60
+1593	81	783	76
+1594	81	784	79
+1595	81	785	50
+1596	81	786	54
+1597	81	787	47
+1598	81	788	78
+1599	81	789	63
+1600	81	790	45
+1601	81	791	81
+1602	81	792	58
+1603	81	793	50
+1604	81	794	68
+1605	81	795	42
+1606	81	796	84
+1607	81	797	56
+1608	81	798	85
+1609	81	799	53
+1610	81	800	49
+1611	81	801	90
+1612	81	802	92
+1613	81	803	89
+1614	81	804	91
+1615	81	805	99
+1616	81	806	46
+1617	81	807	61
+1618	81	808	94
+1619	81	809	47
+1620	81	810	59
+1621	82	811	55
+1622	82	812	53
+1623	82	813	70
+1624	82	814	91
+1625	82	815	84
+1626	82	816	46
+1627	82	817	45
+1628	82	818	92
+1629	82	819	86
+1630	82	820	56
+1631	82	821	98
+1632	82	822	79
+1633	82	823	84
+1634	82	824	51
+1635	82	825	75
+1636	82	826	50
+1637	82	827	88
+1638	82	828	53
+1639	82	829	47
+1640	82	830	44
+1641	82	831	47
+1642	82	832	42
+1643	82	833	98
+1644	82	834	55
+1645	82	835	57
+1646	82	836	50
+1647	82	837	81
+1648	82	838	75
+1649	82	839	86
+1650	82	840	51
+1651	83	811	65
+1652	83	812	55
+1653	83	813	58
+1654	83	814	45
+1655	83	815	79
+1656	83	816	67
+1657	83	817	81
+1658	83	818	98
+1659	83	819	58
+1660	83	820	63
+1661	83	821	76
+1662	83	822	83
+1663	83	823	64
+1664	83	824	59
+1665	83	825	95
+1666	83	826	42
+1667	83	827	49
+1668	83	828	73
+1669	83	829	73
+1670	83	830	87
+1671	83	831	55
+1672	83	832	53
+1673	83	833	68
+1674	83	834	66
+1675	83	835	54
+1676	83	836	60
+1677	83	837	69
+1678	83	838	45
+1679	83	839	57
+1680	83	840	81
+1681	85	841	50
+1682	85	842	52
+1683	85	843	90
+1684	85	844	63
+1685	85	845	88
+1686	85	846	88
+1687	85	847	55
+1688	85	848	59
+1689	85	849	53
+1690	85	850	98
+1691	85	851	98
+1692	85	852	79
+1693	85	853	97
+1694	85	854	68
+1695	85	855	57
+1696	85	856	68
+1697	85	857	75
+1698	85	858	88
+1699	85	859	50
+1700	85	860	73
+1701	85	861	60
+1702	85	862	55
+1703	85	863	76
+1704	85	864	68
+1705	85	865	62
+1706	85	866	80
+1707	85	867	66
+1708	85	868	82
+1709	85	869	58
+1710	85	870	85
+1711	86	841	45
+1712	86	842	72
+1713	86	843	49
+1714	86	844	68
+1715	86	845	88
+1716	86	846	74
+1717	86	847	79
+1718	86	848	87
+1719	86	849	62
+1720	86	850	85
+1721	86	851	96
+1722	86	852	41
+1723	86	853	53
+1724	86	854	94
+1725	86	855	81
+1726	86	856	95
+1727	86	857	98
+1728	86	858	47
+1729	86	859	76
+1730	86	860	64
+1731	86	861	83
+1732	86	862	60
+1733	86	863	63
+1734	86	864	61
+1735	86	865	50
+1736	86	866	88
+1737	86	867	99
+1738	86	868	83
+1739	86	869	52
+1740	86	870	60
+1741	84	811	94
+1742	84	812	93
+1743	84	813	79
+1744	84	814	70
+1745	84	815	66
+1746	84	816	67
+1747	84	817	65
+1748	84	818	81
+1749	84	819	52
+1750	84	820	89
+1751	84	821	59
+1752	84	822	68
+1753	84	823	52
+1754	84	824	44
+1755	84	825	68
+1756	84	826	60
+1757	84	827	70
+1758	84	828	48
+1759	84	829	67
+1760	84	830	57
+1761	84	831	99
+1762	84	832	87
+1763	84	833	59
+1764	84	834	68
+1765	84	835	82
+1766	84	836	41
+1767	84	837	64
+1768	84	838	69
+1769	84	839	48
+1770	84	840	43
+1771	278	2751	80
+1772	278	2752	76
+1773	278	2753	43
+1774	278	2754	46
+1775	278	2755	55
+1776	278	2756	81
+1777	278	2757	71
+1778	278	2758	98
+1779	278	2759	78
+1780	278	2760	52
+1781	278	2761	49
+1782	278	2762	51
+1783	278	2763	72
+1784	278	2764	94
+1785	278	2765	78
+1786	278	2766	76
+1787	278	2767	56
+1788	278	2768	60
+1789	278	2769	57
+1790	278	2770	99
+1791	278	2771	67
+1792	278	2772	68
+1793	278	2773	89
+1794	278	2774	97
+1795	278	2775	67
+1796	278	2776	77
+1797	278	2777	76
+1798	278	2778	60
+1799	278	2779	62
+1800	278	2780	41
+1801	279	2751	74
+1802	279	2752	67
+1803	279	2753	80
+1804	279	2754	71
+1805	279	2755	56
+1806	279	2756	58
+1807	279	2757	95
+1808	279	2758	88
+1809	279	2759	98
+1810	279	2760	74
+1811	279	2761	56
+1812	279	2762	71
+1813	279	2763	59
+1814	279	2764	58
+1815	279	2765	48
+1816	279	2766	55
+1817	279	2767	41
+1818	279	2768	42
+1819	279	2769	76
+1820	279	2770	99
+1821	279	2771	50
+1822	279	2772	91
+1823	279	2773	55
+1824	279	2774	54
+1825	279	2775	66
+1826	279	2776	75
+1827	279	2777	69
+1828	279	2778	91
+1829	279	2779	64
+1830	279	2780	66
+1831	288	2841	79
+1832	288	2842	92
+1833	288	2843	80
+1834	288	2844	91
+1835	288	2845	93
+1836	288	2846	90
+1837	288	2847	42
+1838	288	2848	57
+1839	288	2849	68
+1840	288	2850	63
+1841	288	2851	98
+1842	288	2852	65
+1843	288	2853	59
+1844	288	2854	99
+1845	288	2855	91
+1846	288	2856	63
+1847	288	2857	83
+1848	288	2858	81
+1849	288	2859	94
+1850	288	2860	95
+1851	288	2861	72
+1852	288	2862	63
+1853	288	2863	55
+1854	288	2864	62
+1855	288	2865	48
+1856	288	2866	52
+1857	288	2867	63
+1858	288	2868	59
+1859	288	2869	67
+1860	288	2870	68
+1861	291	2871	91
+1862	291	2872	54
+1863	291	2873	65
+1864	291	2874	63
+1865	291	2875	69
+1866	291	2876	91
+1867	291	2877	48
+1868	291	2878	85
+1869	291	2879	76
+1870	291	2880	75
+1871	291	2881	69
+1872	291	2882	52
+1873	291	2883	51
+1874	291	2884	65
+1875	291	2885	66
+1876	291	2886	64
+1877	291	2887	54
+1878	291	2888	54
+1879	291	2889	65
+1880	291	2890	79
+1881	291	2891	51
+1882	291	2892	77
+1883	291	2893	82
+1884	291	2894	93
+1885	291	2895	65
+1886	291	2896	74
+1887	291	2897	96
+1888	291	2898	83
+1889	291	2899	52
+1890	291	2900	71
+1891	296	2931	92
+1892	296	2932	48
+1893	296	2933	59
+1894	296	2934	44
+1895	296	2935	77
+1896	296	2936	92
+1897	296	2937	59
+1898	296	2938	60
+1899	296	2939	41
+1900	296	2940	42
+1901	296	2941	46
+1902	296	2942	75
+1903	296	2943	47
+1904	296	2944	47
+1905	296	2945	89
+1906	296	2946	42
+1907	296	2947	76
+1908	296	2948	93
+1909	296	2949	63
+1910	296	2950	62
+1911	296	2951	45
+1912	296	2952	69
+1913	296	2953	77
+1914	296	2954	86
+1915	296	2955	97
+1916	296	2956	92
+1917	296	2957	59
+1918	296	2958	61
+1919	296	2959	91
+1920	296	2960	65
+1921	297	2931	82
+1922	297	2932	65
+1923	297	2933	62
+1924	297	2934	45
+1925	297	2935	95
+1926	297	2936	92
+1927	297	2937	45
+1928	297	2938	50
+1929	297	2939	81
+1930	297	2940	58
+1931	297	2941	61
+1932	297	2942	82
+1933	297	2943	44
+1934	297	2944	92
+1935	297	2945	56
+1936	297	2946	99
+1937	297	2947	49
+1938	297	2948	93
+1939	297	2949	99
+1940	297	2950	61
+1941	297	2951	42
+1942	297	2952	58
+1943	297	2953	92
+1944	297	2954	88
+1945	297	2955	77
+1946	297	2956	80
+1947	297	2957	52
+1948	297	2958	84
+1949	297	2959	72
+1950	297	2960	45
+1951	302	2991	99
+1952	302	2992	62
+1953	302	2993	87
+1954	302	2994	53
+1955	302	2995	67
+1956	302	2996	86
+1957	302	2997	43
+1958	302	2998	45
+1959	302	2999	95
+1960	302	3000	59
+1961	302	3001	63
+1962	302	3002	89
+1963	302	3003	59
+1964	302	3004	48
+1965	302	3005	88
+1966	302	3006	56
+1967	302	3007	60
+1968	302	3008	67
+1969	302	3009	78
+1970	302	3010	59
+1971	302	3011	88
+1972	302	3012	78
+1973	302	3013	48
+1974	302	3014	51
+1975	302	3015	97
+1976	302	3016	42
+1977	302	3017	74
+1978	302	3018	53
+1979	302	3019	57
+1980	302	3020	41
+1981	303	2991	45
+1982	303	2992	52
+1983	303	2993	91
+1984	303	2994	54
+1985	303	2995	78
+1986	303	2996	73
+1987	303	2997	58
+1988	303	2998	61
+1989	303	2999	96
+1990	303	3000	84
+1991	303	3001	80
+1992	303	3002	86
+1993	303	3003	99
+1994	303	3004	91
+1995	303	3005	53
+1996	303	3006	98
+1997	303	3007	51
+1998	303	3008	56
+1999	303	3009	72
+2000	303	3010	66
+2001	303	3011	66
+2002	303	3012	95
+2003	303	3013	52
+2004	303	3014	74
+2005	303	3015	57
+2006	303	3016	80
+2007	303	3017	86
+2008	303	3018	51
+2009	303	3019	50
+2010	303	3020	96
+2011	258	2541	46
+2012	258	2542	53
+2013	258	2543	90
+2014	258	2544	46
+2015	258	2545	50
+2016	258	2546	88
+2017	258	2547	84
+2018	258	2548	97
+2019	258	2549	70
+2020	258	2550	44
+2021	258	2551	72
+2022	258	2552	86
+2023	258	2553	64
+2024	258	2554	63
+2025	258	2555	54
+2026	258	2556	76
+2027	258	2557	82
+2028	258	2558	41
+2029	258	2559	58
+2030	258	2560	63
+2031	258	2561	66
+2032	258	2562	95
+2033	258	2563	91
+2034	258	2564	68
+2035	258	2565	59
+2036	258	2566	72
+2037	258	2567	97
+2038	258	2568	94
+2039	258	2569	88
+2040	258	2570	41
+2041	261	2571	68
+2042	261	2572	53
+2043	261	2573	72
+2044	261	2574	99
+2045	261	2575	72
+2046	261	2576	51
+2047	261	2577	97
+2048	261	2578	67
+2049	261	2579	88
+2050	261	2580	61
+2051	261	2581	74
+2052	261	2582	50
+2053	261	2583	51
+2054	261	2584	96
+2055	261	2585	42
+2056	261	2586	88
+2057	261	2587	94
+2058	261	2588	84
+2059	261	2589	70
+2060	261	2590	70
+2061	261	2591	76
+2062	261	2592	98
+2063	261	2593	73
+2064	261	2594	87
+2065	261	2595	89
+2066	261	2596	86
+2067	261	2597	74
+2068	261	2598	83
+2069	261	2599	42
+2070	261	2600	47
+2071	72	691	48
+2072	72	692	76
+2073	72	693	61
+2074	72	694	55
+2075	72	695	83
+2076	72	696	49
+2077	72	697	59
+2078	72	698	44
+2079	72	699	78
+2080	72	700	96
+2081	72	701	52
+2082	72	702	98
+2083	72	703	49
+2084	72	704	43
+2085	72	705	55
+2086	72	706	61
+2087	72	707	54
+2088	72	708	62
+2089	72	709	54
+2090	72	710	85
+2091	72	711	81
+2092	72	712	59
+2093	72	713	62
+2094	72	714	47
+2095	72	715	58
+2096	72	716	52
+2097	72	717	79
+2098	72	718	90
+2099	72	719	69
+2100	72	720	73
+2101	75	721	57
+2102	75	722	51
+2103	75	723	49
+2104	75	724	72
+2105	75	725	65
+2106	75	726	68
+2107	75	727	79
+2108	75	728	45
+2109	75	729	71
+2110	75	730	76
+2111	75	731	68
+2112	75	732	89
+2113	75	733	90
+2114	75	734	44
+2115	75	735	89
+2116	75	736	83
+2117	75	737	93
+2118	75	738	62
+2119	75	739	44
+2120	75	740	98
+2121	75	741	87
+2122	75	742	67
+2123	75	743	78
+2124	75	744	50
+2125	75	745	47
+2126	75	746	97
+2127	75	747	74
+2128	75	748	58
+2129	75	749	78
+2130	75	750	63
+2131	264	2601	46
+2132	264	2602	59
+2133	264	2603	69
+2134	264	2604	52
+2135	264	2605	86
+2136	264	2606	47
+2137	264	2607	75
+2138	264	2608	57
+2139	264	2609	43
+2140	264	2610	93
+2141	264	2611	94
+2142	264	2612	84
+2143	264	2613	58
+2144	264	2614	64
+2145	264	2615	57
+2146	264	2616	90
+2147	264	2617	93
+2148	264	2618	54
+2149	264	2619	73
+2150	264	2620	57
+2151	264	2621	71
+2152	264	2622	92
+2153	264	2623	67
+2154	264	2624	67
+2155	264	2625	81
+2156	264	2626	68
+2157	264	2627	63
+2158	264	2628	92
+2159	264	2629	54
+2160	264	2630	81
+2161	265	2631	75
+2162	265	2632	59
+2163	265	2633	60
+2164	265	2634	95
+2165	265	2635	57
+2166	265	2636	67
+2167	265	2637	53
+2168	265	2638	56
+2169	265	2639	95
+2170	265	2640	84
+2171	265	2641	64
+2172	265	2642	85
+2173	265	2643	93
+2174	265	2644	62
+2175	265	2645	71
+2176	265	2646	85
+2177	265	2647	98
+2178	265	2648	95
+2179	265	2649	62
+2180	265	2650	52
+2181	265	2651	95
+2182	265	2652	42
+2183	265	2653	66
+2184	265	2654	73
+2185	265	2655	52
+2186	265	2656	90
+2187	265	2657	63
+2188	265	2658	66
+2189	265	2659	51
+2190	265	2660	93
+2191	266	2631	79
+2192	266	2632	71
+2193	266	2633	84
+2194	266	2634	64
+2195	266	2635	93
+2196	266	2636	43
+2197	266	2637	84
+2198	266	2638	94
+2199	266	2639	55
+2200	266	2640	64
+2201	266	2641	89
+2202	266	2642	70
+2203	266	2643	61
+2204	266	2644	78
+2205	266	2645	76
+2206	266	2646	53
+2207	266	2647	55
+2208	266	2648	45
+2209	266	2649	69
+2210	266	2650	48
+2211	266	2651	54
+2212	266	2652	41
+2213	266	2653	96
+2214	266	2654	53
+2215	266	2655	54
+2216	266	2656	73
+2217	266	2657	93
+2218	266	2658	70
+2219	266	2659	85
+2220	266	2660	87
+2221	267	2631	95
+2222	267	2632	61
+2223	267	2633	58
+2224	267	2634	69
+2225	267	2635	46
+2226	267	2636	67
+2227	267	2637	70
+2228	267	2638	44
+2229	267	2639	93
+2230	267	2640	55
+2231	267	2641	70
+2232	267	2642	59
+2233	267	2643	84
+2234	267	2644	56
+2235	267	2645	80
+2236	267	2646	65
+2237	267	2647	70
+2238	267	2648	69
+2239	267	2649	72
+2240	267	2650	88
+2241	267	2651	90
+2242	267	2652	41
+2243	267	2653	79
+2244	267	2654	87
+2245	267	2655	42
+2246	267	2656	73
+2247	267	2657	82
+2248	267	2658	83
+2249	267	2659	74
+2250	267	2660	53
+2251	268	2661	43
+2252	268	2662	73
+2253	268	2663	82
+2254	268	2664	59
+2255	268	2665	81
+2256	268	2666	55
+2257	268	2667	82
+2258	268	2668	65
+2259	268	2669	72
+2260	268	2670	59
+2261	268	2671	88
+2262	268	2672	53
+2263	268	2673	94
+2264	268	2674	44
+2265	268	2675	41
+2266	268	2676	42
+2267	268	2677	53
+2268	268	2678	48
+2269	268	2679	76
+2270	268	2680	81
+2271	268	2681	83
+2272	268	2682	77
+2273	268	2683	83
+2274	268	2684	53
+2275	268	2685	91
+2276	268	2686	76
+2277	268	2687	56
+2278	268	2688	73
+2279	268	2689	58
+2280	268	2690	91
+2281	269	2661	97
+2282	269	2662	88
+2283	269	2663	99
+2284	269	2664	72
+2285	269	2665	45
+2286	269	2666	77
+2287	269	2667	46
+2288	269	2668	85
+2289	269	2669	54
+2290	269	2670	92
+2291	269	2671	73
+2292	269	2672	69
+2293	269	2673	57
+2294	269	2674	82
+2295	269	2675	81
+2296	269	2676	68
+2297	269	2677	46
+2298	269	2678	95
+2299	269	2679	77
+2300	269	2680	84
+2301	269	2681	57
+2302	269	2682	64
+2303	269	2683	44
+2304	269	2684	61
+2305	269	2685	77
+2306	269	2686	78
+2307	269	2687	92
+2308	269	2688	47
+2309	269	2689	91
+2310	269	2690	70
+2311	270	2661	93
+2312	270	2662	67
+2313	270	2663	45
+2314	270	2664	83
+2315	270	2665	71
+2316	270	2666	54
+2317	270	2667	60
+2318	270	2668	76
+2319	270	2669	62
+2320	270	2670	41
+2321	270	2671	65
+2322	270	2672	70
+2323	270	2673	42
+2324	270	2674	84
+2325	270	2675	87
+2326	270	2676	79
+2327	270	2677	58
+2328	270	2678	74
+2329	270	2679	57
+2330	270	2680	96
+2331	270	2681	51
+2332	270	2682	63
+2333	270	2683	64
+2334	270	2684	64
+2335	270	2685	69
+2336	270	2686	87
+2337	270	2687	52
+2338	270	2688	91
+2339	270	2689	90
+2340	270	2690	96
+2341	271	2691	49
+2342	271	2692	81
+2343	271	2693	41
+2344	271	2694	68
+2345	271	2695	56
+2346	271	2696	45
+2347	271	2697	46
+2348	271	2698	81
+2349	271	2699	71
+2350	271	2700	89
+2351	271	2701	51
+2352	271	2702	83
+2353	271	2703	61
+2354	271	2704	86
+2355	271	2705	86
+2356	271	2706	64
+2357	271	2707	69
+2358	271	2708	89
+2359	271	2709	57
+2360	271	2710	92
+2361	271	2711	74
+2362	271	2712	87
+2363	271	2713	69
+2364	271	2714	97
+2365	271	2715	71
+2366	271	2716	69
+2367	271	2717	51
+2368	271	2718	43
+2369	271	2719	42
+2370	271	2720	55
+2371	272	2691	98
+2372	272	2692	45
+2373	272	2693	89
+2374	272	2694	69
+2375	272	2695	85
+2376	272	2696	43
+2377	272	2697	91
+2378	272	2698	74
+2379	272	2699	64
+2380	272	2700	89
+2381	272	2701	67
+2382	272	2702	64
+2383	272	2703	57
+2384	272	2704	82
+2385	272	2705	79
+2386	272	2706	81
+2387	272	2707	90
+2388	272	2708	72
+2389	272	2709	96
+2390	272	2710	79
+2391	272	2711	49
+2392	272	2712	73
+2393	272	2713	47
+2394	272	2714	89
+2395	272	2715	86
+2396	272	2716	82
+2397	272	2717	69
+2398	272	2718	90
+2399	272	2719	71
+2400	272	2720	90
+2401	273	2691	46
+2402	273	2692	91
+2403	273	2693	76
+2404	273	2694	93
+2405	273	2695	79
+2406	273	2696	61
+2407	273	2697	64
+2408	273	2698	84
+2409	273	2699	50
+2410	273	2700	80
+2411	273	2701	65
+2412	273	2702	83
+2413	273	2703	64
+2414	273	2704	49
+2415	273	2705	54
+2416	273	2706	81
+2417	273	2707	54
+2418	273	2708	99
+2419	273	2709	95
+2420	273	2710	86
+2421	273	2711	74
+2422	273	2712	44
+2423	273	2713	79
+2424	273	2714	96
+2425	273	2715	44
+2426	273	2716	65
+2427	273	2717	72
+2428	273	2718	84
+2429	273	2719	95
+2430	273	2720	60
+2431	274	2721	81
+2432	274	2722	91
+2433	274	2723	57
+2434	274	2724	74
+2435	274	2725	89
+2436	274	2726	62
+2437	274	2727	77
+2438	274	2728	97
+2439	274	2729	50
+2440	274	2730	90
+2441	274	2731	84
+2442	274	2732	80
+2443	274	2733	57
+2444	274	2734	59
+2445	274	2735	96
+2446	274	2736	92
+2447	274	2737	47
+2448	274	2738	46
+2449	274	2739	77
+2450	274	2740	57
+2451	274	2741	92
+2452	274	2742	44
+2453	274	2743	95
+2454	274	2744	69
+2455	274	2745	86
+2456	274	2746	89
+2457	274	2747	71
+2458	274	2748	77
+2459	274	2749	93
+2460	274	2750	88
+2461	275	2721	96
+2462	275	2722	73
+2463	275	2723	80
+2464	275	2724	69
+2465	275	2725	96
+2466	275	2726	44
+2467	275	2727	76
+2468	275	2728	92
+2469	275	2729	73
+2470	275	2730	57
+2471	275	2731	62
+2472	275	2732	67
+2473	275	2733	79
+2474	275	2734	69
+2475	275	2735	84
+2476	275	2736	82
+2477	275	2737	50
+2478	275	2738	88
+2479	275	2739	56
+2480	275	2740	62
+2481	275	2741	55
+2482	275	2742	58
+2483	275	2743	84
+2484	275	2744	89
+2485	275	2745	58
+2486	275	2746	77
+2487	275	2747	96
+2488	275	2748	67
+2489	275	2749	91
+2490	275	2750	91
+2491	276	2721	79
+2492	276	2722	91
+2493	276	2723	58
+2494	276	2724	59
+2495	276	2725	61
+2496	276	2726	94
+2497	276	2727	44
+2498	276	2728	73
+2499	276	2729	85
+2500	276	2730	76
+2501	276	2731	87
+2502	276	2732	43
+2503	276	2733	53
+2504	276	2734	68
+2505	276	2735	56
+2506	276	2736	97
+2507	276	2737	86
+2508	276	2738	44
+2509	276	2739	97
+2510	276	2740	43
+2511	276	2741	86
+2512	276	2742	91
+2513	276	2743	97
+2514	276	2744	53
+2515	276	2745	43
+2516	276	2746	68
+2517	276	2747	80
+2518	276	2748	81
+2519	276	2749	87
+2520	276	2750	75
+2521	277	2751	72
+2522	277	2752	77
+2523	277	2753	75
+2524	277	2754	54
+2525	277	2755	50
+2526	277	2756	49
+2527	277	2757	68
+2528	277	2758	84
+2529	277	2759	99
+2530	277	2760	65
+2531	277	2761	80
+2532	277	2762	65
+2533	277	2763	87
+2534	277	2764	83
+2535	277	2765	80
+2536	277	2766	74
+2537	277	2767	89
+2538	277	2768	45
+2539	277	2769	67
+2540	277	2770	55
+2541	277	2771	46
+2542	277	2772	91
+2543	277	2773	68
+2544	277	2774	63
+2545	277	2775	61
+2546	277	2776	90
+2547	277	2777	94
+2548	277	2778	95
+2549	277	2779	97
+2550	277	2780	71
+2551	280	2781	83
+2552	280	2782	57
+2553	280	2783	99
+2554	280	2784	89
+2555	280	2785	79
+2556	280	2786	53
+2557	280	2787	82
+2558	280	2788	86
+2559	280	2789	43
+2560	280	2790	98
+2561	280	2791	65
+2562	280	2792	45
+2563	280	2793	59
+2564	280	2794	56
+2565	280	2795	97
+2566	280	2796	76
+2567	280	2797	70
+2568	280	2798	43
+2569	280	2799	87
+2570	280	2800	96
+2571	280	2801	72
+2572	280	2802	43
+2573	280	2803	71
+2574	280	2804	49
+2575	280	2805	81
+2576	280	2806	76
+2577	280	2807	92
+2578	280	2808	71
+2579	280	2809	67
+2580	280	2810	46
+2581	281	2781	79
+2582	281	2782	85
+2583	281	2783	73
+2584	281	2784	92
+2585	281	2785	88
+2586	281	2786	80
+2587	281	2787	66
+2588	281	2788	73
+2589	281	2789	76
+2590	281	2790	74
+2591	281	2791	81
+2592	281	2792	66
+2593	281	2793	87
+2594	281	2794	81
+2595	281	2795	82
+2596	281	2796	53
+2597	281	2797	41
+2598	281	2798	93
+2599	281	2799	97
+2600	281	2800	85
+2601	281	2801	93
+2602	281	2802	54
+2603	281	2803	45
+2604	281	2804	74
+2605	281	2805	59
+2606	281	2806	88
+2607	281	2807	72
+2608	281	2808	47
+2609	281	2809	79
+2610	281	2810	71
+2611	282	2781	86
+2612	282	2782	91
+2613	282	2783	87
+2614	282	2784	91
+2615	282	2785	99
+2616	282	2786	70
+2617	282	2787	59
+2618	282	2788	65
+2619	282	2789	95
+2620	282	2790	73
+2621	282	2791	89
+2622	282	2792	94
+2623	282	2793	68
+2624	282	2794	83
+2625	282	2795	46
+2626	282	2796	60
+2627	282	2797	93
+2628	282	2798	89
+2629	282	2799	67
+2630	282	2800	85
+2631	282	2801	98
+2632	282	2802	89
+2633	282	2803	56
+2634	282	2804	61
+2635	282	2805	86
+2636	282	2806	67
+2637	282	2807	77
+2638	282	2808	57
+2639	282	2809	45
+2640	282	2810	43
+2641	283	2811	86
+2642	283	2812	76
+2643	283	2813	88
+2644	283	2814	89
+2645	283	2815	73
+2646	283	2816	68
+2647	283	2817	86
+2648	283	2818	74
+2649	283	2819	81
+2650	283	2820	84
+2651	283	2821	76
+2652	283	2822	92
+2653	283	2823	95
+2654	283	2824	57
+2655	283	2825	99
+2656	283	2826	53
+2657	283	2827	47
+2658	283	2828	85
+2659	283	2829	92
+2660	283	2830	51
+2661	283	2831	68
+2662	283	2832	75
+2663	283	2833	55
+2664	283	2834	93
+2665	283	2835	69
+2666	283	2836	64
+2667	283	2837	70
+2668	283	2838	64
+2669	283	2839	89
+2670	283	2840	87
+2671	284	2811	72
+2672	284	2812	89
+2673	284	2813	98
+2674	284	2814	92
+2675	284	2815	79
+2676	284	2816	93
+2677	284	2817	49
+2678	284	2818	64
+2679	284	2819	51
+2680	284	2820	82
+2681	284	2821	52
+2682	284	2822	81
+2683	284	2823	69
+2684	284	2824	48
+2685	284	2825	65
+2686	284	2826	80
+2687	284	2827	47
+2688	284	2828	88
+2689	284	2829	60
+2690	284	2830	45
+2691	284	2831	71
+2692	284	2832	85
+2693	284	2833	67
+2694	284	2834	50
+2695	284	2835	83
+2696	284	2836	94
+2697	284	2837	72
+2698	284	2838	90
+2699	284	2839	99
+2700	284	2840	95
+2701	285	2811	50
+2702	285	2812	62
+2703	285	2813	57
+2704	285	2814	50
+2705	285	2815	75
+2706	285	2816	56
+2707	285	2817	77
+2708	285	2818	99
+2709	285	2819	53
+2710	285	2820	58
+2711	285	2821	67
+2712	285	2822	68
+2713	285	2823	93
+2714	285	2824	48
+2715	285	2825	96
+2716	285	2826	49
+2717	285	2827	89
+2718	285	2828	83
+2719	285	2829	51
+2720	285	2830	73
+2721	285	2831	67
+2722	285	2832	71
+2723	285	2833	45
+2724	285	2834	74
+2725	285	2835	57
+2726	285	2836	99
+2727	285	2837	64
+2728	285	2838	59
+2729	285	2839	43
+2730	285	2840	64
+2731	286	2841	51
+2732	286	2842	89
+2733	286	2843	44
+2734	286	2844	44
+2735	286	2845	58
+2736	286	2846	91
+2737	286	2847	89
+2738	286	2848	50
+2739	286	2849	89
+2740	286	2850	55
+2741	286	2851	52
+2742	286	2852	91
+2743	286	2853	94
+2744	286	2854	97
+2745	286	2855	50
+2746	286	2856	72
+2747	286	2857	67
+2748	286	2858	48
+2749	286	2859	68
+2750	286	2860	53
+2751	286	2861	50
+2752	286	2862	51
+2753	286	2863	67
+2754	286	2864	66
+2755	286	2865	95
+2756	286	2866	42
+2757	286	2867	58
+2758	286	2868	82
+2759	286	2869	92
+2760	286	2870	49
+2761	287	2841	61
+2762	287	2842	90
+2763	287	2843	68
+2764	287	2844	47
+2765	287	2845	85
+2766	287	2846	54
+2767	287	2847	91
+2768	287	2848	76
+2769	287	2849	88
+2770	287	2850	71
+2771	287	2851	86
+2772	287	2852	93
+2773	287	2853	90
+2774	287	2854	44
+2775	287	2855	63
+2776	287	2856	85
+2777	287	2857	47
+2778	287	2858	70
+2779	287	2859	57
+2780	287	2860	75
+2781	287	2861	54
+2782	287	2862	68
+2783	287	2863	81
+2784	287	2864	98
+2785	287	2865	75
+2786	287	2866	48
+2787	287	2867	48
+2788	287	2868	67
+2789	287	2869	67
+2790	287	2870	45
+2791	289	2871	87
+2792	289	2872	98
+2793	289	2873	98
+2794	289	2874	58
+2795	289	2875	88
+2796	289	2876	90
+2797	289	2877	41
+2798	289	2878	97
+2799	289	2879	94
+2800	289	2880	94
+2801	289	2881	90
+2802	289	2882	64
+2803	289	2883	52
+2804	289	2884	97
+2805	289	2885	68
+2806	289	2886	60
+2807	289	2887	82
+2808	289	2888	93
+2809	289	2889	47
+2810	289	2890	46
+2811	289	2891	85
+2812	289	2892	60
+2813	289	2893	78
+2814	289	2894	79
+2815	289	2895	98
+2816	289	2896	73
+2817	289	2897	73
+2818	289	2898	62
+2819	289	2899	67
+2820	289	2900	71
+2821	290	2871	89
+2822	290	2872	97
+2823	290	2873	68
+2824	290	2874	61
+2825	290	2875	47
+2826	290	2876	94
+2827	290	2877	55
+2828	290	2878	74
+2829	290	2879	99
+2830	290	2880	80
+2831	290	2881	58
+2832	290	2882	43
+2833	290	2883	44
+2834	290	2884	72
+2835	290	2885	58
+2836	290	2886	98
+2837	290	2887	86
+2838	290	2888	80
+2839	290	2889	77
+2840	290	2890	70
+2841	290	2891	92
+2842	290	2892	45
+2843	290	2893	45
+2844	290	2894	71
+2845	290	2895	42
+2846	290	2896	70
+2847	290	2897	55
+2848	290	2898	72
+2849	290	2899	72
+2850	290	2900	54
+2851	292	2901	59
+2852	292	2902	45
+2853	292	2903	86
+2854	292	2904	65
+2855	292	2905	53
+2856	292	2906	48
+2857	292	2907	75
+2858	292	2908	65
+2859	292	2909	53
+2860	292	2910	82
+2861	292	2911	84
+2862	292	2912	42
+2863	292	2913	46
+2864	292	2914	83
+2865	292	2915	67
+2866	292	2916	41
+2867	292	2917	67
+2868	292	2918	83
+2869	292	2919	94
+2870	292	2920	97
+2871	292	2921	58
+2872	292	2922	71
+2873	292	2923	83
+2874	292	2924	79
+2875	292	2925	81
+2876	292	2926	81
+2877	292	2927	67
+2878	292	2928	51
+2879	292	2929	45
+2880	292	2930	83
+2881	293	2901	99
+2882	293	2902	82
+2883	293	2903	99
+2884	293	2904	53
+2885	293	2905	72
+2886	293	2906	73
+2887	293	2907	86
+2888	293	2908	77
+2889	293	2909	42
+2890	293	2910	70
+2891	293	2911	55
+2892	293	2912	96
+2893	293	2913	77
+2894	293	2914	90
+2895	293	2915	75
+2896	293	2916	91
+2897	293	2917	54
+2898	293	2918	83
+2899	293	2919	91
+2900	293	2920	82
+2901	293	2921	79
+2902	293	2922	44
+2903	293	2923	67
+2904	293	2924	80
+2905	293	2925	59
+2906	293	2926	96
+2907	293	2927	86
+2908	293	2928	48
+2909	293	2929	95
+2910	293	2930	66
+2911	294	2901	74
+2912	294	2902	70
+2913	294	2903	97
+2914	294	2904	59
+2915	294	2905	88
+2916	294	2906	43
+2917	294	2907	54
+2918	294	2908	62
+2919	294	2909	41
+2920	294	2910	41
+2921	294	2911	76
+2922	294	2912	96
+2923	294	2913	96
+2924	294	2914	68
+2925	294	2915	82
+2926	294	2916	41
+2927	294	2917	92
+2928	294	2918	79
+2929	294	2919	96
+2930	294	2920	65
+2931	294	2921	85
+2932	294	2922	67
+2933	294	2923	94
+2934	294	2924	81
+2935	294	2925	82
+2936	294	2926	57
+2937	294	2927	58
+2938	294	2928	47
+2939	294	2929	70
+2940	294	2930	53
+2941	295	2931	42
+2942	295	2932	66
+2943	295	2933	83
+2944	295	2934	82
+2945	295	2935	70
+2946	295	2936	52
+2947	295	2937	55
+2948	295	2938	92
+2949	295	2939	73
+2950	295	2940	49
+2951	295	2941	85
+2952	295	2942	47
+2953	295	2943	79
+2954	295	2944	54
+2955	295	2945	96
+2956	295	2946	41
+2957	295	2947	99
+2958	295	2948	93
+2959	295	2949	70
+2960	295	2950	46
+2961	295	2951	72
+2962	295	2952	49
+2963	295	2953	97
+2964	295	2954	77
+2965	295	2955	56
+2966	295	2956	89
+2967	295	2957	47
+2968	295	2958	98
+2969	295	2959	60
+2970	295	2960	83
+2971	298	2961	49
+2972	298	2962	47
+2973	298	2963	92
+2974	298	2964	85
+2975	298	2965	47
+2976	298	2966	91
+2977	298	2967	89
+2978	298	2968	95
+2979	298	2969	88
+2980	298	2970	91
+2981	298	2971	59
+2982	298	2972	42
+2983	298	2973	63
+2984	298	2974	60
+2985	298	2975	94
+2986	298	2976	98
+2987	298	2977	59
+2988	298	2978	96
+2989	298	2979	44
+2990	298	2980	70
+2991	298	2981	53
+2992	298	2982	80
+2993	298	2983	98
+2994	298	2984	67
+2995	298	2985	43
+2996	298	2986	79
+2997	298	2987	60
+2998	298	2988	45
+2999	298	2989	53
+3000	298	2990	82
+3001	299	2961	46
+3002	299	2962	92
+3003	299	2963	73
+3004	299	2964	77
+3005	299	2965	60
+3006	299	2966	95
+3007	299	2967	87
+3008	299	2968	56
+3009	299	2969	90
+3010	299	2970	81
+3011	299	2971	51
+3012	299	2972	70
+3013	299	2973	49
+3014	299	2974	58
+3015	299	2975	97
+3016	299	2976	54
+3017	299	2977	96
+3018	299	2978	85
+3019	299	2979	62
+3020	299	2980	77
+3021	299	2981	54
+3022	299	2982	74
+3023	299	2983	52
+3024	299	2984	86
+3025	299	2985	99
+3026	299	2986	52
+3027	299	2987	72
+3028	299	2988	57
+3029	299	2989	99
+3030	299	2990	96
+3031	300	2961	89
+3032	300	2962	54
+3033	300	2963	72
+3034	300	2964	61
+3035	300	2965	45
+3036	300	2966	50
+3037	300	2967	98
+3038	300	2968	57
+3039	300	2969	73
+3040	300	2970	85
+3041	300	2971	41
+3042	300	2972	67
+3043	300	2973	83
+3044	300	2974	80
+3045	300	2975	96
+3046	300	2976	83
+3047	300	2977	78
+3048	300	2978	72
+3049	300	2979	98
+3050	300	2980	63
+3051	300	2981	89
+3052	300	2982	73
+3053	300	2983	82
+3054	300	2984	41
+3055	300	2985	44
+3056	300	2986	53
+3057	300	2987	42
+3058	300	2988	94
+3059	300	2989	91
+3060	300	2990	42
+3061	301	2991	63
+3062	301	2992	63
+3063	301	2993	97
+3064	301	2994	96
+3065	301	2995	89
+3066	301	2996	51
+3067	301	2997	79
+3068	301	2998	87
+3069	301	2999	55
+3070	301	3000	90
+3071	301	3001	96
+3072	301	3002	82
+3073	301	3003	44
+3074	301	3004	45
+3075	301	3005	73
+3076	301	3006	89
+3077	301	3007	90
+3078	301	3008	99
+3079	301	3009	78
+3080	301	3010	42
+3081	301	3011	78
+3082	301	3012	72
+3083	301	3013	62
+3084	301	3014	88
+3085	301	3015	64
+3086	301	3016	46
+3087	301	3017	94
+3088	301	3018	46
+3089	301	3019	90
+3090	301	3020	53
+3091	304	3021	62
+3092	304	3022	99
+3093	304	3023	47
+3094	304	3024	55
+3095	304	3025	56
+3096	304	3026	78
+3097	304	3027	91
+3098	304	3028	43
+3099	304	3029	48
+3100	304	3030	60
+3101	304	3031	59
+3102	304	3032	80
+3103	304	3033	74
+3104	304	3034	54
+3105	304	3035	65
+3106	304	3036	43
+3107	304	3037	68
+3108	304	3038	87
+3109	304	3039	60
+3110	304	3040	85
+3111	304	3041	93
+3112	304	3042	46
+3113	304	3043	48
+3114	304	3044	45
+3115	304	3045	87
+3116	304	3046	69
+3117	304	3047	67
+3118	304	3048	49
+3119	304	3049	48
+3120	304	3050	64
+3121	305	3021	49
+3122	305	3022	56
+3123	305	3023	73
+3124	305	3024	91
+3125	305	3025	42
+3126	305	3026	63
+3127	305	3027	77
+3128	305	3028	70
+3129	305	3029	67
+3130	305	3030	88
+3131	305	3031	42
+3132	305	3032	58
+3133	305	3033	86
+3134	305	3034	68
+3135	305	3035	69
+3136	305	3036	60
+3137	305	3037	80
+3138	305	3038	96
+3139	305	3039	45
+3140	305	3040	59
+3141	305	3041	56
+3142	305	3042	45
+3143	305	3043	65
+3144	305	3044	78
+3145	305	3045	89
+3146	305	3046	80
+3147	305	3047	99
+3148	305	3048	74
+3149	305	3049	76
+3150	305	3050	55
+3151	251	2481	91
+3152	251	2482	51
+3153	251	2483	44
+3154	251	2484	43
+3155	251	2485	81
+3156	251	2486	87
+3157	251	2487	79
+3158	251	2488	97
+3159	251	2489	42
+3160	251	2490	67
+3161	251	2491	86
+3162	251	2492	74
+3163	251	2493	43
+3164	251	2494	48
+3165	251	2495	78
+3166	251	2496	68
+3167	251	2497	67
+3168	251	2498	68
+3169	251	2499	66
+3170	251	2500	46
+3171	251	2501	88
+3172	251	2502	44
+3173	251	2503	46
+3174	251	2504	88
+3175	251	2505	75
+3176	251	2506	73
+3177	251	2507	43
+3178	251	2508	41
+3179	251	2509	98
+3180	251	2510	51
+3181	252	2481	43
+3182	252	2482	99
+3183	252	2483	46
+3184	252	2484	94
+3185	252	2485	53
+3186	252	2486	87
+3187	252	2487	93
+3188	252	2488	92
+3189	252	2489	55
+3190	252	2490	71
+3191	252	2491	97
+3192	252	2492	55
+3193	252	2493	50
+3194	252	2494	88
+3195	252	2495	53
+3196	252	2496	71
+3197	252	2497	71
+3198	252	2498	75
+3199	252	2499	78
+3200	252	2500	98
+3201	252	2501	84
+3202	252	2502	58
+3203	252	2503	95
+3204	252	2504	83
+3205	252	2505	52
+3206	252	2506	48
+3207	252	2507	72
+3208	252	2508	66
+3209	252	2509	78
+3210	252	2510	59
+3211	253	2511	67
+3212	253	2512	52
+3213	253	2513	43
+3214	253	2514	76
+3215	253	2515	73
+3216	253	2516	83
+3217	253	2517	58
+3218	253	2518	96
+3219	253	2519	42
+3220	253	2520	48
+3221	253	2521	48
+3222	253	2522	76
+3223	253	2523	48
+3224	253	2524	81
+3225	253	2525	82
+3226	253	2526	96
+3227	253	2527	86
+3228	253	2528	72
+3229	253	2529	55
+3230	253	2530	82
+3231	253	2531	71
+3232	253	2532	72
+3233	253	2533	49
+3234	253	2534	84
+3235	253	2535	99
+3236	253	2536	70
+3237	253	2537	43
+3238	253	2538	89
+3239	253	2539	95
+3240	253	2540	58
+3241	254	2511	64
+3242	254	2512	65
+3243	254	2513	59
+3244	254	2514	65
+3245	254	2515	55
+3246	254	2516	70
+3247	254	2517	50
+3248	254	2518	66
+3249	254	2519	50
+3250	254	2520	79
+3251	254	2521	57
+3252	254	2522	41
+3253	254	2523	73
+3254	254	2524	79
+3255	254	2525	85
+3256	254	2526	93
+3257	254	2527	75
+3258	254	2528	92
+3259	254	2529	86
+3260	254	2530	78
+3261	254	2531	78
+3262	254	2532	63
+3263	254	2533	75
+3264	254	2534	54
+3265	254	2535	59
+3266	254	2536	81
+3267	254	2537	92
+3268	254	2538	83
+3269	254	2539	84
+3270	254	2540	88
+3271	255	2511	70
+3272	255	2512	99
+3273	255	2513	65
+3274	255	2514	61
+3275	255	2515	47
+3276	255	2516	51
+3277	255	2517	45
+3278	255	2518	85
+3279	255	2519	58
+3280	255	2520	99
+3281	255	2521	89
+3282	255	2522	67
+3283	255	2523	48
+3284	255	2524	99
+3285	255	2525	68
+3286	255	2526	67
+3287	255	2527	83
+3288	255	2528	51
+3289	255	2529	55
+3290	255	2530	68
+3291	255	2531	46
+3292	255	2532	98
+3293	255	2533	88
+3294	255	2534	92
+3295	255	2535	81
+3296	255	2536	47
+3297	255	2537	93
+3298	255	2538	69
+3299	255	2539	53
+3300	255	2540	60
+3301	256	2541	59
+3302	256	2542	50
+3303	256	2543	68
+3304	256	2544	94
+3305	256	2545	79
+3306	256	2546	80
+3307	256	2547	93
+3308	256	2548	87
+3309	256	2549	91
+3310	256	2550	50
+3311	256	2551	41
+3312	256	2552	95
+3313	256	2553	69
+3314	256	2554	65
+3315	256	2555	95
+3316	256	2556	76
+3317	256	2557	76
+3318	256	2558	45
+3319	256	2559	60
+3320	256	2560	56
+3321	256	2561	70
+3322	256	2562	95
+3323	256	2563	69
+3324	256	2564	61
+3325	256	2565	52
+3326	256	2566	42
+3327	256	2567	66
+3328	256	2568	58
+3329	256	2569	76
+3330	256	2570	73
+3331	257	2541	83
+3332	257	2542	91
+3333	257	2543	78
+3334	257	2544	93
+3335	257	2545	43
+3336	257	2546	60
+3337	257	2547	62
+3338	257	2548	69
+3339	257	2549	93
+3340	257	2550	84
+3341	257	2551	97
+3342	257	2552	44
+3343	257	2553	41
+3344	257	2554	87
+3345	257	2555	88
+3346	257	2556	80
+3347	257	2557	83
+3348	257	2558	55
+3349	257	2559	81
+3350	257	2560	76
+3351	257	2561	50
+3352	257	2562	92
+3353	257	2563	56
+3354	257	2564	69
+3355	257	2565	66
+3356	257	2566	65
+3357	257	2567	92
+3358	257	2568	85
+3359	257	2569	45
+3360	257	2570	78
+3361	259	2571	70
+3362	259	2572	62
+3363	259	2573	71
+3364	259	2574	66
+3365	259	2575	93
+3366	259	2576	91
+3367	259	2577	86
+3368	259	2578	97
+3369	259	2579	49
+3370	259	2580	77
+3371	259	2581	77
+3372	259	2582	93
+3373	259	2583	76
+3374	259	2584	85
+3375	259	2585	46
+3376	259	2586	92
+3377	259	2587	56
+3378	259	2588	82
+3379	259	2589	69
+3380	259	2590	97
+3381	259	2591	58
+3382	259	2592	41
+3383	259	2593	66
+3384	259	2594	51
+3385	259	2595	70
+3386	259	2596	49
+3387	259	2597	94
+3388	259	2598	99
+3389	259	2599	72
+3390	259	2600	63
+3391	260	2571	58
+3392	260	2572	41
+3393	260	2573	51
+3394	260	2574	93
+3395	260	2575	49
+3396	260	2576	59
+3397	260	2577	58
+3398	260	2578	72
+3399	260	2579	49
+3400	260	2580	59
+3401	260	2581	55
+3402	260	2582	43
+3403	260	2583	59
+3404	260	2584	74
+3405	260	2585	55
+3406	260	2586	45
+3407	260	2587	87
+3408	260	2588	87
+3409	260	2589	50
+3410	260	2590	86
+3411	260	2591	79
+3412	260	2592	61
+3413	260	2593	97
+3414	260	2594	76
+3415	260	2595	67
+3416	260	2596	66
+3417	260	2597	95
+3418	260	2598	90
+3419	260	2599	85
+3420	260	2600	74
+3421	70	691	82
+3422	70	692	89
+3423	70	693	55
+3424	70	694	53
+3425	70	695	68
+3426	70	696	69
+3427	70	697	74
+3428	70	698	79
+3429	70	699	96
+3430	70	700	52
+3431	70	701	84
+3432	70	702	79
+3433	70	703	50
+3434	70	704	59
+3435	70	705	64
+3436	70	706	62
+3437	70	707	43
+3438	70	708	68
+3439	70	709	78
+3440	70	710	60
+3441	70	711	73
+3442	70	712	67
+3443	70	713	69
+3444	70	714	54
+3445	70	715	42
+3446	70	716	84
+3447	70	717	71
+3448	70	718	47
+3449	70	719	64
+3450	70	720	65
+3451	71	691	46
+3452	71	692	66
+3453	71	693	85
+3454	71	694	41
+3455	71	695	59
+3456	71	696	86
+3457	71	697	94
+3458	71	698	98
+3459	71	699	78
+3460	71	700	94
+3461	71	701	84
+3462	71	702	69
+3463	71	703	59
+3464	71	704	41
+3465	71	705	45
+3466	71	706	98
+3467	71	707	62
+3468	71	708	79
+3469	71	709	69
+3470	71	710	50
+3471	71	711	99
+3472	71	712	57
+3473	71	713	45
+3474	71	714	45
+3475	71	715	69
+3476	71	716	41
+3477	71	717	60
+3478	71	718	92
+3479	71	719	51
+3480	71	720	98
+3481	73	721	84
+3482	73	722	78
+3483	73	723	83
+3484	73	724	75
+3485	73	725	47
+3486	73	726	75
+3487	73	727	57
+3488	73	728	67
+3489	73	729	92
+3490	73	730	80
+3491	73	731	75
+3492	73	732	71
+3493	73	733	71
+3494	73	734	98
+3495	73	735	64
+3496	73	736	61
+3497	73	737	99
+3498	73	738	74
+3499	73	739	46
+3500	73	740	73
+3501	73	741	96
+3502	73	742	91
+3503	73	743	78
+3504	73	744	47
+3505	73	745	67
+3506	73	746	86
+3507	73	747	70
+3508	73	748	51
+3509	73	749	94
+3510	73	750	72
+3511	74	721	80
+3512	74	722	51
+3513	74	723	89
+3514	74	724	55
+3515	74	725	52
+3516	74	726	96
+3517	74	727	80
+3518	74	728	78
+3519	74	729	85
+3520	74	730	89
+3521	74	731	45
+3522	74	732	79
+3523	74	733	79
+3524	74	734	46
+3525	74	735	65
+3526	74	736	78
+3527	74	737	85
+3528	74	738	64
+3529	74	739	74
+3530	74	740	95
+3531	74	741	72
+3532	74	742	75
+3533	74	743	48
+3534	74	744	57
+3535	74	745	85
+3536	74	746	93
+3537	74	747	71
+3538	74	748	45
+3539	74	749	68
+3540	74	750	91
+3541	147	1441	87
+3542	147	1442	60
+3543	147	1443	46
+3544	147	1444	72
+3545	147	1445	49
+3546	147	1446	80
+3547	147	1447	54
+3548	147	1448	66
+3549	147	1449	83
+3550	147	1450	55
+3551	147	1451	49
+3552	147	1452	60
+3553	147	1453	74
+3554	147	1454	46
+3555	147	1455	44
+3556	147	1456	67
+3557	147	1457	55
+3558	147	1458	44
+3559	147	1459	69
+3560	147	1460	44
+3561	147	1461	98
+3562	147	1462	91
+3563	147	1463	46
+3564	147	1464	80
+3565	147	1465	72
+3566	147	1466	73
+3567	147	1467	41
+3568	147	1468	60
+3569	147	1469	95
+3570	147	1470	56
+3571	148	1471	56
+3572	148	1472	81
+3573	148	1473	76
+3574	148	1474	92
+3575	148	1475	51
+3576	148	1476	76
+3577	148	1477	74
+3578	148	1478	68
+3579	148	1479	74
+3580	148	1480	62
+3581	148	1481	72
+3582	148	1482	42
+3583	148	1483	74
+3584	148	1484	65
+3585	148	1485	48
+3586	148	1486	44
+3587	148	1487	94
+3588	148	1488	93
+3589	148	1489	79
+3590	148	1490	76
+3591	148	1491	80
+3592	148	1492	54
+3593	148	1493	45
+3594	148	1494	97
+3595	148	1495	78
+3596	148	1496	72
+3597	148	1497	59
+3598	148	1498	47
+3599	148	1499	66
+3600	148	1500	60
+3601	149	1471	64
+3602	149	1472	44
+3603	149	1473	66
+3604	149	1474	72
+3605	149	1475	60
+3606	149	1476	92
+3607	149	1477	65
+3608	149	1478	74
+3609	149	1479	65
+3610	149	1480	54
+3611	149	1481	73
+3612	149	1482	76
+3613	149	1483	64
+3614	149	1484	99
+3615	149	1485	95
+3616	149	1486	75
+3617	149	1487	52
+3618	149	1488	48
+3619	149	1489	86
+3620	149	1490	63
+3621	149	1491	70
+3622	149	1492	70
+3623	149	1493	65
+3624	149	1494	69
+3625	149	1495	92
+3626	149	1496	82
+3627	149	1497	94
+3628	149	1498	53
+3629	149	1499	94
+3630	149	1500	88
+3631	150	1471	99
+3632	150	1472	90
+3633	150	1473	99
+3634	150	1474	51
+3635	150	1475	55
+3636	150	1476	49
+3637	150	1477	44
+3638	150	1478	95
+3639	150	1479	48
+3640	150	1480	95
+3641	150	1481	70
+3642	150	1482	90
+3643	150	1483	53
+3644	150	1484	82
+3645	150	1485	41
+3646	150	1486	48
+3647	150	1487	42
+3648	150	1488	66
+3649	150	1489	64
+3650	150	1490	70
+3651	150	1491	81
+3652	150	1492	57
+3653	150	1493	49
+3654	150	1494	93
+3655	150	1495	43
+3656	150	1496	85
+3657	150	1497	80
+3658	150	1498	98
+3659	150	1499	82
+3660	150	1500	85
+3661	151	1501	50
+3662	151	1502	67
+3663	151	1503	75
+3664	151	1504	60
+3665	151	1505	76
+3666	151	1506	42
+3667	151	1507	63
+3668	151	1508	62
+3669	151	1509	93
+3670	151	1510	91
+3671	151	1511	77
+3672	151	1512	98
+3673	151	1513	44
+3674	151	1514	73
+3675	151	1515	76
+3676	151	1516	78
+3677	151	1517	70
+3678	151	1518	77
+3679	151	1519	44
+3680	151	1520	78
+3681	151	1521	93
+3682	151	1522	69
+3683	151	1523	51
+3684	151	1524	91
+3685	151	1525	48
+3686	151	1526	90
+3687	151	1527	68
+3688	151	1528	47
+3689	151	1529	99
+3690	151	1530	47
+3691	152	1501	53
+3692	152	1502	46
+3693	152	1503	43
+3694	152	1504	72
+3695	152	1505	56
+3696	152	1506	96
+3697	152	1507	93
+3698	152	1508	58
+3699	152	1509	78
+3700	152	1510	85
+3701	152	1511	51
+3702	152	1512	85
+3703	152	1513	95
+3704	152	1514	78
+3705	152	1515	93
+3706	152	1516	66
+3707	152	1517	76
+3708	152	1518	61
+3709	152	1519	85
+3710	152	1520	58
+3711	152	1521	76
+3712	152	1522	78
+3713	152	1523	74
+3714	152	1524	42
+3715	152	1525	85
+3716	152	1526	57
+3717	152	1527	91
+3718	152	1528	83
+3719	152	1529	90
+3720	152	1530	77
+3721	153	1501	76
+3722	153	1502	54
+3723	153	1503	75
+3724	153	1504	59
+3725	153	1505	72
+3726	153	1506	80
+3727	153	1507	57
+3728	153	1508	68
+3729	153	1509	94
+3730	153	1510	42
+3731	153	1511	89
+3732	153	1512	53
+3733	153	1513	77
+3734	153	1514	98
+3735	153	1515	48
+3736	153	1516	89
+3737	153	1517	52
+3738	153	1518	53
+3739	153	1519	90
+3740	153	1520	89
+3741	153	1521	67
+3742	153	1522	76
+3743	153	1523	82
+3744	153	1524	59
+3745	153	1525	83
+3746	153	1526	53
+3747	153	1527	83
+3748	153	1528	54
+3749	153	1529	91
+3750	153	1530	59
+3751	154	1531	85
+3752	154	1532	80
+3753	154	1533	47
+3754	154	1534	90
+3755	154	1535	77
+3756	154	1536	70
+3757	154	1537	45
+3758	154	1538	81
+3759	154	1539	68
+3760	154	1540	64
+3761	154	1541	59
+3762	154	1542	90
+3763	154	1543	70
+3764	154	1544	55
+3765	154	1545	63
+3766	154	1546	77
+3767	154	1547	43
+3768	154	1548	85
+3769	154	1549	44
+3770	154	1550	71
+3771	154	1551	72
+3772	154	1552	89
+3773	154	1553	84
+3774	154	1554	48
+3775	154	1555	76
+3776	154	1556	79
+3777	154	1557	76
+3778	154	1558	65
+3779	154	1559	41
+3780	154	1560	82
+3781	155	1531	92
+3782	155	1532	41
+3783	155	1533	76
+3784	155	1534	97
+3785	155	1535	71
+3786	155	1536	69
+3787	155	1537	82
+3788	155	1538	94
+3789	155	1539	59
+3790	155	1540	88
+3791	155	1541	95
+3792	155	1542	52
+3793	155	1543	69
+3794	155	1544	89
+3795	155	1545	81
+3796	155	1546	72
+3797	155	1547	53
+3798	155	1548	42
+3799	155	1549	46
+3800	155	1550	51
+3801	155	1551	80
+3802	155	1552	43
+3803	155	1553	94
+3804	155	1554	89
+3805	155	1555	83
+3806	155	1556	85
+3807	155	1557	58
+3808	155	1558	72
+3809	155	1559	85
+3810	155	1560	95
+3811	89	871	58
+3812	89	872	54
+3813	89	873	58
+3814	89	874	63
+3815	89	875	90
+3816	89	876	75
+3817	89	877	57
+3818	89	878	53
+3819	89	879	74
+3820	89	880	54
+3821	89	881	52
+3822	89	882	91
+3823	89	883	99
+3824	89	884	82
+3825	89	885	69
+3826	89	886	71
+3827	89	887	92
+3828	89	888	64
+3829	89	889	88
+3830	89	890	86
+3831	89	891	71
+3832	89	892	74
+3833	89	893	61
+3834	89	894	95
+3835	89	895	85
+3836	89	896	86
+3837	89	897	74
+3838	89	898	97
+3839	89	899	57
+3840	89	900	58
+3841	90	871	44
+3842	90	872	59
+3843	90	873	49
+3844	90	874	65
+3845	90	875	46
+3846	90	876	53
+3847	90	877	89
+3848	90	878	85
+3849	90	879	73
+3850	90	880	99
+3851	90	881	79
+3852	90	882	53
+3853	90	883	81
+3854	90	884	58
+3855	90	885	98
+3856	90	886	55
+3857	90	887	98
+3858	90	888	64
+3859	90	889	92
+3860	90	890	59
+3861	90	891	90
+3862	90	892	52
+3863	90	893	50
+3864	90	894	53
+3865	90	895	89
+3866	90	896	50
+3867	90	897	65
+3868	90	898	43
+3869	90	899	61
+3870	90	900	89
+3871	99	961	80
+3872	99	962	94
+3873	99	963	49
+3874	99	964	67
+3875	99	965	83
+3876	99	966	88
+3877	99	967	74
+3878	99	968	72
+3879	99	969	97
+3880	99	970	84
+3881	99	971	84
+3882	99	972	88
+3883	99	973	96
+3884	99	974	89
+3885	99	975	87
+3886	99	976	95
+3887	99	977	49
+3888	99	978	55
+3889	99	979	67
+3890	99	980	99
+3891	99	981	77
+3892	99	982	54
+3893	99	983	49
+3894	99	984	70
+3895	99	985	79
+3896	99	986	99
+3897	99	987	60
+3898	99	988	46
+3899	99	989	75
+3900	99	990	44
+3901	112	1111	63
+3902	112	1112	66
+3903	112	1113	88
+3904	112	1114	93
+3905	112	1115	71
+3906	112	1116	82
+3907	112	1117	47
+3908	112	1118	82
+3909	112	1119	91
+3910	112	1120	63
+3911	112	1121	52
+3912	112	1122	91
+3913	112	1123	61
+3914	112	1124	53
+3915	112	1125	41
+3916	112	1126	59
+3917	112	1127	98
+3918	112	1128	72
+3919	112	1129	66
+3920	112	1130	79
+3921	112	1131	54
+3922	112	1132	50
+3923	112	1133	98
+3924	112	1134	91
+3925	112	1135	65
+3926	112	1136	80
+3927	112	1137	52
+3928	112	1138	42
+3929	112	1139	71
+3930	112	1140	49
+3931	113	1111	77
+3932	113	1112	95
+3933	113	1113	50
+3934	113	1114	97
+3935	113	1115	69
+3936	113	1116	41
+3937	113	1117	52
+3938	113	1118	87
+3939	113	1119	77
+3940	113	1120	51
+3941	113	1121	97
+3942	113	1122	63
+3943	113	1123	70
+3944	113	1124	65
+3945	113	1125	95
+3946	113	1126	69
+3947	113	1127	96
+3948	113	1128	70
+3949	113	1129	61
+3950	113	1130	89
+3951	113	1131	94
+3952	113	1132	94
+3953	113	1133	59
+3954	113	1134	78
+3955	113	1135	58
+3956	113	1136	47
+3957	113	1137	48
+3958	113	1138	63
+3959	113	1139	80
+3960	113	1140	51
+3961	114	1111	91
+3962	114	1112	70
+3963	114	1113	82
+3964	114	1114	42
+3965	114	1115	43
+3966	114	1116	78
+3967	114	1117	92
+3968	114	1118	93
+3969	114	1119	41
+3970	114	1120	77
+3971	114	1121	71
+3972	114	1122	86
+3973	114	1123	72
+3974	114	1124	53
+3975	114	1125	62
+3976	114	1126	65
+3977	114	1127	41
+3978	114	1128	41
+3979	114	1129	81
+3980	114	1130	44
+3981	114	1131	73
+3982	114	1132	69
+3983	114	1133	87
+3984	114	1134	55
+3985	114	1135	53
+3986	114	1136	79
+3987	114	1137	84
+3988	114	1138	74
+3989	114	1139	89
+3990	114	1140	82
+3991	125	1231	88
+3992	125	1232	85
+3993	125	1233	88
+3994	125	1234	94
+3995	125	1235	60
+3996	125	1236	92
+3997	125	1237	59
+3998	125	1238	68
+3999	125	1239	64
+4000	125	1240	65
+4001	125	1241	82
+4002	125	1242	80
+4003	125	1243	46
+4004	125	1244	84
+4005	125	1245	56
+4006	125	1246	41
+4007	125	1247	89
+4008	125	1248	78
+4009	125	1249	43
+4010	125	1250	97
+4011	125	1251	65
+4012	125	1252	85
+4013	125	1253	76
+4014	125	1254	55
+4015	125	1255	64
+4016	125	1256	84
+4017	125	1257	67
+4018	125	1258	61
+4019	125	1259	84
+4020	125	1260	81
+4021	126	1231	90
+4022	126	1232	42
+4023	126	1233	60
+4024	126	1234	73
+4025	126	1235	68
+4026	126	1236	71
+4027	126	1237	70
+4028	126	1238	83
+4029	126	1239	80
+4030	126	1240	82
+4031	126	1241	70
+4032	126	1242	43
+4033	126	1243	91
+4034	126	1244	79
+4035	126	1245	76
+4036	126	1246	88
+4037	126	1247	69
+4038	126	1248	46
+4039	126	1249	93
+4040	126	1250	73
+4041	126	1251	59
+4042	126	1252	80
+4043	126	1253	79
+4044	126	1254	59
+4045	126	1255	84
+4046	126	1256	66
+4047	126	1257	57
+4048	126	1258	47
+4049	126	1259	87
+4050	126	1260	80
+4051	135	1321	51
+4052	135	1322	68
+4053	135	1323	55
+4054	135	1324	93
+4055	135	1325	42
+4056	135	1326	75
+4057	135	1327	46
+4058	135	1328	85
+4059	135	1329	82
+4060	135	1330	69
+4061	135	1331	77
+4062	135	1332	70
+4063	135	1333	65
+4064	135	1334	53
+4065	135	1335	82
+4066	135	1336	53
+4067	135	1337	69
+4068	135	1338	78
+4069	135	1339	67
+4070	135	1340	57
+4071	135	1341	41
+4072	135	1342	91
+4073	135	1343	55
+4074	135	1344	81
+4075	135	1345	45
+4076	135	1346	78
+4077	135	1347	54
+4078	135	1348	78
+4079	135	1349	62
+4080	135	1350	87
+4081	138	1351	42
+4082	138	1352	79
+4083	138	1353	69
+4084	138	1354	78
+4085	138	1355	77
+4086	138	1356	76
+4087	138	1357	95
+4088	138	1358	88
+4089	138	1359	74
+4090	138	1360	49
+4091	138	1361	47
+4092	138	1362	78
+4093	138	1363	47
+4094	138	1364	52
+4095	138	1365	80
+4096	138	1366	99
+4097	138	1367	47
+4098	138	1368	81
+4099	138	1369	56
+4100	138	1370	95
+4101	138	1371	93
+4102	138	1372	91
+4103	138	1373	59
+4104	138	1374	76
+4105	138	1375	89
+4106	138	1376	58
+4107	138	1377	67
+4108	138	1378	90
+4109	138	1379	78
+4110	138	1380	61
+4111	143	1411	79
+4112	143	1412	48
+4113	143	1413	97
+4114	143	1414	68
+4115	143	1415	94
+4116	143	1416	61
+4117	143	1417	43
+4118	143	1418	46
+4119	143	1419	85
+4120	143	1420	64
+4121	143	1421	46
+4122	143	1422	49
+4123	143	1423	60
+4124	143	1424	65
+4125	143	1425	85
+4126	143	1426	44
+4127	143	1427	92
+4128	143	1428	80
+4129	143	1429	52
+4130	143	1430	75
+4131	143	1431	79
+4132	143	1432	50
+4133	143	1433	79
+4134	143	1434	96
+4135	143	1435	99
+4136	143	1436	83
+4137	143	1437	89
+4138	143	1438	66
+4139	143	1439	56
+4140	143	1440	89
+4141	144	1411	49
+4142	144	1412	52
+4143	144	1413	80
+4144	144	1414	71
+4145	144	1415	52
+4146	144	1416	97
+4147	144	1417	81
+4148	144	1418	45
+4149	144	1419	95
+4150	144	1420	51
+4151	144	1421	45
+4152	144	1422	96
+4153	144	1423	43
+4154	144	1424	61
+4155	144	1425	83
+4156	144	1426	87
+4157	144	1427	95
+4158	144	1428	80
+4159	144	1429	77
+4160	144	1430	53
+4161	144	1431	91
+4162	144	1432	89
+4163	144	1433	63
+4164	144	1434	85
+4165	144	1435	45
+4166	144	1436	46
+4167	144	1437	61
+4168	144	1438	54
+4169	144	1439	76
+4170	144	1440	58
+4171	87	841	70
+4172	87	842	94
+4173	87	843	51
+4174	87	844	75
+4175	87	845	83
+4176	87	846	50
+4177	87	847	78
+4178	87	848	81
+4179	87	849	95
+4180	87	850	61
+4181	87	851	63
+4182	87	852	80
+4183	87	853	66
+4184	87	854	97
+4185	87	855	44
+4186	87	856	93
+4187	87	857	77
+4188	87	858	45
+4189	87	859	46
+4190	87	860	78
+4191	87	861	75
+4192	87	862	47
+4193	87	863	58
+4194	87	864	56
+4195	87	865	60
+4196	87	866	67
+4197	87	867	52
+4198	87	868	90
+4199	87	869	78
+4200	87	870	90
+4201	88	871	62
+4202	88	872	61
+4203	88	873	83
+4204	88	874	96
+4205	88	875	50
+4206	88	876	75
+4207	88	877	41
+4208	88	878	83
+4209	88	879	81
+4210	88	880	61
+4211	88	881	87
+4212	88	882	96
+4213	88	883	84
+4214	88	884	99
+4215	88	885	55
+4216	88	886	78
+4217	88	887	64
+4218	88	888	82
+4219	88	889	41
+4220	88	890	92
+4221	88	891	93
+4222	88	892	49
+4223	88	893	83
+4224	88	894	81
+4225	88	895	75
+4226	88	896	82
+4227	88	897	64
+4228	88	898	76
+4229	88	899	59
+4230	88	900	94
+4231	91	901	93
+4232	91	902	77
+4233	91	903	57
+4234	91	904	66
+4235	91	905	45
+4236	91	906	95
+4237	91	907	79
+4238	91	908	95
+4239	91	909	60
+4240	91	910	54
+4241	91	911	68
+4242	91	912	72
+4243	91	913	77
+4244	91	914	97
+4245	91	915	94
+4246	91	916	76
+4247	91	917	74
+4248	91	918	68
+4249	91	919	73
+4250	91	920	45
+4251	91	921	70
+4252	91	922	87
+4253	91	923	78
+4254	91	924	45
+4255	91	925	82
+4256	91	926	57
+4257	91	927	61
+4258	91	928	97
+4259	91	929	84
+4260	91	930	42
+4261	92	901	54
+4262	92	902	45
+4263	92	903	96
+4264	92	904	66
+4265	92	905	69
+4266	92	906	53
+4267	92	907	90
+4268	92	908	59
+4269	92	909	90
+4270	92	910	50
+4271	92	911	57
+4272	92	912	52
+4273	92	913	80
+4274	92	914	48
+4275	92	915	77
+4276	92	916	47
+4277	92	917	89
+4278	92	918	62
+4279	92	919	92
+4280	92	920	85
+4281	92	921	61
+4282	92	922	48
+4283	92	923	55
+4284	92	924	99
+4285	92	925	61
+4286	92	926	49
+4287	92	927	78
+4288	92	928	66
+4289	92	929	58
+4290	92	930	83
+4291	93	901	79
+4292	93	902	95
+4293	93	903	53
+4294	93	904	77
+4295	93	905	44
+4296	93	906	41
+4297	93	907	45
+4298	93	908	59
+4299	93	909	81
+4300	93	910	46
+4301	93	911	97
+4302	93	912	87
+4303	93	913	43
+4304	93	914	53
+4305	93	915	77
+4306	93	916	99
+4307	93	917	92
+4308	93	918	81
+4309	93	919	95
+4310	93	920	77
+4311	93	921	55
+4312	93	922	75
+4313	93	923	80
+4314	93	924	49
+4315	93	925	68
+4316	93	926	67
+4317	93	927	95
+4318	93	928	59
+4319	93	929	88
+4320	93	930	95
+4321	94	931	97
+4322	94	932	63
+4323	94	933	96
+4324	94	934	67
+4325	94	935	63
+4326	94	936	48
+4327	94	937	46
+4328	94	938	92
+4329	94	939	61
+4330	94	940	80
+4331	94	941	99
+4332	94	942	87
+4333	94	943	79
+4334	94	944	52
+4335	94	945	98
+4336	94	946	60
+4337	94	947	90
+4338	94	948	70
+4339	94	949	42
+4340	94	950	90
+4341	94	951	50
+4342	94	952	88
+4343	94	953	63
+4344	94	954	42
+4345	94	955	53
+4346	94	956	76
+4347	94	957	46
+4348	94	958	65
+4349	94	959	44
+4350	94	960	44
+4351	95	931	90
+4352	95	932	52
+4353	95	933	96
+4354	95	934	53
+4355	95	935	98
+4356	95	936	84
+4357	95	937	59
+4358	95	938	70
+4359	95	939	58
+4360	95	940	47
+4361	95	941	52
+4362	95	942	57
+4363	95	943	56
+4364	95	944	50
+4365	95	945	90
+4366	95	946	94
+4367	95	947	91
+4368	95	948	56
+4369	95	949	78
+4370	95	950	50
+4371	95	951	88
+4372	95	952	55
+4373	95	953	78
+4374	95	954	97
+4375	95	955	86
+4376	95	956	93
+4377	95	957	94
+4378	95	958	67
+4379	95	959	49
+4380	95	960	92
+4381	96	931	58
+4382	96	932	92
+4383	96	933	49
+4384	96	934	84
+4385	96	935	53
+4386	96	936	72
+4387	96	937	83
+4388	96	938	58
+4389	96	939	87
+4390	96	940	97
+4391	96	941	64
+4392	96	942	58
+4393	96	943	41
+4394	96	944	69
+4395	96	945	56
+4396	96	946	55
+4397	96	947	48
+4398	96	948	81
+4399	96	949	91
+4400	96	950	90
+4401	96	951	54
+4402	96	952	51
+4403	96	953	56
+4404	96	954	94
+4405	96	955	82
+4406	96	956	74
+4407	96	957	88
+4408	96	958	45
+4409	96	959	85
+4410	96	960	67
+4411	97	961	46
+4412	97	962	93
+4413	97	963	61
+4414	97	964	76
+4415	97	965	80
+4416	97	966	57
+4417	97	967	76
+4418	97	968	45
+4419	97	969	88
+4420	97	970	46
+4421	97	971	80
+4422	97	972	69
+4423	97	973	97
+4424	97	974	65
+4425	97	975	50
+4426	97	976	69
+4427	97	977	97
+4428	97	978	58
+4429	97	979	74
+4430	97	980	98
+4431	97	981	66
+4432	97	982	67
+4433	97	983	51
+4434	97	984	59
+4435	97	985	70
+4436	97	986	62
+4437	97	987	43
+4438	97	988	98
+4439	97	989	54
+4440	97	990	70
+4441	98	961	64
+4442	98	962	41
+4443	98	963	51
+4444	98	964	89
+4445	98	965	50
+4446	98	966	73
+4447	98	967	54
+4448	98	968	44
+4449	98	969	57
+4450	98	970	67
+4451	98	971	80
+4452	98	972	44
+4453	98	973	76
+4454	98	974	66
+4455	98	975	79
+4456	98	976	74
+4457	98	977	44
+4458	98	978	70
+4459	98	979	52
+4460	98	980	55
+4461	98	981	74
+4462	98	982	67
+4463	98	983	80
+4464	98	984	90
+4465	98	985	58
+4466	98	986	81
+4467	98	987	73
+4468	98	988	51
+4469	98	989	81
+4470	98	990	60
+4471	100	991	46
+4472	100	992	43
+4473	100	993	63
+4474	100	994	61
+4475	100	995	78
+4476	100	996	43
+4477	100	997	50
+4478	100	998	63
+4479	100	999	44
+4480	100	1000	88
+4481	100	1001	96
+4482	100	1002	41
+4483	100	1003	94
+4484	100	1004	41
+4485	100	1005	42
+4486	100	1006	53
+4487	100	1007	92
+4488	100	1008	73
+4489	100	1009	99
+4490	100	1010	78
+4491	100	1011	60
+4492	100	1012	88
+4493	100	1013	53
+4494	100	1014	63
+4495	100	1015	97
+4496	100	1016	64
+4497	100	1017	82
+4498	100	1018	76
+4499	100	1019	55
+4500	100	1020	62
+4501	101	991	75
+4502	101	992	96
+4503	101	993	97
+4504	101	994	96
+4505	101	995	41
+4506	101	996	64
+4507	101	997	88
+4508	101	998	98
+4509	101	999	84
+4510	101	1000	84
+4511	101	1001	98
+4512	101	1002	60
+4513	101	1003	73
+4514	101	1004	71
+4515	101	1005	92
+4516	101	1006	53
+4517	101	1007	91
+4518	101	1008	97
+4519	101	1009	99
+4520	101	1010	47
+4521	101	1011	85
+4522	101	1012	58
+4523	101	1013	89
+4524	101	1014	96
+4525	101	1015	61
+4526	101	1016	49
+4527	101	1017	88
+4528	101	1018	80
+4529	101	1019	61
+4530	101	1020	88
+4531	102	991	48
+4532	102	992	88
+4533	102	993	57
+4534	102	994	88
+4535	102	995	69
+4536	102	996	52
+4537	102	997	57
+4538	102	998	58
+4539	102	999	81
+4540	102	1000	87
+4541	102	1001	66
+4542	102	1002	76
+4543	102	1003	53
+4544	102	1004	69
+4545	102	1005	60
+4546	102	1006	77
+4547	102	1007	50
+4548	102	1008	90
+4549	102	1009	63
+4550	102	1010	66
+4551	102	1011	61
+4552	102	1012	79
+4553	102	1013	57
+4554	102	1014	61
+4555	102	1015	47
+4556	102	1016	69
+4557	102	1017	65
+4558	102	1018	78
+4559	102	1019	56
+4560	102	1020	62
+4561	103	1021	44
+4562	103	1022	68
+4563	103	1023	43
+4564	103	1024	66
+4565	103	1025	42
+4566	103	1026	78
+4567	103	1027	94
+4568	103	1028	57
+4569	103	1029	51
+4570	103	1030	95
+4571	103	1031	60
+4572	103	1032	43
+4573	103	1033	96
+4574	103	1034	65
+4575	103	1035	96
+4576	103	1036	45
+4577	103	1037	86
+4578	103	1038	44
+4579	103	1039	42
+4580	103	1040	43
+4581	103	1041	91
+4582	103	1042	63
+4583	103	1043	72
+4584	103	1044	86
+4585	103	1045	83
+4586	103	1046	57
+4587	103	1047	78
+4588	103	1048	77
+4589	103	1049	55
+4590	103	1050	49
+4591	104	1021	67
+4592	104	1022	92
+4593	104	1023	66
+4594	104	1024	85
+4595	104	1025	67
+4596	104	1026	71
+4597	104	1027	45
+4598	104	1028	88
+4599	104	1029	52
+4600	104	1030	70
+4601	104	1031	77
+4602	104	1032	97
+4603	104	1033	43
+4604	104	1034	99
+4605	104	1035	97
+4606	104	1036	93
+4607	104	1037	98
+4608	104	1038	78
+4609	104	1039	47
+4610	104	1040	51
+4611	104	1041	87
+4612	104	1042	64
+4613	104	1043	60
+4614	104	1044	83
+4615	104	1045	42
+4616	104	1046	43
+4617	104	1047	80
+4618	104	1048	65
+4619	104	1049	50
+4620	104	1050	99
+4621	105	1021	82
+4622	105	1022	51
+4623	105	1023	95
+4624	105	1024	87
+4625	105	1025	64
+4626	105	1026	41
+4627	105	1027	84
+4628	105	1028	68
+4629	105	1029	55
+4630	105	1030	98
+4631	105	1031	73
+4632	105	1032	68
+4633	105	1033	68
+4634	105	1034	86
+4635	105	1035	67
+4636	105	1036	56
+4637	105	1037	50
+4638	105	1038	98
+4639	105	1039	41
+4640	105	1040	47
+4641	105	1041	76
+4642	105	1042	51
+4643	105	1043	55
+4644	105	1044	62
+4645	105	1045	97
+4646	105	1046	77
+4647	105	1047	82
+4648	105	1048	76
+4649	105	1049	80
+4650	105	1050	71
+4651	106	1051	76
+4652	106	1052	49
+4653	106	1053	99
+4654	106	1054	61
+4655	106	1055	91
+4656	106	1056	76
+4657	106	1057	45
+4658	106	1058	73
+4659	106	1059	68
+4660	106	1060	67
+4661	106	1061	82
+4662	106	1062	63
+4663	106	1063	77
+4664	106	1064	90
+4665	106	1065	44
+4666	106	1066	43
+4667	106	1067	86
+4668	106	1068	81
+4669	106	1069	99
+4670	106	1070	53
+4671	106	1071	72
+4672	106	1072	52
+4673	106	1073	61
+4674	106	1074	60
+4675	106	1075	45
+4676	106	1076	67
+4677	106	1077	70
+4678	106	1078	63
+4679	106	1079	86
+4680	106	1080	69
+4681	107	1051	51
+4682	107	1052	99
+4683	107	1053	57
+4684	107	1054	58
+4685	107	1055	65
+4686	107	1056	55
+4687	107	1057	42
+4688	107	1058	87
+4689	107	1059	97
+4690	107	1060	74
+4691	107	1061	54
+4692	107	1062	90
+4693	107	1063	42
+4694	107	1064	93
+4695	107	1065	75
+4696	107	1066	77
+4697	107	1067	51
+4698	107	1068	88
+4699	107	1069	44
+4700	107	1070	49
+4701	107	1071	62
+4702	107	1072	58
+4703	107	1073	54
+4704	107	1074	83
+4705	107	1075	46
+4706	107	1076	54
+4707	107	1077	78
+4708	107	1078	94
+4709	107	1079	62
+4710	107	1080	93
+4711	108	1051	69
+4712	108	1052	44
+4713	108	1053	71
+4714	108	1054	87
+4715	108	1055	44
+4716	108	1056	76
+4717	108	1057	66
+4718	108	1058	46
+4719	108	1059	83
+4720	108	1060	52
+4721	108	1061	44
+4722	108	1062	71
+4723	108	1063	57
+4724	108	1064	59
+4725	108	1065	96
+4726	108	1066	91
+4727	108	1067	44
+4728	108	1068	67
+4729	108	1069	45
+4730	108	1070	64
+4731	108	1071	81
+4732	108	1072	42
+4733	108	1073	71
+4734	108	1074	95
+4735	108	1075	79
+4736	108	1076	85
+4737	108	1077	75
+4738	108	1078	75
+4739	108	1079	99
+4740	108	1080	52
+4741	109	1081	72
+4742	109	1082	87
+4743	109	1083	82
+4744	109	1084	53
+4745	109	1085	92
+4746	109	1086	79
+4747	109	1087	77
+4748	109	1088	82
+4749	109	1089	47
+4750	109	1090	87
+4751	109	1091	45
+4752	109	1092	45
+4753	109	1093	59
+4754	109	1094	46
+4755	109	1095	49
+4756	109	1096	67
+4757	109	1097	56
+4758	109	1098	54
+4759	109	1099	64
+4760	109	1100	46
+4761	109	1101	68
+4762	109	1102	67
+4763	109	1103	87
+4764	109	1104	63
+4765	109	1105	75
+4766	109	1106	58
+4767	109	1107	96
+4768	109	1108	68
+4769	109	1109	73
+4770	109	1110	63
+4771	110	1081	83
+4772	110	1082	49
+4773	110	1083	83
+4774	110	1084	53
+4775	110	1085	82
+4776	110	1086	87
+4777	110	1087	94
+4778	110	1088	74
+4779	110	1089	93
+4780	110	1090	65
+4781	110	1091	60
+4782	110	1092	86
+4783	110	1093	87
+4784	110	1094	82
+4785	110	1095	81
+4786	110	1096	53
+4787	110	1097	41
+4788	110	1098	52
+4789	110	1099	45
+4790	110	1100	44
+4791	110	1101	72
+4792	110	1102	83
+4793	110	1103	67
+4794	110	1104	70
+4795	110	1105	97
+4796	110	1106	73
+4797	110	1107	45
+4798	110	1108	63
+4799	110	1109	61
+4800	110	1110	92
+4801	111	1081	80
+4802	111	1082	74
+4803	111	1083	83
+4804	111	1084	54
+4805	111	1085	77
+4806	111	1086	90
+4807	111	1087	90
+4808	111	1088	63
+4809	111	1089	73
+4810	111	1090	47
+4811	111	1091	65
+4812	111	1092	60
+4813	111	1093	64
+4814	111	1094	98
+4815	111	1095	63
+4816	111	1096	45
+4817	111	1097	41
+4818	111	1098	99
+4819	111	1099	66
+4820	111	1100	55
+4821	111	1101	66
+4822	111	1102	47
+4823	111	1103	79
+4824	111	1104	85
+4825	111	1105	52
+4826	111	1106	75
+4827	111	1107	43
+4828	111	1108	89
+4829	111	1109	58
+4830	111	1110	49
+4831	115	1141	41
+4832	115	1142	76
+4833	115	1143	63
+4834	115	1144	63
+4835	115	1145	89
+4836	115	1146	65
+4837	115	1147	68
+4838	115	1148	82
+4839	115	1149	77
+4840	115	1150	77
+4841	115	1151	49
+4842	115	1152	67
+4843	115	1153	68
+4844	115	1154	84
+4845	115	1155	80
+4846	115	1156	73
+4847	115	1157	80
+4848	115	1158	64
+4849	115	1159	66
+4850	115	1160	63
+4851	115	1161	66
+4852	115	1162	57
+4853	115	1163	53
+4854	115	1164	99
+4855	115	1165	84
+4856	115	1166	48
+4857	115	1167	94
+4858	115	1168	61
+4859	115	1169	53
+4860	115	1170	93
+4861	116	1141	79
+4862	116	1142	94
+4863	116	1143	64
+4864	116	1144	90
+4865	116	1145	55
+4866	116	1146	73
+4867	116	1147	55
+4868	116	1148	99
+4869	116	1149	77
+4870	116	1150	89
+4871	116	1151	72
+4872	116	1152	99
+4873	116	1153	94
+4874	116	1154	75
+4875	116	1155	57
+4876	116	1156	95
+4877	116	1157	84
+4878	116	1158	57
+4879	116	1159	81
+4880	116	1160	93
+4881	116	1161	45
+4882	116	1162	93
+4883	116	1163	67
+4884	116	1164	98
+4885	116	1165	86
+4886	116	1166	50
+4887	116	1167	96
+4888	116	1168	42
+4889	116	1169	59
+4890	116	1170	60
+4891	117	1141	66
+4892	117	1142	46
+4893	117	1143	70
+4894	117	1144	69
+4895	117	1145	53
+4896	117	1146	45
+4897	117	1147	58
+4898	117	1148	89
+4899	117	1149	95
+4900	117	1150	65
+4901	117	1151	46
+4902	117	1152	80
+4903	117	1153	42
+4904	117	1154	46
+4905	117	1155	65
+4906	117	1156	96
+4907	117	1157	43
+4908	117	1158	63
+4909	117	1159	91
+4910	117	1160	70
+4911	117	1161	47
+4912	117	1162	77
+4913	117	1163	60
+4914	117	1164	42
+4915	117	1165	47
+4916	117	1166	67
+4917	117	1167	61
+4918	117	1168	81
+4919	117	1169	57
+4920	117	1170	91
+4921	118	1171	80
+4922	118	1172	94
+4923	118	1173	99
+4924	118	1174	58
+4925	118	1175	75
+4926	118	1176	94
+4927	118	1177	51
+4928	118	1178	93
+4929	118	1179	49
+4930	118	1180	60
+4931	118	1181	89
+4932	118	1182	59
+4933	118	1183	62
+4934	118	1184	41
+4935	118	1185	67
+4936	118	1186	74
+4937	118	1187	87
+4938	118	1188	80
+4939	118	1189	70
+4940	118	1190	70
+4941	118	1191	79
+4942	118	1192	52
+4943	118	1193	61
+4944	118	1194	46
+4945	118	1195	63
+4946	118	1196	52
+4947	118	1197	82
+4948	118	1198	56
+4949	118	1199	51
+4950	118	1200	97
+4951	119	1171	75
+4952	119	1172	58
+4953	119	1173	73
+4954	119	1174	91
+4955	119	1175	61
+4956	119	1176	81
+4957	119	1177	94
+4958	119	1178	78
+4959	119	1179	97
+4960	119	1180	93
+4961	119	1181	51
+4962	119	1182	93
+4963	119	1183	88
+4964	119	1184	45
+4965	119	1185	47
+4966	119	1186	47
+4967	119	1187	84
+4968	119	1188	71
+4969	119	1189	88
+4970	119	1190	66
+4971	119	1191	82
+4972	119	1192	83
+4973	119	1193	42
+4974	119	1194	73
+4975	119	1195	75
+4976	119	1196	73
+4977	119	1197	50
+4978	119	1198	76
+4979	119	1199	51
+4980	119	1200	70
+4981	120	1171	89
+4982	120	1172	68
+4983	120	1173	95
+4984	120	1174	64
+4985	120	1175	41
+4986	120	1176	47
+4987	120	1177	62
+4988	120	1178	73
+4989	120	1179	42
+4990	120	1180	85
+4991	120	1181	63
+4992	120	1182	51
+4993	120	1183	41
+4994	120	1184	92
+4995	120	1185	67
+4996	120	1186	48
+4997	120	1187	79
+4998	120	1188	85
+4999	120	1189	59
+5000	120	1190	70
+5001	120	1191	81
+5002	120	1192	71
+5003	120	1193	92
+5004	120	1194	49
+5005	120	1195	93
+5006	120	1196	96
+5007	120	1197	47
+5008	120	1198	89
+5009	120	1199	44
+5010	120	1200	82
+5011	121	1201	60
+5012	121	1202	95
+5013	121	1203	56
+5014	121	1204	70
+5015	121	1205	95
+5016	121	1206	46
+5017	121	1207	97
+5018	121	1208	74
+5019	121	1209	68
+5020	121	1210	60
+5021	121	1211	92
+5022	121	1212	71
+5023	121	1213	75
+5024	121	1214	99
+5025	121	1215	92
+5026	121	1216	59
+5027	121	1217	98
+5028	121	1218	98
+5029	121	1219	87
+5030	121	1220	53
+5031	121	1221	46
+5032	121	1222	48
+5033	121	1223	60
+5034	121	1224	72
+5035	121	1225	82
+5036	121	1226	79
+5037	121	1227	78
+5038	121	1228	81
+5039	121	1229	88
+5040	121	1230	57
+5041	122	1201	79
+5042	122	1202	85
+5043	122	1203	53
+5044	122	1204	69
+5045	122	1205	85
+5046	122	1206	45
+5047	122	1207	94
+5048	122	1208	62
+5049	122	1209	58
+5050	122	1210	93
+5051	122	1211	56
+5052	122	1212	41
+5053	122	1213	78
+5054	122	1214	90
+5055	122	1215	55
+5056	122	1216	98
+5057	122	1217	68
+5058	122	1218	55
+5059	122	1219	75
+5060	122	1220	57
+5061	122	1221	71
+5062	122	1222	47
+5063	122	1223	41
+5064	122	1224	65
+5065	122	1225	59
+5066	122	1226	41
+5067	122	1227	96
+5068	122	1228	83
+5069	122	1229	48
+5070	122	1230	98
+5071	123	1201	54
+5072	123	1202	97
+5073	123	1203	95
+5074	123	1204	86
+5075	123	1205	90
+5076	123	1206	82
+5077	123	1207	59
+5078	123	1208	62
+5079	123	1209	96
+5080	123	1210	88
+5081	123	1211	95
+5082	123	1212	59
+5083	123	1213	94
+5084	123	1214	73
+5085	123	1215	99
+5086	123	1216	44
+5087	123	1217	82
+5088	123	1218	96
+5089	123	1219	51
+5090	123	1220	56
+5091	123	1221	74
+5092	123	1222	94
+5093	123	1223	48
+5094	123	1224	63
+5095	123	1225	47
+5096	123	1226	95
+5097	123	1227	69
+5098	123	1228	87
+5099	123	1229	68
+5100	123	1230	84
+5101	124	1231	47
+5102	124	1232	92
+5103	124	1233	85
+5104	124	1234	68
+5105	124	1235	81
+5106	124	1236	83
+5107	124	1237	46
+5108	124	1238	41
+5109	124	1239	81
+5110	124	1240	67
+5111	124	1241	64
+5112	124	1242	57
+5113	124	1243	59
+5114	124	1244	72
+5115	124	1245	52
+5116	124	1246	45
+5117	124	1247	89
+5118	124	1248	96
+5119	124	1249	95
+5120	124	1250	80
+5121	124	1251	42
+5122	124	1252	77
+5123	124	1253	88
+5124	124	1254	67
+5125	124	1255	76
+5126	124	1256	73
+5127	124	1257	83
+5128	124	1258	95
+5129	124	1259	51
+5130	124	1260	91
+5131	127	1261	43
+5132	127	1262	91
+5133	127	1263	95
+5134	127	1264	87
+5135	127	1265	68
+5136	127	1266	75
+5137	127	1267	54
+5138	127	1268	84
+5139	127	1269	58
+5140	127	1270	47
+5141	127	1271	49
+5142	127	1272	81
+5143	127	1273	59
+5144	127	1274	94
+5145	127	1275	71
+5146	127	1276	72
+5147	127	1277	94
+5148	127	1278	63
+5149	127	1279	80
+5150	127	1280	48
+5151	127	1281	74
+5152	127	1282	47
+5153	127	1283	73
+5154	127	1284	69
+5155	127	1285	80
+5156	127	1286	99
+5157	127	1287	85
+5158	127	1288	46
+5159	127	1289	75
+5160	127	1290	98
+5161	128	1261	91
+5162	128	1262	93
+5163	128	1263	83
+5164	128	1264	42
+5165	128	1265	48
+5166	128	1266	50
+5167	128	1267	96
+5168	128	1268	85
+5169	128	1269	87
+5170	128	1270	93
+5171	128	1271	80
+5172	128	1272	98
+5173	128	1273	53
+5174	128	1274	93
+5175	128	1275	88
+5176	128	1276	92
+5177	128	1277	59
+5178	128	1278	56
+5179	128	1279	53
+5180	128	1280	43
+5181	128	1281	81
+5182	128	1282	79
+5183	128	1283	55
+5184	128	1284	74
+5185	128	1285	47
+5186	128	1286	98
+5187	128	1287	56
+5188	128	1288	63
+5189	128	1289	70
+5190	128	1290	94
+5191	129	1261	83
+5192	129	1262	94
+5193	129	1263	72
+5194	129	1264	79
+5195	129	1265	41
+5196	129	1266	45
+5197	129	1267	58
+5198	129	1268	58
+5199	129	1269	88
+5200	129	1270	50
+5201	129	1271	54
+5202	129	1272	61
+5203	129	1273	66
+5204	129	1274	67
+5205	129	1275	82
+5206	129	1276	47
+5207	129	1277	67
+5208	129	1278	60
+5209	129	1279	82
+5210	129	1280	89
+5211	129	1281	61
+5212	129	1282	88
+5213	129	1283	61
+5214	129	1284	65
+5215	129	1285	83
+5216	129	1286	73
+5217	129	1287	80
+5218	129	1288	95
+5219	129	1289	48
+5220	129	1290	57
+5221	130	1291	84
+5222	130	1292	80
+5223	130	1293	85
+5224	130	1294	94
+5225	130	1295	76
+5226	130	1296	83
+5227	130	1297	48
+5228	130	1298	64
+5229	130	1299	92
+5230	130	1300	91
+5231	130	1301	93
+5232	130	1302	67
+5233	130	1303	52
+5234	130	1304	73
+5235	130	1305	56
+5236	130	1306	82
+5237	130	1307	78
+5238	130	1308	41
+5239	130	1309	95
+5240	130	1310	73
+5241	130	1311	66
+5242	130	1312	61
+5243	130	1313	63
+5244	130	1314	41
+5245	130	1315	55
+5246	130	1316	44
+5247	130	1317	78
+5248	130	1318	90
+5249	130	1319	44
+5250	130	1320	65
+5251	131	1291	59
+5252	131	1292	61
+5253	131	1293	47
+5254	131	1294	89
+5255	131	1295	76
+5256	131	1296	50
+5257	131	1297	66
+5258	131	1298	64
+5259	131	1299	58
+5260	131	1300	73
+5261	131	1301	99
+5262	131	1302	86
+5263	131	1303	46
+5264	131	1304	59
+5265	131	1305	58
+5266	131	1306	65
+5267	131	1307	45
+5268	131	1308	52
+5269	131	1309	73
+5270	131	1310	43
+5271	131	1311	70
+5272	131	1312	98
+5273	131	1313	77
+5274	131	1314	56
+5275	131	1315	79
+5276	131	1316	44
+5277	131	1317	51
+5278	131	1318	74
+5279	131	1319	80
+5280	131	1320	76
+5281	132	1291	77
+5282	132	1292	53
+5283	132	1293	42
+5284	132	1294	69
+5285	132	1295	50
+5286	132	1296	77
+5287	132	1297	66
+5288	132	1298	88
+5289	132	1299	58
+5290	132	1300	61
+5291	132	1301	57
+5292	132	1302	93
+5293	132	1303	67
+5294	132	1304	97
+5295	132	1305	55
+5296	132	1306	89
+5297	132	1307	50
+5298	132	1308	44
+5299	132	1309	80
+5300	132	1310	79
+5301	132	1311	51
+5302	132	1312	80
+5303	132	1313	85
+5304	132	1314	73
+5305	132	1315	60
+5306	132	1316	45
+5307	132	1317	91
+5308	132	1318	50
+5309	132	1319	96
+5310	132	1320	64
+5311	133	1321	42
+5312	133	1322	90
+5313	133	1323	70
+5314	133	1324	68
+5315	133	1325	99
+5316	133	1326	87
+5317	133	1327	46
+5318	133	1328	51
+5319	133	1329	55
+5320	133	1330	56
+5321	133	1331	58
+5322	133	1332	89
+5323	133	1333	91
+5324	133	1334	93
+5325	133	1335	56
+5326	133	1336	91
+5327	133	1337	60
+5328	133	1338	95
+5329	133	1339	71
+5330	133	1340	51
+5331	133	1341	51
+5332	133	1342	61
+5333	133	1343	65
+5334	133	1344	82
+5335	133	1345	42
+5336	133	1346	88
+5337	133	1347	90
+5338	133	1348	53
+5339	133	1349	56
+5340	133	1350	60
+5341	134	1321	84
+5342	134	1322	80
+5343	134	1323	94
+5344	134	1324	91
+5345	134	1325	71
+5346	134	1326	79
+5347	134	1327	92
+5348	134	1328	48
+5349	134	1329	75
+5350	134	1330	67
+5351	134	1331	97
+5352	134	1332	69
+5353	134	1333	87
+5354	134	1334	69
+5355	134	1335	78
+5356	134	1336	80
+5357	134	1337	97
+5358	134	1338	94
+5359	134	1339	56
+5360	134	1340	78
+5361	134	1341	77
+5362	134	1342	56
+5363	134	1343	69
+5364	134	1344	93
+5365	134	1345	64
+5366	134	1346	68
+5367	134	1347	76
+5368	134	1348	70
+5369	134	1349	81
+5370	134	1350	48
+5371	136	1351	82
+5372	136	1352	41
+5373	136	1353	70
+5374	136	1354	70
+5375	136	1355	74
+5376	136	1356	89
+5377	136	1357	73
+5378	136	1358	48
+5379	136	1359	91
+5380	136	1360	73
+5381	136	1361	78
+5382	136	1362	80
+5383	136	1363	42
+5384	136	1364	60
+5385	136	1365	82
+5386	136	1366	63
+5387	136	1367	80
+5388	136	1368	95
+5389	136	1369	49
+5390	136	1370	70
+5391	136	1371	88
+5392	136	1372	75
+5393	136	1373	48
+5394	136	1374	87
+5395	136	1375	88
+5396	136	1376	98
+5397	136	1377	65
+5398	136	1378	86
+5399	136	1379	67
+5400	136	1380	82
+5401	137	1351	83
+5402	137	1352	86
+5403	137	1353	74
+5404	137	1354	71
+5405	137	1355	45
+5406	137	1356	57
+5407	137	1357	95
+5408	137	1358	57
+5409	137	1359	64
+5410	137	1360	57
+5411	137	1361	98
+5412	137	1362	89
+5413	137	1363	89
+5414	137	1364	97
+5415	137	1365	55
+5416	137	1366	70
+5417	137	1367	97
+5418	137	1368	65
+5419	137	1369	42
+5420	137	1370	65
+5421	137	1371	77
+5422	137	1372	87
+5423	137	1373	49
+5424	137	1374	68
+5425	137	1375	50
+5426	137	1376	53
+5427	137	1377	45
+5428	137	1378	63
+5429	137	1379	66
+5430	137	1380	67
+5431	139	1381	83
+5432	139	1382	98
+5433	139	1383	65
+5434	139	1384	84
+5435	139	1385	75
+5436	139	1386	49
+5437	139	1387	82
+5438	139	1388	65
+5439	139	1389	65
+5440	139	1390	98
+5441	139	1391	89
+5442	139	1392	96
+5443	139	1393	45
+5444	139	1394	45
+5445	139	1395	41
+5446	139	1396	41
+5447	139	1397	70
+5448	139	1398	58
+5449	139	1399	58
+5450	139	1400	83
+5451	139	1401	46
+5452	139	1402	95
+5453	139	1403	42
+5454	139	1404	67
+5455	139	1405	96
+5456	139	1406	67
+5457	139	1407	78
+5458	139	1408	55
+5459	139	1409	81
+5460	139	1410	64
+5461	140	1381	42
+5462	140	1382	89
+5463	140	1383	44
+5464	140	1384	82
+5465	140	1385	83
+5466	140	1386	42
+5467	140	1387	45
+5468	140	1388	68
+5469	140	1389	98
+5470	140	1390	67
+5471	140	1391	43
+5472	140	1392	72
+5473	140	1393	69
+5474	140	1394	95
+5475	140	1395	85
+5476	140	1396	47
+5477	140	1397	81
+5478	140	1398	98
+5479	140	1399	73
+5480	140	1400	71
+5481	140	1401	42
+5482	140	1402	63
+5483	140	1403	43
+5484	140	1404	73
+5485	140	1405	56
+5486	140	1406	64
+5487	140	1407	88
+5488	140	1408	78
+5489	140	1409	87
+5490	140	1410	65
+5491	141	1381	71
+5492	141	1382	63
+5493	141	1383	97
+5494	141	1384	66
+5495	141	1385	52
+5496	141	1386	47
+5497	141	1387	77
+5498	141	1388	84
+5499	141	1389	48
+5500	141	1390	98
+5501	141	1391	99
+5502	141	1392	48
+5503	141	1393	41
+5504	141	1394	70
+5505	141	1395	82
+5506	141	1396	91
+5507	141	1397	60
+5508	141	1398	81
+5509	141	1399	71
+5510	141	1400	69
+5511	141	1401	49
+5512	141	1402	92
+5513	141	1403	66
+5514	141	1404	89
+5515	141	1405	61
+5516	141	1406	57
+5517	141	1407	93
+5518	141	1408	42
+5519	141	1409	99
+5520	141	1410	59
+5521	142	1411	59
+5522	142	1412	83
+5523	142	1413	53
+5524	142	1414	78
+5525	142	1415	82
+5526	142	1416	84
+5527	142	1417	80
+5528	142	1418	90
+5529	142	1419	58
+5530	142	1420	96
+5531	142	1421	60
+5532	142	1422	60
+5533	142	1423	93
+5534	142	1424	46
+5535	142	1425	55
+5536	142	1426	97
+5537	142	1427	83
+5538	142	1428	80
+5539	142	1429	64
+5540	142	1430	85
+5541	142	1431	79
+5542	142	1432	88
+5543	142	1433	81
+5544	142	1434	45
+5545	142	1435	49
+5546	142	1436	71
+5547	142	1437	73
+5548	142	1438	78
+5549	142	1439	90
+5550	142	1440	58
+5551	145	1441	51
+5552	145	1442	75
+5553	145	1443	63
+5554	145	1444	73
+5555	145	1445	75
+5556	145	1446	96
+5557	145	1447	43
+5558	145	1448	64
+5559	145	1449	73
+5560	145	1450	45
+5561	145	1451	99
+5562	145	1452	48
+5563	145	1453	52
+5564	145	1454	61
+5565	145	1455	45
+5566	145	1456	99
+5567	145	1457	97
+5568	145	1458	65
+5569	145	1459	98
+5570	145	1460	56
+5571	145	1461	92
+5572	145	1462	70
+5573	145	1463	41
+5574	145	1464	60
+5575	145	1465	65
+5576	145	1466	71
+5577	145	1467	46
+5578	145	1468	83
+5579	145	1469	77
+5580	145	1470	67
+5581	146	1441	57
+5582	146	1442	92
+5583	146	1443	83
+5584	146	1444	84
+5585	146	1445	99
+5586	146	1446	56
+5587	146	1447	71
+5588	146	1448	61
+5589	146	1449	66
+5590	146	1450	92
+5591	146	1451	67
+5592	146	1452	86
+5593	146	1453	88
+5594	146	1454	93
+5595	146	1455	97
+5596	146	1456	81
+5597	146	1457	83
+5598	146	1458	89
+5599	146	1459	99
+5600	146	1460	97
+5601	146	1461	93
+5602	146	1462	83
+5603	146	1463	73
+5604	146	1464	48
+5605	146	1465	52
+5606	146	1466	64
+5607	146	1467	76
+5608	146	1468	95
+5609	146	1469	74
+5610	146	1470	62
+5611	22	211	53
+5612	22	212	56
+5613	22	213	82
+5614	22	214	84
+5615	22	215	65
+5616	22	216	58
+5617	22	217	59
+5618	22	218	52
+5619	22	219	76
+5620	22	220	46
+5621	22	221	84
+5622	22	222	44
+5623	22	223	53
+5624	22	224	68
+5625	22	225	86
+5626	22	226	41
+5627	22	227	90
+5628	22	228	61
+5629	22	229	80
+5630	22	230	81
+5631	22	231	48
+5632	22	232	79
+5633	22	233	41
+5634	22	234	54
+5635	22	235	41
+5636	22	236	92
+5637	22	237	82
+5638	22	238	85
+5639	22	239	97
+5640	22	240	56
+5641	23	211	45
+5642	23	212	86
+5643	23	213	82
+5644	23	214	83
+5645	23	215	95
+5646	23	216	66
+5647	23	217	50
+5648	23	218	43
+5649	23	219	71
+5650	23	220	49
+5651	23	221	64
+5652	23	222	55
+5653	23	223	98
+5654	23	224	53
+5655	23	225	88
+5656	23	226	66
+5657	23	227	68
+5658	23	228	46
+5659	23	229	90
+5660	23	230	81
+5661	23	231	85
+5662	23	232	47
+5663	23	233	83
+5664	23	234	47
+5665	23	235	62
+5666	23	236	50
+5667	23	237	92
+5668	23	238	90
+5669	23	239	64
+5670	23	240	82
+5671	24	211	71
+5672	24	212	64
+5673	24	213	47
+5674	24	214	83
+5675	24	215	81
+5676	24	216	51
+5677	24	217	60
+5678	24	218	99
+5679	24	219	56
+5680	24	220	60
+5681	24	221	94
+5682	24	222	42
+5683	24	223	74
+5684	24	224	70
+5685	24	225	50
+5686	24	226	72
+5687	24	227	84
+5688	24	228	94
+5689	24	229	47
+5690	24	230	58
+5691	24	231	63
+5692	24	232	48
+5693	24	233	43
+5694	24	234	68
+5695	24	235	82
+5696	24	236	51
+5697	24	237	87
+5698	24	238	55
+5699	24	239	71
+5700	24	240	80
+5701	12	91	45
+5702	12	92	60
+5703	12	93	65
+5704	12	94	58
+5705	12	95	57
+5706	12	96	96
+5707	12	97	51
+5708	12	98	75
+5709	12	99	88
+5710	12	100	58
+5711	12	101	46
+5712	12	102	44
+5713	12	103	60
+5714	12	104	67
+5715	12	105	95
+5716	12	106	77
+5717	12	107	98
+5718	12	108	58
+5719	12	109	59
+5720	12	110	80
+5721	12	111	49
+5722	12	112	94
+5723	12	113	82
+5724	12	114	64
+5725	12	115	97
+5726	12	116	43
+5727	12	117	93
+5728	12	118	87
+5729	12	119	97
+5730	12	120	75
+5731	13	121	88
+5732	13	122	55
+5733	13	123	69
+5734	13	124	57
+5735	13	125	90
+5736	13	126	60
+5737	13	127	87
+5738	13	128	58
+5739	13	129	75
+5740	13	130	99
+5741	13	131	99
+5742	13	132	62
+5743	13	133	96
+5744	13	134	98
+5745	13	135	95
+5746	13	136	63
+5747	13	137	76
+5748	13	138	74
+5749	13	139	99
+5750	13	140	46
+5751	13	141	72
+5752	13	142	88
+5753	13	143	63
+5754	13	144	43
+5755	13	145	67
+5756	13	146	64
+5757	13	147	58
+5758	13	148	69
+5759	13	149	67
+5760	13	150	71
+5761	14	121	96
+5762	14	122	63
+5763	14	123	60
+5764	14	124	87
+5765	14	125	52
+5766	14	126	76
+5767	14	127	94
+5768	14	128	41
+5769	14	129	58
+5770	14	130	44
+5771	14	131	67
+5772	14	132	78
+5773	14	133	75
+5774	14	134	86
+5775	14	135	73
+5776	14	136	82
+5777	14	137	70
+5778	14	138	72
+5779	14	139	69
+5780	14	140	69
+5781	14	141	61
+5782	14	142	97
+5783	14	143	94
+5784	14	144	52
+5785	14	145	84
+5786	14	146	47
+5787	14	147	67
+5788	14	148	85
+5789	14	149	85
+5790	14	150	77
+5791	15	121	82
+5792	15	122	58
+5793	15	123	45
+5794	15	124	70
+5795	15	125	71
+5796	15	126	44
+5797	15	127	76
+5798	15	128	77
+5799	15	129	71
+5800	15	130	41
+5801	15	131	68
+5802	15	132	84
+5803	15	133	90
+5804	15	134	69
+5805	15	135	41
+5806	15	136	59
+5807	15	137	54
+5808	15	138	81
+5809	15	139	76
+5810	15	140	64
+5811	15	141	68
+5812	15	142	89
+5813	15	143	87
+5814	15	144	50
+5815	15	145	62
+5816	15	146	43
+5817	15	147	82
+5818	15	148	52
+5819	15	149	78
+5820	15	150	73
+5821	16	151	87
+5822	16	152	47
+5823	16	153	61
+5824	16	154	91
+5825	16	155	76
+5826	16	156	79
+5827	16	157	48
+5828	16	158	57
+5829	16	159	65
+5830	16	160	47
+5831	16	161	44
+5832	16	162	57
+5833	16	163	99
+5834	16	164	51
+5835	16	165	77
+5836	16	166	54
+5837	16	167	75
+5838	16	168	91
+5839	16	169	42
+5840	16	170	81
+5841	16	171	96
+5842	16	172	67
+5843	16	173	96
+5844	16	174	68
+5845	16	175	58
+5846	16	176	67
+5847	16	177	81
+5848	16	178	46
+5849	16	179	98
+5850	16	180	60
+5851	17	151	89
+5852	17	152	50
+5853	17	153	85
+5854	17	154	50
+5855	17	155	63
+5856	17	156	76
+5857	17	157	87
+5858	17	158	68
+5859	17	159	44
+5860	17	160	72
+5861	17	161	76
+5862	17	162	48
+5863	17	163	54
+5864	17	164	47
+5865	17	165	83
+5866	17	166	69
+5867	17	167	74
+5868	17	168	68
+5869	17	169	62
+5870	17	170	74
+5871	17	171	65
+5872	17	172	89
+5873	17	173	81
+5874	17	174	96
+5875	17	175	44
+5876	17	176	57
+5877	17	177	48
+5878	17	178	70
+5879	17	179	62
+5880	17	180	72
+5881	18	151	60
+5882	18	152	60
+5883	18	153	50
+5884	18	154	76
+5885	18	155	49
+5886	18	156	43
+5887	18	157	96
+5888	18	158	41
+5889	18	159	59
+5890	18	160	62
+5891	18	161	86
+5892	18	162	48
+5893	18	163	59
+5894	18	164	44
+5895	18	165	43
+5896	18	166	98
+5897	18	167	45
+5898	18	168	98
+5899	18	169	56
+5900	18	170	77
+5901	18	171	89
+5902	18	172	49
+5903	18	173	87
+5904	18	174	97
+5905	18	175	59
+5906	18	176	50
+5907	18	177	54
+5908	18	178	53
+5909	18	179	50
+5910	18	180	87
+5911	19	181	81
+5912	19	182	81
+5913	19	183	90
+5914	19	184	46
+5915	19	185	56
+5916	19	186	90
+5917	19	187	67
+5918	19	188	46
+5919	19	189	51
+5920	19	190	56
+5921	19	191	75
+5922	19	192	41
+5923	19	193	76
+5924	19	194	79
+5925	19	195	46
+5926	19	196	69
+5927	19	197	48
+5928	19	198	43
+5929	19	199	69
+5930	19	200	58
+5931	19	201	74
+5932	19	202	54
+5933	19	203	43
+5934	19	204	76
+5935	19	205	64
+5936	19	206	66
+5937	19	207	67
+5938	19	208	53
+5939	19	209	75
+5940	19	210	93
+5941	20	181	89
+5942	20	182	94
+5943	20	183	51
+5944	20	184	52
+5945	20	185	69
+5946	20	186	55
+5947	20	187	68
+5948	20	188	86
+5949	20	189	81
+5950	20	190	47
+5951	20	191	69
+5952	20	192	49
+5953	20	193	42
+5954	20	194	78
+5955	20	195	87
+5956	20	196	57
+5957	20	197	93
+5958	20	198	64
+5959	20	199	63
+5960	20	200	84
+5961	20	201	85
+5962	20	202	68
+5963	20	203	47
+5964	20	204	65
+5965	20	205	97
+5966	20	206	69
+5967	20	207	47
+5968	20	208	90
+5969	20	209	70
+5970	20	210	75
+5971	21	181	96
+5972	21	182	45
+5973	21	183	88
+5974	21	184	70
+5975	21	185	51
+5976	21	186	79
+5977	21	187	55
+5978	21	188	45
+5979	21	189	98
+5980	21	190	70
+5981	21	191	75
+5982	21	192	44
+5983	21	193	86
+5984	21	194	59
+5985	21	195	56
+5986	21	196	96
+5987	21	197	82
+5988	21	198	41
+5989	21	199	91
+5990	21	200	44
+5991	21	201	69
+5992	21	202	99
+5993	21	203	89
+5994	21	204	63
+5995	21	205	79
+5996	21	206	53
+5997	21	207	86
+5998	21	208	59
+5999	21	209	94
+6000	21	210	66
+6001	156	1531	60
+6002	156	1532	97
+6003	156	1533	52
+6004	156	1534	58
+6005	156	1535	50
+6006	156	1536	55
+6007	156	1537	88
+6008	156	1538	71
+6009	156	1539	94
+6010	156	1540	84
+6011	156	1541	96
+6012	156	1542	91
+6013	156	1543	41
+6014	156	1544	42
+6015	156	1545	82
+6016	156	1546	61
+6017	156	1547	67
+6018	156	1548	83
+6019	156	1549	96
+6020	156	1550	89
+6021	156	1551	66
+6022	156	1552	68
+6023	156	1553	57
+6024	156	1554	93
+6025	156	1555	49
+6026	156	1556	54
+6027	156	1557	76
+6028	156	1558	84
+6029	156	1559	64
+6030	156	1560	79
+6031	32	301	88
+6032	32	302	54
+6033	32	303	51
+6034	32	304	50
+6035	32	305	69
+6036	32	306	70
+6037	32	307	53
+6038	32	308	81
+6039	32	309	87
+6040	32	310	65
+6041	32	311	78
+6042	32	312	71
+6043	32	313	69
+6044	32	314	80
+6045	32	315	82
+6046	32	316	86
+6047	32	317	82
+6048	32	318	74
+6049	32	319	80
+6050	32	320	77
+6051	32	321	93
+6052	32	322	96
+6053	32	323	61
+6054	32	324	56
+6055	32	325	93
+6056	32	326	61
+6057	32	327	84
+6058	32	328	75
+6059	32	329	55
+6060	32	330	43
+6061	33	301	92
+6062	33	302	52
+6063	33	303	61
+6064	33	304	88
+6065	33	305	79
+6066	33	306	89
+6067	33	307	61
+6068	33	308	48
+6069	33	309	52
+6070	33	310	72
+6071	33	311	67
+6072	33	312	94
+6073	33	313	70
+6074	33	314	94
+6075	33	315	60
+6076	33	316	65
+6077	33	317	62
+6078	33	318	95
+6079	33	319	99
+6080	33	320	98
+6081	33	321	78
+6082	33	322	85
+6083	33	323	59
+6084	33	324	74
+6085	33	325	47
+6086	33	326	69
+6087	33	327	56
+6088	33	328	45
+6089	33	329	88
+6090	33	330	98
+6091	34	331	73
+6092	34	332	87
+6093	34	333	93
+6094	34	334	87
+6095	34	335	63
+6096	34	336	60
+6097	34	337	55
+6098	34	338	59
+6099	34	339	94
+6100	34	340	49
+6101	34	341	65
+6102	34	342	56
+6103	34	343	56
+6104	34	344	52
+6105	34	345	55
+6106	34	346	98
+6107	34	347	80
+6108	34	348	90
+6109	34	349	59
+6110	34	350	88
+6111	34	351	90
+6112	34	352	94
+6113	34	353	78
+6114	34	354	73
+6115	34	355	58
+6116	34	356	47
+6117	34	357	94
+6118	34	358	90
+6119	34	359	51
+6120	34	360	68
+6121	35	331	85
+6122	35	332	44
+6123	35	333	42
+6124	35	334	56
+6125	35	335	79
+6126	35	336	71
+6127	35	337	55
+6128	35	338	74
+6129	35	339	84
+6130	35	340	69
+6131	35	341	69
+6132	35	342	57
+6133	35	343	74
+6134	35	344	69
+6135	35	345	63
+6136	35	346	72
+6137	35	347	60
+6138	35	348	81
+6139	35	349	52
+6140	35	350	63
+6141	35	351	64
+6142	35	352	69
+6143	35	353	62
+6144	35	354	73
+6145	35	355	97
+6146	35	356	85
+6147	35	357	90
+6148	35	358	70
+6149	35	359	55
+6150	35	360	86
+6151	36	331	55
+6152	36	332	42
+6153	36	333	82
+6154	36	334	71
+6155	36	335	46
+6156	36	336	72
+6157	36	337	84
+6158	36	338	51
+6159	36	339	66
+6160	36	340	78
+6161	36	341	45
+6162	36	342	65
+6163	36	343	66
+6164	36	344	46
+6165	36	345	55
+6166	36	346	78
+6167	36	347	86
+6168	36	348	83
+6169	36	349	57
+6170	36	350	87
+6171	36	351	83
+6172	36	352	82
+6173	36	353	90
+6174	36	354	45
+6175	36	355	48
+6176	36	356	52
+6177	36	357	74
+6178	36	358	74
+6179	36	359	41
+6180	36	360	59
+6181	37	361	43
+6182	37	362	53
+6183	37	363	53
+6184	37	364	73
+6185	37	365	65
+6186	37	366	82
+6187	37	367	58
+6188	37	368	72
+6189	37	369	80
+6190	37	370	99
+6191	37	371	49
+6192	37	372	42
+6193	37	373	69
+6194	37	374	95
+6195	37	375	67
+6196	37	376	88
+6197	37	377	93
+6198	37	378	45
+6199	37	379	78
+6200	37	380	47
+6201	37	381	77
+6202	37	382	68
+6203	37	383	47
+6204	37	384	57
+6205	37	385	87
+6206	37	386	59
+6207	37	387	70
+6208	37	388	49
+6209	37	389	66
+6210	37	390	83
+6211	38	361	77
+6212	38	362	71
+6213	38	363	45
+6214	38	364	89
+6215	38	365	83
+6216	38	366	72
+6217	38	367	46
+6218	38	368	73
+6219	38	369	89
+6220	38	370	47
+6221	38	371	98
+6222	38	372	80
+6223	38	373	54
+6224	38	374	49
+6225	38	375	46
+6226	38	376	56
+6227	38	377	91
+6228	38	378	86
+6229	38	379	65
+6230	38	380	62
+6231	38	381	72
+6232	38	382	76
+6233	38	383	49
+6234	38	384	55
+6235	38	385	53
+6236	38	386	67
+6237	38	387	74
+6238	38	388	50
+6239	38	389	69
+6240	38	390	98
+6241	39	361	59
+6242	39	362	73
+6243	39	363	89
+6244	39	364	81
+6245	39	365	94
+6246	39	366	51
+6247	39	367	60
+6248	39	368	60
+6249	39	369	83
+6250	39	370	43
+6251	39	371	41
+6252	39	372	60
+6253	39	373	91
+6254	39	374	84
+6255	39	375	66
+6256	39	376	65
+6257	39	377	93
+6258	39	378	56
+6259	39	379	46
+6260	39	380	64
+6261	39	381	67
+6262	39	382	48
+6263	39	383	41
+6264	39	384	44
+6265	39	385	71
+6266	39	386	72
+6267	39	387	63
+6268	39	388	67
+6269	39	389	66
+6270	39	390	49
+6271	157	1561	51
+6272	157	1562	68
+6273	157	1563	88
+6274	157	1564	96
+6275	157	1565	94
+6276	157	1566	96
+6277	157	1567	56
+6278	157	1568	69
+6279	157	1569	42
+6280	157	1570	83
+6281	157	1571	42
+6282	157	1572	73
+6283	157	1573	95
+6284	157	1574	96
+6285	157	1575	93
+6286	157	1576	92
+6287	157	1577	45
+6288	157	1578	50
+6289	157	1579	99
+6290	157	1580	81
+6291	157	1581	78
+6292	157	1582	60
+6293	157	1583	99
+6294	157	1584	56
+6295	157	1585	47
+6296	157	1586	83
+6297	157	1587	81
+6298	157	1588	55
+6299	157	1589	50
+6300	157	1590	95
+6301	158	1561	43
+6302	158	1562	48
+6303	158	1563	94
+6304	158	1564	83
+6305	158	1565	92
+6306	158	1566	52
+6307	158	1567	96
+6308	158	1568	41
+6309	158	1569	79
+6310	158	1570	90
+6311	158	1571	43
+6312	158	1572	84
+6313	158	1573	41
+6314	158	1574	82
+6315	158	1575	71
+6316	158	1576	90
+6317	158	1577	88
+6318	158	1578	61
+6319	158	1579	91
+6320	158	1580	96
+6321	158	1581	74
+6322	158	1582	65
+6323	158	1583	77
+6324	158	1584	88
+6325	158	1585	56
+6326	158	1586	93
+6327	158	1587	59
+6328	158	1588	63
+6329	158	1589	92
+6330	158	1590	64
+6331	2	1	46
+6332	2	2	71
+6333	2	3	45
+6334	2	4	56
+6335	2	5	88
+6336	2	6	87
+6337	2	7	71
+6338	2	8	65
+6339	2	9	48
+6340	2	10	97
+6341	2	11	50
+6342	2	12	67
+6343	2	13	77
+6344	2	14	80
+6345	2	15	98
+6346	2	16	97
+6347	2	17	42
+6348	2	18	68
+6349	2	19	79
+6350	2	20	66
+6351	2	21	85
+6352	2	22	45
+6353	2	23	84
+6354	2	24	93
+6355	2	25	77
+6356	2	26	54
+6357	2	27	54
+6358	2	28	70
+6359	2	29	51
+6360	2	30	52
+6361	3	1	88
+6362	3	2	70
+6363	3	3	47
+6364	3	4	73
+6365	3	5	66
+6366	3	6	82
+6367	3	7	93
+6368	3	8	54
+6369	3	9	58
+6370	3	10	68
+6371	3	11	56
+6372	3	12	90
+6373	3	13	98
+6374	3	14	82
+6375	3	15	65
+6376	3	16	58
+6377	3	17	50
+6378	3	18	65
+6379	3	19	82
+6380	3	20	53
+6381	3	21	50
+6382	3	22	65
+6383	3	23	87
+6384	3	24	78
+6385	3	25	61
+6386	3	26	54
+6387	3	27	61
+6388	3	28	60
+6389	3	29	63
+6390	3	30	64
+6391	4	31	87
+6392	4	32	55
+6393	4	33	80
+6394	4	34	98
+6395	4	35	74
+6396	4	36	60
+6397	4	37	80
+6398	4	38	47
+6399	4	39	99
+6400	4	40	57
+6401	4	41	62
+6402	4	42	88
+6403	4	43	70
+6404	4	44	49
+6405	4	45	96
+6406	4	46	47
+6407	4	47	96
+6408	4	48	60
+6409	4	49	92
+6410	4	50	97
+6411	4	51	95
+6412	4	52	87
+6413	4	53	80
+6414	4	54	43
+6415	4	55	80
+6416	4	56	74
+6417	4	57	79
+6418	4	58	74
+6419	4	59	60
+6420	4	60	67
+6421	5	31	54
+6422	5	32	63
+6423	5	33	80
+6424	5	34	55
+6425	5	35	74
+6426	5	36	75
+6427	5	37	95
+6428	5	38	46
+6429	5	39	93
+6430	5	40	83
+6431	5	41	81
+6432	5	42	93
+6433	5	43	65
+6434	5	44	79
+6435	5	45	67
+6436	5	46	47
+6437	5	47	49
+6438	5	48	62
+6439	5	49	43
+6440	5	50	88
+6441	5	51	89
+6442	5	52	81
+6443	5	53	79
+6444	5	54	41
+6445	5	55	85
+6446	5	56	66
+6447	5	57	79
+6448	5	58	54
+6449	5	59	85
+6450	5	60	41
+6451	6	31	49
+6452	6	32	49
+6453	6	33	64
+6454	6	34	72
+6455	6	35	96
+6456	6	36	69
+6457	6	37	80
+6458	6	38	56
+6459	6	39	86
+6460	6	40	97
+6461	6	41	52
+6462	6	42	61
+6463	6	43	71
+6464	6	44	50
+6465	6	45	95
+6466	6	46	62
+6467	6	47	99
+6468	6	48	42
+6469	6	49	90
+6470	6	50	52
+6471	6	51	74
+6472	6	52	52
+6473	6	53	96
+6474	6	54	78
+6475	6	55	62
+6476	6	56	97
+6477	6	57	64
+6478	6	58	44
+6479	6	59	45
+6480	6	60	61
+6481	7	61	66
+6482	7	62	46
+6483	7	63	82
+6484	7	64	53
+6485	7	65	83
+6486	7	66	59
+6487	7	67	89
+6488	7	68	67
+6489	7	69	77
+6490	7	70	86
+6491	7	71	78
+6492	7	72	57
+6493	7	73	43
+6494	7	74	57
+6495	7	75	83
+6496	7	76	70
+6497	7	77	91
+6498	7	78	50
+6499	7	79	54
+6500	7	80	79
+6501	7	81	63
+6502	7	82	97
+6503	7	83	76
+6504	7	84	55
+6505	7	85	79
+6506	7	86	79
+6507	7	87	92
+6508	7	88	93
+6509	7	89	63
+6510	7	90	88
+6511	8	61	72
+6512	8	62	42
+6513	8	63	50
+6514	8	64	84
+6515	8	65	66
+6516	8	66	60
+6517	8	67	84
+6518	8	68	55
+6519	8	69	81
+6520	8	70	77
+6521	8	71	52
+6522	8	72	82
+6523	8	73	75
+6524	8	74	61
+6525	8	75	47
+6526	8	76	52
+6527	8	77	97
+6528	8	78	66
+6529	8	79	96
+6530	8	80	52
+6531	8	81	90
+6532	8	82	60
+6533	8	83	55
+6534	8	84	44
+6535	8	85	64
+6536	8	86	67
+6537	8	87	73
+6538	8	88	75
+6539	8	89	67
+6540	8	90	54
+6541	9	61	52
+6542	9	62	85
+6543	9	63	69
+6544	9	64	76
+6545	9	65	73
+6546	9	66	54
+6547	9	67	44
+6548	9	68	72
+6549	9	69	91
+6550	9	70	43
+6551	9	71	55
+6552	9	72	86
+6553	9	73	76
+6554	9	74	73
+6555	9	75	66
+6556	9	76	81
+6557	9	77	62
+6558	9	78	97
+6559	9	79	43
+6560	9	80	90
+6561	9	81	60
+6562	9	82	66
+6563	9	83	93
+6564	9	84	96
+6565	9	85	78
+6566	9	86	75
+6567	9	87	65
+6568	9	88	78
+6569	9	89	93
+6570	9	90	79
+6571	10	91	42
+6572	10	92	51
+6573	10	93	60
+6574	10	94	92
+6575	10	95	83
+6576	10	96	74
+6577	10	97	47
+6578	10	98	72
+6579	10	99	47
+6580	10	100	90
+6581	10	101	81
+6582	10	102	78
+6583	10	103	75
+6584	10	104	82
+6585	10	105	42
+6586	10	106	82
+6587	10	107	99
+6588	10	108	57
+6589	10	109	62
+6590	10	110	93
+6591	10	111	89
+6592	10	112	47
+6593	10	113	94
+6594	10	114	58
+6595	10	115	50
+6596	10	116	72
+6597	10	117	80
+6598	10	118	72
+6599	10	119	58
+6600	10	120	84
+6601	11	91	46
+6602	11	92	84
+6603	11	93	86
+6604	11	94	70
+6605	11	95	54
+6606	11	96	62
+6607	11	97	80
+6608	11	98	68
+6609	11	99	48
+6610	11	100	72
+6611	11	101	71
+6612	11	102	56
+6613	11	103	50
+6614	11	104	57
+6615	11	105	91
+6616	11	106	70
+6617	11	107	44
+6618	11	108	64
+6619	11	109	66
+6620	11	110	54
+6621	11	111	88
+6622	11	112	61
+6623	11	113	89
+6624	11	114	58
+6625	11	115	61
+6626	11	116	80
+6627	11	117	61
+6628	11	118	53
+6629	11	119	59
+6630	11	120	61
+6631	25	241	53
+6632	25	242	47
+6633	25	243	63
+6634	25	244	53
+6635	25	245	42
+6636	25	246	86
+6637	25	247	41
+6638	25	248	66
+6639	25	249	81
+6640	25	250	88
+6641	25	251	94
+6642	25	252	82
+6643	25	253	57
+6644	25	254	61
+6645	25	255	90
+6646	25	256	72
+6647	25	257	50
+6648	25	258	66
+6649	25	259	71
+6650	25	260	60
+6651	25	261	76
+6652	25	262	51
+6653	25	263	43
+6654	25	264	42
+6655	25	265	91
+6656	25	266	69
+6657	25	267	90
+6658	25	268	53
+6659	25	269	57
+6660	25	270	81
+6661	26	241	81
+6662	26	242	42
+6663	26	243	70
+6664	26	244	98
+6665	26	245	47
+6666	26	246	72
+6667	26	247	42
+6668	26	248	86
+6669	26	249	47
+6670	26	250	91
+6671	26	251	47
+6672	26	252	52
+6673	26	253	70
+6674	26	254	95
+6675	26	255	56
+6676	26	256	45
+6677	26	257	56
+6678	26	258	80
+6679	26	259	74
+6680	26	260	44
+6681	26	261	97
+6682	26	262	75
+6683	26	263	41
+6684	26	264	52
+6685	26	265	60
+6686	26	266	54
+6687	26	267	62
+6688	26	268	73
+6689	26	269	94
+6690	26	270	84
+6691	27	241	67
+6692	27	242	77
+6693	27	243	94
+6694	27	244	91
+6695	27	245	83
+6696	27	246	61
+6697	27	247	93
+6698	27	248	76
+6699	27	249	61
+6700	27	250	65
+6701	27	251	71
+6702	27	252	49
+6703	27	253	60
+6704	27	254	59
+6705	27	255	56
+6706	27	256	90
+6707	27	257	48
+6708	27	258	89
+6709	27	259	65
+6710	27	260	70
+6711	27	261	50
+6712	27	262	51
+6713	27	263	69
+6714	27	264	82
+6715	27	265	44
+6716	27	266	89
+6717	27	267	64
+6718	27	268	71
+6719	27	269	51
+6720	27	270	85
+6721	28	271	96
+6722	28	272	70
+6723	28	273	60
+6724	28	274	72
+6725	28	275	68
+6726	28	276	92
+6727	28	277	94
+6728	28	278	59
+6729	28	279	52
+6730	28	280	83
+6731	28	281	69
+6732	28	282	79
+6733	28	283	69
+6734	28	284	77
+6735	28	285	76
+6736	28	286	55
+6737	28	287	75
+6738	28	288	42
+6739	28	289	92
+6740	28	290	49
+6741	28	291	58
+6742	28	292	46
+6743	28	293	98
+6744	28	294	81
+6745	28	295	82
+6746	28	296	79
+6747	28	297	92
+6748	28	298	72
+6749	28	299	66
+6750	28	300	90
+6751	29	271	79
+6752	29	272	76
+6753	29	273	53
+6754	29	274	75
+6755	29	275	91
+6756	29	276	89
+6757	29	277	42
+6758	29	278	96
+6759	29	279	67
+6760	29	280	86
+6761	29	281	97
+6762	29	282	89
+6763	29	283	62
+6764	29	284	48
+6765	29	285	75
+6766	29	286	66
+6767	29	287	95
+6768	29	288	74
+6769	29	289	84
+6770	29	290	97
+6771	29	291	71
+6772	29	292	71
+6773	29	293	52
+6774	29	294	64
+6775	29	295	76
+6776	29	296	53
+6777	29	297	73
+6778	29	298	91
+6779	29	299	61
+6780	29	300	62
+6781	30	271	50
+6782	30	272	86
+6783	30	273	60
+6784	30	274	49
+6785	30	275	94
+6786	30	276	65
+6787	30	277	70
+6788	30	278	99
+6789	30	279	76
+6790	30	280	99
+6791	30	281	97
+6792	30	282	96
+6793	30	283	43
+6794	30	284	95
+6795	30	285	73
+6796	30	286	55
+6797	30	287	47
+6798	30	288	54
+6799	30	289	68
+6800	30	290	95
+6801	30	291	85
+6802	30	292	82
+6803	30	293	51
+6804	30	294	62
+6805	30	295	81
+6806	30	296	81
+6807	30	297	86
+6808	30	298	46
+6809	30	299	71
+6810	30	300	99
+6811	31	301	88
+6812	31	302	49
+6813	31	303	74
+6814	31	304	54
+6815	31	305	97
+6816	31	306	65
+6817	31	307	65
+6818	31	308	50
+6819	31	309	57
+6820	31	310	91
+6821	31	311	48
+6822	31	312	94
+6823	31	313	46
+6824	31	314	64
+6825	31	315	94
+6826	31	316	58
+6827	31	317	76
+6828	31	318	77
+6829	31	319	55
+6830	31	320	52
+6831	31	321	59
+6832	31	322	50
+6833	31	323	46
+6834	31	324	88
+6835	31	325	88
+6836	31	326	97
+6837	31	327	99
+6838	31	328	88
+6839	31	329	49
+6840	31	330	89
+6841	43	421	85
+6842	43	422	62
+6843	43	423	53
+6844	43	424	65
+6845	43	425	69
+6846	43	426	76
+6847	43	427	73
+6848	43	428	64
+6849	43	429	80
+6850	43	430	59
+6851	43	431	58
+6852	43	432	59
+6853	43	433	51
+6854	43	434	74
+6855	43	435	49
+6856	43	436	78
+6857	43	437	62
+6858	43	438	71
+6859	43	439	83
+6860	43	440	91
+6861	43	441	88
+6862	43	442	89
+6863	43	443	50
+6864	43	444	58
+6865	43	445	85
+6866	43	446	58
+6867	43	447	61
+6868	43	448	88
+6869	43	449	53
+6870	43	450	86
+6871	44	421	99
+6872	44	422	53
+6873	44	423	73
+6874	44	424	46
+6875	44	425	45
+6876	44	426	90
+6877	44	427	60
+6878	44	428	99
+6879	44	429	83
+6880	44	430	49
+6881	44	431	89
+6882	44	432	61
+6883	44	433	66
+6884	44	434	95
+6885	44	435	64
+6886	44	436	75
+6887	44	437	97
+6888	44	438	73
+6889	44	439	41
+6890	44	440	98
+6891	44	441	96
+6892	44	442	84
+6893	44	443	52
+6894	44	444	96
+6895	44	445	92
+6896	44	446	67
+6897	44	447	86
+6898	44	448	43
+6899	44	449	61
+6900	44	450	57
+6901	45	421	64
+6902	45	422	73
+6903	45	423	62
+6904	45	424	83
+6905	45	425	96
+6906	45	426	79
+6907	45	427	55
+6908	45	428	66
+6909	45	429	96
+6910	45	430	41
+6911	45	431	42
+6912	45	432	90
+6913	45	433	56
+6914	45	434	42
+6915	45	435	99
+6916	45	436	59
+6917	45	437	69
+6918	45	438	77
+6919	45	439	67
+6920	45	440	53
+6921	45	441	73
+6922	45	442	45
+6923	45	443	73
+6924	45	444	44
+6925	45	445	82
+6926	45	446	60
+6927	45	447	99
+6928	45	448	63
+6929	45	449	58
+6930	45	450	66
+6931	46	451	73
+6932	46	452	96
+6933	46	453	86
+6934	46	454	72
+6935	46	455	75
+6936	46	456	84
+6937	46	457	51
+6938	46	458	74
+6939	46	459	75
+6940	46	460	48
+6941	46	461	96
+6942	46	462	61
+6943	46	463	98
+6944	46	464	58
+6945	46	465	81
+6946	46	466	81
+6947	46	467	94
+6948	46	468	43
+6949	46	469	57
+6950	46	470	86
+6951	46	471	87
+6952	46	472	73
+6953	46	473	62
+6954	46	474	57
+6955	46	475	48
+6956	46	476	67
+6957	46	477	61
+6958	46	478	83
+6959	46	479	88
+6960	46	480	91
+6961	47	451	89
+6962	47	452	88
+6963	47	453	92
+6964	47	454	55
+6965	47	455	60
+6966	47	456	74
+6967	47	457	99
+6968	47	458	70
+6969	47	459	58
+6970	47	460	43
+6971	47	461	48
+6972	47	462	82
+6973	47	463	46
+6974	47	464	92
+6975	47	465	87
+6976	47	466	60
+6977	47	467	51
+6978	47	468	68
+6979	47	469	42
+6980	47	470	88
+6981	47	471	74
+6982	47	472	42
+6983	47	473	77
+6984	47	474	86
+6985	47	475	92
+6986	47	476	45
+6987	47	477	72
+6988	47	478	45
+6989	47	479	46
+6990	47	480	67
+6991	245	2421	70
+6992	245	2422	46
+6993	245	2423	95
+6994	245	2424	94
+6995	245	2425	99
+6996	245	2426	94
+6997	245	2427	57
+6998	245	2428	92
+6999	245	2429	83
+7000	245	2430	46
+7001	245	2431	65
+7002	245	2432	63
+7003	245	2433	80
+7004	245	2434	77
+7005	245	2435	92
+7006	245	2436	50
+7007	245	2437	47
+7008	245	2438	41
+7009	245	2439	59
+7010	245	2440	65
+7011	245	2441	84
+7012	245	2442	52
+7013	245	2443	67
+7014	245	2444	62
+7015	245	2445	47
+7016	245	2446	83
+7017	245	2447	48
+7018	245	2448	82
+7019	245	2449	59
+7020	245	2450	70
+7021	246	2421	50
+7022	246	2422	50
+7023	246	2423	63
+7024	246	2424	90
+7025	246	2425	69
+7026	246	2426	47
+7027	246	2427	99
+7028	246	2428	77
+7029	246	2429	88
+7030	246	2430	47
+7031	246	2431	67
+7032	246	2432	51
+7033	246	2433	90
+7034	246	2434	74
+7035	246	2435	98
+7036	246	2436	58
+7037	246	2437	83
+7038	246	2438	87
+7039	246	2439	60
+7040	246	2440	59
+7041	246	2441	85
+7042	246	2442	80
+7043	246	2443	54
+7044	246	2444	61
+7045	246	2445	94
+7046	246	2446	80
+7047	246	2447	80
+7048	246	2448	79
+7049	246	2449	85
+7050	246	2450	90
+7051	247	2451	42
+7052	247	2452	64
+7053	247	2453	42
+7054	247	2454	70
+7055	247	2455	84
+7056	247	2456	71
+7057	247	2457	77
+7058	247	2458	64
+7059	247	2459	45
+7060	247	2460	86
+7061	247	2461	89
+7062	247	2462	49
+7063	247	2463	60
+7064	247	2464	45
+7065	247	2465	50
+7066	247	2466	77
+7067	247	2467	51
+7068	247	2468	63
+7069	247	2469	74
+7070	247	2470	98
+7071	247	2471	55
+7072	247	2472	91
+7073	247	2473	84
+7074	247	2474	88
+7075	247	2475	71
+7076	247	2476	91
+7077	247	2477	56
+7078	247	2478	74
+7079	247	2479	46
+7080	247	2480	64
+7081	248	2451	45
+7082	248	2452	87
+7083	248	2453	85
+7084	248	2454	96
+7085	248	2455	91
+7086	248	2456	54
+7087	248	2457	93
+7088	248	2458	63
+7089	248	2459	89
+7090	248	2460	42
+7091	248	2461	49
+7092	248	2462	96
+7093	248	2463	96
+7094	248	2464	41
+7095	248	2465	74
+7096	248	2466	86
+7097	248	2467	60
+7098	248	2468	65
+7099	248	2469	95
+7100	248	2470	44
+7101	248	2471	87
+7102	248	2472	49
+7103	248	2473	91
+7104	248	2474	74
+7105	248	2475	60
+7106	248	2476	77
+7107	248	2477	79
+7108	248	2478	49
+7109	248	2479	49
+7110	248	2480	57
+7111	249	2451	77
+7112	249	2452	92
+7113	249	2453	92
+7114	249	2454	59
+7115	249	2455	85
+7116	249	2456	59
+7117	249	2457	81
+7118	249	2458	64
+7119	249	2459	89
+7120	249	2460	90
+7121	249	2461	90
+7122	249	2462	88
+7123	249	2463	50
+7124	249	2464	41
+7125	249	2465	43
+7126	249	2466	71
+7127	249	2467	69
+7128	249	2468	66
+7129	249	2469	88
+7130	249	2470	92
+7131	249	2471	75
+7132	249	2472	98
+7133	249	2473	78
+7134	249	2474	64
+7135	249	2475	77
+7136	249	2476	45
+7137	249	2477	71
+7138	249	2478	76
+7139	249	2479	85
+7140	249	2480	89
+7141	40	391	81
+7142	40	392	76
+7143	40	393	70
+7144	40	394	94
+7145	40	395	44
+7146	40	396	78
+7147	40	397	69
+7148	40	398	78
+7149	40	399	95
+7150	40	400	47
+7151	40	401	79
+7152	40	402	76
+7153	40	403	62
+7154	40	404	78
+7155	40	405	57
+7156	40	406	88
+7157	40	407	54
+7158	40	408	66
+7159	40	409	95
+7160	40	410	60
+7161	40	411	47
+7162	40	412	96
+7163	40	413	75
+7164	40	414	42
+7165	40	415	71
+7166	40	416	99
+7167	40	417	97
+7168	40	418	48
+7169	40	419	43
+7170	40	420	86
+7171	41	391	48
+7172	41	392	59
+7173	41	393	58
+7174	41	394	63
+7175	41	395	43
+7176	41	396	44
+7177	41	397	76
+7178	41	398	82
+7179	41	399	80
+7180	41	400	67
+7181	41	401	73
+7182	41	402	83
+7183	41	403	98
+7184	41	404	79
+7185	41	405	79
+7186	41	406	90
+7187	41	407	64
+7188	41	408	60
+7189	41	409	80
+7190	41	410	50
+7191	41	411	46
+7192	41	412	46
+7193	41	413	51
+7194	41	414	66
+7195	41	415	41
+7196	41	416	65
+7197	41	417	74
+7198	41	418	45
+7199	41	419	91
+7200	41	420	74
+7201	42	391	70
+7202	42	392	75
+7203	42	393	66
+7204	42	394	89
+7205	42	395	71
+7206	42	396	97
+7207	42	397	62
+7208	42	398	74
+7209	42	399	85
+7210	42	400	97
+7211	42	401	42
+7212	42	402	72
+7213	42	403	62
+7214	42	404	87
+7215	42	405	60
+7216	42	406	98
+7217	42	407	61
+7218	42	408	69
+7219	42	409	88
+7220	42	410	91
+7221	42	411	54
+7222	42	412	88
+7223	42	413	50
+7224	42	414	64
+7225	42	415	74
+7226	42	416	61
+7227	42	417	86
+7228	42	418	49
+7229	42	419	68
+7230	42	420	83
+7231	48	451	99
+7232	48	452	43
+7233	48	453	62
+7234	48	454	83
+7235	48	455	99
+7236	48	456	96
+7237	48	457	82
+7238	48	458	48
+7239	48	459	41
+7240	48	460	50
+7241	48	461	60
+7242	48	462	82
+7243	48	463	94
+7244	48	464	77
+7245	48	465	92
+7246	48	466	42
+7247	48	467	45
+7248	48	468	44
+7249	48	469	73
+7250	48	470	83
+7251	48	471	49
+7252	48	472	87
+7253	48	473	66
+7254	48	474	59
+7255	48	475	65
+7256	48	476	55
+7257	48	477	89
+7258	48	478	46
+7259	48	479	46
+7260	48	480	66
+7261	49	481	67
+7262	49	482	49
+7263	49	483	49
+7264	49	484	84
+7265	49	485	43
+7266	49	486	41
+7267	49	487	57
+7268	49	488	75
+7269	49	489	52
+7270	49	490	81
+7271	49	491	61
+7272	49	492	67
+7273	49	493	84
+7274	49	494	86
+7275	49	495	41
+7276	49	496	77
+7277	49	497	82
+7278	49	498	42
+7279	49	499	51
+7280	49	500	61
+7281	49	501	42
+7282	49	502	86
+7283	49	503	45
+7284	49	504	67
+7285	49	505	78
+7286	49	506	62
+7287	49	507	96
+7288	49	508	54
+7289	49	509	79
+7290	49	510	77
+7291	50	481	94
+7292	50	482	52
+7293	50	483	88
+7294	50	484	66
+7295	50	485	51
+7296	50	486	81
+7297	50	487	94
+7298	50	488	60
+7299	50	489	86
+7300	50	490	88
+7301	50	491	63
+7302	50	492	81
+7303	50	493	99
+7304	50	494	88
+7305	50	495	82
+7306	50	496	46
+7307	50	497	49
+7308	50	498	58
+7309	50	499	66
+7310	50	500	77
+7311	50	501	99
+7312	50	502	46
+7313	50	503	85
+7314	50	504	75
+7315	50	505	50
+7316	50	506	53
+7317	50	507	85
+7318	50	508	50
+7319	50	509	82
+7320	50	510	76
+7321	1	1	61
+7322	1	2	46
+7323	1	3	68
+7324	1	4	54
+7325	1	5	90
+7326	1	6	64
+7327	1	7	60
+7328	1	8	46
+7329	1	9	70
+7330	1	10	83
+7331	1	11	50
+7332	1	12	97
+7333	1	13	66
+7334	1	14	46
+7335	1	15	71
+7336	1	16	94
+7337	1	17	50
+7338	1	18	67
+7339	1	19	51
+7340	1	20	70
+7341	1	21	46
+7342	1	22	55
+7343	1	23	52
+7344	1	24	93
+7345	1	25	92
+7346	1	26	90
+7347	1	27	79
+7348	1	28	58
+7349	1	29	41
+7350	1	30	46
+7351	250	2481	61
+7352	250	2482	70
+7353	250	2483	76
+7354	250	2484	44
+7355	250	2485	63
+7356	250	2486	75
+7357	250	2487	55
+7358	250	2488	74
+7359	250	2489	45
+7360	250	2490	72
+7361	250	2491	75
+7362	250	2492	54
+7363	250	2493	61
+7364	250	2494	82
+7365	250	2495	48
+7366	250	2496	59
+7367	250	2497	86
+7368	250	2498	81
+7369	250	2499	47
+7370	250	2500	49
+7371	250	2501	67
+7372	250	2502	50
+7373	250	2503	44
+7374	250	2504	43
+7375	250	2505	58
+7376	250	2506	68
+7377	250	2507	96
+7378	250	2508	65
+7379	250	2509	90
+7380	250	2510	58
+7381	165	1621	76
+7382	165	1622	79
+7383	165	1623	73
+7384	165	1624	52
+7385	165	1625	55
+7386	165	1626	83
+7387	165	1627	99
+7388	165	1628	74
+7389	165	1629	72
+7390	165	1630	50
+7391	165	1631	46
+7392	165	1632	45
+7393	165	1633	43
+7394	165	1634	53
+7395	165	1635	84
+7396	165	1636	88
+7397	165	1637	48
+7398	165	1638	70
+7399	165	1639	86
+7400	165	1640	41
+7401	165	1641	46
+7402	165	1642	63
+7403	165	1643	76
+7404	165	1644	74
+7405	165	1645	53
+7406	165	1646	42
+7407	165	1647	91
+7408	165	1648	56
+7409	165	1649	84
+7410	165	1650	55
+7411	176	1741	86
+7412	176	1742	65
+7413	176	1743	75
+7414	176	1744	62
+7415	176	1745	84
+7416	176	1746	62
+7417	176	1747	56
+7418	176	1748	98
+7419	176	1749	70
+7420	176	1750	43
+7421	176	1751	59
+7422	176	1752	43
+7423	176	1753	58
+7424	176	1754	45
+7425	176	1755	78
+7426	176	1756	73
+7427	176	1757	67
+7428	176	1758	57
+7429	176	1759	67
+7430	176	1760	77
+7431	176	1761	73
+7432	176	1762	85
+7433	176	1763	97
+7434	176	1764	74
+7435	176	1765	88
+7436	176	1766	47
+7437	176	1767	94
+7438	176	1768	72
+7439	176	1769	93
+7440	176	1770	97
+7441	177	1741	63
+7442	177	1742	64
+7443	177	1743	99
+7444	177	1744	59
+7445	177	1745	87
+7446	177	1746	69
+7447	177	1747	54
+7448	177	1748	94
+7449	177	1749	90
+7450	177	1750	73
+7451	177	1751	42
+7452	177	1752	72
+7453	177	1753	96
+7454	177	1754	90
+7455	177	1755	47
+7456	177	1756	89
+7457	177	1757	99
+7458	177	1758	75
+7459	177	1759	89
+7460	177	1760	86
+7461	177	1761	97
+7462	177	1762	77
+7463	177	1763	68
+7464	177	1764	70
+7465	177	1765	87
+7466	177	1766	74
+7467	177	1767	70
+7468	177	1768	83
+7469	177	1769	47
+7470	177	1770	61
+7471	180	1771	54
+7472	180	1772	82
+7473	180	1773	73
+7474	180	1774	44
+7475	180	1775	80
+7476	180	1776	81
+7477	180	1777	91
+7478	180	1778	85
+7479	180	1779	96
+7480	180	1780	82
+7481	180	1781	62
+7482	180	1782	88
+7483	180	1783	82
+7484	180	1784	79
+7485	180	1785	48
+7486	180	1786	80
+7487	180	1787	96
+7488	180	1788	87
+7489	180	1789	62
+7490	180	1790	63
+7491	180	1791	70
+7492	180	1792	70
+7493	180	1793	56
+7494	180	1794	55
+7495	180	1795	85
+7496	180	1796	62
+7497	180	1797	82
+7498	180	1798	62
+7499	180	1799	42
+7500	180	1800	91
+7501	183	1801	53
+7502	183	1802	82
+7503	183	1803	64
+7504	183	1804	67
+7505	183	1805	99
+7506	183	1806	77
+7507	183	1807	63
+7508	183	1808	85
+7509	183	1809	84
+7510	183	1810	67
+7511	183	1811	78
+7512	183	1812	87
+7513	183	1813	92
+7514	183	1814	50
+7515	183	1815	86
+7516	183	1816	82
+7517	183	1817	66
+7518	183	1818	98
+7519	183	1819	49
+7520	183	1820	53
+7521	192	1881	69
+7522	192	1882	78
+7523	192	1883	55
+7524	192	1884	50
+7525	192	1885	51
+7526	192	1886	67
+7527	192	1887	85
+7528	192	1888	61
+7529	192	1889	43
+7530	192	1890	56
+7531	192	1891	92
+7532	192	1892	85
+7533	192	1893	66
+7534	192	1894	55
+7535	192	1895	55
+7536	192	1896	60
+7537	192	1897	66
+7538	192	1898	66
+7539	192	1899	83
+7540	192	1900	69
+7541	192	1901	93
+7542	192	1902	45
+7543	192	1903	53
+7544	192	1904	72
+7545	192	1905	65
+7546	192	1906	46
+7547	192	1907	68
+7548	192	1908	88
+7549	192	1909	72
+7550	192	1910	88
+7551	193	1911	80
+7552	193	1912	60
+7553	193	1913	89
+7554	193	1914	53
+7555	193	1915	88
+7556	193	1916	55
+7557	193	1917	78
+7558	193	1918	54
+7559	193	1919	51
+7560	193	1920	50
+7561	193	1921	90
+7562	193	1922	95
+7563	193	1923	44
+7564	193	1924	59
+7565	193	1925	52
+7566	193	1926	66
+7567	193	1927	51
+7568	193	1928	53
+7569	193	1929	89
+7570	193	1930	80
+7571	193	1931	82
+7572	193	1932	88
+7573	193	1933	76
+7574	193	1934	63
+7575	193	1935	88
+7576	193	1936	88
+7577	193	1937	52
+7578	193	1938	99
+7579	193	1939	58
+7580	193	1940	76
+7581	159	1561	75
+7582	159	1562	97
+7583	159	1563	79
+7584	159	1564	42
+7585	159	1565	61
+7586	159	1566	66
+7587	159	1567	91
+7588	159	1568	67
+7589	159	1569	70
+7590	159	1570	48
+7591	159	1571	96
+7592	159	1572	60
+7593	159	1573	42
+7594	159	1574	68
+7595	159	1575	84
+7596	159	1576	57
+7597	159	1577	69
+7598	159	1578	98
+7599	159	1579	96
+7600	159	1580	83
+7601	159	1581	86
+7602	159	1582	82
+7603	159	1583	82
+7604	159	1584	64
+7605	159	1585	76
+7606	159	1586	55
+7607	159	1587	47
+7608	159	1588	46
+7609	159	1589	97
+7610	159	1590	81
+7611	160	1591	96
+7612	160	1592	88
+7613	160	1593	85
+7614	160	1594	47
+7615	160	1595	93
+7616	160	1596	55
+7617	160	1597	92
+7618	160	1598	80
+7619	160	1599	83
+7620	160	1600	72
+7621	160	1601	91
+7622	160	1602	61
+7623	160	1603	48
+7624	160	1604	46
+7625	160	1605	48
+7626	160	1606	96
+7627	160	1607	66
+7628	160	1608	78
+7629	160	1609	78
+7630	160	1610	86
+7631	160	1611	71
+7632	160	1612	88
+7633	160	1613	73
+7634	160	1614	72
+7635	160	1615	52
+7636	160	1616	52
+7637	160	1617	80
+7638	160	1618	81
+7639	160	1619	58
+7640	160	1620	71
+7641	161	1591	86
+7642	161	1592	78
+7643	161	1593	48
+7644	161	1594	98
+7645	161	1595	65
+7646	161	1596	46
+7647	161	1597	82
+7648	161	1598	99
+7649	161	1599	96
+7650	161	1600	73
+7651	161	1601	94
+7652	161	1602	43
+7653	161	1603	82
+7654	161	1604	63
+7655	161	1605	66
+7656	161	1606	63
+7657	161	1607	41
+7658	161	1608	73
+7659	161	1609	88
+7660	161	1610	69
+7661	161	1611	98
+7662	161	1612	95
+7663	161	1613	96
+7664	161	1614	69
+7665	161	1615	58
+7666	161	1616	43
+7667	161	1617	60
+7668	161	1618	67
+7669	161	1619	81
+7670	161	1620	41
+7671	162	1591	96
+7672	162	1592	63
+7673	162	1593	95
+7674	162	1594	81
+7675	162	1595	50
+7676	162	1596	97
+7677	162	1597	49
+7678	162	1598	64
+7679	162	1599	57
+7680	162	1600	57
+7681	162	1601	69
+7682	162	1602	83
+7683	162	1603	83
+7684	162	1604	50
+7685	162	1605	92
+7686	162	1606	88
+7687	162	1607	85
+7688	162	1608	67
+7689	162	1609	65
+7690	162	1610	89
+7691	162	1611	41
+7692	162	1612	84
+7693	162	1613	64
+7694	162	1614	59
+7695	162	1615	41
+7696	162	1616	41
+7697	162	1617	79
+7698	162	1618	63
+7699	162	1619	71
+7700	162	1620	87
+7701	163	1621	50
+7702	163	1622	67
+7703	163	1623	58
+7704	163	1624	62
+7705	163	1625	53
+7706	163	1626	58
+7707	163	1627	87
+7708	163	1628	49
+7709	163	1629	57
+7710	163	1630	42
+7711	163	1631	85
+7712	163	1632	72
+7713	163	1633	72
+7714	163	1634	48
+7715	163	1635	41
+7716	163	1636	83
+7717	163	1637	49
+7718	163	1638	75
+7719	163	1639	49
+7720	163	1640	84
+7721	163	1641	83
+7722	163	1642	42
+7723	163	1643	80
+7724	163	1644	43
+7725	163	1645	72
+7726	163	1646	46
+7727	163	1647	88
+7728	163	1648	57
+7729	163	1649	96
+7730	163	1650	91
+7731	164	1621	62
+7732	164	1622	46
+7733	164	1623	72
+7734	164	1624	59
+7735	164	1625	81
+7736	164	1626	90
+7737	164	1627	46
+7738	164	1628	81
+7739	164	1629	90
+7740	164	1630	55
+7741	164	1631	66
+7742	164	1632	57
+7743	164	1633	89
+7744	164	1634	55
+7745	164	1635	72
+7746	164	1636	59
+7747	164	1637	74
+7748	164	1638	98
+7749	164	1639	71
+7750	164	1640	71
+7751	164	1641	86
+7752	164	1642	94
+7753	164	1643	74
+7754	164	1644	49
+7755	164	1645	75
+7756	164	1646	84
+7757	164	1647	72
+7758	164	1648	48
+7759	164	1649	65
+7760	164	1650	84
+7761	166	1651	98
+7762	166	1652	96
+7763	166	1653	58
+7764	166	1654	86
+7765	166	1655	87
+7766	166	1656	88
+7767	166	1657	59
+7768	166	1658	59
+7769	166	1659	98
+7770	166	1660	71
+7771	166	1661	58
+7772	166	1662	56
+7773	166	1663	68
+7774	166	1664	77
+7775	166	1665	44
+7776	166	1666	45
+7777	166	1667	92
+7778	166	1668	52
+7779	166	1669	62
+7780	166	1670	54
+7781	166	1671	58
+7782	166	1672	54
+7783	166	1673	73
+7784	166	1674	42
+7785	166	1675	59
+7786	166	1676	51
+7787	166	1677	76
+7788	166	1678	65
+7789	166	1679	58
+7790	166	1680	64
+7791	167	1651	64
+7792	167	1652	62
+7793	167	1653	45
+7794	167	1654	63
+7795	167	1655	61
+7796	167	1656	45
+7797	167	1657	56
+7798	167	1658	62
+7799	167	1659	45
+7800	167	1660	72
+7801	167	1661	41
+7802	167	1662	65
+7803	167	1663	86
+7804	167	1664	42
+7805	167	1665	96
+7806	167	1666	89
+7807	167	1667	97
+7808	167	1668	67
+7809	167	1669	71
+7810	167	1670	69
+7811	167	1671	59
+7812	167	1672	81
+7813	167	1673	46
+7814	167	1674	78
+7815	167	1675	65
+7816	167	1676	98
+7817	167	1677	88
+7818	167	1678	90
+7819	167	1679	65
+7820	167	1680	90
+7821	168	1651	71
+7822	168	1652	50
+7823	168	1653	61
+7824	168	1654	66
+7825	168	1655	49
+7826	168	1656	98
+7827	168	1657	58
+7828	168	1658	65
+7829	168	1659	88
+7830	168	1660	67
+7831	168	1661	44
+7832	168	1662	87
+7833	168	1663	70
+7834	168	1664	72
+7835	168	1665	52
+7836	168	1666	70
+7837	168	1667	48
+7838	168	1668	59
+7839	168	1669	76
+7840	168	1670	61
+7841	168	1671	77
+7842	168	1672	73
+7843	168	1673	66
+7844	168	1674	45
+7845	168	1675	98
+7846	168	1676	63
+7847	168	1677	66
+7848	168	1678	53
+7849	168	1679	70
+7850	168	1680	91
+7851	169	1681	60
+7852	169	1682	89
+7853	169	1683	58
+7854	169	1684	84
+7855	169	1685	85
+7856	169	1686	79
+7857	169	1687	94
+7858	169	1688	84
+7859	169	1689	69
+7860	169	1690	99
+7861	169	1691	73
+7862	169	1692	59
+7863	169	1693	50
+7864	169	1694	43
+7865	169	1695	57
+7866	169	1696	61
+7867	169	1697	81
+7868	169	1698	66
+7869	169	1699	92
+7870	169	1700	90
+7871	169	1701	91
+7872	169	1702	89
+7873	169	1703	46
+7874	169	1704	62
+7875	169	1705	43
+7876	169	1706	61
+7877	169	1707	83
+7878	169	1708	95
+7879	169	1709	94
+7880	169	1710	57
+7881	170	1681	64
+7882	170	1682	84
+7883	170	1683	48
+7884	170	1684	82
+7885	170	1685	41
+7886	170	1686	68
+7887	170	1687	81
+7888	170	1688	89
+7889	170	1689	60
+7890	170	1690	94
+7891	170	1691	59
+7892	170	1692	47
+7893	170	1693	59
+7894	170	1694	94
+7895	170	1695	56
+7896	170	1696	81
+7897	170	1697	43
+7898	170	1698	86
+7899	170	1699	60
+7900	170	1700	96
+7901	170	1701	99
+7902	170	1702	66
+7903	170	1703	45
+7904	170	1704	54
+7905	170	1705	81
+7906	170	1706	96
+7907	170	1707	49
+7908	170	1708	91
+7909	170	1709	72
+7910	170	1710	46
+7911	171	1681	82
+7912	171	1682	79
+7913	171	1683	53
+7914	171	1684	42
+7915	171	1685	77
+7916	171	1686	71
+7917	171	1687	70
+7918	171	1688	83
+7919	171	1689	97
+7920	171	1690	57
+7921	171	1691	75
+7922	171	1692	71
+7923	171	1693	81
+7924	171	1694	68
+7925	171	1695	90
+7926	171	1696	97
+7927	171	1697	96
+7928	171	1698	47
+7929	171	1699	99
+7930	171	1700	68
+7931	171	1701	67
+7932	171	1702	91
+7933	171	1703	61
+7934	171	1704	94
+7935	171	1705	71
+7936	171	1706	59
+7937	171	1707	65
+7938	171	1708	80
+7939	171	1709	98
+7940	171	1710	60
+7941	172	1711	42
+7942	172	1712	44
+7943	172	1713	43
+7944	172	1714	53
+7945	172	1715	41
+7946	172	1716	71
+7947	172	1717	41
+7948	172	1718	92
+7949	172	1719	47
+7950	172	1720	99
+7951	172	1721	73
+7952	172	1722	85
+7953	172	1723	86
+7954	172	1724	55
+7955	172	1725	90
+7956	172	1726	58
+7957	172	1727	72
+7958	172	1728	59
+7959	172	1729	75
+7960	172	1730	71
+7961	172	1731	56
+7962	172	1732	42
+7963	172	1733	90
+7964	172	1734	82
+7965	172	1735	50
+7966	172	1736	78
+7967	172	1737	62
+7968	172	1738	99
+7969	172	1739	68
+7970	172	1740	85
+7971	173	1711	64
+7972	173	1712	57
+7973	173	1713	56
+7974	173	1714	77
+7975	173	1715	67
+7976	173	1716	91
+7977	173	1717	86
+7978	173	1718	92
+7979	173	1719	60
+7980	173	1720	86
+7981	173	1721	98
+7982	173	1722	46
+7983	173	1723	46
+7984	173	1724	75
+7985	173	1725	43
+7986	173	1726	92
+7987	173	1727	48
+7988	173	1728	91
+7989	173	1729	90
+7990	173	1730	62
+7991	173	1731	76
+7992	173	1732	65
+7993	173	1733	93
+7994	173	1734	71
+7995	173	1735	63
+7996	173	1736	51
+7997	173	1737	42
+7998	173	1738	78
+7999	173	1739	98
+8000	173	1740	70
+8001	174	1711	77
+8002	174	1712	70
+8003	174	1713	82
+8004	174	1714	92
+8005	174	1715	91
+8006	174	1716	52
+8007	174	1717	67
+8008	174	1718	99
+8009	174	1719	78
+8010	174	1720	43
+8011	174	1721	55
+8012	174	1722	65
+8013	174	1723	51
+8014	174	1724	89
+8015	174	1725	60
+8016	174	1726	99
+8017	174	1727	89
+8018	174	1728	97
+8019	174	1729	89
+8020	174	1730	58
+8021	174	1731	71
+8022	174	1732	73
+8023	174	1733	95
+8024	174	1734	64
+8025	174	1735	71
+8026	174	1736	72
+8027	174	1737	50
+8028	174	1738	82
+8029	174	1739	46
+8030	174	1740	67
+8031	175	1741	52
+8032	175	1742	43
+8033	175	1743	73
+8034	175	1744	84
+8035	175	1745	72
+8036	175	1746	81
+8037	175	1747	88
+8038	175	1748	72
+8039	175	1749	88
+8040	175	1750	52
+8041	175	1751	57
+8042	175	1752	87
+8043	175	1753	93
+8044	175	1754	51
+8045	175	1755	66
+8046	175	1756	89
+8047	175	1757	72
+8048	175	1758	70
+8049	175	1759	69
+8050	175	1760	83
+8051	175	1761	85
+8052	175	1762	44
+8053	175	1763	44
+8054	175	1764	70
+8055	175	1765	64
+8056	175	1766	51
+8057	175	1767	47
+8058	175	1768	43
+8059	175	1769	84
+8060	175	1770	95
+8061	178	1771	63
+8062	178	1772	96
+8063	178	1773	53
+8064	178	1774	69
+8065	178	1775	74
+8066	178	1776	91
+8067	178	1777	57
+8068	178	1778	46
+8069	178	1779	97
+8070	178	1780	72
+8071	178	1781	73
+8072	178	1782	91
+8073	178	1783	91
+8074	178	1784	56
+8075	178	1785	97
+8076	178	1786	83
+8077	178	1787	91
+8078	178	1788	66
+8079	178	1789	70
+8080	178	1790	44
+8081	178	1791	69
+8082	178	1792	86
+8083	178	1793	48
+8084	178	1794	69
+8085	178	1795	68
+8086	178	1796	66
+8087	178	1797	50
+8088	178	1798	94
+8089	178	1799	59
+8090	178	1800	85
+8091	179	1771	67
+8092	179	1772	44
+8093	179	1773	48
+8094	179	1774	57
+8095	179	1775	62
+8096	179	1776	81
+8097	179	1777	93
+8098	179	1778	55
+8099	179	1779	84
+8100	179	1780	92
+8101	179	1781	81
+8102	179	1782	76
+8103	179	1783	69
+8104	179	1784	99
+8105	179	1785	57
+8106	179	1786	85
+8107	179	1787	48
+8108	179	1788	85
+8109	179	1789	45
+8110	179	1790	53
+8111	179	1791	43
+8112	179	1792	75
+8113	179	1793	88
+8114	179	1794	84
+8115	179	1795	58
+8116	179	1796	79
+8117	179	1797	79
+8118	179	1798	53
+8119	179	1799	72
+8120	179	1800	70
+8121	181	1801	53
+8122	181	1802	94
+8123	181	1803	78
+8124	181	1804	75
+8125	181	1805	65
+8126	181	1806	90
+8127	181	1807	54
+8128	181	1808	97
+8129	181	1809	61
+8130	181	1810	63
+8131	181	1811	80
+8132	181	1812	66
+8133	181	1813	54
+8134	181	1814	84
+8135	181	1815	87
+8136	181	1816	72
+8137	181	1817	62
+8138	181	1818	56
+8139	181	1819	75
+8140	181	1820	55
+8141	182	1801	78
+8142	182	1802	71
+8143	182	1803	99
+8144	182	1804	55
+8145	182	1805	70
+8146	182	1806	97
+8147	182	1807	80
+8148	182	1808	55
+8149	182	1809	54
+8150	182	1810	56
+8151	182	1811	89
+8152	182	1812	96
+8153	182	1813	65
+8154	182	1814	75
+8155	182	1815	96
+8156	182	1816	63
+8157	182	1817	55
+8158	182	1818	73
+8159	182	1819	85
+8160	182	1820	88
+8161	184	1821	98
+8162	184	1822	82
+8163	184	1823	76
+8164	184	1824	63
+8165	184	1825	84
+8166	184	1826	43
+8167	184	1827	64
+8168	184	1828	89
+8169	184	1829	66
+8170	184	1830	95
+8171	184	1831	71
+8172	184	1832	96
+8173	184	1833	62
+8174	184	1834	56
+8175	184	1835	44
+8176	184	1836	86
+8177	184	1837	55
+8178	184	1838	98
+8179	184	1839	45
+8180	184	1840	98
+8181	184	1841	78
+8182	184	1842	69
+8183	184	1843	62
+8184	184	1844	75
+8185	184	1845	52
+8186	184	1846	80
+8187	184	1847	61
+8188	184	1848	67
+8189	184	1849	56
+8190	184	1850	43
+8191	185	1821	90
+8192	185	1822	95
+8193	185	1823	79
+8194	185	1824	43
+8195	185	1825	64
+8196	185	1826	59
+8197	185	1827	60
+8198	185	1828	98
+8199	185	1829	61
+8200	185	1830	88
+8201	185	1831	82
+8202	185	1832	53
+8203	185	1833	44
+8204	185	1834	60
+8205	185	1835	99
+8206	185	1836	94
+8207	185	1837	97
+8208	185	1838	46
+8209	185	1839	88
+8210	185	1840	79
+8211	185	1841	62
+8212	185	1842	98
+8213	185	1843	46
+8214	185	1844	51
+8215	185	1845	83
+8216	185	1846	61
+8217	185	1847	97
+8218	185	1848	65
+8219	185	1849	89
+8220	185	1850	73
+8221	186	1821	74
+8222	186	1822	57
+8223	186	1823	99
+8224	186	1824	47
+8225	186	1825	67
+8226	186	1826	93
+8227	186	1827	44
+8228	186	1828	60
+8229	186	1829	66
+8230	186	1830	43
+8231	186	1831	92
+8232	186	1832	88
+8233	186	1833	48
+8234	186	1834	55
+8235	186	1835	98
+8236	186	1836	62
+8237	186	1837	62
+8238	186	1838	53
+8239	186	1839	45
+8240	186	1840	97
+8241	186	1841	48
+8242	186	1842	65
+8243	186	1843	92
+8244	186	1844	55
+8245	186	1845	45
+8246	186	1846	70
+8247	186	1847	64
+8248	186	1848	78
+8249	186	1849	64
+8250	186	1850	92
+8251	187	1851	51
+8252	187	1852	92
+8253	187	1853	79
+8254	187	1854	74
+8255	187	1855	64
+8256	187	1856	43
+8257	187	1857	50
+8258	187	1858	90
+8259	187	1859	77
+8260	187	1860	76
+8261	187	1861	70
+8262	187	1862	76
+8263	187	1863	71
+8264	187	1864	76
+8265	187	1865	59
+8266	187	1866	72
+8267	187	1867	46
+8268	187	1868	85
+8269	187	1869	65
+8270	187	1870	45
+8271	187	1871	46
+8272	187	1872	50
+8273	187	1873	66
+8274	187	1874	58
+8275	187	1875	83
+8276	187	1876	94
+8277	187	1877	71
+8278	187	1878	64
+8279	187	1879	99
+8280	187	1880	89
+8281	188	1851	67
+8282	188	1852	96
+8283	188	1853	70
+8284	188	1854	64
+8285	188	1855	96
+8286	188	1856	74
+8287	188	1857	81
+8288	188	1858	77
+8289	188	1859	51
+8290	188	1860	89
+8291	188	1861	77
+8292	188	1862	87
+8293	188	1863	88
+8294	188	1864	75
+8295	188	1865	61
+8296	188	1866	64
+8297	188	1867	91
+8298	188	1868	90
+8299	188	1869	72
+8300	188	1870	74
+8301	188	1871	76
+8302	188	1872	46
+8303	188	1873	80
+8304	188	1874	86
+8305	188	1875	94
+8306	188	1876	99
+8307	188	1877	87
+8308	188	1878	95
+8309	188	1879	65
+8310	188	1880	53
+8311	189	1851	86
+8312	189	1852	92
+8313	189	1853	97
+8314	189	1854	94
+8315	189	1855	84
+8316	189	1856	99
+8317	189	1857	66
+8318	189	1858	93
+8319	189	1859	74
+8320	189	1860	81
+8321	189	1861	60
+8322	189	1862	55
+8323	189	1863	94
+8324	189	1864	68
+8325	189	1865	54
+8326	189	1866	99
+8327	189	1867	58
+8328	189	1868	64
+8329	189	1869	80
+8330	189	1870	78
+8331	189	1871	90
+8332	189	1872	51
+8333	189	1873	51
+8334	189	1874	67
+8335	189	1875	90
+8336	189	1876	66
+8337	189	1877	87
+8338	189	1878	70
+8339	189	1879	69
+8340	189	1880	99
+8341	190	1881	69
+8342	190	1882	93
+8343	190	1883	45
+8344	190	1884	63
+8345	190	1885	56
+8346	190	1886	70
+8347	190	1887	90
+8348	190	1888	83
+8349	190	1889	80
+8350	190	1890	75
+8351	190	1891	46
+8352	190	1892	76
+8353	190	1893	81
+8354	190	1894	55
+8355	190	1895	81
+8356	190	1896	99
+8357	190	1897	97
+8358	190	1898	76
+8359	190	1899	63
+8360	190	1900	64
+8361	190	1901	85
+8362	190	1902	90
+8363	190	1903	80
+8364	190	1904	73
+8365	190	1905	68
+8366	190	1906	75
+8367	190	1907	61
+8368	190	1908	73
+8369	190	1909	54
+8370	190	1910	91
+8371	191	1881	45
+8372	191	1882	93
+8373	191	1883	95
+8374	191	1884	87
+8375	191	1885	70
+8376	191	1886	78
+8377	191	1887	48
+8378	191	1888	59
+8379	191	1889	71
+8380	191	1890	62
+8381	191	1891	52
+8382	191	1892	80
+8383	191	1893	58
+8384	191	1894	65
+8385	191	1895	55
+8386	191	1896	74
+8387	191	1897	77
+8388	191	1898	69
+8389	191	1899	89
+8390	191	1900	61
+8391	191	1901	51
+8392	191	1902	49
+8393	191	1903	43
+8394	191	1904	63
+8395	191	1905	55
+8396	191	1906	72
+8397	191	1907	81
+8398	191	1908	90
+8399	191	1909	98
+8400	191	1910	54
+8401	241	2391	60
+8402	241	2392	78
+8403	241	2393	81
+8404	241	2394	47
+8405	241	2395	46
+8406	241	2396	94
+8407	241	2397	50
+8408	241	2398	76
+8409	241	2399	44
+8410	241	2400	46
+8411	241	2401	72
+8412	241	2402	88
+8413	241	2403	62
+8414	241	2404	82
+8415	241	2405	61
+8416	241	2406	96
+8417	241	2407	98
+8418	241	2408	70
+8419	241	2409	82
+8420	241	2410	99
+8421	241	2411	67
+8422	241	2412	42
+8423	241	2413	41
+8424	241	2414	55
+8425	241	2415	86
+8426	241	2416	52
+8427	241	2417	78
+8428	241	2418	98
+8429	241	2419	63
+8430	241	2420	54
+8431	242	2391	49
+8432	242	2392	84
+8433	242	2393	66
+8434	242	2394	91
+8435	242	2395	45
+8436	242	2396	66
+8437	242	2397	46
+8438	242	2398	63
+8439	242	2399	83
+8440	242	2400	79
+8441	242	2401	49
+8442	242	2402	69
+8443	242	2403	73
+8444	242	2404	98
+8445	242	2405	82
+8446	242	2406	56
+8447	242	2407	92
+8448	242	2408	62
+8449	242	2409	69
+8450	242	2410	53
+8451	242	2411	75
+8452	242	2412	51
+8453	242	2413	85
+8454	242	2414	56
+8455	242	2415	97
+8456	242	2416	99
+8457	242	2417	44
+8458	242	2418	54
+8459	242	2419	81
+8460	242	2420	70
+8461	243	2391	50
+8462	243	2392	87
+8463	243	2393	48
+8464	243	2394	67
+8465	243	2395	93
+8466	243	2396	60
+8467	243	2397	68
+8468	243	2398	64
+8469	243	2399	60
+8470	243	2400	49
+8471	243	2401	62
+8472	243	2402	90
+8473	243	2403	90
+8474	243	2404	65
+8475	243	2405	85
+8476	243	2406	84
+8477	243	2407	91
+8478	243	2408	54
+8479	243	2409	89
+8480	243	2410	70
+8481	243	2411	72
+8482	243	2412	76
+8483	243	2413	85
+8484	243	2414	79
+8485	243	2415	94
+8486	243	2416	41
+8487	243	2417	75
+8488	243	2418	82
+8489	243	2419	93
+8490	243	2420	75
+8491	244	2421	72
+8492	244	2422	47
+8493	244	2423	90
+8494	244	2424	61
+8495	244	2425	97
+8496	244	2426	61
+8497	244	2427	56
+8498	244	2428	97
+8499	244	2429	72
+8500	244	2430	81
+8501	244	2431	69
+8502	244	2432	47
+8503	244	2433	59
+8504	244	2434	42
+8505	244	2435	95
+8506	244	2436	55
+8507	244	2437	98
+8508	244	2438	89
+8509	244	2439	66
+8510	244	2440	72
+8511	244	2441	58
+8512	244	2442	46
+8513	244	2443	99
+8514	244	2444	53
+8515	244	2445	76
+8516	244	2446	86
+8517	244	2447	68
+8518	244	2448	86
+8519	244	2449	66
+8520	244	2450	76
+8521	314	3111	67
+8522	314	3112	41
+8523	314	3113	80
+8524	314	3114	90
+8525	314	3115	78
+8526	314	3116	47
+8527	314	3117	93
+8528	314	3118	83
+8529	314	3119	42
+8530	314	3120	66
+8531	314	3121	56
+8532	314	3122	51
+8533	314	3123	45
+8534	314	3124	66
+8535	314	3125	67
+8536	314	3126	81
+8537	314	3127	42
+8538	314	3128	80
+8539	314	3129	52
+8540	314	3130	71
+8541	314	3131	85
+8542	314	3132	56
+8543	314	3133	98
+8544	314	3134	75
+8545	314	3135	59
+8546	314	3136	57
+8547	314	3137	92
+8548	314	3138	42
+8549	314	3139	77
+8550	314	3140	85
+8551	315	3111	46
+8552	315	3112	89
+8553	315	3113	81
+8554	315	3114	91
+8555	315	3115	98
+8556	315	3116	50
+8557	315	3117	87
+8558	315	3118	60
+8559	315	3119	63
+8560	315	3120	52
+8561	315	3121	63
+8562	315	3122	89
+8563	315	3123	93
+8564	315	3124	90
+8565	315	3125	88
+8566	315	3126	79
+8567	315	3127	50
+8568	315	3128	55
+8569	315	3129	87
+8570	315	3130	87
+8571	315	3131	92
+8572	315	3132	93
+8573	315	3133	48
+8574	315	3134	82
+8575	315	3135	57
+8576	315	3136	77
+8577	315	3137	79
+8578	315	3138	92
+8579	315	3139	45
+8580	315	3140	76
+8581	324	3201	83
+8582	324	3202	42
+8583	324	3203	57
+8584	324	3204	85
+8585	324	3205	65
+8586	324	3206	80
+8587	324	3207	77
+8588	324	3208	69
+8589	324	3209	60
+8590	324	3210	67
+8591	324	3211	66
+8592	324	3212	60
+8593	324	3213	77
+8594	324	3214	55
+8595	324	3215	60
+8596	324	3216	78
+8597	324	3217	65
+8598	324	3218	67
+8599	324	3219	99
+8600	324	3220	57
+8601	324	3221	57
+8602	324	3222	70
+8603	324	3223	87
+8604	324	3224	93
+8605	324	3225	87
+8606	324	3226	49
+8607	324	3227	89
+8608	324	3228	46
+8609	324	3229	62
+8610	324	3230	88
+8611	335	3321	81
+8612	335	3322	96
+8613	335	3323	70
+8614	335	3324	84
+8615	335	3325	76
+8616	335	3326	81
+8617	335	3327	43
+8618	335	3328	47
+8619	335	3329	87
+8620	335	3330	97
+8621	335	3331	75
+8622	335	3332	71
+8623	335	3333	43
+8624	335	3334	76
+8625	335	3335	70
+8626	335	3336	69
+8627	335	3337	60
+8628	335	3338	85
+8629	335	3339	89
+8630	335	3340	83
+8631	335	3341	47
+8632	335	3342	59
+8633	335	3343	82
+8634	335	3344	82
+8635	335	3345	63
+8636	335	3346	52
+8637	335	3347	61
+8638	335	3348	87
+8639	335	3349	83
+8640	335	3350	46
+8641	336	3321	64
+8642	336	3322	88
+8643	336	3323	97
+8644	336	3324	42
+8645	336	3325	96
+8646	336	3326	52
+8647	336	3327	74
+8648	336	3328	78
+8649	336	3329	64
+8650	336	3330	68
+8651	336	3331	60
+8652	336	3332	85
+8653	336	3333	65
+8654	336	3334	93
+8655	336	3335	76
+8656	336	3336	50
+8657	336	3337	64
+8658	336	3338	64
+8659	336	3339	83
+8660	336	3340	46
+8661	336	3341	85
+8662	336	3342	66
+8663	336	3343	82
+8664	336	3344	75
+8665	336	3345	99
+8666	336	3346	59
+8667	336	3347	41
+8668	336	3348	77
+8669	336	3349	94
+8670	336	3350	92
+8671	341	3381	46
+8672	341	3382	57
+8673	341	3383	51
+8674	341	3384	79
+8675	341	3385	44
+8676	341	3386	93
+8677	341	3387	63
+8678	341	3388	56
+8679	341	3389	77
+8680	341	3390	43
+8681	341	3391	60
+8682	341	3392	75
+8683	341	3393	74
+8684	341	3394	50
+8685	341	3395	86
+8686	341	3396	48
+8687	341	3397	61
+8688	341	3398	80
+8689	341	3399	56
+8690	341	3400	71
+8691	341	3401	90
+8692	341	3402	83
+8693	341	3403	55
+8694	341	3404	52
+8695	341	3405	66
+8696	341	3406	90
+8697	341	3407	72
+8698	341	3408	89
+8699	341	3409	41
+8700	341	3410	94
+8701	342	3381	57
+8702	342	3382	41
+8703	342	3383	85
+8704	342	3384	65
+8705	342	3385	69
+8706	342	3386	60
+8707	342	3387	60
+8708	342	3388	79
+8709	342	3389	77
+8710	342	3390	87
+8711	342	3391	68
+8712	342	3392	87
+8713	342	3393	85
+8714	342	3394	59
+8715	342	3395	80
+8716	342	3396	51
+8717	342	3397	87
+8718	342	3398	77
+8719	342	3399	91
+8720	342	3400	46
+8721	342	3401	74
+8722	342	3402	55
+8723	342	3403	92
+8724	342	3404	71
+8725	342	3405	45
+8726	342	3406	60
+8727	342	3407	99
+8728	342	3408	55
+8729	342	3409	51
+8730	342	3410	77
+8731	347	3441	50
+8732	347	3442	80
+8733	347	3443	99
+8734	347	3444	67
+8735	347	3445	83
+8736	347	3446	85
+8737	347	3447	98
+8738	347	3448	97
+8739	347	3449	77
+8740	347	3450	49
+8741	347	3451	42
+8742	347	3452	61
+8743	347	3453	69
+8744	347	3454	88
+8745	347	3455	93
+8746	347	3456	91
+8747	347	3457	73
+8748	347	3458	45
+8749	347	3459	97
+8750	347	3460	67
+8751	347	3461	69
+8752	347	3462	73
+8753	347	3463	86
+8754	347	3464	90
+8755	347	3465	78
+8756	347	3466	88
+8757	347	3467	84
+8758	347	3468	70
+8759	347	3469	80
+8760	347	3470	44
+8761	348	3441	54
+8762	348	3442	51
+8763	348	3443	63
+8764	348	3444	46
+8765	348	3445	92
+8766	348	3446	46
+8767	348	3447	75
+8768	348	3448	48
+8769	348	3449	82
+8770	348	3450	44
+8771	348	3451	83
+8772	348	3452	53
+8773	348	3453	47
+8774	348	3454	81
+8775	348	3455	43
+8776	348	3456	82
+8777	348	3457	82
+8778	348	3458	94
+8779	348	3459	96
+8780	348	3460	42
+8781	348	3461	73
+8782	348	3462	83
+8783	348	3463	78
+8784	348	3464	77
+8785	348	3465	75
+8786	348	3466	58
+8787	348	3467	46
+8788	348	3468	48
+8789	348	3469	76
+8790	348	3470	96
+8791	64	631	73
+8792	64	632	68
+8793	64	633	61
+8794	64	634	51
+8795	64	635	91
+8796	64	636	88
+8797	64	637	98
+8798	64	638	48
+8799	64	639	42
+8800	64	640	72
+8801	64	641	58
+8802	64	642	93
+8803	64	643	77
+8804	64	644	61
+8805	64	645	62
+8806	64	646	87
+8807	64	647	96
+8808	64	648	49
+8809	64	649	60
+8810	64	650	50
+8811	64	651	84
+8812	64	652	64
+8813	64	653	83
+8814	64	654	83
+8815	64	655	69
+8816	64	656	79
+8817	64	657	79
+8818	64	658	67
+8819	64	659	68
+8820	64	660	94
+8821	65	631	93
+8822	65	632	98
+8823	65	633	71
+8824	65	634	63
+8825	65	635	48
+8826	65	636	54
+8827	65	637	96
+8828	65	638	45
+8829	65	639	94
+8830	65	640	68
+8831	65	641	65
+8832	65	642	99
+8833	65	643	78
+8834	65	644	95
+8835	65	645	93
+8836	65	646	44
+8837	65	647	46
+8838	65	648	46
+8839	65	649	83
+8840	65	650	82
+8841	65	651	55
+8842	65	652	46
+8843	65	653	64
+8844	65	654	98
+8845	65	655	93
+8846	65	656	90
+8847	65	657	50
+8848	65	658	82
+8849	65	659	62
+8850	65	660	43
+8851	66	631	92
+8852	66	632	70
+8853	66	633	55
+8854	66	634	55
+8855	66	635	92
+8856	66	636	93
+8857	66	637	81
+8858	66	638	65
+8859	66	639	76
+8860	66	640	82
+8861	66	641	83
+8862	66	642	81
+8863	66	643	79
+8864	66	644	63
+8865	66	645	67
+8866	66	646	95
+8867	66	647	81
+8868	66	648	50
+8869	66	649	55
+8870	66	650	79
+8871	66	651	48
+8872	66	652	66
+8873	66	653	91
+8874	66	654	75
+8875	66	655	65
+8876	66	656	91
+8877	66	657	66
+8878	66	658	48
+8879	66	659	54
+8880	66	660	64
+8881	67	661	62
+8882	67	662	49
+8883	67	663	79
+8884	67	664	90
+8885	67	665	90
+8886	67	666	69
+8887	67	667	76
+8888	67	668	99
+8889	67	669	89
+8890	67	670	62
+8891	67	671	44
+8892	67	672	98
+8893	67	673	56
+8894	67	674	81
+8895	67	675	84
+8896	67	676	63
+8897	67	677	48
+8898	67	678	87
+8899	67	679	48
+8900	67	680	67
+8901	67	681	72
+8902	67	682	53
+8903	67	683	87
+8904	67	684	84
+8905	67	685	57
+8906	67	686	69
+8907	67	687	76
+8908	67	688	84
+8909	67	689	50
+8910	67	690	94
+8911	68	661	46
+8912	68	662	78
+8913	68	663	47
+8914	68	664	51
+8915	68	665	88
+8916	68	666	82
+8917	68	667	79
+8918	68	668	66
+8919	68	669	99
+8920	68	670	59
+8921	68	671	66
+8922	68	672	59
+8923	68	673	46
+8924	68	674	90
+8925	68	675	69
+8926	68	676	76
+8927	68	677	98
+8928	68	678	63
+8929	68	679	90
+8930	68	680	43
+8931	68	681	55
+8932	68	682	76
+8933	68	683	97
+8934	68	684	60
+8935	68	685	70
+8936	68	686	53
+8937	68	687	63
+8938	68	688	97
+8939	68	689	55
+8940	68	690	45
+8941	69	661	92
+8942	69	662	46
+8943	69	663	86
+8944	69	664	95
+8945	69	665	95
+8946	69	666	76
+8947	69	667	44
+8948	69	668	98
+8949	69	669	99
+8950	69	670	92
+8951	69	671	81
+8952	69	672	70
+8953	69	673	70
+8954	69	674	41
+8955	69	675	66
+8956	69	676	54
+8957	69	677	73
+8958	69	678	76
+8959	69	679	63
+8960	69	680	69
+8961	69	681	61
+8962	69	682	66
+8963	69	683	63
+8964	69	684	97
+8965	69	685	76
+8966	69	686	48
+8967	69	687	92
+8968	69	688	59
+8969	69	689	52
+8970	69	690	86
+8971	231	2271	45
+8972	231	2272	96
+8973	231	2273	98
+8974	231	2274	84
+8975	231	2275	83
+8976	231	2276	42
+8977	231	2277	76
+8978	231	2278	73
+8979	231	2279	84
+8980	231	2280	97
+8981	231	2281	76
+8982	231	2282	58
+8983	231	2283	79
+8984	231	2284	48
+8985	231	2285	63
+8986	231	2286	90
+8987	231	2287	91
+8988	231	2288	66
+8989	231	2289	46
+8990	231	2290	60
+8991	231	2291	71
+8992	231	2292	80
+8993	231	2293	71
+8994	231	2294	48
+8995	231	2295	64
+8996	231	2296	85
+8997	231	2297	93
+8998	231	2298	62
+8999	231	2299	56
+9000	231	2300	62
+9001	306	3021	42
+9002	306	3022	41
+9003	306	3023	79
+9004	306	3024	47
+9005	306	3025	48
+9006	306	3026	71
+9007	306	3027	94
+9008	306	3028	86
+9009	306	3029	63
+9010	306	3030	58
+9011	306	3031	43
+9012	306	3032	93
+9013	306	3033	90
+9014	306	3034	45
+9015	306	3035	51
+9016	306	3036	54
+9017	306	3037	73
+9018	306	3038	56
+9019	306	3039	74
+9020	306	3040	64
+9021	306	3041	50
+9022	306	3042	73
+9023	306	3043	85
+9024	306	3044	73
+9025	306	3045	72
+9026	306	3046	66
+9027	306	3047	69
+9028	306	3048	60
+9029	306	3049	63
+9030	306	3050	91
+9031	307	3051	51
+9032	307	3052	92
+9033	307	3053	77
+9034	307	3054	65
+9035	307	3055	63
+9036	307	3056	49
+9037	307	3057	60
+9038	307	3058	95
+9039	307	3059	81
+9040	307	3060	70
+9041	307	3061	77
+9042	307	3062	56
+9043	307	3063	56
+9044	307	3064	86
+9045	307	3065	88
+9046	307	3066	88
+9047	307	3067	72
+9048	307	3068	78
+9049	307	3069	89
+9050	307	3070	89
+9051	307	3071	95
+9052	307	3072	78
+9053	307	3073	71
+9054	307	3074	99
+9055	307	3075	75
+9056	307	3076	91
+9057	307	3077	63
+9058	307	3078	49
+9059	307	3079	72
+9060	307	3080	68
+9061	308	3051	46
+9062	308	3052	97
+9063	308	3053	67
+9064	308	3054	63
+9065	308	3055	58
+9066	308	3056	55
+9067	308	3057	68
+9068	308	3058	94
+9069	308	3059	52
+9070	308	3060	57
+9071	308	3061	78
+9072	308	3062	66
+9073	308	3063	74
+9074	308	3064	77
+9075	308	3065	57
+9076	308	3066	74
+9077	308	3067	67
+9078	308	3068	65
+9079	308	3069	78
+9080	308	3070	65
+9081	308	3071	88
+9082	308	3072	62
+9083	308	3073	77
+9084	308	3074	61
+9085	308	3075	56
+9086	308	3076	69
+9087	308	3077	47
+9088	308	3078	46
+9089	308	3079	47
+9090	308	3080	60
+9091	309	3051	51
+9092	309	3052	68
+9093	309	3053	57
+9094	309	3054	70
+9095	309	3055	66
+9096	309	3056	86
+9097	309	3057	49
+9098	309	3058	49
+9099	309	3059	48
+9100	309	3060	86
+9101	309	3061	71
+9102	309	3062	89
+9103	309	3063	68
+9104	309	3064	76
+9105	309	3065	48
+9106	309	3066	44
+9107	309	3067	55
+9108	309	3068	44
+9109	309	3069	56
+9110	309	3070	46
+9111	309	3071	90
+9112	309	3072	91
+9113	309	3073	96
+9114	309	3074	95
+9115	309	3075	42
+9116	309	3076	84
+9117	309	3077	47
+9118	309	3078	63
+9119	309	3079	86
+9120	309	3080	73
+9121	310	3081	45
+9122	310	3082	52
+9123	310	3083	65
+9124	310	3084	48
+9125	310	3085	57
+9126	310	3086	84
+9127	310	3087	50
+9128	310	3088	98
+9129	310	3089	79
+9130	310	3090	79
+9131	310	3091	81
+9132	310	3092	51
+9133	310	3093	97
+9134	310	3094	46
+9135	310	3095	74
+9136	310	3096	46
+9137	310	3097	78
+9138	310	3098	79
+9139	310	3099	77
+9140	310	3100	53
+9141	310	3101	59
+9142	310	3102	50
+9143	310	3103	97
+9144	310	3104	60
+9145	310	3105	99
+9146	310	3106	83
+9147	310	3107	91
+9148	310	3108	91
+9149	310	3109	74
+9150	310	3110	69
+9151	311	3081	95
+9152	311	3082	66
+9153	311	3083	41
+9154	311	3084	61
+9155	311	3085	45
+9156	311	3086	52
+9157	311	3087	92
+9158	311	3088	72
+9159	311	3089	93
+9160	311	3090	43
+9161	311	3091	85
+9162	311	3092	44
+9163	311	3093	48
+9164	311	3094	73
+9165	311	3095	85
+9166	311	3096	93
+9167	311	3097	96
+9168	311	3098	61
+9169	311	3099	95
+9170	311	3100	92
+9171	311	3101	52
+9172	311	3102	91
+9173	311	3103	48
+9174	311	3104	46
+9175	311	3105	50
+9176	311	3106	41
+9177	311	3107	85
+9178	311	3108	48
+9179	311	3109	62
+9180	311	3110	97
+9181	312	3081	86
+9182	312	3082	56
+9183	312	3083	72
+9184	312	3084	77
+9185	312	3085	56
+9186	312	3086	76
+9187	312	3087	91
+9188	312	3088	68
+9189	312	3089	43
+9190	312	3090	63
+9191	312	3091	45
+9192	312	3092	65
+9193	312	3093	57
+9194	312	3094	88
+9195	312	3095	62
+9196	312	3096	41
+9197	312	3097	89
+9198	312	3098	88
+9199	312	3099	71
+9200	312	3100	61
+9201	312	3101	72
+9202	312	3102	45
+9203	312	3103	88
+9204	312	3104	77
+9205	312	3105	55
+9206	312	3106	72
+9207	312	3107	66
+9208	312	3108	54
+9209	312	3109	85
+9210	312	3110	55
+9211	313	3111	81
+9212	313	3112	59
+9213	313	3113	57
+9214	313	3114	59
+9215	313	3115	47
+9216	313	3116	98
+9217	313	3117	84
+9218	313	3118	49
+9219	313	3119	46
+9220	313	3120	48
+9221	313	3121	83
+9222	313	3122	46
+9223	313	3123	41
+9224	313	3124	62
+9225	313	3125	91
+9226	313	3126	51
+9227	313	3127	83
+9228	313	3128	79
+9229	313	3129	46
+9230	313	3130	97
+9231	313	3131	45
+9232	313	3132	83
+9233	313	3133	68
+9234	313	3134	75
+9235	313	3135	58
+9236	313	3136	59
+9237	313	3137	95
+9238	313	3138	62
+9239	313	3139	48
+9240	313	3140	43
+9241	316	3141	45
+9242	316	3142	87
+9243	316	3143	99
+9244	316	3144	64
+9245	316	3145	76
+9246	316	3146	85
+9247	316	3147	92
+9248	316	3148	65
+9249	316	3149	93
+9250	316	3150	91
+9251	316	3151	47
+9252	316	3152	79
+9253	316	3153	61
+9254	316	3154	56
+9255	316	3155	56
+9256	316	3156	78
+9257	316	3157	68
+9258	316	3158	41
+9259	316	3159	94
+9260	316	3160	57
+9261	316	3161	55
+9262	316	3162	88
+9263	316	3163	69
+9264	316	3164	96
+9265	316	3165	96
+9266	316	3166	44
+9267	316	3167	83
+9268	316	3168	51
+9269	316	3169	54
+9270	316	3170	77
+9271	317	3141	99
+9272	317	3142	49
+9273	317	3143	86
+9274	317	3144	92
+9275	317	3145	80
+9276	317	3146	81
+9277	317	3147	48
+9278	317	3148	75
+9279	317	3149	54
+9280	317	3150	84
+9281	317	3151	49
+9282	317	3152	72
+9283	317	3153	59
+9284	317	3154	66
+9285	317	3155	48
+9286	317	3156	77
+9287	317	3157	76
+9288	317	3158	47
+9289	317	3159	41
+9290	317	3160	92
+9291	317	3161	42
+9292	317	3162	93
+9293	317	3163	85
+9294	317	3164	49
+9295	317	3165	67
+9296	317	3166	41
+9297	317	3167	72
+9298	317	3168	74
+9299	317	3169	56
+9300	317	3170	79
+9301	318	3141	60
+9302	318	3142	60
+9303	318	3143	93
+9304	318	3144	64
+9305	318	3145	81
+9306	318	3146	82
+9307	318	3147	43
+9308	318	3148	89
+9309	318	3149	50
+9310	318	3150	55
+9311	318	3151	79
+9312	318	3152	91
+9313	318	3153	52
+9314	318	3154	46
+9315	318	3155	64
+9316	318	3156	61
+9317	318	3157	97
+9318	318	3158	97
+9319	318	3159	89
+9320	318	3160	52
+9321	318	3161	91
+9322	318	3162	97
+9323	318	3163	57
+9324	318	3164	86
+9325	318	3165	71
+9326	318	3166	92
+9327	318	3167	88
+9328	318	3168	98
+9329	318	3169	86
+9330	318	3170	81
+9331	319	3171	48
+9332	319	3172	58
+9333	319	3173	58
+9334	319	3174	86
+9335	319	3175	78
+9336	319	3176	63
+9337	319	3177	95
+9338	319	3178	93
+9339	319	3179	60
+9340	319	3180	46
+9341	319	3181	60
+9342	319	3182	46
+9343	319	3183	83
+9344	319	3184	85
+9345	319	3185	49
+9346	319	3186	80
+9347	319	3187	57
+9348	319	3188	95
+9349	319	3189	56
+9350	319	3190	79
+9351	319	3191	95
+9352	319	3192	77
+9353	319	3193	47
+9354	319	3194	52
+9355	319	3195	65
+9356	319	3196	89
+9357	319	3197	59
+9358	319	3198	80
+9359	319	3199	66
+9360	319	3200	65
+9361	320	3171	51
+9362	320	3172	41
+9363	320	3173	85
+9364	320	3174	64
+9365	320	3175	64
+9366	320	3176	86
+9367	320	3177	42
+9368	320	3178	68
+9369	320	3179	78
+9370	320	3180	54
+9371	320	3181	93
+9372	320	3182	75
+9373	320	3183	47
+9374	320	3184	43
+9375	320	3185	79
+9376	320	3186	45
+9377	320	3187	58
+9378	320	3188	72
+9379	320	3189	43
+9380	320	3190	65
+9381	320	3191	97
+9382	320	3192	54
+9383	320	3193	73
+9384	320	3194	79
+9385	320	3195	49
+9386	320	3196	82
+9387	320	3197	46
+9388	320	3198	72
+9389	320	3199	69
+9390	320	3200	64
+9391	321	3171	95
+9392	321	3172	68
+9393	321	3173	58
+9394	321	3174	55
+9395	321	3175	48
+9396	321	3176	49
+9397	321	3177	70
+9398	321	3178	44
+9399	321	3179	91
+9400	321	3180	48
+9401	321	3181	60
+9402	321	3182	84
+9403	321	3183	76
+9404	321	3184	42
+9405	321	3185	73
+9406	321	3186	48
+9407	321	3187	95
+9408	321	3188	66
+9409	321	3189	72
+9410	321	3190	68
+9411	321	3191	64
+9412	321	3192	45
+9413	321	3193	87
+9414	321	3194	73
+9415	321	3195	88
+9416	321	3196	64
+9417	321	3197	58
+9418	321	3198	72
+9419	321	3199	55
+9420	321	3200	65
+9421	322	3201	48
+9422	322	3202	83
+9423	322	3203	47
+9424	322	3204	96
+9425	322	3205	72
+9426	322	3206	42
+9427	322	3207	97
+9428	322	3208	45
+9429	322	3209	68
+9430	322	3210	53
+9431	322	3211	64
+9432	322	3212	78
+9433	322	3213	76
+9434	322	3214	70
+9435	322	3215	87
+9436	322	3216	43
+9437	322	3217	85
+9438	322	3218	99
+9439	322	3219	85
+9440	322	3220	82
+9441	322	3221	52
+9442	322	3222	80
+9443	322	3223	88
+9444	322	3224	51
+9445	322	3225	58
+9446	322	3226	87
+9447	322	3227	90
+9448	322	3228	93
+9449	322	3229	58
+9450	322	3230	53
+9451	323	3201	89
+9452	323	3202	80
+9453	323	3203	65
+9454	323	3204	74
+9455	323	3205	79
+9456	323	3206	51
+9457	323	3207	55
+9458	323	3208	87
+9459	323	3209	59
+9460	323	3210	76
+9461	323	3211	69
+9462	323	3212	68
+9463	323	3213	71
+9464	323	3214	69
+9465	323	3215	98
+9466	323	3216	71
+9467	323	3217	47
+9468	323	3218	98
+9469	323	3219	55
+9470	323	3220	55
+9471	323	3221	51
+9472	323	3222	62
+9473	323	3223	85
+9474	323	3224	55
+9475	323	3225	74
+9476	323	3226	98
+9477	323	3227	62
+9478	323	3228	94
+9479	323	3229	66
+9480	323	3230	99
+9481	325	3231	61
+9482	325	3232	54
+9483	325	3233	97
+9484	325	3234	90
+9485	325	3235	56
+9486	325	3236	74
+9487	325	3237	86
+9488	325	3238	63
+9489	325	3239	71
+9490	325	3240	81
+9491	325	3241	66
+9492	325	3242	85
+9493	325	3243	47
+9494	325	3244	58
+9495	325	3245	60
+9496	325	3246	71
+9497	325	3247	92
+9498	325	3248	94
+9499	325	3249	86
+9500	325	3250	49
+9501	325	3251	55
+9502	325	3252	65
+9503	325	3253	82
+9504	325	3254	86
+9505	325	3255	78
+9506	325	3256	82
+9507	325	3257	92
+9508	325	3258	76
+9509	325	3259	93
+9510	325	3260	49
+9511	326	3231	59
+9512	326	3232	56
+9513	326	3233	80
+9514	326	3234	59
+9515	326	3235	91
+9516	326	3236	67
+9517	326	3237	79
+9518	326	3238	42
+9519	326	3239	49
+9520	326	3240	63
+9521	326	3241	71
+9522	326	3242	42
+9523	326	3243	44
+9524	326	3244	71
+9525	326	3245	88
+9526	326	3246	88
+9527	326	3247	98
+9528	326	3248	64
+9529	326	3249	83
+9530	326	3250	91
+9531	326	3251	89
+9532	326	3252	54
+9533	326	3253	84
+9534	326	3254	47
+9535	326	3255	84
+9536	326	3256	91
+9537	326	3257	46
+9538	326	3258	81
+9539	326	3259	88
+9540	326	3260	91
+9541	327	3231	43
+9542	327	3232	90
+9543	327	3233	50
+9544	327	3234	98
+9545	327	3235	93
+9546	327	3236	82
+9547	327	3237	55
+9548	327	3238	99
+9549	327	3239	94
+9550	327	3240	83
+9551	327	3241	72
+9552	327	3242	76
+9553	327	3243	48
+9554	327	3244	89
+9555	327	3245	80
+9556	327	3246	43
+9557	327	3247	63
+9558	327	3248	89
+9559	327	3249	82
+9560	327	3250	63
+9561	327	3251	61
+9562	327	3252	75
+9563	327	3253	80
+9564	327	3254	53
+9565	327	3255	73
+9566	327	3256	63
+9567	327	3257	65
+9568	327	3258	72
+9569	327	3259	56
+9570	327	3260	60
+9571	328	3261	46
+9572	328	3262	80
+9573	328	3263	65
+9574	328	3264	45
+9575	328	3265	65
+9576	328	3266	54
+9577	328	3267	48
+9578	328	3268	90
+9579	328	3269	71
+9580	328	3270	50
+9581	328	3271	49
+9582	328	3272	62
+9583	328	3273	69
+9584	328	3274	65
+9585	328	3275	94
+9586	328	3276	87
+9587	328	3277	92
+9588	328	3278	64
+9589	328	3279	80
+9590	328	3280	51
+9591	328	3281	78
+9592	328	3282	76
+9593	328	3283	53
+9594	328	3284	84
+9595	328	3285	69
+9596	328	3286	62
+9597	328	3287	83
+9598	328	3288	83
+9599	328	3289	57
+9600	328	3290	72
+9601	329	3261	94
+9602	329	3262	55
+9603	329	3263	48
+9604	329	3264	51
+9605	329	3265	52
+9606	329	3266	98
+9607	329	3267	52
+9608	329	3268	92
+9609	329	3269	47
+9610	329	3270	75
+9611	329	3271	62
+9612	329	3272	69
+9613	329	3273	92
+9614	329	3274	83
+9615	329	3275	89
+9616	329	3276	87
+9617	329	3277	43
+9618	329	3278	66
+9619	329	3279	79
+9620	329	3280	85
+9621	329	3281	71
+9622	329	3282	56
+9623	329	3283	51
+9624	329	3284	75
+9625	329	3285	83
+9626	329	3286	93
+9627	329	3287	80
+9628	329	3288	54
+9629	329	3289	49
+9630	329	3290	89
+9631	330	3261	51
+9632	330	3262	85
+9633	330	3263	41
+9634	330	3264	72
+9635	330	3265	64
+9636	330	3266	75
+9637	330	3267	83
+9638	330	3268	78
+9639	330	3269	85
+9640	330	3270	45
+9641	330	3271	58
+9642	330	3272	79
+9643	330	3273	90
+9644	330	3274	70
+9645	330	3275	60
+9646	330	3276	77
+9647	330	3277	44
+9648	330	3278	50
+9649	330	3279	72
+9650	330	3280	58
+9651	330	3281	53
+9652	330	3282	66
+9653	330	3283	44
+9654	330	3284	47
+9655	330	3285	92
+9656	330	3286	47
+9657	330	3287	76
+9658	330	3288	84
+9659	330	3289	82
+9660	330	3290	85
+9661	331	3291	81
+9662	331	3292	91
+9663	331	3293	79
+9664	331	3294	67
+9665	331	3295	63
+9666	331	3296	51
+9667	331	3297	48
+9668	331	3298	87
+9669	331	3299	92
+9670	331	3300	91
+9671	331	3301	67
+9672	331	3302	97
+9673	331	3303	78
+9674	331	3304	98
+9675	331	3305	46
+9676	331	3306	52
+9677	331	3307	67
+9678	331	3308	45
+9679	331	3309	63
+9680	331	3310	86
+9681	331	3311	97
+9682	331	3312	99
+9683	331	3313	45
+9684	331	3314	86
+9685	331	3315	97
+9686	331	3316	84
+9687	331	3317	58
+9688	331	3318	86
+9689	331	3319	71
+9690	331	3320	50
+9691	332	3291	71
+9692	332	3292	82
+9693	332	3293	94
+9694	332	3294	60
+9695	332	3295	97
+9696	332	3296	93
+9697	332	3297	94
+9698	332	3298	94
+9699	332	3299	57
+9700	332	3300	56
+9701	332	3301	69
+9702	332	3302	83
+9703	332	3303	65
+9704	332	3304	78
+9705	332	3305	73
+9706	332	3306	41
+9707	332	3307	65
+9708	332	3308	91
+9709	332	3309	78
+9710	332	3310	43
+9711	332	3311	95
+9712	332	3312	68
+9713	332	3313	64
+9714	332	3314	67
+9715	332	3315	76
+9716	332	3316	72
+9717	332	3317	83
+9718	332	3318	95
+9719	332	3319	68
+9720	332	3320	70
+9721	333	3291	76
+9722	333	3292	67
+9723	333	3293	44
+9724	333	3294	44
+9725	333	3295	67
+9726	333	3296	74
+9727	333	3297	71
+9728	333	3298	60
+9729	333	3299	71
+9730	333	3300	73
+9731	333	3301	64
+9732	333	3302	53
+9733	333	3303	69
+9734	333	3304	50
+9735	333	3305	75
+9736	333	3306	45
+9737	333	3307	86
+9738	333	3308	69
+9739	333	3309	63
+9740	333	3310	91
+9741	333	3311	56
+9742	333	3312	94
+9743	333	3313	74
+9744	333	3314	52
+9745	333	3315	92
+9746	333	3316	91
+9747	333	3317	71
+9748	333	3318	66
+9749	333	3319	55
+9750	333	3320	61
+9751	334	3321	57
+9752	334	3322	84
+9753	334	3323	50
+9754	334	3324	52
+9755	334	3325	92
+9756	334	3326	58
+9757	334	3327	50
+9758	334	3328	96
+9759	334	3329	52
+9760	334	3330	54
+9761	334	3331	55
+9762	334	3332	53
+9763	334	3333	88
+9764	334	3334	77
+9765	334	3335	45
+9766	334	3336	56
+9767	334	3337	92
+9768	334	3338	86
+9769	334	3339	45
+9770	334	3340	68
+9771	334	3341	60
+9772	334	3342	64
+9773	334	3343	42
+9774	334	3344	87
+9775	334	3345	43
+9776	334	3346	91
+9777	334	3347	41
+9778	334	3348	44
+9779	334	3349	99
+9780	334	3350	52
+9781	337	3351	54
+9782	337	3352	81
+9783	337	3353	69
+9784	337	3354	78
+9785	337	3355	80
+9786	337	3356	55
+9787	337	3357	94
+9788	337	3358	68
+9789	337	3359	96
+9790	337	3360	96
+9791	337	3361	64
+9792	337	3362	99
+9793	337	3363	69
+9794	337	3364	49
+9795	337	3365	80
+9796	337	3366	77
+9797	337	3367	77
+9798	337	3368	50
+9799	337	3369	89
+9800	337	3370	57
+9801	337	3371	79
+9802	337	3372	95
+9803	337	3373	81
+9804	337	3374	61
+9805	337	3375	68
+9806	337	3376	46
+9807	337	3377	79
+9808	337	3378	41
+9809	337	3379	76
+9810	337	3380	60
+9811	338	3351	52
+9812	338	3352	47
+9813	338	3353	57
+9814	338	3354	67
+9815	338	3355	47
+9816	338	3356	86
+9817	338	3357	59
+9818	338	3358	75
+9819	338	3359	45
+9820	338	3360	85
+9821	338	3361	80
+9822	338	3362	57
+9823	338	3363	60
+9824	338	3364	70
+9825	338	3365	87
+9826	338	3366	89
+9827	338	3367	52
+9828	338	3368	64
+9829	338	3369	49
+9830	338	3370	85
+9831	338	3371	49
+9832	338	3372	59
+9833	338	3373	71
+9834	338	3374	67
+9835	338	3375	74
+9836	338	3376	84
+9837	338	3377	77
+9838	338	3378	81
+9839	338	3379	76
+9840	338	3380	72
+9841	339	3351	79
+9842	339	3352	60
+9843	339	3353	76
+9844	339	3354	45
+9845	339	3355	92
+9846	339	3356	97
+9847	339	3357	56
+9848	339	3358	87
+9849	339	3359	99
+9850	339	3360	49
+9851	339	3361	58
+9852	339	3362	76
+9853	339	3363	81
+9854	339	3364	61
+9855	339	3365	53
+9856	339	3366	64
+9857	339	3367	99
+9858	339	3368	44
+9859	339	3369	57
+9860	339	3370	46
+9861	339	3371	94
+9862	339	3372	54
+9863	339	3373	44
+9864	339	3374	81
+9865	339	3375	82
+9866	339	3376	61
+9867	339	3377	49
+9868	339	3378	98
+9869	339	3379	62
+9870	339	3380	72
+9871	340	3381	50
+9872	340	3382	45
+9873	340	3383	44
+9874	340	3384	93
+9875	340	3385	62
+9876	340	3386	90
+9877	340	3387	51
+9878	340	3388	73
+9879	340	3389	56
+9880	340	3390	48
+9881	340	3391	58
+9882	340	3392	86
+9883	340	3393	63
+9884	340	3394	69
+9885	340	3395	44
+9886	340	3396	64
+9887	340	3397	79
+9888	340	3398	82
+9889	340	3399	41
+9890	340	3400	46
+9891	340	3401	59
+9892	340	3402	84
+9893	340	3403	98
+9894	340	3404	54
+9895	340	3405	71
+9896	340	3406	45
+9897	340	3407	59
+9898	340	3408	45
+9899	340	3409	74
+9900	340	3410	85
+9901	343	3411	63
+9902	343	3412	62
+9903	343	3413	96
+9904	343	3414	53
+9905	343	3415	71
+9906	343	3416	74
+9907	343	3417	95
+9908	343	3418	68
+9909	343	3419	77
+9910	343	3420	51
+9911	343	3421	57
+9912	343	3422	70
+9913	343	3423	95
+9914	343	3424	42
+9915	343	3425	90
+9916	343	3426	50
+9917	343	3427	78
+9918	343	3428	88
+9919	343	3429	72
+9920	343	3430	76
+9921	343	3431	85
+9922	343	3432	91
+9923	343	3433	83
+9924	343	3434	68
+9925	343	3435	45
+9926	343	3436	44
+9927	343	3437	75
+9928	343	3438	96
+9929	343	3439	89
+9930	343	3440	72
+9931	344	3411	88
+9932	344	3412	67
+9933	344	3413	61
+9934	344	3414	48
+9935	344	3415	93
+9936	344	3416	59
+9937	344	3417	79
+9938	344	3418	53
+9939	344	3419	50
+9940	344	3420	84
+9941	344	3421	86
+9942	344	3422	61
+9943	344	3423	81
+9944	344	3424	53
+9945	344	3425	49
+9946	344	3426	86
+9947	344	3427	62
+9948	344	3428	90
+9949	344	3429	81
+9950	344	3430	93
+9951	344	3431	48
+9952	344	3432	43
+9953	344	3433	53
+9954	344	3434	55
+9955	344	3435	99
+9956	344	3436	80
+9957	344	3437	60
+9958	344	3438	41
+9959	344	3439	81
+9960	344	3440	89
+9961	345	3411	55
+9962	345	3412	99
+9963	345	3413	86
+9964	345	3414	44
+9965	345	3415	90
+9966	345	3416	82
+9967	345	3417	98
+9968	345	3418	60
+9969	345	3419	98
+9970	345	3420	62
+9971	345	3421	68
+9972	345	3422	79
+9973	345	3423	58
+9974	345	3424	88
+9975	345	3425	81
+9976	345	3426	69
+9977	345	3427	77
+9978	345	3428	70
+9979	345	3429	51
+9980	345	3430	92
+9981	345	3431	85
+9982	345	3432	97
+9983	345	3433	89
+9984	345	3434	91
+9985	345	3435	88
+9986	345	3436	88
+9987	345	3437	41
+9988	345	3438	78
+9989	345	3439	79
+9990	345	3440	82
+9991	346	3441	83
+9992	346	3442	68
+9993	346	3443	59
+9994	346	3444	77
+9995	346	3445	79
+9996	346	3446	52
+9997	346	3447	47
+9998	346	3448	74
+9999	346	3449	55
+10000	346	3450	54
+10001	346	3451	48
+10002	346	3452	78
+10003	346	3453	59
+10004	346	3454	57
+10005	346	3455	97
+10006	346	3456	96
+10007	346	3457	66
+10008	346	3458	50
+10009	346	3459	49
+10010	346	3460	98
+10011	346	3461	41
+10012	346	3462	64
+10013	346	3463	67
+10014	346	3464	82
+10015	346	3465	79
+10016	346	3466	89
+10017	346	3467	75
+10018	346	3468	70
+10019	346	3469	67
+10020	346	3470	42
+10021	227	2241	57
+10022	227	2242	91
+10023	227	2243	93
+10024	227	2244	47
+10025	227	2245	48
+10026	227	2246	87
+10027	227	2247	59
+10028	227	2248	65
+10029	227	2249	71
+10030	227	2250	81
+10031	227	2251	92
+10032	227	2252	86
+10033	227	2253	57
+10034	227	2254	53
+10035	227	2255	57
+10036	227	2256	46
+10037	227	2257	55
+10038	227	2258	65
+10039	227	2259	41
+10040	227	2260	97
+10041	227	2261	91
+10042	227	2262	91
+10043	227	2263	94
+10044	227	2264	90
+10045	227	2265	92
+10046	227	2266	76
+10047	227	2267	82
+10048	227	2268	52
+10049	227	2269	86
+10050	227	2270	48
+10051	228	2241	75
+10052	228	2242	78
+10053	228	2243	98
+10054	228	2244	98
+10055	228	2245	88
+10056	228	2246	48
+10057	228	2247	64
+10058	228	2248	60
+10059	228	2249	95
+10060	228	2250	68
+10061	228	2251	42
+10062	228	2252	98
+10063	228	2253	59
+10064	228	2254	78
+10065	228	2255	82
+10066	228	2256	70
+10067	228	2257	91
+10068	228	2258	89
+10069	228	2259	58
+10070	228	2260	82
+10071	228	2261	97
+10072	228	2262	96
+10073	228	2263	90
+10074	228	2264	93
+10075	228	2265	94
+10076	228	2266	50
+10077	228	2267	96
+10078	228	2268	58
+10079	228	2269	99
+10080	228	2270	70
+10081	229	2271	78
+10082	229	2272	87
+10083	229	2273	73
+10084	229	2274	67
+10085	229	2275	86
+10086	229	2276	98
+10087	229	2277	70
+10088	229	2278	70
+10089	229	2279	69
+10090	229	2280	71
+10091	229	2281	72
+10092	229	2282	69
+10093	229	2283	58
+10094	229	2284	75
+10095	229	2285	88
+10096	229	2286	73
+10097	229	2287	98
+10098	229	2288	55
+10099	229	2289	82
+10100	229	2290	75
+10101	229	2291	51
+10102	229	2292	71
+10103	229	2293	87
+10104	229	2294	74
+10105	229	2295	52
+10106	229	2296	62
+10107	229	2297	66
+10108	229	2298	97
+10109	229	2299	49
+10110	229	2300	70
+10111	230	2271	70
+10112	230	2272	82
+10113	230	2273	95
+10114	230	2274	51
+10115	230	2275	54
+10116	230	2276	80
+10117	230	2277	84
+10118	230	2278	70
+10119	230	2279	86
+10120	230	2280	56
+10121	230	2281	48
+10122	230	2282	70
+10123	230	2283	41
+10124	230	2284	45
+10125	230	2285	72
+10126	230	2286	77
+10127	230	2287	85
+10128	230	2288	89
+10129	230	2289	88
+10130	230	2290	43
+10131	230	2291	75
+10132	230	2292	76
+10133	230	2293	41
+10134	230	2294	78
+10135	230	2295	45
+10136	230	2296	91
+10137	230	2297	47
+10138	230	2298	92
+10139	230	2299	76
+10140	230	2300	91
+10141	232	2301	78
+10142	232	2302	58
+10143	232	2303	68
+10144	232	2304	58
+10145	232	2305	80
+10146	232	2306	86
+10147	232	2307	44
+10148	232	2308	96
+10149	232	2309	81
+10150	232	2310	83
+10151	232	2311	92
+10152	232	2312	47
+10153	232	2313	86
+10154	232	2314	95
+10155	232	2315	69
+10156	232	2316	89
+10157	232	2317	90
+10158	232	2318	63
+10159	232	2319	88
+10160	232	2320	55
+10161	232	2321	94
+10162	232	2322	44
+10163	232	2323	90
+10164	232	2324	97
+10165	232	2325	75
+10166	232	2326	45
+10167	232	2327	99
+10168	232	2328	49
+10169	232	2329	92
+10170	232	2330	59
+10171	233	2301	51
+10172	233	2302	89
+10173	233	2303	97
+10174	233	2304	48
+10175	233	2305	64
+10176	233	2306	48
+10177	233	2307	45
+10178	233	2308	95
+10179	233	2309	66
+10180	233	2310	91
+10181	233	2311	81
+10182	233	2312	99
+10183	233	2313	71
+10184	233	2314	48
+10185	233	2315	78
+10186	233	2316	90
+10187	233	2317	67
+10188	233	2318	86
+10189	233	2319	91
+10190	233	2320	57
+10191	233	2321	52
+10192	233	2322	49
+10193	233	2323	62
+10194	233	2324	98
+10195	233	2325	52
+10196	233	2326	66
+10197	233	2327	61
+10198	233	2328	92
+10199	233	2329	60
+10200	233	2330	48
+10201	234	2301	70
+10202	234	2302	62
+10203	234	2303	62
+10204	234	2304	43
+10205	234	2305	58
+10206	234	2306	42
+10207	234	2307	83
+10208	234	2308	76
+10209	234	2309	71
+10210	234	2310	77
+10211	234	2311	72
+10212	234	2312	59
+10213	234	2313	72
+10214	234	2314	67
+10215	234	2315	94
+10216	234	2316	45
+10217	234	2317	88
+10218	234	2318	41
+10219	234	2319	44
+10220	234	2320	69
+10221	234	2321	80
+10222	234	2322	43
+10223	234	2323	85
+10224	234	2324	52
+10225	234	2325	81
+10226	234	2326	50
+10227	234	2327	63
+10228	234	2328	67
+10229	234	2329	85
+10230	234	2330	98
+10231	235	2331	98
+10232	235	2332	99
+10233	235	2333	61
+10234	235	2334	83
+10235	235	2335	96
+10236	235	2336	81
+10237	235	2337	61
+10238	235	2338	58
+10239	235	2339	98
+10240	235	2340	97
+10241	235	2341	90
+10242	235	2342	62
+10243	235	2343	72
+10244	235	2344	86
+10245	235	2345	49
+10246	235	2346	57
+10247	235	2347	62
+10248	235	2348	74
+10249	235	2349	96
+10250	235	2350	55
+10251	235	2351	52
+10252	235	2352	98
+10253	235	2353	89
+10254	235	2354	41
+10255	235	2355	66
+10256	235	2356	92
+10257	235	2357	85
+10258	235	2358	88
+10259	235	2359	49
+10260	235	2360	51
+10261	236	2331	82
+10262	236	2332	51
+10263	236	2333	96
+10264	236	2334	42
+10265	236	2335	72
+10266	236	2336	97
+10267	236	2337	81
+10268	236	2338	43
+10269	236	2339	41
+10270	236	2340	83
+10271	236	2341	69
+10272	236	2342	94
+10273	236	2343	43
+10274	236	2344	75
+10275	236	2345	99
+10276	236	2346	74
+10277	236	2347	66
+10278	236	2348	87
+10279	236	2349	46
+10280	236	2350	74
+10281	236	2351	75
+10282	236	2352	71
+10283	236	2353	71
+10284	236	2354	66
+10285	236	2355	69
+10286	236	2356	49
+10287	236	2357	56
+10288	236	2358	52
+10289	236	2359	65
+10290	236	2360	57
+10291	237	2331	95
+10292	237	2332	80
+10293	237	2333	56
+10294	237	2334	73
+10295	237	2335	45
+10296	237	2336	68
+10297	237	2337	96
+10298	237	2338	52
+10299	237	2339	83
+10300	237	2340	63
+10301	237	2341	55
+10302	237	2342	48
+10303	237	2343	88
+10304	237	2344	59
+10305	237	2345	59
+10306	237	2346	59
+10307	237	2347	43
+10308	237	2348	56
+10309	237	2349	67
+10310	237	2350	76
+10311	237	2351	47
+10312	237	2352	87
+10313	237	2353	94
+10314	237	2354	76
+10315	237	2355	60
+10316	237	2356	51
+10317	237	2357	81
+10318	237	2358	61
+10319	237	2359	96
+10320	237	2360	87
+10321	238	2361	72
+10322	238	2362	55
+10323	238	2363	43
+10324	238	2364	77
+10325	238	2365	70
+10326	238	2366	67
+10327	238	2367	43
+10328	238	2368	86
+10329	238	2369	68
+10330	238	2370	93
+10331	238	2371	41
+10332	238	2372	84
+10333	238	2373	98
+10334	238	2374	85
+10335	238	2375	81
+10336	238	2376	54
+10337	238	2377	90
+10338	238	2378	92
+10339	238	2379	66
+10340	238	2380	66
+10341	238	2381	66
+10342	238	2382	99
+10343	238	2383	50
+10344	238	2384	86
+10345	238	2385	46
+10346	238	2386	86
+10347	238	2387	47
+10348	238	2388	65
+10349	238	2389	43
+10350	238	2390	76
+10351	239	2361	48
+10352	239	2362	68
+10353	239	2363	47
+10354	239	2364	81
+10355	239	2365	66
+10356	239	2366	58
+10357	239	2367	77
+10358	239	2368	75
+10359	239	2369	60
+10360	239	2370	42
+10361	239	2371	75
+10362	239	2372	86
+10363	239	2373	50
+10364	239	2374	51
+10365	239	2375	64
+10366	239	2376	58
+10367	239	2377	68
+10368	239	2378	93
+10369	239	2379	80
+10370	239	2380	92
+10371	239	2381	52
+10372	239	2382	83
+10373	239	2383	99
+10374	239	2384	97
+10375	239	2385	86
+10376	239	2386	69
+10377	239	2387	94
+10378	239	2388	74
+10379	239	2389	95
+10380	239	2390	88
+10381	240	2361	75
+10382	240	2362	54
+10383	240	2363	54
+10384	240	2364	70
+10385	240	2365	86
+10386	240	2366	52
+10387	240	2367	43
+10388	240	2368	98
+10389	240	2369	42
+10390	240	2370	89
+10391	240	2371	61
+10392	240	2372	94
+10393	240	2373	66
+10394	240	2374	85
+10395	240	2375	75
+10396	240	2376	71
+10397	240	2377	68
+10398	240	2378	80
+10399	240	2379	82
+10400	240	2380	72
+10401	240	2381	46
+10402	240	2382	90
+10403	240	2383	56
+10404	240	2384	52
+10405	240	2385	79
+10406	240	2386	82
+10407	240	2387	70
+10408	240	2388	90
+10409	240	2389	77
+10410	240	2390	74
+\.
+
+
+--
+-- TOC entry 3470 (class 0 OID 18287)
+-- Dependencies: 229
+-- Data for Name: d_kurikulum; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.d_kurikulum (kurikulum_id, prodi_id, periode_id) FROM stdin;
+1	1	20221
+2	2	20221
+3	3	20221
+4	4	20221
+5	5	20221
+6	6	20221
+7	7	20221
+8	8	20221
+9	9	20221
+10	10	20221
+11	11	20221
+12	12	20221
+13	13	20221
+14	14	20221
+15	15	20221
+16	16	20221
+17	17	20221
+18	18	20221
+19	19	20221
+20	20	20221
+21	21	20221
+22	22	20221
+23	23	20221
+24	24	20221
+25	25	20221
+26	26	20221
+27	27	20221
+28	28	20221
+29	29	20221
+30	30	20221
+31	31	20221
+32	32	20221
+33	33	20221
+34	34	20221
+35	35	20221
+36	36	20221
+37	37	20221
+38	1	20222
+39	2	20222
+40	3	20222
+41	4	20222
+42	5	20222
+43	6	20222
+44	7	20222
+45	8	20222
+46	9	20222
+47	10	20222
+48	11	20222
+49	12	20222
+50	13	20222
+51	14	20222
+52	15	20222
+53	16	20222
+54	17	20222
+55	18	20222
+56	19	20222
+57	20	20222
+58	21	20222
+59	22	20222
+60	23	20222
+61	24	20222
+62	25	20222
+63	26	20222
+64	27	20222
+65	28	20222
+66	29	20222
+67	30	20222
+68	31	20222
+69	32	20222
+70	33	20222
+71	34	20222
+72	35	20222
+73	36	20222
+74	37	20222
+\.
+
+
+--
+-- TOC entry 3472 (class 0 OID 18304)
+-- Dependencies: 231
+-- Data for Name: d_kurikulum_mk; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.d_kurikulum_mk (kurikulum_mk_id, kurikulum_id, matakuliah_id, jenis_mk, sks_mk, jam_mk) FROM stdin;
+51	17	101	P	3	4
+52	18	103	T	1	2
+53	18	105	T	1	2
+54	18	107	P	4	6
+55	19	109	T	2	2
+56	19	111	P	4	6
+57	19	113	T	1	2
+58	20	115	T	1	2
+59	20	117	P	4	6
+60	20	119	T	2	2
+61	21	121	P	4	6
+62	21	123	P	3	4
+63	21	125	T	2	2
+64	22	127	T	2	2
+65	22	129	T	1	2
+66	22	131	P	3	4
+67	23	133	T	1	2
+68	23	135	T	2	2
+69	23	137	P	3	4
+70	24	139	P	4	6
+71	24	141	T	1	2
+72	24	143	P	4	6
+73	25	145	P	3	4
+74	25	147	P	3	4
+75	25	149	T	2	2
+76	26	151	T	2	2
+77	26	153	P	3	4
+78	26	155	T	1	2
+79	27	157	T	1	2
+80	27	159	P	4	6
+81	27	161	T	2	2
+82	28	163	T	1	2
+83	28	165	T	2	2
+84	28	167	P	4	6
+85	29	169	P	4	6
+86	29	171	P	3	4
+87	29	173	T	1	2
+88	30	175	T	1	2
+89	30	177	T	2	2
+90	30	179	P	3	4
+91	31	181	T	2	2
+92	31	183	P	3	4
+93	31	185	P	3	4
+94	32	187	P	4	6
+95	32	189	T	1	2
+96	32	191	T	1	2
+97	33	193	T	1	2
+98	33	195	P	3	4
+99	33	197	P	4	6
+100	34	199	T	1	2
+101	34	201	T	2	2
+102	34	203	P	3	4
+103	35	205	P	4	6
+104	35	207	P	4	6
+105	35	209	P	4	6
+106	36	211	P	4	6
+107	36	213	P	4	6
+108	36	215	T	2	2
+109	37	217	P	3	4
+110	37	219	T	2	2
+111	37	221	P	4	6
+112	38	2	T	1	2
+113	38	4	T	1	2
+114	38	6	P	3	4
+115	39	10	P	3	4
+116	39	12	P	4	6
+117	39	8	T	2	2
+118	40	14	P	3	4
+119	40	16	P	4	6
+120	40	18	T	1	2
+121	41	20	T	2	2
+122	41	22	T	2	2
+123	41	24	T	2	2
+124	42	26	P	3	4
+125	42	28	T	2	2
+126	42	30	T	2	2
+127	43	32	T	1	2
+128	43	34	T	1	2
+129	43	36	T	1	2
+130	44	38	T	2	2
+131	44	40	P	3	4
+132	44	42	T	1	2
+133	45	44	T	2	2
+134	45	46	P	3	4
+135	45	48	T	1	2
+136	46	50	P	4	6
+137	46	52	T	1	2
+138	46	54	T	2	2
+139	47	56	P	3	4
+140	47	58	T	2	2
+141	47	60	P	4	6
+142	48	62	P	4	6
+143	48	64	P	4	6
+144	48	66	P	3	4
+145	49	68	T	1	2
+146	49	70	T	2	2
+147	49	72	T	1	2
+148	50	74	T	1	2
+149	50	76	T	2	2
+150	50	78	P	3	4
+151	51	80	P	3	4
+152	51	82	T	1	2
+153	51	84	T	1	2
+154	52	86	T	1	2
+155	52	88	T	2	2
+156	52	90	T	1	2
+157	53	92	T	1	2
+158	53	94	T	2	2
+159	53	96	T	1	2
+160	54	98	T	2	2
+161	54	100	P	4	6
+162	54	102	T	2	2
+163	55	104	P	3	4
+164	55	106	T	1	2
+165	55	108	P	4	6
+166	56	110	T	1	2
+167	56	112	T	2	2
+168	56	114	P	3	4
+169	57	116	T	2	2
+170	57	118	P	4	6
+171	57	120	P	3	4
+172	58	122	T	2	2
+173	58	124	T	2	2
+174	58	126	T	1	2
+175	59	128	T	2	2
+176	59	130	P	3	4
+177	59	132	T	2	2
+178	60	134	P	4	6
+179	60	136	P	4	6
+180	60	138	T	2	2
+181	61	140	T	2	2
+182	61	142	T	1	2
+183	61	144	P	4	6
+184	62	146	P	3	4
+185	62	148	T	2	2
+186	62	150	T	2	2
+1	1	1	P	3	4
+2	1	3	T	2	2
+3	1	5	T	2	2
+4	2	9	P	4	6
+5	2	11	P	4	6
+6	2	7	P	4	6
+7	3	13	P	4	6
+8	3	15	P	4	6
+9	3	17	T	1	2
+10	4	19	P	3	4
+11	4	21	P	3	4
+12	4	23	T	1	2
+13	5	25	P	3	4
+14	5	27	P	4	6
+15	5	29	P	3	4
+16	6	31	P	3	4
+17	6	33	P	3	4
+18	6	35	T	1	2
+19	7	37	T	2	2
+20	7	39	T	2	2
+21	7	41	P	3	4
+22	8	43	P	3	4
+23	8	45	T	1	2
+24	8	47	P	4	6
+25	9	49	P	4	6
+26	9	51	T	2	2
+27	9	53	T	2	2
+28	10	55	P	4	6
+29	10	57	T	1	2
+30	10	59	P	3	4
+31	11	61	T	1	2
+32	11	63	T	2	2
+33	11	65	T	1	2
+34	12	67	P	3	4
+35	12	69	T	2	2
+36	12	71	P	3	4
+37	13	73	T	1	2
+38	13	75	P	3	4
+39	13	77	P	4	6
+40	14	79	T	1	2
+41	14	81	P	3	4
+42	14	83	T	1	2
+43	15	85	P	3	4
+44	15	87	P	4	6
+45	15	89	T	2	2
+46	16	91	P	3	4
+47	16	93	P	3	4
+48	16	95	T	2	2
+49	17	97	P	3	4
+50	17	99	P	4	6
+187	63	152	P	3	4
+188	63	154	P	4	6
+189	63	156	T	2	2
+190	64	158	T	1	2
+191	64	160	T	2	2
+192	64	162	T	1	2
+193	65	164	T	1	2
+194	65	166	P	3	4
+195	65	168	T	1	2
+196	66	170	T	1	2
+197	66	172	P	3	4
+198	66	174	P	3	4
+199	67	176	T	1	2
+200	67	178	P	3	4
+201	67	180	T	2	2
+202	68	182	T	2	2
+203	68	184	T	2	2
+204	68	186	T	1	2
+205	69	188	T	2	2
+206	69	190	P	3	4
+207	69	192	T	1	2
+208	70	194	P	3	4
+209	70	196	P	4	6
+210	70	198	P	3	4
+211	71	200	T	1	2
+212	71	202	T	1	2
+213	71	204	T	1	2
+214	72	206	P	3	4
+215	72	208	T	2	2
+216	72	210	T	1	2
+217	73	212	P	3	4
+218	73	214	P	4	6
+219	73	216	T	1	2
+220	74	218	T	1	2
+221	74	220	T	1	2
+222	74	222	P	4	6
+\.
+
+
+--
+-- TOC entry 3468 (class 0 OID 18281)
+-- Dependencies: 227
+-- Data for Name: d_periode; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.d_periode (periode_id, periode_nama, periode_tahun, periode_semester) FROM stdin;
+20221	2022/2023 Ganjil	2022	1
+20222	2022/2023 Genap	2022	2
+\.
+
+
+--
+-- TOC entry 3474 (class 0 OID 18336)
+-- Dependencies: 233
+-- Data for Name: m_dosen; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.m_dosen (dosen_id, prodi_id, nama, jk, email, agama_id, berat_badan, tinggi_badan, tanggal_lahir, kota_id) FROM stdin;
+1	1	Hartana Prasetya	P	samiah.hastuti@example.net	5	80	159	1974-08-03	31.74
+2	1	Bambang Siregar	L	sinaga.hilda@example.com	3	61	175	1975-08-13	33.73
+3	1	Eli Nurdiyanti	L	dwi60@example.com	2	48	168	1983-09-30	51.02
+4	1	Kamal Thamrin	P	kusumo.darimin@example.org	5	51	165	1988-04-17	31.01
+5	1	Zulaikha Hariyah S.Kom	L	gamblang.sihombing@example.net	6	78	177	1977-11-05	35.06
+6	1	Radika Lukman Waluyo S.Pt	L	prayoga.ani@example.com	2	59	168	1972-03-08	18.05
+7	1	Karja Cengkir Mustofa	P	saragih.jane@example.com	1	59	169	1984-11-25	33.11
+8	1	Karen Susanti	L	ywidodo@example.net	3	61	165	1986-07-21	33.01
+9	1	Prasetya Salahudin	L	prakasa.dinda@example.net	3	65	159	1988-07-13	51.01
+10	1	Kenzie Putra	L	kusmawati.gamanto@example.net	1	78	159	1971-06-30	32.17
+11	2	Rudi Darmanto Haryanto	L	unasyiah@example.org	5	60	165	1968-09-29	35.24
+12	2	Lalita Tiara Padmasari	P	lestari.damu@example.net	1	51	156	1983-02-21	72.02
+13	2	Vanesa Alika Riyanti	L	ida.hutagalung@example.com	4	77	159	1970-01-28	31.01
+14	2	Hasim Rosman Wibowo	L	rahmi.zulaika@example.org	4	48	175	1986-09-27	35.05
+15	2	Elma Widiastuti S.Kom	L	iswahyudi.gatot@example.net	3	58	165	1964-03-22	35.11
+16	2	Mustika Sinaga	P	kezia94@example.com	3	69	163	1978-07-15	33.28
+17	2	Daruna Lembah Hidayat	P	mulyani.rina@example.org	4	64	159	1975-09-22	52.72
+18	2	Marsito Luluh Marpaung	L	queen55@example.com	2	52	175	1988-08-09	33.27
+19	2	Cakrabirawa Hartaka Kusumo	L	pnarpati@example.org	2	62	175	1982-04-25	71.02
+20	2	Latika Haryanti	L	prakasa.mala@example.org	2	70	180	1984-03-01	33.06
+21	3	Raisa Halimah	L	malika.purnawati@example.com	3	72	175	1965-03-18	12.77
+22	3	Ivan Prasasta	L	waluyo81@example.org	5	63	176	1981-10-06	32.11
+23	3	Tri Maulana	P	rama88@example.com	2	77	160	1966-11-11	31.73
+24	3	Ibun Wacana S.E.I	P	dsitompul@example.org	1	55	161	1973-06-02	32.08
+25	3	Elvina Sari Uyainah	P	tamba.queen@example.net	1	65	170	1971-07-10	65.01
+26	3	Martana Tampubolon	L	ihardiansyah@example.com	1	51	174	1976-02-18	31.01
+27	3	Ifa Shakila Puspita S.Sos	L	hendra84@example.com	5	63	164	1968-01-06	73.04
+28	3	Hamzah Thamrin S.I.Kom	P	xjailani@example.net	5	73	163	1968-05-16	33.14
+29	3	Suci Namaga	P	dina06@example.org	2	65	172	1981-11-12	35.77
+30	3	Gaiman Lazuardi S.Sos	P	prabowo.mulyani@example.net	5	67	168	1985-07-04	35.06
+31	3	Cakrajiya Jati Narpati	L	hastuti.gina@example.net	1	53	174	1965-08-14	31.01
+32	3	Nova Rahayu	L	eja.palastri@example.com	5	61	160	1975-09-07	31.75
+33	3	Kayla Haryanti	P	hpratama@example.org	2	67	167	1969-01-02	32.02
+34	3	Luwes Emong Mansur	P	budi.pudjiastuti@example.com	4	68	173	1981-08-22	36.03
+35	3	Salwa Vicky Laksita	L	ysitompul@example.com	6	79	177	1970-04-25	35.71
+36	3	Waluyo Utama	L	agustina.adiarja@example.org	2	66	155	1971-12-13	31.73
+37	3	Ciaobella Ira Maryati S.Sos	L	tomi.mandasari@example.org	4	75	174	1973-05-12	63.02
+38	3	Mitra Galang Sinaga	P	qori19@example.com	3	80	164	1992-05-05	32.71
+39	4	Harto Tarihoran	P	halim.tampubolon@example.com	4	74	159	1964-10-14	35.25
+40	4	Tiara Rahayu	P	nnovitasari@example.com	6	61	169	1982-07-29	32.08
+41	5	Ira Winarsih S.Pd	P	maheswara.jail@example.com	2	76	176	1977-05-12	32.79
+42	5	Gina Rahimah	P	megantara.yuni@example.com	5	59	178	1968-10-15	32.06
+43	6	Icha Suartini	P	qori.haryanti@example.net	6	51	168	1975-02-07	32.09
+44	6	Lala Permata	P	kambali06@example.com	3	79	159	1984-05-10	33.18
+45	6	Tiara Halimah S.Ked	L	mala.wibisono@example.net	2	74	180	1967-07-29	33.20
+46	6	Manah Utama	P	nsitorus@example.org	2	60	177	1971-06-19	35.11
+47	6	Harsaya Habibi	P	salimah.rahayu@example.com	5	80	159	1983-05-11	35.25
+48	6	Rahmi Lailasari	L	agustina.kawaca@example.org	4	78	164	1985-09-08	35.20
+49	6	Syahrini Siska Hassanah	P	wulandari.sakura@example.net	1	63	168	1968-01-30	53.01
+50	6	Wulan Usada	P	devi.hariyah@example.com	4	64	161	1973-11-26	31.71
+51	7	Cindy Suryatmi	L	maras48@example.org	3	80	159	1972-10-01	35.05
+52	7	Siska Nasyidah	L	suryono.hairyanto@example.net	6	51	159	1973-05-15	14.03
+53	7	Bagiya Embuh Setiawan	P	kani56@example.org	6	63	165	1974-11-21	31.72
+54	7	Maryadi Gamanto Latupono	L	wijayanti.nilam@example.com	5	64	173	1982-12-10	31.01
+55	8	Kani Maria Kuswandari	P	kuswoyo.irsad@example.net	6	69	180	1973-06-09	35.12
+56	8	Mutia Aryani	L	wsusanti@example.net	1	58	179	1972-06-20	35.18
+57	8	Labuh Gunarto	P	ganda33@example.org	6	80	166	1978-05-29	35.06
+58	8	Emil Kuswoyo	P	izulaika@example.net	6	61	168	1987-10-11	33.14
+59	8	Maria Susanti	L	mila.suwarno@example.com	5	68	176	1984-04-20	33.02
+60	8	Taufik Sihombing	L	saefullah.among@example.net	4	59	168	1975-02-22	35.25
+61	8	Yani Yulianti S.I.Kom	L	rika.wulandari@example.net	6	51	156	1977-06-09	33.13
+62	8	Fitria Laksita	P	muni24@example.org	2	74	174	1974-03-17	35.18
+63	9	Argono Lulut Salahudin S.Gz	L	jelita.mansur@example.org	5	67	173	1971-01-07	65.02
+64	9	Anita Puspasari	L	kairav.nainggolan@example.net	5	71	156	1966-11-12	33.22
+65	9	Kartika Riyanti	P	purnawati.indra@example.com	6	61	178	1983-09-02	18.04
+66	9	Shania Wijayanti	P	cinta.namaga@example.net	5	77	166	1970-11-12	32.77
+67	9	Wasis Waskita M.Ak	L	ophelia.irawan@example.net	1	71	160	1976-01-19	33.16
+68	9	Azalea Nadine Mandasari S.Pd	P	suartini.yunita@example.org	5	56	157	1988-12-24	35.09
+69	9	Tasnim Jefri Natsir	P	maryadi.asman@example.net	6	80	165	1990-05-11	31.74
+70	9	Kemba Wasita S.Pd	L	umansur@example.net	4	79	155	1967-09-16	31.71
+71	9	Okto Bakijan Mangunsong	P	claksmiwati@example.net	1	49	167	1989-07-18	32.79
+72	9	Tami Cici Susanti M.Ak	P	kusmawati.yuliana@example.com	5	70	163	1980-01-09	33.13
+73	9	Kariman Halim	L	nuraini.kenari@example.com	5	73	176	1967-07-24	31.74
+74	9	Vinsen Kusumo	L	hutagalung.laila@example.com	4	50	180	1971-08-16	35.09
+75	10	Jamal Kadir Damanik	P	wibisono.gandewa@example.org	5	60	157	1986-12-14	35.14
+76	10	Caket Purwa Samosir M.Kom.	P	haryanti.bambang@example.net	3	59	170	1966-04-09	33.26
+77	10	Hasan Kasim Prayoga M.Kom.	L	sari16@example.org	6	64	156	1984-08-27	52.72
+78	10	Wardi Pranowo M.TI.	L	ophelia.handayani@example.com	1	70	159	1971-09-10	61.05
+79	10	Tirta Utama Prakasa S.E.I	P	budiyanto.karja@example.org	5	80	159	1976-06-02	32.74
+80	10	Surya Maryadi	L	mwinarno@example.net	5	77	156	1979-11-15	52.01
+81	10	Malika Handayani S.E.I	L	vicky.yuliarti@example.com	3	67	156	1973-03-23	31.01
+82	10	Lili Kasiyah Hassanah	L	situmorang.arsipatra@example.com	3	65	156	1964-06-23	34.71
+83	10	Paris Mayasari	L	ypradana@example.org	4	59	179	1975-04-05	64.03
+84	10	Tiara Suartini S.Pd	L	fathonah.marpaung@example.org	5	74	177	1973-08-06	31.74
+85	11	Edward Sihombing S.Gz	L	intan.nuraini@example.com	1	59	162	1981-05-20	32.71
+86	11	Jane Nurdiyanti	L	gkusmawati@example.org	2	69	171	1970-01-11	35.11
+87	11	Ivan Tampubolon M.Ak	P	ebudiyanto@example.org	5	60	163	1974-02-11	34.03
+88	11	Violet Kartika Mandasari	L	tri.sirait@example.com	1	58	158	1966-03-26	32.75
+89	11	Farah Mandasari	P	rahmi79@example.com	2	68	180	1965-09-16	53.01
+90	11	Hesti Rahimah	L	vpuspasari@example.org	5	63	160	1970-06-17	32.02
+91	11	Tantri Lala Haryanti	L	whutapea@example.net	5	52	175	1975-11-06	32.17
+92	11	Chelsea Farida S.E.	L	widiastuti.bakianto@example.net	2	57	166	1963-11-18	31.71
+93	12	Perkasa Simbolon	P	ususanti@example.net	6	73	178	1963-11-26	33.09
+94	12	Tari Wulandari	L	hasta73@example.org	2	69	174	1991-09-13	72.03
+95	13	Yance Winarsih M.Ak	P	sari84@example.net	4	77	173	1975-06-21	33.07
+96	13	Ihsan Waluyo	P	laryani@example.org	6	48	156	1981-05-28	64.07
+97	13	Shania Susanti	P	zizi.farida@example.net	1	70	160	1965-12-14	35.71
+98	13	Aditya Prasasta S.E.I	P	bkuswandari@example.net	2	57	164	1982-06-23	62.02
+99	14	Dalima Wijayanti	P	mulyono.sitompul@example.net	3	61	164	1967-05-22	65.01
+100	14	Pia Maryati	L	farah.zulaika@example.org	1	55	159	1965-06-02	35.75
+101	14	Zamira Padmasari	L	tina.hassanah@example.com	5	55	164	1967-06-14	31.75
+102	14	Lega Mahendra	L	oskar.mahendra@example.com	1	48	180	1990-10-22	36.72
+103	14	Pia Mayasari	L	puspasari.padma@example.org	6	80	166	1965-12-26	53.05
+104	14	Lasmanto Kenari Putra M.Kom.	L	pradana.laila@example.org	1	64	170	1983-07-31	32.75
+105	14	Makara Wasita S.T.	L	wsimanjuntak@example.org	2	58	163	1978-06-24	17.04
+106	14	Puspa Purnawati	L	opadmasari@example.net	4	59	172	1988-01-26	31.72
+107	14	Ilsa Purwanti	L	kartika.irawan@example.net	2	78	160	1971-05-17	71.02
+108	14	Eka Mardhiyah	P	kyuniar@example.org	6	54	161	1973-06-21	72.03
+109	15	Dadap Adriansyah	P	kmahendra@example.net	2	53	159	1988-02-10	35.05
+110	15	Padmi Pertiwi	L	maheswara.sabrina@example.org	3	72	156	1979-09-14	71.05
+111	15	Kenes Santoso	P	fkusmawati@example.org	3	48	165	1970-10-10	31.75
+112	15	Cindy Kasiyah Rahimah M.Pd	L	glazuardi@example.org	3	58	180	1974-11-03	33.03
+113	15	Rahayu Dinda Riyanti	L	zamira96@example.com	2	80	172	1988-09-16	32.09
+114	15	Putri Rahayu	L	cahyono.yolanda@example.net	3	63	160	1990-09-21	62.04
+115	15	Paulin Kasiyah Mardhiyah S.Psi	P	qriyanti@example.net	6	60	177	1964-02-20	14.06
+116	15	Oskar Wibisono M.Farm	L	sudiati.tiara@example.org	2	80	167	1965-12-05	62.02
+117	16	Dipa Paiman Tarihoran	L	habibi.tasnim@example.org	2	77	176	1968-06-04	32.18
+118	16	Dina Hartati	L	upuspasari@example.com	6	55	159	1967-09-17	53.05
+119	16	Rahmi Jelita Lestari	P	vera19@example.com	5	59	174	1967-03-22	32.74
+120	16	Tina Hassanah	P	prasetya.mardhiyah@example.org	3	74	163	1975-11-11	35.18
+121	16	Jumari Gunawan	P	narpati.heryanto@example.org	4	60	169	1968-03-12	32.73
+122	16	Kiandra Mandasari	L	megantara.laswi@example.com	6	55	176	1978-05-21	35.09
+123	16	Puspa Novi Uyainah	L	catur.hutasoit@example.net	3	53	160	1980-04-13	32.79
+124	16	Jamal Santoso	P	jailani.zelda@example.org	2	51	179	1976-05-13	32.13
+125	16	Yuni Mulyani	L	yolanda.ratih@example.org	1	51	167	1969-07-28	36.71
+126	16	Prabowo Kenzie Wahyudin S.Psi	P	kjanuar@example.com	6	52	171	1986-04-05	33.25
+127	17	Warsita Prayoga	L	prabowo.maulana@example.net	6	76	171	1973-02-20	33.25
+128	17	Sarah Winarsih	L	hpratama@example.org	4	53	156	1969-08-03	35.11
+129	18	Iriana Mutia Suryatmi	L	ydabukke@example.org	4	53	169	1967-05-06	15.04
+130	18	Cinta Sudiati	L	suci.nainggolan@example.com	5	52	163	1968-04-08	32.12
+131	19	Edison Prakasa M.Ak	P	tirtayasa24@example.org	1	52	169	1973-02-05	75.01
+132	19	Muni Wasita M.M.	L	olivia35@example.org	2	72	179	1977-03-15	32.01
+133	19	Eli Rahmawati	P	jail.agustina@example.net	5	77	169	1978-12-22	14.05
+134	19	Latif Budiyanto S.Ked	P	maida24@example.com	4	49	159	1981-07-09	33.19
+135	19	Sabrina Wulandari	L	xadriansyah@example.net	6	78	163	1968-07-19	11.71
+136	19	Heru Viman Kusumo	L	uchita.purwanti@example.org	3	51	174	1988-09-03	52.71
+137	19	Cahyono Usman Hakim S.I.Kom	L	agustina.galiono@example.org	1	64	163	1990-09-20	32.11
+138	19	Ade Ganjaran Irawan	L	oliva.pangestu@example.net	1	57	178	1972-07-13	35.06
+139	20	Emas Lazuardi M.Ak	L	cahyono.maryati@example.net	5	74	155	1976-10-08	33.12
+140	20	Yono Jaeman Dabukke M.TI.	P	prayoga.hutapea@example.org	5	70	179	1983-01-03	33.28
+141	20	Balangga Cemplunk Siregar	L	hharyanti@example.com	5	52	157	1981-01-26	33.18
+142	20	Karja Anggriawan	L	cawisadi.gunawan@example.org	2	49	155	1964-12-29	35.79
+143	20	Jane Nadine Rahimah	P	orahmawati@example.org	6	61	165	1973-04-17	32.79
+144	20	Yani Laksmiwati	P	thariyah@example.net	5	60	179	1968-07-18	33.11
+145	20	Bakti Kemba Hidayat	P	tira.andriani@example.com	3	71	179	1968-06-30	32.11
+146	20	Hasan Kalim Ardianto	P	mumpuni27@example.org	6	52	170	1965-02-04	74.02
+147	20	Belinda Paulin Yuliarti	P	megantara.hesti@example.org	1	79	155	1983-04-22	33.02
+148	20	Raisa Kusmawati	L	jayeng72@example.net	6	64	168	1977-06-22	31.73
+149	20	Michelle Usamah	L	gadang49@example.net	6	70	164	1967-04-16	35.75
+150	20	Emil Sitorus S.Farm	L	maria.hardiansyah@example.org	6	66	159	1970-02-24	33.04
+151	21	Harja Uwais	P	vrajata@example.org	5	75	169	1987-08-30	32.17
+152	21	Darman Situmorang	L	nuraini.karsa@example.net	3	51	166	1975-01-04	75.01
+153	21	Olga Simbolon	L	adikara61@example.org	5	56	168	1986-10-29	33.26
+154	21	Chandra Rajata	P	darman87@example.net	4	70	170	1989-02-08	33.05
+155	22	Harimurti Yoga Wasita	L	carla47@example.com	2	64	163	1968-06-18	32.01
+156	22	Daryani Imam Januar M.Kom.	P	nhartati@example.org	5	50	169	1973-03-08	33.24
+157	22	Fathonah Rahayu	L	krahayu@example.net	3	52	159	1991-07-20	32.04
+158	22	Paiman Respati Ramadan S.Kom	L	dewi.megantara@example.com	4	64	171	1984-03-30	32.18
+159	22	Jagaraga Utama Maulana S.T.	P	gawati.yulianti@example.com	2	64	165	1989-03-11	33.21
+160	22	Belinda Mulyani	P	zulaika.joko@example.com	5	50	170	1972-06-11	33.13
+161	22	Septi Farida	P	eirawan@example.org	5	69	158	1964-02-12	74.02
+162	22	Zaenab Pratiwi	L	olga57@example.com	5	66	166	1991-11-13	33.75
+163	23	Chandra Saptono S.Farm	P	rwasita@example.net	3	74	171	1983-04-02	31.75
+164	23	Shania Winarsih	L	pradipta.tania@example.net	2	51	175	1987-06-01	13.04
+165	23	Laras Sudiati	P	iriana.widodo@example.net	2	78	179	1972-07-10	32.03
+166	23	Zizi Sudiati S.Kom	P	ousada@example.org	2	48	162	1983-08-29	35.21
+167	23	Zelaya Suryatmi S.Ked	P	maryati.asmianto@example.com	2	62	156	1969-09-08	31.71
+168	23	Setya Nashiruddin	L	ilsa.puspita@example.net	1	73	170	1972-05-12	33.11
+169	23	Zalindra Rahmi Uyainah M.Kom.	L	jane28@example.org	6	53	175	1982-01-20	36.03
+170	23	Jabal Waskita M.TI.	P	qnurdiyanti@example.com	6	66	164	1980-08-24	63.02
+171	24	Atma Iswahyudi	L	kusumo.juli@example.org	3	55	172	1964-10-04	14.06
+172	24	Emas Siregar	P	rsihotang@example.org	6	76	180	1990-01-26	33.72
+173	24	Ellis Novitasari S.Pd	P	jailani.usyi@example.net	3	49	168	1991-02-11	35.06
+174	24	Vanya Rahayu S.IP	L	nwacana@example.net	6	61	158	1974-12-13	34.02
+175	24	Padmi Safitri	P	suwarno.carub@example.com	3	64	176	1972-04-05	33.25
+176	24	Ira Hariyah	P	malika.halimah@example.org	4	77	180	1990-03-01	32.77
+177	24	Siska Sudiati	P	mjailani@example.com	1	69	169	1989-08-01	13.05
+178	24	Purwanto Ghani Megantara S.I.Kom	L	ilaksmiwati@example.org	2	61	179	1970-02-26	52.02
+179	24	Faizah Yolanda	L	jnashiruddin@example.net	1	76	169	1976-01-01	35.10
+180	24	Martaka Prasasta	L	wyuniar@example.com	1	72	163	1978-07-19	32.03
+181	25	Dacin Kusumo	L	maryadi.harjaya@example.net	3	52	160	1977-11-14	51.03
+182	25	Jumari Haryanto	L	queen.suryatmi@example.net	2	78	169	1963-12-10	35.78
+183	25	Nasab Simanjuntak S.Psi	L	suci56@example.org	5	75	167	1973-01-09	35.15
+184	25	Yessi Suryatmi S.Pt	L	vzulaika@example.net	1	52	177	1969-08-19	32.14
+185	25	Cahyo Kusumo S.Farm	P	csaragih@example.org	4	53	173	1968-11-18	31.71
+186	25	Oliva Septi Sudiati S.T.	L	unjani.pradipta@example.org	4	56	180	1978-02-24	33.76
+187	25	Cinta Ami Wulandari	P	purwanti.kasiran@example.net	4	64	168	1975-08-17	65.02
+188	25	Zelaya Yuniar S.E.I	P	wharyanti@example.net	6	71	158	1971-03-21	33.22
+189	25	Ayu Sudiati	P	aditya61@example.com	5	68	178	1978-02-04	35.07
+190	25	Hamima Carla Yolanda M.Ak	L	prastuti.warta@example.net	1	77	162	1975-11-25	71.07
+191	26	Hani Susanti	L	lpangestu@example.org	6	68	180	1970-08-30	61.04
+192	26	Raihan Marpaung	P	puspita.tantri@example.com	5	69	175	1987-06-04	32.05
+193	27	Balamantri Gaiman Maheswara S.E.I	L	ikhsan52@example.com	1	79	168	1991-01-03	36.72
+194	27	Qori Wulandari	P	johan.lestari@example.net	3	74	171	1979-10-11	74.02
+195	27	Lutfan Kuswoyo	P	betania.lestari@example.org	4	60	163	1969-07-25	35.04
+196	27	Dimaz Mujur Wijaya	P	dariati02@example.net	1	70	161	1974-04-12	35.14
+197	27	Michelle Sarah Hartati S.I.Kom	P	paulin31@example.net	1	74	165	1970-02-25	18.04
+198	27	Dalima Jamalia Nuraini	L	maryadi.olivia@example.org	5	76	174	1987-04-01	61.01
+199	27	Ani Keisha Nurdiyanti	L	bwidiastuti@example.org	5	73	162	1976-01-13	64.07
+200	27	Ani Rahimah	L	nugroho.lantar@example.org	2	79	163	1982-06-17	52.02
+201	28	Jagaraga Saputra	L	maryati.olga@example.com	4	54	169	1973-07-26	31.72
+202	28	Prakosa Prayoga	L	dirawan@example.net	2	71	179	1966-06-08	35.04
+203	28	Nilam Nurdiyanti	L	titi67@example.org	6	54	173	1971-09-25	32.10
+204	28	Dacin Prabowo	P	saptono.reza@example.com	5	55	156	1965-12-24	31.75
+205	28	Ajeng Wijayanti	P	zmahendra@example.net	1	68	176	1964-12-13	61.04
+206	28	Elma Pudjiastuti	P	farhunnisa30@example.net	2	72	180	1988-08-20	32.15
+207	28	Marwata Prasasta	L	puput64@example.net	2	49	156	1989-12-18	33.16
+208	28	Rahmi Lestari	P	iriana95@example.com	3	79	167	1971-04-12	35.09
+209	28	Gaduh Ardianto	L	ajimat62@example.org	4	64	171	1988-05-25	73.07
+210	28	Maryadi Marbun	L	daryani.jailani@example.org	5	52	176	1989-11-30	75.01
+211	29	Zahra Oktaviani	L	laksmiwati.bahuwirya@example.net	1	56	171	1968-08-30	33.09
+212	29	Yosef Adinata Sihombing	L	edi39@example.com	2	74	156	1989-09-13	35.74
+213	29	Mutia Andriani S.Gz	L	suartini.yuni@example.org	3	66	166	1992-09-17	13.07
+214	29	Naradi Rajasa S.E.	P	fitriani67@example.net	3	67	175	1963-12-25	14.03
+215	29	Azalea Purwanti	P	citra93@example.com	6	56	161	1975-07-21	65.01
+216	29	Cawisono Okto Saputra	P	emin.maryadi@example.org	6	68	162	1965-02-18	75.03
+217	29	Dewi Latika Pertiwi M.Ak	P	winarsih.vanya@example.org	3	69	172	1972-11-23	65.01
+218	29	Kasim Winarno S.Ked	P	safina52@example.com	6	71	165	1971-03-01	62.01
+219	30	Tira Yuniar M.Farm	L	mardhiyah.cagak@example.org	1	59	159	1979-09-07	35.28
+220	30	Hani Padmasari	P	usyi87@example.org	6	80	175	1973-03-16	35.16
+221	31	Irnanto Najmudin	P	cpratama@example.org	1	80	172	1974-04-20	12.78
+222	31	Gabriella Purwanti	P	permata.kardi@example.com	1	70	162	1983-10-16	35.72
+223	31	Shania Hassanah M.Farm	L	bahuraksa96@example.org	5	76	167	1967-09-27	65.02
+224	31	Kairav Tamba	P	rudi.mulyani@example.org	6	61	174	1971-10-24	35.15
+225	32	Qori Haryanti	L	muni08@example.com	4	60	155	1974-11-21	32.12
+226	32	Kayun Tarihoran M.Kom.	P	osudiati@example.net	3	52	165	1978-11-19	62.02
+227	32	Raden Pangestu	L	iriana.anggriawan@example.com	2	51	179	1974-01-10	31.71
+228	32	Mahfud Hidayat S.IP	L	kenes64@example.org	3	71	155	1991-08-18	32.08
+229	33	Laras Astuti S.E.I	L	qanggriawan@example.com	3	58	159	1969-08-23	32.11
+230	33	Harjo Kurniawan S.Kom	L	lidya95@example.org	4	78	176	1978-10-20	33.20
+231	33	Lanang Mursita Siregar M.M.	P	galih42@example.com	3	57	171	1979-07-14	33.72
+232	33	Janet Novitasari S.T.	L	simon32@example.org	5	52	173	1992-02-02	35.75
+233	33	Lutfan Arta Zulkarnain S.Kom	P	taswir25@example.com	2	73	157	1965-08-15	31.75
+234	33	Jelita Rahayu	L	soleh.marbun@example.net	2	78	168	1965-04-11	32.08
+235	33	Emil Dwi Putra	L	septi.pudjiastuti@example.org	1	78	159	1974-07-29	52.01
+236	33	Nova Zulaika	L	kasiyah.simbolon@example.org	3	78	167	1973-08-31	33.12
+237	33	Vivi Salsabila Andriani	L	rlaksmiwati@example.net	6	67	179	1982-01-10	71.07
+238	33	Enteng Sihombing	P	prabowo.saptono@example.com	2	72	163	1966-02-02	35.04
+239	34	Raina Bella Palastri S.T.	L	ika58@example.com	2	56	170	1973-09-07	35.29
+240	34	Mustofa Nashiruddin M.Pd	P	farida.wawan@example.net	3	55	164	1978-05-19	62.01
+241	34	Karya Emin Hutagalung S.I.Kom	L	jaga.hastuti@example.com	1	59	157	1977-12-26	32.01
+242	34	Anita Agustina	P	sitompul.puspa@example.org	4	73	167	1976-07-14	32.02
+243	34	Rafi Omar Hidayat	P	laksana79@example.com	6	58	160	1978-12-17	32.77
+244	34	Dirja Sitorus	L	tari33@example.com	2	50	176	1984-05-09	18.05
+245	34	Kani Yuliarti	L	emanullang@example.org	4	59	176	1967-03-19	35.75
+246	34	Estiono Bagus Wahyudin	P	drajat.pangestu@example.com	3	77	160	1982-03-19	33.24
+247	35	Taufik Irawan	P	rahmawati.elvin@example.com	2	54	167	1976-01-20	31.73
+248	35	Kurnia Megantara	L	sudiati.respati@example.com	3	76	163	1986-05-03	51.03
+249	35	Eman Sirait M.Pd	P	mansur.fitria@example.com	4	78	171	1972-05-15	52.01
+250	35	Ami Ajeng Prastuti	P	tlaksita@example.com	6	63	163	1976-11-15	33.71
+251	35	Naradi Mandala	L	jarwi.maryati@example.org	3	63	172	1983-09-24	35.76
+252	35	Salimah Karimah Yuliarti S.Ked	L	salimah.mangunsong@example.com	2	51	157	1982-12-29	35.20
+253	35	Galih Rajata M.Kom.	L	manullang.tiara@example.com	1	55	170	1987-06-08	33.18
+254	35	Jamalia Hasanah S.Pt	L	uli11@example.com	6	77	170	1985-10-29	33.27
+255	35	Violet Sudiati	L	natsir.estiawan@example.com	3	61	162	1986-04-09	31.73
+256	35	Panca Pangestu M.M.	L	wirda.rajasa@example.net	1	74	167	1980-12-12	34.02
+257	36	Nugraha Daniswara Hidayat S.T.	P	faizah76@example.org	6	64	176	1972-01-29	33.25
+258	36	Zulfa Rachel Padmasari	P	zaryani@example.org	3	49	156	1970-05-16	32.05
+259	36	Cahyadi Prasetyo	P	paramita.fujiati@example.org	5	59	156	1976-11-20	35.24
+260	36	Hasan Budiman	L	salahudin.ismail@example.org	3	48	169	1969-08-27	34.03
+261	37	Amelia Anggraini S.Farm	L	iwaluyo@example.net	6	80	173	1971-02-19	35.28
+262	37	Ella Qori Purwanti	L	dina88@example.org	6	71	167	1978-03-31	72.02
+263	37	Gilda Yuniar	P	csihombing@example.com	3	50	169	1979-09-21	34.01
+264	37	Sabrina Tira Haryanti M.Pd	L	narpati.janet@example.net	6	72	158	1987-08-10	31.72
+\.
+
+
+--
+-- TOC entry 3456 (class 0 OID 18176)
+-- Dependencies: 215
+-- Data for Name: m_jurusan; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.m_jurusan (jurusan_id, jurusan_kode, jurusan_nama) FROM stdin;
+1	JTI	Jurusan Teknologi Informasi
+2	JTE	Jurusan Teknik Elektro
+3	JTM	Jurusan Teknik Mesin
+4	JTS	Jurusan Teknik Sipil
+5	JTK	Jurusan Teknik Kimia
+6	JAK	Jurusan Akuntansi
+7	JAN	Jurusan Administrasi Niaga
+\.
+
+
+--
+-- TOC entry 3462 (class 0 OID 18220)
+-- Dependencies: 221
+-- Data for Name: m_mahasiswa; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.m_mahasiswa (mahasiswa_id, prodi_id, nim, nama, jk, email, agama_id, tahun_masuk, berat_badan, tinggi_badan, tanggal_lahir, kota_id) FROM stdin;
+1	1	2101100001	Dimas Dirja Samosir	P	suryono.cici@example.com	1	2021	59	146	2006-10-08	35.22
+2	1	2101220002	Sabri Jamal Mahendra M.Kom.	P	nasyidah.puti@example.net	3	2021	72	145	2007-08-19	32.18
+3	1	2101780003	Maida Usada	P	gambira63@example.com	3	2021	72	153	2007-02-25	33.02
+4	1	2101600004	Febi Hassanah S.Ked	P	garan.sihombing@example.com	2	2021	80	145	2007-01-24	63.02
+5	1	2101280005	Zulfa Kuswandari	L	wastuti.ana@example.com	2	2021	59	169	2006-11-25	33.08
+6	1	2101910006	Dimas Setiawan S.Pd	L	abyasa.wibowo@example.org	2	2021	68	153	2007-04-05	15.04
+7	1	2101930007	Chelsea Vanesa Prastuti	P	ani.hutapea@example.net	5	2021	79	163	2007-02-02	33.04
+8	1	2101520008	Laras Vicky Purwanti	P	among58@example.net	5	2021	68	159	2006-06-07	32.05
+9	1	2101810009	Widya Hariyah M.Ak	P	prasetyo.usyi@example.com	4	2021	61	177	2007-02-13	33.13
+10	1	2101570010	Ulva Winarsih S.Sos	L	tania28@example.org	2	2021	84	145	2005-11-09	31.73
+11	1	2101120011	Patricia Hassanah	L	vanya.handayani@example.net	4	2021	83	159	2005-10-31	73.13
+12	1	2101600012	Bajragin Rajata	P	setiawan.sari@example.net	5	2021	59	161	2006-11-27	32.77
+13	1	2101360013	Salimah Laksmiwati S.Farm	P	bella15@example.com	5	2021	63	171	2007-04-19	32.05
+14	1	2101500014	Samsul Prayoga S.Psi	L	bmardhiyah@example.net	4	2021	64	168	2007-01-17	32.13
+15	1	2101280015	Mujur Waluyo	L	mahesa98@example.net	4	2021	64	159	2005-11-29	71.02
+16	1	2101850016	Uchita Kusmawati	P	oktaviani.anastasia@example.net	1	2021	93	170	2006-04-25	72.03
+17	1	2101360017	Yono Saptono	L	awulandari@example.net	4	2021	53	149	2006-03-23	65.02
+18	1	2101790018	Ayu Pia Hariyah M.Kom.	P	ipratiwi@example.com	3	2021	63	153	2006-11-20	33.02
+19	1	2101630019	Galih Danu Wibowo	L	rachel.yuliarti@example.org	1	2021	73	179	2007-03-24	64.07
+20	1	2101850020	Maya Hastuti	L	irnanto.wulandari@example.com	2	2021	85	168	2007-05-14	14.06
+21	1	2101310021	Ella Widiastuti	P	puti.fujiati@example.org	4	2021	90	160	2007-03-28	61.01
+22	1	2101430022	Soleh Elon Tampubolon S.Gz	P	zelaya25@example.net	5	2021	94	146	2006-04-09	73.13
+23	1	2101450023	Olivia Yulianti	P	kasiyah.hariyah@example.com	5	2021	47	165	2006-08-20	33.05
+24	1	2101460024	Calista Yulianti S.Kom	L	tpertiwi@example.com	6	2021	61	168	2006-10-30	35.20
+25	1	2101530025	Rudi Hakim M.Pd	L	dartono75@example.net	4	2021	70	167	2007-02-24	33.15
+26	1	2101640026	Nyana Nrima Megantara	L	wadi.dabukke@example.net	3	2021	80	176	2007-01-16	33.76
+27	1	2101960027	Halima Agustina	L	elma.usada@example.net	4	2021	63	155	2006-09-13	32.11
+28	1	2101550028	Prakosa Nababan	L	juli54@example.com	6	2021	90	148	2006-07-29	33.09
+29	1	2101590029	Cinta Prastuti	P	harjaya89@example.net	3	2021	58	171	2006-05-25	62.02
+30	1	2101650030	Pardi Nardi Mandala S.T.	P	lsafitri@example.com	2	2021	91	152	2005-10-03	34.01
+31	1	2101770031	Titin Laksmiwati S.Farm	P	estiawan39@example.com	5	2021	49	148	2006-10-12	51.02
+32	1	2101530032	Ilsa Lestari	P	ina00@example.org	5	2021	91	151	2006-11-03	73.07
+33	1	2101820033	Ifa Nurdiyanti S.H.	P	wpudjiastuti@example.com	2	2021	59	164	2005-11-28	35.15
+34	1	2101590034	Malika Hariyah	P	budiyanto.lanang@example.com	5	2021	66	151	2007-06-19	31.73
+35	1	2101900035	Ina Yance Anggraini	P	oliva.winarno@example.org	6	2021	46	158	2005-11-11	31.71
+36	1	2101190036	Septi Chelsea Susanti M.Farm	L	cinthia60@example.net	5	2021	49	178	2006-09-06	52.02
+37	1	2101860037	Radit Galur Haryanto	L	wmardhiyah@example.net	3	2021	81	150	2006-09-25	35.75
+38	1	2101400038	Rahmat Samosir	L	anatsir@example.net	4	2021	64	170	2006-03-17	33.76
+39	1	2101270039	Fitria Novitasari	P	halimah.sabri@example.org	5	2021	91	170	2007-07-30	33.01
+40	1	2101870040	Diah Indah Rahimah	P	butama@example.org	2	2021	53	172	2006-12-20	31.72
+41	1	2101510041	Keisha Mayasari S.E.I	P	diah76@example.net	3	2021	72	170	2006-01-07	33.20
+42	1	2101860042	Ika Nurdiyanti	L	xrahayu@example.org	2	2021	53	179	2007-01-11	35.28
+43	1	2101140043	Rangga Setiawan	L	nyolanda@example.com	1	2021	90	157	2007-08-25	33.25
+44	1	2101620044	Widya Febi Novitasari	P	zulaikha.natsir@example.net	1	2021	87	148	2006-08-30	52.72
+45	1	2101950045	Prayoga Perkasa Prasasta	P	jarwadi25@example.org	1	2021	73	175	2006-11-20	11.71
+46	1	2101150046	Aurora Hani Namaga	P	cawisono.simbolon@example.org	3	2021	63	169	2007-06-09	17.01
+47	1	2101650047	Najwa Lailasari S.Pd	P	nhutasoit@example.net	3	2021	91	176	2005-11-21	33.73
+48	1	2101270048	Uda Salahudin M.M.	L	asimbolon@example.com	1	2021	67	170	2007-01-01	35.29
+49	1	2101650049	Hesti Vivi Farida M.M.	P	ppermata@example.org	2	2021	58	167	2007-03-25	35.72
+50	1	2101570050	Raditya Dongoran	L	saka.hariyah@example.org	5	2021	86	176	2006-11-01	33.05
+51	1	2101500051	Alika Sarah Melani	P	chelsea.kuswandari@example.net	2	2021	53	156	2005-10-28	33.16
+52	1	2101440052	Ami Wulandari S.Gz	P	oyulianti@example.com	4	2021	66	152	2007-06-30	13.07
+53	1	2101990053	Jumari Prasasta	L	elvin.tampubolon@example.net	6	2021	76	161	2006-06-24	31.74
+54	1	2101700054	Dono Januar S.Gz	P	lukita.suryatmi@example.org	1	2021	77	172	2005-11-26	33.11
+55	1	2101540055	Malika Ajeng Hastuti	L	crajasa@example.net	6	2021	82	148	2006-07-22	35.07
+56	1	2101590056	Hesti Ilsa Hassanah	L	enugroho@example.com	1	2021	68	151	2006-12-18	32.05
+57	1	2101920057	Nadia Laksita	L	wulandari.novi@example.org	1	2021	55	152	2006-08-06	64.07
+58	1	2101630058	Karsana Winarno S.Ked	L	mulyani.drajat@example.com	6	2021	71	149	2006-02-16	12.78
+59	1	2101150059	Gilda Wijayanti S.IP	L	natalia75@example.net	5	2021	62	152	2007-03-24	14.06
+60	1	2101350060	Yani Andriani	P	samsul34@example.com	3	2021	61	147	2007-04-07	51.03
+61	1	2101710061	Kani Aryani S.E.I	L	saefullah.ulya@example.com	5	2021	63	160	2007-08-25	32.09
+62	1	2101260062	Lasmono Harsanto Anggriawan	L	hwidiastuti@example.org	3	2021	95	162	2006-05-30	32.78
+63	1	2101420063	Garda Mahdi Mansur	P	ghani.pradana@example.org	2	2021	94	169	2007-06-25	62.04
+64	1	2101240064	Harjaya Natsir	L	dina.hutapea@example.org	4	2021	82	147	2006-02-25	35.12
+65	1	2101550065	Gangsar Kusumo	P	mansur.ifa@example.org	1	2021	63	149	2006-04-25	64.03
+66	1	2101950066	Cecep Wahyudin	P	isuryatmi@example.org	3	2021	60	167	2007-01-14	36.03
+67	1	2101650067	Cakrajiya Jabal Saefullah S.Psi	P	epratiwi@example.com	3	2021	58	159	2006-05-22	17.05
+68	1	2101160068	Tira Laksita	P	dartono44@example.org	5	2021	45	155	2007-03-01	32.14
+69	1	2101970069	Nardi Arta Sihombing M.Kom.	L	nuraini.taswir@example.com	2	2021	73	179	2007-01-14	63.01
+70	1	2101130070	Bella Lailasari	P	tamba.mariadi@example.net	4	2021	47	151	2006-09-12	32.72
+71	1	2101420071	Karimah Yuliana Yulianti S.Ked	L	nwibisono@example.net	5	2021	46	168	2007-04-30	33.20
+72	1	2101220072	Salimah Puspasari	P	hhidayat@example.org	6	2021	62	166	2006-11-13	32.05
+73	1	2101800073	Sabri Luthfi Manullang M.Pd	P	waskita.lili@example.net	2	2021	94	174	2005-10-20	35.79
+74	1	2101580074	Sakura Zizi Mardhiyah	L	upermadi@example.com	6	2021	87	173	2007-03-07	31.73
+75	1	2101680075	Gaduh Indra Wahyudin	P	ade06@example.org	4	2021	46	153	2006-07-12	31.72
+76	1	2101670076	Lantar Wahyu Latupono S.H.	L	teddy79@example.org	1	2021	77	160	2007-02-23	31.75
+77	1	2101860077	Laila Dewi Puspasari	P	taswir.oktaviani@example.com	2	2021	94	145	2006-12-20	11.14
+78	1	2101970078	Umi Namaga	P	hasna.siregar@example.net	5	2021	95	151	2006-10-14	74.04
+79	1	2101980079	Nadia Titi Safitri	L	msusanti@example.org	2	2021	51	153	2006-07-31	71.02
+80	1	2101580080	Kasiran Prabowo	P	jsitompul@example.com	4	2021	87	171	2006-05-10	35.18
+81	1	2101380081	Jarwi Pangestu S.Psi	L	xnatsir@example.com	1	2021	83	154	2005-11-08	35.10
+82	1	2101810082	Teguh Adika Dongoran	P	kasiyah.saragih@example.org	6	2021	63	152	2006-06-25	31.73
+83	1	2101410083	Purwa Nugroho M.M.	P	ypranowo@example.org	6	2021	60	167	2007-03-26	32.79
+84	1	2101660084	Amelia Ilsa Lailasari	L	zulkarnain.artanto@example.org	3	2021	82	167	2006-08-29	33.08
+85	1	2101180085	Yance Pudjiastuti	L	wibowo.kajen@example.com	6	2021	75	164	2007-02-12	31.71
+86	1	2101360086	Dinda Mulyani	L	ohalim@example.org	5	2021	86	162	2007-04-01	32.05
+87	1	2101840087	Indah Hasanah	L	astuti.mutia@example.com	5	2021	57	178	2006-02-20	31.72
+88	1	2101670088	Anita Fujiati	P	farah02@example.com	5	2021	65	152	2007-02-02	31.71
+89	1	2101210089	Lanjar Najmudin	L	mayasari.kartika@example.net	2	2021	68	152	2006-04-27	33.16
+90	1	2101380090	Ilsa Oktaviani M.TI.	P	wage50@example.net	6	2021	51	168	2006-04-15	32.72
+91	1	2101140091	Marsudi Sinaga S.I.Kom	P	ika36@example.com	5	2021	56	148	2006-08-02	31.73
+92	1	2101720092	Slamet Ramadan	L	wnarpati@example.com	6	2021	64	175	2005-10-01	33.06
+93	1	2101610093	Devi Laksmiwati	P	cinta.kurniawan@example.com	5	2021	84	165	2007-03-02	32.76
+94	1	2101760094	Widya Hafshah Aryani M.Farm	L	taufan.pertiwi@example.com	1	2021	63	158	2005-11-06	35.21
+95	1	2101990095	Emin Mustofa Nainggolan S.Pd	P	csihombing@example.net	2	2021	54	150	2005-10-12	35.19
+96	1	2101720096	Akarsana Cemplunk Thamrin S.E.I	P	taufan87@example.com	6	2021	92	151	2007-04-03	31.72
+97	1	2101790097	Umar Karsa Natsir	L	laksita.lala@example.org	5	2021	56	166	2005-11-25	52.71
+98	1	2101460098	Melinda Farida	P	agustina.jaeman@example.org	5	2021	78	179	2005-10-02	12.76
+99	1	2101810099	Raden Situmorang	L	kawaya.sinaga@example.com	6	2021	73	155	2006-04-10	35.77
+100	1	2101540100	Fathonah Melani	P	tania02@example.com	1	2021	52	152	2007-09-16	33.25
+101	1	2101940101	Kenes Permadi	L	zmanullang@example.com	2	2021	49	159	2007-02-20	32.14
+102	1	2101970102	Cinta Silvia Haryanti S.Psi	P	opan05@example.org	5	2021	90	168	2006-07-30	32.18
+103	1	2101570103	Ciaobella Padmasari	P	adriansyah.farhunnisa@example.org	6	2021	79	151	2007-07-19	34.71
+104	1	2101460104	Artawan Pranata Firmansyah S.Psi	P	gabriella.pranowo@example.net	1	2021	89	149	2007-03-06	73.13
+105	1	2101360105	Cakrabuana Halim	L	anasyidah@example.net	3	2021	49	165	2007-07-01	32.03
+106	1	2101810106	Ibrahim Utama	P	permata.indah@example.net	3	2021	66	157	2007-02-02	18.04
+107	1	2101930107	Ratih Pratiwi	P	hartana.nasyidah@example.com	5	2021	79	151	2007-03-01	31.73
+108	1	2101220108	Dwi Lukita Permadi S.Farm	L	nmandasari@example.com	2	2021	90	148	2005-11-16	14.06
+109	1	2101890109	Ratna Haryanti S.E.I	P	cager19@example.org	6	2021	54	166	2006-07-22	33.20
+110	1	2101320110	Mujur Rajasa	P	knamaga@example.org	5	2021	95	171	2007-01-13	31.71
+111	1	2101410111	Unjani Palastri	P	teguh29@example.org	1	2021	83	166	2006-04-22	32.11
+112	1	2101440112	Padmi Nurdiyanti	L	sarah.simbolon@example.net	2	2021	91	153	2007-07-18	35.15
+113	1	2101900113	Elvin Endra Firgantoro	L	clara.permata@example.net	4	2021	91	169	2007-07-07	31.75
+114	1	2101450114	Cornelia Kiandra Halimah M.Kom.	P	vera.simanjuntak@example.net	2	2021	52	151	2007-02-13	15.01
+115	1	2101790115	Laila Uyainah	L	ianggraini@example.org	5	2021	62	145	2007-08-11	35.07
+116	1	2101280116	Kani Nurdiyanti	P	darimin14@example.net	4	2021	65	160	2006-12-07	75.01
+117	1	2101380117	Akarsana Kuswoyo	L	bakda.hassanah@example.com	4	2021	75	177	2007-01-16	65.02
+118	1	2101960118	Bella Padmasari	P	marpaung.tira@example.net	1	2021	47	177	2006-12-28	33.08
+119	1	2101340119	Titin Prastuti	P	susanti.kani@example.net	1	2021	64	150	2007-03-19	32.09
+120	1	2101260120	Pia Talia Sudiati	P	lazuardi.aisyah@example.net	1	2021	91	178	2007-04-24	31.71
+121	1	2101400121	Raharja Gunawan	L	lili.mayasari@example.org	1	2021	89	176	2007-04-29	32.14
+122	1	2101660122	Sabrina Maryati	L	emil82@example.net	4	2021	87	167	2007-01-30	35.76
+123	1	2101720123	Mala Widiastuti	L	makuta99@example.net	2	2021	45	175	2006-11-08	12.78
+124	1	2101220124	Kenzie Napitupulu	L	usada.gading@example.com	5	2021	62	145	2007-01-08	14.06
+125	1	2101710125	Nadine Yolanda	L	sdamanik@example.net	6	2021	75	158	2006-03-08	35.19
+126	1	2101240126	Bahuraksa Adiarja Tamba M.M.	L	yono24@example.com	6	2021	92	148	2006-09-01	31.74
+127	1	2101380127	Rahmi Sarah Anggraini	P	odabukke@example.com	3	2021	86	171	2005-11-03	35.06
+128	1	2101290128	Cakrajiya Manullang	L	clara64@example.net	6	2021	70	167	2006-04-20	32.06
+129	1	2101990129	Keisha Kuswandari	P	maras17@example.net	2	2021	61	146	2006-12-22	35.21
+130	1	2101980130	Marsudi Jayeng Habibi S.E.	L	mustofa.ulya@example.com	5	2021	78	180	2006-07-16	31.74
+131	1	2101960131	Mulyanto Tarihoran	L	cakrawala04@example.net	2	2021	78	178	2007-02-04	32.17
+132	1	2101390132	Zalindra Hafshah Aryani S.Pd	L	jmustofa@example.com	4	2021	73	153	2006-12-10	32.18
+133	1	2101440133	Wardi Ardianto S.E.	L	artanto02@example.org	5	2021	51	179	2006-10-06	33.12
+134	1	2101380134	Raditya Wibisono	P	tira52@example.org	6	2021	48	157	2007-08-25	51.01
+135	1	2101810135	Pangeran Simbolon S.Kom	P	sinaga.simon@example.org	4	2021	65	177	2007-05-24	36.01
+136	1	2101560136	Ami Mulyani	L	maryati.mahdi@example.net	2	2021	77	147	2006-06-03	15.01
+137	1	2101990137	Daruna Marbun S.E.	P	padmi86@example.net	3	2021	86	159	2005-12-22	35.15
+138	1	2101560138	Kani Bella Wahyuni	P	suwarno.aisyah@example.com	4	2021	76	172	2007-02-24	18.05
+139	1	2101500139	Karimah Melani M.Ak	L	firgantoro.hafshah@example.net	2	2021	50	168	2006-05-17	31.74
+140	1	2101780140	Pranawa Wahyudin	P	aditya46@example.com	1	2021	58	148	2005-10-23	35.06
+141	1	2101780141	Gasti Lailasari	P	nugroho.genta@example.com	3	2021	45	168	2005-12-15	33.03
+142	1	2101900142	Among Irawan	L	usimanjuntak@example.net	4	2021	80	159	2006-07-28	71.02
+143	1	2101540143	Aswani Oman Manullang S.Pt	P	gunawan.gaman@example.com	3	2021	63	163	2007-03-27	32.01
+144	1	2101870144	Kasiran Harto Samosir	P	bakda25@example.org	3	2021	75	150	2006-12-05	32.79
+145	1	2101840145	Agnes Ilsa Anggraini	P	ghaliyati.yuniar@example.org	3	2021	78	166	2006-06-09	12.76
+146	1	2101160146	Samsul Salahudin M.Farm	P	lukman06@example.org	1	2021	72	165	2006-04-18	33.15
+147	1	2101330147	Praba Prayoga M.Pd	P	gunarto.warji@example.net	6	2021	68	178	2006-07-12	31.74
+148	1	2101180148	Jane Zulaika	L	winarno.rangga@example.com	3	2021	81	153	2007-05-06	33.23
+149	1	2101110149	Nardi Lazuardi	L	hesti91@example.com	1	2021	60	166	2006-01-04	18.04
+150	1	2101780150	Wardaya Dongoran M.TI.	P	ira.salahudin@example.com	5	2021	53	165	2007-03-28	35.15
+151	1	2101450151	Nurul Oktaviani	P	gina.dongoran@example.org	1	2021	51	163	2007-08-06	33.11
+152	1	2101670152	Ade Siregar	L	zulaikha.haryanto@example.org	6	2021	63	166	2007-02-24	33.16
+153	1	2101880153	Jaga Napitupulu S.Psi	L	irma.putra@example.com	5	2021	71	146	2006-05-13	13.04
+154	1	2101180154	Gabriella Citra Riyanti S.Sos	L	najwa.zulaika@example.org	5	2021	72	155	2007-02-06	36.03
+155	1	2101910155	Restu Namaga	L	waluyo.dagel@example.com	3	2021	86	154	2006-10-27	35.14
+156	1	2101920156	Hasan Januar S.E.	L	megantara.jagapati@example.net	2	2021	77	179	2006-05-07	32.10
+157	1	2101420157	Eli Anggraini S.E.	L	rahayu.juli@example.com	5	2021	69	149	2006-12-12	33.73
+158	1	2101270158	Irnanto Wasita	P	uyainah.halim@example.com	2	2021	53	177	2006-05-12	51.03
+159	1	2101380159	Tami Puspita	L	sitompul.artawan@example.org	3	2021	72	158	2006-11-21	35.24
+160	1	2101240160	Perkasa Hidayanto	L	emil.kusmawati@example.org	3	2021	88	148	2006-04-16	18.05
+161	1	2101750161	Diana Halimah S.Kom	L	elisa71@example.com	5	2021	56	174	2006-11-12	13.05
+162	1	2101400162	Ira Vera Lestari S.IP	P	zalindra34@example.com	3	2021	50	159	2006-11-30	52.02
+163	1	2101650163	Victoria Puspita S.Sos	L	mulyani.raihan@example.org	4	2021	95	160	2007-04-01	33.02
+164	1	2101940164	Rika Uchita Aryani M.Pd	P	diah.lailasari@example.org	1	2021	72	146	2006-06-30	52.03
+165	1	2101860165	Joko Uwais	P	clara57@example.com	4	2021	92	174	2006-08-04	63.01
+166	1	2101290166	Lidya Zulaika	L	mandala.azalea@example.com	5	2021	86	172	2007-02-02	65.02
+167	1	2101600167	Uli Kamaria Palastri S.Pd	L	ciaobella88@example.com	6	2021	60	162	2007-09-16	31.73
+168	1	2101420168	Heru Natsir S.Pd	L	vicky.nasyidah@example.com	3	2021	57	153	2007-09-05	33.28
+169	1	2101870169	Simon Kusumo M.Ak	L	eka47@example.net	4	2021	73	155	2006-01-09	32.12
+170	1	2101970170	Unjani Winarsih S.Farm	P	dariati.tamba@example.com	4	2021	67	176	2007-07-06	33.11
+171	1	2101190171	Salimah Rahmawati	L	mmangunsong@example.org	4	2021	88	167	2007-07-03	31.72
+172	1	2101470172	Cemplunk Bagas Tampubolon	P	gilda.widiastuti@example.com	4	2021	95	168	2007-04-15	31.01
+173	1	2101310173	Gandi Budiyanto	L	citra63@example.com	4	2021	55	159	2006-09-19	33.71
+174	1	2101190174	Salimah Lestari M.M.	P	putu92@example.net	6	2021	78	169	2007-03-11	33.73
+175	1	2101110175	Shania Elisa Puspasari	L	lala77@example.net	5	2021	77	148	2007-05-28	31.75
+176	1	2101740176	Vivi Dalima Mulyani	L	nmahendra@example.net	1	2021	61	175	2006-08-01	33.71
+177	1	2101330177	Salwa Uchita Melani M.Pd	L	nasyiah.shania@example.net	5	2021	64	169	2006-12-02	73.07
+178	1	2101190178	Dinda Laras Hasanah S.I.Kom	L	hamzah80@example.org	1	2021	73	158	2005-12-02	33.24
+179	1	2101630179	Pangeran Haryanto M.TI.	L	chelsea.laksmiwati@example.net	4	2021	90	147	2006-06-09	64.07
+180	1	2101340180	Hendra Gada Pranowo	L	nasyidah.najwa@example.net	4	2021	86	173	2006-08-09	74.04
+181	1	2101720181	Jagaraga Santoso	P	padma81@example.com	2	2021	64	174	2007-04-13	35.75
+182	1	2101570182	Lili Melani S.IP	P	tpratiwi@example.com	3	2021	76	160	2006-11-12	32.79
+183	1	2101200183	Akarsana Lazuardi	L	tprasetya@example.net	2	2021	64	154	2007-05-01	13.05
+184	1	2101360184	Rahmat Jindra Mahendra S.Psi	P	kairav11@example.com	4	2021	71	177	2006-05-21	31.72
+185	1	2101970185	Cayadi Prakasa M.Pd	P	garan09@example.org	4	2021	92	147	2007-07-23	32.10
+186	1	2101510186	Ika Purwanti	L	lala90@example.com	5	2021	83	153	2006-04-15	32.17
+187	1	2101940187	Harsaya Sitompul	P	vrajasa@example.com	1	2021	95	155	2007-05-27	33.05
+188	1	2101770188	Oni Kezia Nasyiah S.Ked	L	rsihombing@example.com	5	2021	82	163	2006-03-02	52.01
+189	1	2101710189	Winda Patricia Wastuti S.Ked	L	emil25@example.net	6	2021	59	150	2006-02-20	33.25
+190	1	2101620190	Widya Oktaviani	L	patricia84@example.com	4	2021	78	172	2006-03-08	51.02
+191	1	2101420191	Balangga Ardianto	P	victoria36@example.com	2	2021	78	179	2006-03-17	33.11
+192	1	2101580192	Adiarja Utama	L	nasyiah.karsa@example.org	4	2021	81	174	2007-09-09	35.09
+193	1	2101630193	Rahmat Zulkarnain S.Psi	P	raisa.wulandari@example.com	5	2021	62	167	2005-12-12	35.75
+194	1	2101930194	Rudi Ghani Waluyo	L	tantri.nurdiyanti@example.com	6	2021	69	160	2006-11-04	18.05
+195	1	2101120195	Ratna Yessi Astuti	L	tsitompul@example.org	2	2021	91	173	2007-04-01	34.71
+196	1	2101580196	Zizi Halima Permata	L	elvin31@example.org	4	2021	80	149	2005-11-02	32.74
+197	1	2101740197	Karimah Amelia Oktaviani	P	gasti55@example.com	2	2021	89	145	2006-08-28	31.71
+198	1	2101250198	Galur Tampubolon	P	gaman87@example.org	5	2021	46	154	2006-10-26	33.18
+199	1	2101580199	Ghani Gamanto Wasita S.T.	P	malik.kuswoyo@example.com	4	2021	90	173	2006-02-25	31.74
+200	1	2101460200	Banawa Sitorus	L	jabal.pangestu@example.com	3	2021	92	170	2007-04-13	73.07
+201	1	2101260201	Lili Rahimah S.Sos	P	kusmawati.alika@example.com	5	2021	78	158	2007-03-03	31.71
+202	1	2101200202	Harjasa Dalimin Nashiruddin	P	omar.widiastuti@example.net	2	2021	48	165	2007-06-13	13.04
+203	1	2101970203	Puji Haryanti S.IP	P	sabrina65@example.org	5	2021	74	177	2007-02-04	33.07
+204	1	2101600204	Vicky Suryatmi	P	gaduh37@example.net	2	2021	52	176	2007-07-07	33.75
+205	1	2101330205	Cawisono Januar	P	xpangestu@example.org	3	2021	77	160	2007-04-22	36.01
+206	1	2101490206	Laswi Among Napitupulu S.Farm	P	lpratiwi@example.com	5	2021	57	154	2006-10-10	33.10
+207	1	2101990207	Gatra Daru Damanik	P	aprasetyo@example.org	3	2021	45	165	2006-04-20	31.74
+208	1	2101230208	Edi Hutapea	P	ssusanti@example.com	6	2021	48	172	2006-05-12	31.72
+209	1	2101230209	Eka Rahayu	L	natsir.mila@example.com	2	2021	54	162	2005-11-19	31.75
+210	1	2101180210	Nardi Permadi	L	vanesa.prasetya@example.org	1	2021	91	161	2007-02-06	32.06
+211	2	2102860001	Irfan Halim	L	zhakim@example.com	1	2021	92	145	2007-08-08	14.05
+212	2	2102980002	Malika Intan Safitri	P	uli69@example.org	3	2021	66	145	2006-09-03	32.16
+213	2	2102550003	Paulin Amalia Laksmiwati S.Pt	P	devi.firmansyah@example.net	3	2021	78	165	2007-07-04	35.09
+214	2	2102300004	Luthfi Narpati	L	qhidayat@example.net	4	2021	46	160	2007-08-18	71.07
+215	2	2102360005	Raina Ciaobella Hartati	L	uwais.jane@example.org	4	2021	79	174	2006-10-14	32.15
+216	2	2102440006	Genta Maria Palastri	P	garan.rajasa@example.net	4	2021	80	169	2007-06-18	18.04
+217	2	2102940007	Yahya Sakti Ardianto	P	tpertiwi@example.org	3	2021	70	173	2007-06-22	35.16
+218	2	2102670008	Kardi Cakrajiya Rajasa M.TI.	L	prayoga.patricia@example.org	3	2021	48	173	2006-01-30	32.15
+219	2	2102240009	Alika Rahayu	P	simbolon.violet@example.com	5	2021	80	164	2006-09-27	14.06
+220	2	2102730010	Tantri Natalia Suartini	P	vnuraini@example.org	2	2021	73	154	2006-05-19	31.75
+221	2	2102360011	Ganep Gangsar Kusumo	L	amalia77@example.org	3	2021	78	150	2005-12-06	31.74
+222	2	2102710012	Nasab Gamblang Wijaya	L	sriyanti@example.com	2	2021	73	150	2006-06-06	33.05
+223	2	2102700013	Bajragin Santoso	P	sitorus.vinsen@example.com	2	2021	91	165	2006-10-01	72.02
+224	2	2102410014	Nalar Suryono S.Gz	P	rahayu.maryadi@example.net	1	2021	54	160	2006-12-22	15.01
+225	2	2102860015	Bella Paris Palastri S.Sos	L	ewinarsih@example.org	2	2021	95	168	2006-03-25	35.16
+226	2	2102700016	Rosman Mangunsong M.Ak	P	kmahendra@example.com	1	2021	93	161	2007-09-15	33.19
+227	2	2102260017	Kezia Puspita	L	nova65@example.org	1	2021	91	159	2007-04-06	35.07
+228	2	2102660018	Syahrini Rahimah	L	zulaika.eka@example.net	4	2021	95	167	2006-06-16	31.71
+229	2	2102420019	Restu Handayani	L	salahudin.kamila@example.net	4	2021	62	176	2007-05-22	35.75
+230	2	2102490020	Eli Uyainah	P	vhutasoit@example.org	3	2021	49	145	2005-10-01	35.74
+231	2	2102950021	Titi Violet Palastri S.Psi	P	isuartini@example.com	1	2021	95	164	2007-03-30	52.02
+232	2	2102670022	Ella Belinda Mandasari M.TI.	L	karma13@example.net	2	2021	49	175	2007-03-16	33.73
+233	2	2102730023	Sadina Haryanti	L	pudjiastuti.jarwadi@example.org	4	2021	85	178	2006-10-26	17.04
+234	2	2102970024	Mala Silvia Kuswandari	L	inovitasari@example.org	2	2021	66	174	2006-10-18	35.06
+235	2	2102820025	Cayadi Hutapea	P	ajanuar@example.net	6	2021	54	154	2005-12-08	73.13
+236	2	2102520026	Irma Winarsih S.Pd	P	kasiyah35@example.com	2	2021	48	161	2007-07-11	52.72
+237	2	2102730027	Eli Hartati	L	lanang33@example.net	4	2021	56	149	2006-07-05	74.02
+238	2	2102780028	Keisha Aryani	L	yunita.tarihoran@example.net	1	2021	70	176	2006-12-09	33.12
+239	2	2102950029	Tugiman Murti Wacana	P	karimah91@example.org	5	2021	65	165	2007-08-21	18.04
+240	2	2102690030	Nadine Haryanti S.E.I	L	dariati45@example.com	4	2021	63	171	2007-05-10	32.05
+241	2	2102970031	Lidya Wahyuni	L	ami.habibi@example.com	4	2021	58	173	2005-11-28	35.06
+242	2	2102810032	Wardaya Siregar	P	wmaulana@example.org	1	2021	71	160	2007-03-23	35.20
+243	2	2102690033	Jasmin Dinda Oktaviani	L	vinsen.saefullah@example.org	3	2021	66	154	2007-02-24	33.06
+244	2	2102530034	Ifa Prastuti	P	sarah.kusmawati@example.com	2	2021	53	172	2007-06-25	33.73
+245	2	2102420035	Panji Narpati	P	yahya.prasetya@example.com	6	2021	76	150	2006-01-06	31.74
+246	2	2102390036	Labuh Hutasoit S.Sos	L	wulandari.ganda@example.net	6	2021	70	158	2006-09-30	72.02
+247	2	2102390037	Cawisadi Saefullah	P	margana52@example.net	1	2021	45	145	2006-12-06	75.01
+248	2	2102660038	Baktiono Mustofa S.Pt	L	mahmud23@example.net	4	2021	87	169	2005-11-12	31.75
+249	2	2102560039	Embuh Asirwada Prabowo	P	wahyudin.asman@example.com	5	2021	86	149	2006-03-04	33.05
+250	2	2102890040	Agnes Lala Yuniar	P	tsafitri@example.net	4	2021	55	178	2006-12-05	32.10
+251	2	2102530041	Zaenab Hani Astuti S.Kom	P	yance80@example.net	4	2021	54	159	2006-07-23	32.01
+252	2	2102800042	Asman Kurniawan M.Kom.	P	ciaobella63@example.com	2	2021	80	156	2006-09-02	13.07
+253	2	2102180043	Jarwa Irawan	P	chabibi@example.org	6	2021	74	171	2007-06-06	32.10
+254	2	2102710044	Dadi Kasiran Waskita	P	vdamanik@example.net	1	2021	69	176	2006-10-02	31.75
+255	2	2102870045	Mila Nadia Anggraini S.Pd	L	luhung.hariyah@example.com	5	2021	58	167	2005-10-15	33.72
+256	2	2102940046	Salimah Uchita Novitasari S.E.I	L	ajiono54@example.com	1	2021	77	167	2007-07-24	32.17
+257	2	2102470047	Putri Betania Rahimah	P	intan.susanti@example.org	3	2021	75	157	2005-11-02	11.71
+258	2	2102920048	Aswani Marbun	P	martana.pradana@example.net	6	2021	55	175	2007-06-27	71.02
+259	2	2102910049	Kasusra Wacana	P	rahmi31@example.net	4	2021	91	156	2006-01-06	32.09
+260	2	2102700050	Silvia Suartini	P	latupono.asman@example.net	3	2021	49	171	2007-06-15	13.07
+261	2	2102780051	Paris Hariyah	L	cakrabirawa77@example.org	3	2021	70	173	2006-03-28	33.20
+262	2	2102310052	Ina Susanti S.E.	L	bella.widodo@example.org	1	2021	76	180	2007-02-21	71.05
+263	2	2102630053	Ratna Tina Melani	P	chelsea61@example.org	1	2021	89	175	2006-10-02	32.77
+264	2	2102340054	Cinthia Prastuti	P	gunawan.kairav@example.org	1	2021	56	149	2007-08-15	12.78
+265	2	2102390055	Alambana Ridwan Sirait	L	nhutagalung@example.org	2	2021	67	172	2006-04-13	31.73
+266	2	2102740056	Vero Budiyanto	P	gaduh.yuliarti@example.com	5	2021	89	149	2006-01-05	52.02
+267	2	2102840057	Uda Dasa Setiawan	P	melani.gambira@example.com	4	2021	66	159	2007-08-05	31.73
+268	2	2102940058	Zaenab Oktaviani	L	vpermata@example.net	3	2021	50	164	2007-08-31	33.13
+269	2	2102990059	Salsabila Hassanah	L	spratama@example.com	6	2021	48	153	2006-10-21	31.01
+270	2	2102910060	Galak Estiono Rajasa	P	kurniawan.tasnim@example.net	4	2021	69	178	2007-08-23	17.05
+271	2	2102480061	Damu Halim	L	harsaya98@example.org	2	2021	63	163	2006-08-23	33.73
+272	2	2102390062	Clara Wahyuni	L	jaswadi.novitasari@example.org	6	2021	88	147	2007-05-24	34.71
+273	2	2102180063	Dirja Cakrabuana Sinaga	L	lembah.hartati@example.com	3	2021	92	179	2005-11-10	35.71
+274	2	2102700064	Michelle Anggraini	L	pardi.mayasari@example.com	2	2021	92	153	2007-04-01	32.77
+275	2	2102510065	Upik Hari Rajasa	L	vino92@example.com	4	2021	45	178	2005-10-19	33.05
+276	2	2102330066	Alika Namaga	L	santoso.artanto@example.org	4	2021	57	162	2005-12-21	32.78
+277	2	2102640067	Kawaca Firgantoro S.Kom	L	ewinarno@example.com	5	2021	85	159	2007-08-26	35.79
+278	2	2102380068	Catur Marbun	P	mayasari.gandi@example.org	3	2021	85	179	2007-05-23	33.24
+279	2	2102910069	Galar Uwais	L	michelle79@example.com	4	2021	59	153	2007-01-23	32.73
+280	2	2102140070	Maria Mandasari	L	isaefullah@example.org	3	2021	88	177	2006-04-15	32.13
+281	2	2102420071	Vera Lestari	L	orahayu@example.org	3	2021	59	159	2006-01-16	31.75
+282	2	2102460072	Bakti Hutapea	L	zhasanah@example.org	1	2021	74	160	2006-04-04	33.16
+283	2	2102710073	Ihsan Kurniawan	L	fprasasta@example.net	4	2021	52	167	2006-11-29	32.15
+284	2	2102530074	Manah Mulyanto Tarihoran	L	harjasa.pradipta@example.com	3	2021	69	173	2007-09-05	33.27
+285	2	2102910075	Atma Iswahyudi	L	tedi12@example.org	2	2021	73	146	2007-03-19	33.08
+286	2	2102420076	Ivan Sidiq Lazuardi	L	lamar87@example.net	4	2021	61	177	2007-01-29	33.26
+287	2	2102940077	Rosman Mahendra	L	igunawan@example.net	3	2021	53	178	2007-02-17	34.71
+288	2	2102340078	Yani Widiastuti S.Gz	P	pprastuti@example.com	4	2021	79	157	2006-11-05	73.13
+289	2	2102710079	Saadat Nainggolan S.I.Kom	L	firmansyah.galiono@example.org	6	2021	56	151	2005-10-12	31.74
+290	2	2102490080	Ridwan Budiman	P	hutapea.kacung@example.net	4	2021	48	166	2006-02-21	35.71
+291	2	2102470081	Sarah Halimah	P	prastuti.vera@example.org	5	2021	46	149	2005-12-08	32.71
+292	2	2102580082	Bella Novitasari	P	rmangunsong@example.com	6	2021	70	179	2006-02-10	18.03
+293	2	2102680083	Ibun Bahuraksa Santoso	L	phariyah@example.com	2	2021	81	150	2007-02-10	31.73
+294	2	2102190084	Makuta Marpaung S.T.	P	ibrahim.firmansyah@example.org	2	2021	88	169	2007-02-24	33.21
+295	2	2102200085	Murti Saragih	L	emas.wulandari@example.com	6	2021	84	179	2006-12-03	33.10
+296	2	2102390086	Daniswara Hidayanto S.H.	P	hariyah.lanang@example.org	2	2021	60	157	2006-07-11	15.01
+297	2	2102930087	Gasti Suartini S.Farm	L	spuspasari@example.com	4	2021	76	155	2006-10-30	31.73
+298	2	2102150088	Pia Wulandari	L	niyaga45@example.org	5	2021	57	170	2006-05-22	33.17
+299	2	2102160089	Luthfi Gada Simanjuntak S.T.	L	raditya.palastri@example.org	4	2021	57	169	2006-04-25	32.02
+300	2	2102640090	Ade Cinthia Anggraini S.Kom	P	titi20@example.net	2	2021	57	148	2006-05-12	33.07
+301	2	2102800091	Dono Ganep Megantara	L	ynugroho@example.com	3	2021	95	150	2007-04-12	31.73
+302	2	2102940092	Lala Hafshah Pratiwi S.Pd	P	pratama.ifa@example.org	6	2021	83	171	2007-07-23	32.08
+303	2	2102430093	Umi Hariyah S.Sos	P	fathonah68@example.net	6	2021	56	157	2007-02-26	51.02
+304	2	2102960094	Ilsa Wahyuni	L	mhasanah@example.com	3	2021	76	174	2006-11-03	33.08
+305	2	2102670095	Yahya Hidayat	L	karimah.mandasari@example.com	2	2021	80	164	2006-01-20	18.04
+306	2	2102360096	Teguh Prayoga	P	nnovitasari@example.net	3	2021	82	171	2005-11-19	64.03
+307	2	2102470097	Ratih Wulandari S.Kom	L	darman23@example.com	6	2021	46	146	2005-11-10	31.01
+308	2	2102250098	Adikara Tarihoran S.Farm	P	cakrabuana.astuti@example.org	1	2021	50	153	2005-10-18	35.75
+309	2	2102560099	Maida Humaira Hariyah S.Gz	P	reza.mansur@example.org	5	2021	58	170	2007-06-29	11.14
+310	2	2102680100	Paramita Mulyani	P	qanggraini@example.org	4	2021	68	152	2006-12-03	65.01
+311	2	2102540101	Restu Carla Yulianti	P	fnashiruddin@example.com	3	2021	47	164	2006-07-16	32.04
+312	2	2102850102	Ade Eli Riyanti	P	balapati.saragih@example.com	4	2021	49	148	2007-05-12	63.03
+313	2	2102230103	Cawisadi Megantara	L	budiyanto.kezia@example.net	1	2021	88	160	2006-03-14	14.05
+314	2	2102730104	Jessica Hassanah S.Pt	L	prayoga.vivi@example.com	4	2021	93	175	2006-02-15	35.79
+315	2	2102580105	Ifa Mayasari M.M.	P	twibowo@example.org	2	2021	67	171	2005-12-04	71.07
+316	2	2102440106	Mursita Sihombing	L	queen46@example.net	5	2021	81	171	2006-06-19	35.22
+317	2	2102950107	Raditya Hidayat	P	yunita.halimah@example.org	2	2021	57	145	2006-09-13	12.77
+318	2	2102380108	Danang Kajen Nababan	L	wnababan@example.net	2	2021	47	157	2005-09-28	31.74
+319	2	2102600109	Hasim Tarihoran	P	ivan07@example.com	1	2021	88	153	2005-10-27	31.74
+320	2	2102460110	Adhiarja Lurhur Hidayanto S.E.	L	susanti.julia@example.com	3	2021	91	153	2006-12-21	31.75
+321	2	2102910111	Hartaka Pangestu	L	ewaluyo@example.com	1	2021	84	163	2006-10-14	62.04
+322	2	2102930112	Galiono Wacana	P	wadi54@example.com	2	2021	47	166	2007-09-10	13.04
+323	2	2102360113	Humaira Aryani	L	pzulaika@example.com	5	2021	86	155	2006-10-07	32.72
+324	2	2102350114	Ida Hilda Winarsih	P	kuswandari.paris@example.net	5	2021	81	168	2007-04-22	31.74
+325	2	2102260115	Okta Capa Manullang	L	siti.haryanti@example.net	1	2021	60	160	2007-08-12	33.28
+326	2	2102710116	Baktiono Labuh Manullang M.Kom.	L	wacana.banawi@example.com	6	2021	77	154	2005-11-13	31.74
+327	2	2102600117	Dina Vicky Suartini	P	mansur.cakrabirawa@example.com	1	2021	61	175	2007-02-14	31.71
+328	2	2102470118	Gambira Ganda Kuswoyo	P	rmansur@example.com	6	2021	55	170	2006-07-26	35.18
+329	2	2102110119	Paiman Setiawan	P	violet.hardiansyah@example.net	2	2021	50	157	2006-06-28	75.01
+330	2	2102370120	Hasna Handayani	P	lidya.purnawati@example.com	6	2021	52	178	2006-05-19	35.79
+331	2	2102490121	Mujur Maheswara	L	yolanda.natalia@example.com	4	2021	73	145	2006-03-16	31.71
+332	2	2102560122	Tirta Simbolon	P	mangunsong.dian@example.org	6	2021	75	159	2006-01-22	34.01
+333	2	2102130123	Cahyono Karman Saragih S.Pd	P	mansur.luis@example.com	6	2021	52	145	2007-07-05	35.12
+334	2	2102580124	Mahdi Indra Mustofa S.H.	L	vino.widodo@example.org	6	2021	74	169	2005-12-15	11.14
+335	2	2102770125	Uchita Cornelia Wulandari S.I.Kom	L	dadi67@example.com	5	2021	49	174	2006-08-17	31.75
+336	2	2102700126	Umi Prastuti	P	fitria28@example.org	3	2021	66	151	2007-09-12	32.76
+337	2	2102410127	Devi Kusmawati	P	tiara.mandala@example.com	6	2021	62	174	2007-05-18	12.77
+338	2	2102270128	Lili Lailasari	L	qhartati@example.com	5	2021	46	161	2007-01-06	32.76
+339	2	2102230129	Intan Farhunnisa Mulyani	L	rahmawati.reksa@example.com	3	2021	49	147	2007-05-10	33.73
+340	2	2102480130	Queen Lailasari S.Sos	P	ramadan.julia@example.org	6	2021	73	154	2005-11-05	34.03
+341	2	2102540131	Paris Riyanti	P	pwibisono@example.org	6	2021	92	173	2007-09-17	35.71
+342	2	2102570132	Makuta Gaduh Wijaya M.M.	P	psiregar@example.net	5	2021	87	174	2005-11-02	34.04
+343	2	2102900133	Heryanto Agus Hutasoit S.Sos	P	bakianto.farida@example.org	5	2021	81	164	2007-02-13	31.71
+344	2	2102680134	Yusuf Mariadi Rajasa	P	maida.susanti@example.com	3	2021	79	166	2005-12-01	61.05
+345	2	2102610135	Okto Pradipta S.E.I	L	dnovitasari@example.org	6	2021	75	159	2007-01-29	33.24
+346	2	2102910136	Oliva Wulandari	L	eva.halimah@example.com	1	2021	81	179	2006-04-12	15.04
+347	2	2102480137	Gina Laksita S.H.	P	csetiawan@example.net	2	2021	47	171	2006-07-19	13.05
+348	2	2102320138	Cengkir Ramadan	P	taufan42@example.net	1	2021	82	145	2006-08-03	14.03
+349	2	2102330139	Artawan Prayitna Simbolon	P	lpratiwi@example.com	3	2021	51	172	2006-03-30	52.03
+350	2	2102940140	Balamantri Mustika Haryanto	P	dian39@example.net	4	2021	91	175	2007-09-15	35.74
+351	2	2102460141	Mahmud Mustofa	L	maheswara.raisa@example.org	6	2021	75	171	2006-01-28	31.01
+352	2	2102840142	Najib Raihan Marpaung S.E.I	L	hendri42@example.com	2	2021	66	174	2006-08-30	33.15
+353	2	2102610143	Chandra Cawuk Mahendra	L	purwanti.icha@example.net	1	2021	45	149	2006-08-24	73.04
+354	2	2102710144	Eko Uwais M.Ak	P	mangunsong.jefri@example.com	4	2021	76	164	2006-11-13	33.20
+355	2	2102780145	Unjani Kusmawati M.Kom.	L	rsiregar@example.net	2	2021	49	159	2006-06-05	36.03
+356	2	2102160146	Gandewa Bambang Waskita	P	susanti.raden@example.com	6	2021	52	155	2007-09-13	33.21
+357	2	2102490147	Usyi Yuni Hastuti S.T.	L	ssaragih@example.com	3	2021	85	164	2006-09-08	63.02
+358	2	2102240148	Ratih Nurul Kusmawati	L	adiarja70@example.org	2	2021	60	173	2006-04-25	31.74
+359	2	2102880149	Hilda Wahyuni	L	wulan.habibi@example.com	6	2021	68	156	2006-12-07	13.05
+360	2	2102840150	Indah Ira Maryati S.Sos	L	putri.aryani@example.net	6	2021	74	153	2005-12-21	32.15
+361	2	2102720151	Legawa Kawaca Haryanto S.H.	L	nharyanti@example.net	2	2021	51	174	2006-12-28	61.05
+362	2	2102340152	Kusuma Wacana	L	padmasari.jessica@example.com	3	2021	53	152	2006-08-27	32.01
+363	2	2102730153	Belinda Anggraini S.E.	L	widodo.wadi@example.org	4	2021	54	165	2006-12-04	35.04
+364	2	2102790154	Satya Sinaga	L	hasanah.wani@example.net	1	2021	77	179	2006-09-07	35.22
+365	2	2102620155	Harsaya Hartana Hakim S.Ked	L	hutagalung.gilda@example.net	6	2021	55	151	2006-05-02	36.03
+366	2	2102450156	Hesti Purnawati	P	kacung.nasyiah@example.net	4	2021	48	154	2005-10-29	15.01
+367	2	2102620157	Kenzie Omar Saptono S.IP	P	ghidayanto@example.com	3	2021	60	165	2006-04-01	36.71
+368	2	2102750158	Akarsana Hidayanto	P	gara57@example.net	6	2021	53	179	2006-02-22	32.11
+369	2	2102400159	Gandi Gunarto	P	suryatmi.paiman@example.com	6	2021	62	178	2005-11-24	35.20
+370	2	2102290160	Najwa Halima Winarsih S.Kom	L	cornelia.palastri@example.com	2	2021	86	162	2006-07-24	35.15
+371	2	2102110161	Fitria Halimah	L	kamidin.winarsih@example.com	3	2021	73	158	2006-11-10	18.04
+372	2	2102120162	Shania Aryani S.Psi	P	lidya.utami@example.net	2	2021	64	177	2007-01-17	31.71
+373	2	2102570163	Ian Jinawi Adriansyah	L	dusamah@example.com	5	2021	72	153	2005-11-11	33.23
+374	2	2102880164	Uli Hartati	P	permata.clara@example.org	6	2021	87	168	2006-05-25	62.04
+375	2	2102900165	Febi Mila Yuliarti S.E.	P	prabawa23@example.net	5	2021	61	158	2006-02-20	35.11
+376	2	2102900166	Tri Nainggolan	L	hartati.adikara@example.net	6	2021	90	151	2006-01-14	35.20
+377	2	2102420167	Tania Nova Lestari M.M.	P	garang60@example.org	6	2021	94	179	2005-11-12	14.03
+378	2	2102120168	Murti Jamal Anggriawan	P	tomi38@example.com	6	2021	75	158	2007-05-13	32.72
+379	2	2102110169	Paiman Natsir	L	hprabowo@example.net	2	2021	71	153	2006-07-25	31.71
+380	2	2102130170	Hardi Irawan S.Sos	L	rmaulana@example.org	5	2021	95	146	2006-01-16	35.09
+381	2	2102540171	Wisnu Karna Marpaung	L	yani.hassanah@example.com	6	2021	77	164	2007-05-26	75.01
+382	2	2102810172	Kezia Wijayanti	L	ratih74@example.org	6	2021	52	149	2006-04-06	33.29
+383	2	2102810173	Zamira Utami	P	habibi.vivi@example.com	3	2021	65	173	2006-01-04	35.71
+384	2	2102570174	Koko Dono Sihombing	P	wulandari.gaduh@example.com	5	2021	92	145	2006-03-01	31.75
+385	2	2102150175	Indah Rahmi Anggraini	L	ajeng08@example.org	3	2021	77	160	2006-12-15	32.76
+386	2	2102790176	Laila Maryati	P	ikin36@example.com	1	2021	70	175	2007-02-14	32.05
+387	2	2102360177	Violet Handayani S.Gz	L	chelsea34@example.org	5	2021	63	168	2007-04-11	13.04
+388	2	2102920178	Salimah Shakila Wastuti S.I.Kom	P	puspa.situmorang@example.com	3	2021	72	162	2006-03-13	33.22
+389	2	2102690179	Daliman Saputra	L	prasetyo.vera@example.org	5	2021	45	164	2005-11-30	32.79
+390	2	2102940180	Tasdik Ramadan	P	pandu.halim@example.net	1	2021	83	168	2006-07-21	32.06
+391	2	2102850181	Lidya Astuti	P	caryani@example.net	3	2021	73	179	2007-08-24	31.72
+392	2	2102590182	Karna Ibun Pradipta S.IP	P	alaksita@example.net	5	2021	65	147	2005-12-11	31.73
+393	2	2102460183	Salman Hidayanto S.Kom	L	dhakim@example.com	1	2021	61	170	2007-05-30	33.24
+394	2	2102300184	Cahyono Halim	P	nnasyiah@example.net	2	2021	89	163	2006-11-28	32.01
+395	2	2102220185	Harja Jailani M.Ak	P	psafitri@example.org	6	2021	95	180	2007-08-14	13.05
+396	2	2102690186	Yunita Safitri S.Pt	P	kamaria.rajata@example.com	1	2021	90	145	2005-12-22	35.24
+397	2	2102640187	Jarwa Kacung Haryanto S.Sos	P	mutia.zulkarnain@example.org	5	2021	69	163	2007-05-27	33.25
+398	2	2102680188	Martani Sihotang	L	oktaviani.cakrabirawa@example.com	5	2021	91	154	2006-05-23	35.72
+399	2	2102160189	Prabowo Lembah Megantara S.E.I	P	bajragin01@example.com	2	2021	67	149	2006-09-25	61.05
+400	2	2102120190	Tantri Suryatmi M.M.	L	michelle09@example.net	5	2021	83	156	2006-08-04	35.28
+401	2	2102870191	Ilyas Hutagalung	L	uwais.wahyu@example.com	5	2021	61	162	2006-08-06	53.05
+402	2	2102640192	Oskar Adinata Natsir	L	melani.dewi@example.org	1	2021	45	155	2007-03-20	35.25
+403	2	2102750193	Halim Hutasoit	L	lnapitupulu@example.net	2	2021	83	170	2006-08-07	33.11
+404	2	2102160194	Gawati Yani Yuniar M.Pd	P	gina43@example.org	3	2021	86	180	2005-12-05	13.07
+405	2	2102700195	Mila Patricia Mandasari S.H.	L	nurul.wahyuni@example.net	2	2021	80	176	2007-01-24	32.02
+406	2	2102260196	Kasusra Jailani	P	diah53@example.net	4	2021	86	165	2007-05-01	32.11
+407	2	2102810197	Pranata Ozy Pangestu	P	rsuryono@example.com	4	2021	77	145	2006-09-16	12.77
+408	2	2102480198	Halima Nova Susanti M.Ak	L	saptono.kawaya@example.net	1	2021	50	145	2006-05-29	51.02
+409	2	2102820199	Nurul Ifa Prastuti	L	salsabila.wacana@example.net	3	2021	89	154	2006-08-30	17.05
+410	2	2102170200	Upik Habibi	L	hmarpaung@example.com	4	2021	61	168	2007-06-28	15.04
+411	2	2102110201	Jamalia Permata	L	kuswoyo.kunthara@example.com	4	2021	52	163	2005-11-04	71.02
+412	2	2102620202	Kezia Gawati Mardhiyah	L	vivi.marpaung@example.org	4	2021	61	157	2007-09-05	33.02
+413	2	2102170203	Raden Mustofa	P	qnarpati@example.net	5	2021	83	171	2006-02-15	32.18
+414	2	2102410204	Kurnia Salahudin	P	haryanti.gabriella@example.net	4	2021	50	179	2006-02-13	75.01
+415	2	2102260205	Johan Lembah Simbolon	P	jpuspita@example.org	6	2021	91	153	2006-11-18	33.10
+416	2	2102550206	Adhiarja Kayun Permadi	L	mulyani.mahfud@example.org	2	2021	60	150	2006-03-27	33.24
+417	2	2102860207	Atma Luwes Permadi S.Farm	L	faizah.maulana@example.com	5	2021	94	162	2007-04-08	33.14
+418	2	2102630208	Clara Widiastuti	L	cakrabirawa.nasyiah@example.net	6	2021	55	178	2006-02-02	32.75
+419	2	2102330209	Hendri Hidayanto S.Pt	L	wwacana@example.org	3	2021	80	168	2006-05-02	32.73
+420	2	2102140210	Dalima Lailasari M.TI.	P	malika90@example.org	3	2021	52	154	2007-05-16	35.75
+421	3	2103150001	Sabrina Unjani Hariyah M.M.	P	rahimah.bakda@example.com	2	2021	59	166	2007-02-14	32.15
+422	3	2103440002	Ulya Nurdiyanti	L	alazuardi@example.com	2	2021	80	164	2007-08-26	33.29
+423	3	2103290003	Bakda Pratama	P	tami55@example.net	5	2021	68	150	2007-05-23	35.24
+424	3	2103490004	Hilda Hariyah S.E.I	P	qtampubolon@example.org	2	2021	54	177	2006-11-22	35.05
+425	3	2103950005	Cahya Rajata	P	gnasyidah@example.net	4	2021	73	161	2006-01-05	73.07
+426	3	2103420006	Maimunah Lala Yolanda	P	usada.lulut@example.net	2	2021	79	175	2006-01-21	31.74
+427	3	2103150007	Arta Jaga Maryadi M.Kom.	L	gmaryati@example.net	3	2021	74	178	2007-07-07	71.05
+428	3	2103500008	Ina Suryatmi	P	thariyah@example.net	5	2021	89	168	2005-10-27	33.23
+429	3	2103340009	Ganda Adhiarja Pratama M.Farm	L	qdongoran@example.org	1	2021	65	154	2006-11-16	74.02
+430	3	2103340010	Taswir Nashiruddin	L	pangestu.ani@example.com	2	2021	76	165	2006-09-16	34.02
+431	3	2103380011	Luwar Wacana	L	galih93@example.com	2	2021	60	153	2006-06-15	35.14
+432	3	2103230012	Nova Yuniar	L	yulia.pradipta@example.com	6	2021	68	165	2005-10-05	33.76
+433	3	2103190013	Paulin Wulandari	L	harsana.rahayu@example.com	3	2021	93	170	2007-05-01	71.02
+434	3	2103260014	Ajiono Paiman Mansur M.Farm	P	ffujiati@example.org	6	2021	66	177	2007-03-10	32.08
+435	3	2103140015	Salwa Laksita	L	tomi64@example.net	6	2021	88	164	2005-11-09	11.71
+436	3	2103890016	Martaka Cahyo Zulkarnain S.Pd	L	wlaksmiwati@example.org	4	2021	62	177	2006-03-03	32.05
+437	3	2103630017	Padma Oktaviani	P	fpurnawati@example.com	5	2021	45	154	2006-07-26	35.05
+438	3	2103560018	Kartika Vicky Prastuti	L	dono.ramadan@example.org	1	2021	71	163	2007-08-03	35.71
+439	3	2103260019	Irwan Narpati	L	galiono44@example.com	5	2021	52	180	2007-09-22	32.03
+440	3	2103480020	Martani Sihombing	L	mrahimah@example.org	3	2021	53	151	2007-05-06	35.20
+441	3	2103430021	Dipa Pangestu	L	ymangunsong@example.com	4	2021	49	146	2006-01-11	31.74
+442	3	2103330022	Kadir Bahuwirya Januar S.Pt	P	ramadan.dewi@example.net	2	2021	67	169	2006-05-31	31.74
+443	3	2103240023	Putu Cengkir Saputra S.Psi	P	yulia86@example.org	2	2021	49	180	2006-07-17	31.01
+444	3	2103220024	Vanesa Andriani	P	kpranowo@example.net	1	2021	89	172	2006-01-05	33.24
+445	3	2103240025	Salimah Vivi Purnawati	L	prabowo.pratiwi@example.com	5	2021	51	179	2007-06-07	35.20
+446	3	2103400026	Vera Aisyah Kuswandari S.Kom	L	faizah.kusmawati@example.org	2	2021	82	180	2005-12-20	32.73
+447	3	2103140027	Yosef Napitupulu	L	jarwa14@example.net	1	2021	72	159	2006-09-21	35.20
+448	3	2103710028	Limar Wasita	L	puput.winarsih@example.org	2	2021	51	150	2006-12-14	32.11
+449	3	2103870029	Rendy Samosir M.TI.	L	qrahayu@example.com	4	2021	65	173	2006-12-13	32.01
+450	3	2103680030	Wahyu Simbolon	L	fiswahyudi@example.com	4	2021	81	157	2007-06-09	35.21
+451	3	2103740031	Tomi Manullang	L	ega.iswahyudi@example.net	6	2021	71	156	2006-09-28	32.74
+452	3	2103400032	Rahman Simanjuntak	P	ynasyiah@example.net	1	2021	79	159	2007-08-11	36.72
+453	3	2103590033	Rafid Saputra	P	prayoga.hutasoit@example.org	6	2021	95	153	2007-07-03	31.75
+454	3	2103390034	Paris Padmasari M.Pd	L	ratna87@example.net	6	2021	45	145	2007-09-22	35.75
+455	3	2103660035	Bagus Marbun	L	uyuliarti@example.com	4	2021	89	153	2006-10-31	35.24
+456	3	2103670036	Zalindra Susanti	P	bahuraksa.namaga@example.org	1	2021	50	145	2005-12-19	33.01
+457	3	2103900037	Halima Hasanah	P	xmangunsong@example.net	1	2021	76	152	2005-10-13	35.07
+458	3	2103950038	Elvin Mustofa	L	lsetiawan@example.org	2	2021	68	175	2007-06-19	74.04
+459	3	2103890039	Victoria Padmasari	P	jlestari@example.org	1	2021	51	159	2007-02-28	64.03
+460	3	2103600040	Kamila Winarsih S.Pt	P	kusmawati.danuja@example.com	1	2021	64	162	2007-01-06	33.13
+461	3	2103770041	Ilsa Padmasari S.Psi	P	palastri.jumari@example.com	1	2021	70	162	2006-10-09	52.02
+462	3	2103550042	Galak Kanda Mansur	P	jailani.simon@example.org	1	2021	66	157	2006-10-12	12.77
+463	3	2103110043	Upik Argono Putra	L	bancar.waskita@example.com	2	2021	88	156	2007-01-11	33.27
+464	3	2103930044	Ilsa Pudjiastuti	L	sarah11@example.net	1	2021	57	150	2007-09-25	71.02
+465	3	2103990045	Slamet Wasita	L	omanullang@example.net	2	2021	73	153	2006-09-26	61.05
+466	3	2103510046	Siti Zulaikha Suryatmi	P	adriansyah.kamaria@example.com	4	2021	90	154	2007-09-28	74.02
+467	3	2103320047	Cinta Mandasari	L	ozy91@example.net	3	2021	70	151	2006-12-20	33.29
+468	3	2103380048	Sari Victoria Palastri M.Ak	P	jabal22@example.org	5	2021	68	175	2006-06-12	32.14
+469	3	2103600049	Amalia Wani Rahimah S.Sos	L	hutasoit.jane@example.net	4	2021	70	145	2007-01-24	33.13
+470	3	2103610050	Kasusra Salahudin	P	kemba98@example.org	1	2021	56	165	2006-10-24	33.11
+471	3	2103810051	Maida Anggraini	L	dipa70@example.com	2	2021	65	164	2006-05-07	18.03
+472	3	2103160052	Jumari Prasetyo	P	jasmin05@example.net	6	2021	52	175	2007-06-24	31.75
+473	3	2103920053	Violet Astuti	P	kasiyah.sudiati@example.net	3	2021	49	150	2005-12-17	35.71
+474	3	2103720054	Gatra Vinsen Gunarto S.H.	P	prabowo.pudjiastuti@example.org	2	2021	95	180	2006-04-13	36.01
+475	3	2103270055	Cornelia Vicky Puspasari S.Sos	L	saptono.wirda@example.org	3	2021	75	165	2007-02-06	31.01
+476	3	2103870056	Suci Palastri	L	puti.safitri@example.com	5	2021	69	145	2007-02-06	33.28
+477	3	2103530057	Belinda Yolanda S.Pt	P	pradipta.prakosa@example.com	3	2021	49	158	2007-03-24	34.71
+478	3	2103120058	Rini Rahayu S.Psi	P	eka.hutapea@example.org	5	2021	61	166	2006-03-21	36.72
+479	3	2103950059	Zelaya Hassanah S.I.Kom	L	ami46@example.com	1	2021	74	178	2006-02-05	31.74
+480	3	2103300060	Dasa Wacana	P	garang.situmorang@example.net	6	2021	93	157	2007-04-16	73.04
+481	3	2103400061	Umi Agustina S.Pd	P	sari.safitri@example.com	1	2021	54	160	2006-01-18	33.04
+482	3	2103730062	Lantar Gandi Salahudin	P	dsiregar@example.com	1	2021	66	152	2005-11-22	71.07
+483	3	2103510063	Hesti Purwanti S.IP	P	usada.bakidin@example.com	3	2021	74	165	2006-03-04	32.13
+484	3	2103440064	Nasab Permadi	L	anastasia96@example.net	2	2021	65	177	2005-11-26	32.77
+485	3	2103530065	Anastasia Rahmawati	L	surya52@example.net	2	2021	85	152	2006-08-22	32.75
+486	3	2103940066	Amelia Mandasari M.M.	L	mutia50@example.com	5	2021	72	158	2007-07-14	51.02
+487	3	2103270067	Tania Raina Anggraini S.Pd	P	karimah.mandala@example.com	3	2021	80	161	2007-04-12	75.01
+488	3	2103960068	Cinta Safitri	P	kalim.irawan@example.org	4	2021	78	159	2007-04-16	53.01
+489	3	2103220069	Faizah Laksmiwati	L	hpurwanti@example.com	6	2021	60	149	2007-03-29	71.05
+490	3	2103120070	Hardi Salahudin S.Psi	P	bhasanah@example.com	6	2021	95	154	2006-03-30	32.79
+491	3	2103930071	Ami Maida Purnawati S.H.	P	setya27@example.net	5	2021	68	174	2005-10-22	62.02
+492	3	2103270072	Lurhur Praba Anggriawan	L	paiman71@example.com	3	2021	70	166	2007-01-25	33.03
+493	3	2103340073	Kenari Thamrin	L	ophelia.pertiwi@example.com	2	2021	86	174	2006-09-06	31.71
+494	3	2103710074	Lala Janet Safitri	P	alambana55@example.com	6	2021	69	179	2006-10-14	35.27
+495	3	2103740075	Baktianto Sirait S.T.	P	betania97@example.org	4	2021	51	145	2006-03-02	35.22
+496	3	2103180076	Yessi Nurdiyanti	P	titin12@example.org	3	2021	64	159	2006-06-27	33.02
+497	3	2103250077	Saka Hakim	P	criyanti@example.net	6	2021	67	165	2006-11-21	31.75
+498	3	2103910078	Ina Tiara Namaga S.Kom	P	praba.hutasoit@example.net	5	2021	46	177	2006-04-16	32.03
+499	3	2103150079	Martaka Rajata S.Gz	L	zhutasoit@example.com	5	2021	91	159	2007-09-22	35.04
+500	3	2103840080	Tania Wulan Aryani M.Ak	L	wnarpati@example.org	4	2021	47	167	2006-07-06	33.22
+501	3	2103660081	Jamil Saputra	P	isiregar@example.net	4	2021	49	145	2005-10-12	34.71
+502	3	2103110082	Gantar Hidayanto	P	paiman.suartini@example.com	3	2021	57	148	2005-11-15	13.04
+503	3	2103790083	Tiara Icha Lestari	P	iutami@example.com	6	2021	79	148	2006-10-19	35.76
+504	3	2103500084	Luwes Najam Waskita M.Kom.	L	fpurnawati@example.net	1	2021	89	162	2006-12-26	63.01
+505	3	2103900085	Lukman Ardianto	P	almira63@example.net	6	2021	80	166	2006-05-01	33.29
+506	3	2103960086	Balijan Pradipta S.I.Kom	L	gawati.suryatmi@example.net	3	2021	65	145	2007-04-19	13.04
+507	3	2103920087	Edi Balidin Hutagalung S.T.	L	janet.anggraini@example.net	6	2021	79	177	2006-06-26	32.16
+508	3	2103490088	Zulfa Wahyuni	L	ghalimah@example.org	1	2021	85	157	2006-12-31	33.23
+509	3	2103130089	Oliva Alika Wahyuni S.Pd	P	bhalimah@example.org	6	2021	48	177	2007-03-15	74.02
+510	3	2103490090	Slamet Winarno	P	vanya20@example.net	4	2021	90	157	2006-01-29	62.04
+511	3	2103740091	Kalim Tirta Manullang	L	vega75@example.net	5	2021	91	154	2006-12-27	51.02
+512	3	2103290092	Tami Farida	L	habibi.rizki@example.net	3	2021	51	161	2007-06-11	65.01
+513	3	2103670093	Pardi Bakda Sirait M.Pd	L	lsuryatmi@example.org	1	2021	58	177	2007-08-10	31.74
+514	3	2103780094	Tami Hafshah Haryanti	P	anggraini.maman@example.net	1	2021	50	178	2007-03-18	36.03
+515	3	2103530095	Lulut Januar	P	zelaya.januar@example.com	1	2021	86	173	2006-12-29	31.73
+516	3	2103320096	Gara Irawan	L	laksita.hendri@example.com	1	2021	73	152	2007-02-25	33.76
+517	3	2103930097	Irnanto Suwarno S.Kom	P	winarsih.fitriani@example.com	3	2021	54	155	2006-06-06	13.05
+518	3	2103150098	Balijan Halim	P	haryanti.kanda@example.net	1	2021	59	163	2006-06-24	32.06
+519	3	2103260099	Icha Zulaika	P	auwais@example.com	5	2021	58	156	2006-05-31	33.13
+520	3	2103250100	Dalimin Saragih S.E.I	L	wibisono.widya@example.org	5	2021	93	146	2005-12-19	35.16
+521	3	2103980101	Hasim Budiman	P	yolanda.dadap@example.net	3	2021	53	163	2007-01-13	31.01
+522	3	2103120102	Caraka Radit Hakim	L	dimaz13@example.org	5	2021	64	174	2005-12-29	62.04
+523	3	2103560103	Reksa Mangunsong	P	tiara47@example.com	1	2021	79	149	2006-05-24	71.05
+524	3	2103970104	Siska Permata	L	fwacana@example.com	3	2021	52	178	2006-03-02	73.13
+525	3	2103910105	Malik Bakidin Mangunsong M.Ak	P	tira80@example.org	1	2021	91	147	2006-10-01	64.07
+526	3	2103510106	Makuta Wasita	L	raisa.mahendra@example.org	3	2021	91	163	2006-07-21	52.01
+527	3	2103680107	Cahyo Sihombing	P	zizi.palastri@example.com	1	2021	88	178	2006-05-15	75.03
+528	3	2103910108	Dacin Prakasa S.Ked	P	emardhiyah@example.net	2	2021	80	150	2006-05-15	31.74
+529	3	2103340109	Paris Mayasari	P	kala.maulana@example.net	4	2021	73	151	2005-12-24	52.02
+530	3	2103460110	Jono Hakim	P	galiono.siregar@example.com	3	2021	79	163	2007-06-13	31.73
+531	3	2103210111	Imam Wasita S.Ked	L	setiawan.xanana@example.org	2	2021	56	156	2006-08-02	65.01
+532	3	2103690112	Amelia Puspasari S.Sos	P	daliman61@example.com	4	2021	50	178	2006-03-23	35.27
+533	3	2103150113	Nurul Safitri M.Ak	L	hidayat.mumpuni@example.net	4	2021	91	163	2006-07-17	18.03
+534	3	2103520114	Bambang Maheswara	L	gaiman18@example.net	4	2021	76	175	2006-10-12	32.12
+535	3	2103990115	Yulia Pudjiastuti	P	iswahyudi.wani@example.net	6	2021	85	173	2007-02-03	14.06
+536	3	2103150116	Enteng Bajragin Sitorus S.IP	P	pranowo.salwa@example.org	3	2021	67	148	2006-09-06	32.02
+537	3	2103740117	Ilsa Permata	L	hendra92@example.org	5	2021	95	179	2006-06-08	33.71
+538	3	2103460118	Kawaca Daliman Santoso S.T.	L	gwaskita@example.net	3	2021	88	157	2007-07-22	35.09
+539	3	2103310119	Gawati Nova Novitasari M.Pd	L	widiastuti.ilyas@example.org	4	2021	86	163	2007-09-13	14.06
+540	3	2103220120	Lega Setiawan S.Farm	L	emarbun@example.org	1	2021	75	173	2005-12-30	34.03
+541	3	2103380121	Maya Yuniar	P	fitria27@example.com	2	2021	47	159	2005-12-26	31.71
+542	3	2103390122	Shania Azalea Purwanti S.Kom	L	tyulianti@example.com	1	2021	53	159	2006-01-14	52.02
+543	3	2103450123	Kania Suartini	P	lega21@example.com	2	2021	71	169	2006-04-06	52.71
+544	3	2103540124	Kenari Nababan M.Pd	P	wardaya.kusmawati@example.net	6	2021	46	180	2006-03-03	33.29
+545	3	2103300125	Gasti Puspasari	L	yolanda.jagapati@example.org	3	2021	87	170	2006-05-31	32.09
+546	3	2103380126	Cahya Hakim S.IP	P	uwastuti@example.net	1	2021	95	164	2006-04-10	31.72
+547	3	2103430127	Galuh Prakasa	P	uli.suartini@example.com	2	2021	85	172	2005-11-26	35.19
+548	3	2103110128	Saadat Wijaya	P	sirait.cakrabirawa@example.com	5	2021	70	173	2007-08-05	33.75
+549	3	2103550129	Hesti Rahmi Zulaika	P	tiara.hutagalung@example.net	6	2021	48	159	2007-09-01	52.71
+550	3	2103800130	Jais Saefullah	L	isiregar@example.net	2	2021	90	178	2007-03-05	12.76
+551	3	2103890131	Galar Saragih M.Farm	L	dtamba@example.com	6	2021	69	147	2006-09-09	32.01
+552	3	2103370132	Warta Kurniawan	P	putra.nrima@example.org	1	2021	78	154	2005-11-15	32.77
+553	3	2103460133	Saka Hidayanto S.Sos	L	tasnim.suryono@example.net	5	2021	93	179	2005-10-26	33.26
+554	3	2103330134	Julia Ratna Wahyuni M.M.	L	jayeng.rahmawati@example.com	1	2021	79	172	2006-09-11	14.05
+555	3	2103860135	Zizi Novitasari	L	knababan@example.org	1	2021	61	166	2007-04-23	33.29
+556	3	2103970136	Farah Oni Hassanah S.I.Kom	L	purwanti.luwes@example.com	4	2021	47	166	2006-06-02	12.76
+557	3	2103130137	Najib Tarihoran	P	edison56@example.com	2	2021	52	162	2005-12-08	32.10
+558	3	2103460138	Vivi Mulyani	L	ipermadi@example.net	6	2021	55	159	2007-09-17	32.04
+559	3	2103900139	Karen Hartati	P	sakura63@example.com	5	2021	94	157	2006-09-26	32.79
+560	3	2103530140	Vanya Safitri S.Gz	L	ganep.saputra@example.org	3	2021	55	145	2005-12-24	31.74
+561	3	2103860141	Farhunnisa Iriana Rahayu	L	panji.najmudin@example.net	2	2021	58	177	2007-05-07	61.01
+562	3	2103320142	Anastasia Lestari	P	rafi.utami@example.net	4	2021	93	175	2007-06-22	35.78
+563	3	2103600143	Jindra Tarihoran	L	lgunarto@example.net	1	2021	49	172	2006-05-20	32.06
+564	3	2103150144	Jagapati Pranowo	P	ssantoso@example.net	1	2021	61	162	2006-08-27	32.01
+565	3	2103230145	Empluk Daliono Winarno M.M.	L	nainggolan.almira@example.com	3	2021	56	178	2007-08-26	32.08
+566	3	2103350146	Salimah Halima Suryatmi S.Pt	P	gsitompul@example.com	5	2021	75	180	2007-02-16	13.04
+567	3	2103600147	Laila Vicky Zulaika	P	almira.simanjuntak@example.com	2	2021	86	166	2005-12-24	36.03
+568	3	2103960148	Ulva Ellis Oktaviani S.E.I	L	talia25@example.net	5	2021	55	180	2007-08-08	32.71
+569	3	2103210149	Cinta Wahyuni S.IP	P	palastri.kemba@example.net	6	2021	46	150	2007-01-06	35.20
+570	3	2103770150	Yuni Rahimah	P	jane.mayasari@example.com	6	2021	83	146	2005-11-17	32.74
+571	3	2103780151	Ajeng Azalea Astuti	L	artawan45@example.net	2	2021	77	174	2006-09-04	31.73
+572	3	2103260152	Jaka Siregar	L	umar.wahyuni@example.com	1	2021	80	180	2006-01-15	33.16
+573	3	2103940153	Hilda Maryati	P	zsiregar@example.net	1	2021	47	154	2007-09-18	61.05
+574	3	2103490154	Estiono Mahfud Thamrin	L	cahyadi.astuti@example.com	1	2021	90	178	2007-07-26	11.71
+575	3	2103870155	Michelle Puspa Novitasari	L	ida92@example.net	3	2021	63	159	2006-08-01	33.24
+576	3	2103550156	Eluh Kariman Manullang	P	gawati30@example.org	5	2021	76	161	2007-01-27	14.05
+577	3	2103940157	Budi Cengkal Dabukke	L	puspasari.fitria@example.net	2	2021	66	159	2006-09-16	33.17
+578	3	2103800158	Hafshah Kasiyah Permata S.Kom	P	yulianti.asirwada@example.com	5	2021	67	147	2005-10-11	32.79
+579	3	2103340159	Faizah Mandasari S.Pt	L	vinsen.hariyah@example.org	6	2021	74	171	2006-06-14	32.16
+580	3	2103250160	Irma Puspasari	L	ana.siregar@example.net	4	2021	74	153	2007-03-21	34.71
+581	3	2103160161	Zulfa Winarsih	P	lailasari.azalea@example.org	4	2021	90	174	2006-01-22	33.71
+582	3	2103730162	Irwan Salahudin	P	nnarpati@example.net	2	2021	91	148	2007-03-09	33.01
+583	3	2103450163	Prayitna Hidayat	L	putri57@example.net	2	2021	61	171	2007-08-13	12.78
+584	3	2103540164	Jarwadi Wibowo M.M.	L	ifarida@example.net	2	2021	95	150	2006-04-26	53.05
+585	3	2103600165	Kartika Genta Hasanah S.Psi	L	paramita.wahyuni@example.org	3	2021	91	168	2006-04-30	63.03
+586	3	2103420166	Reksa Kamidin Gunawan	L	mursinin60@example.org	3	2021	65	161	2006-03-29	35.14
+587	3	2103420167	Cawuk Prabowo	P	zaenab.yuliarti@example.com	2	2021	58	152	2006-10-28	15.04
+588	3	2103960168	Cinthia Nadia Yolanda M.Farm	P	puspita.malik@example.org	4	2021	74	146	2007-04-04	31.73
+589	3	2103450169	Caraka Habibi M.M.	L	pmardhiyah@example.net	3	2021	77	151	2006-08-11	35.76
+590	3	2103500170	Farhunnisa Handayani	P	kasim82@example.com	1	2021	66	147	2007-06-14	31.01
+591	3	2103500171	Kayla Nasyiah S.Pt	P	imustofa@example.com	1	2021	73	152	2006-05-23	31.01
+592	3	2103690172	Lintang Hariyah	P	bakda78@example.com	1	2021	86	167	2006-02-24	52.01
+593	3	2103850173	Mahmud Natsir	P	putra.lalita@example.com	3	2021	84	150	2006-11-02	31.01
+594	3	2103380174	Umaya Cawisadi Saefullah	L	artawan54@example.com	1	2021	77	167	2007-01-09	52.03
+595	3	2103610175	Zelda Halimah	P	eman.salahudin@example.org	1	2021	75	176	2007-06-07	18.05
+596	3	2103980176	Tira Halima Uyainah	L	ssirait@example.org	3	2021	53	164	2007-02-01	32.13
+597	3	2103270177	Drajat Wacana M.Pd	P	palastri.titin@example.com	4	2021	59	153	2006-09-16	36.72
+598	3	2103250178	Utama Nugroho S.Sos	P	bakiadi.puspita@example.com	4	2021	93	148	2005-10-16	33.07
+599	3	2103840179	Ridwan Reksa Utama	L	xharyanto@example.net	6	2021	52	177	2005-10-11	35.18
+600	3	2103380180	Kacung Darimin Tampubolon S.E.I	L	kairav.firmansyah@example.com	2	2021	84	146	2007-08-21	62.04
+601	3	2103490181	Karja Januar M.Ak	L	ajiman.sitompul@example.org	1	2021	73	155	2005-10-16	35.72
+602	3	2103870182	Taufan Banara Mahendra S.IP	L	lailasari.digdaya@example.org	1	2021	74	153	2006-05-25	35.12
+603	3	2103670183	Genta Usada	L	imarpaung@example.net	2	2021	72	156	2006-05-13	31.72
+604	3	2103390184	Kambali Narpati	L	hakim.marsito@example.net	4	2021	49	166	2007-08-30	12.78
+605	3	2103460185	Makara Emin Januar M.TI.	P	gwinarno@example.org	1	2021	61	165	2006-08-22	35.04
+606	3	2103360186	Amelia Usada	P	samiah.puspasari@example.net	1	2021	90	156	2007-05-24	31.01
+607	3	2103970187	Puji Permata S.Sos	L	cindy.rahmawati@example.net	4	2021	62	166	2005-12-27	33.73
+608	3	2103360188	Jail Hardiansyah	L	sutami@example.com	3	2021	61	177	2006-03-01	32.04
+609	3	2103290189	Cinthia Puti Yolanda M.Pd	L	rajasa.padma@example.org	6	2021	85	146	2007-03-16	71.05
+610	3	2103910190	Yusuf Waskita	P	siska.susanti@example.net	1	2021	76	166	2007-04-23	33.27
+611	3	2103690191	Betania Haryanti	P	agustina.hilda@example.net	5	2021	85	150	2007-07-10	33.26
+612	3	2103410192	Kalim Santoso	L	rahmawati.artanto@example.org	3	2021	92	146	2006-06-15	62.01
+613	3	2103270193	Gilda Yuliarti	L	eli88@example.org	2	2021	52	162	2006-09-29	35.71
+614	3	2103690194	Irma Nasyidah	L	kuswandari.jayeng@example.net	2	2021	58	176	2007-05-17	75.03
+615	3	2103800195	Jindra Dodo Simanjuntak	P	januar.samiah@example.net	4	2021	82	152	2006-01-05	51.01
+616	3	2103300196	Bella Uli Usada	P	nurdiyanti.syahrini@example.org	1	2021	83	156	2006-05-18	74.02
+617	3	2103490197	Paramita Ulva Lailasari	P	wibowo.bambang@example.com	2	2021	90	169	2006-05-16	33.23
+618	3	2103250198	Wahyu Nababan	P	sabrina.habibi@example.net	3	2021	69	169	2007-04-23	33.13
+619	3	2103690199	Dalimin Sihombing	P	iwulandari@example.com	5	2021	75	173	2006-10-15	11.71
+620	3	2103820200	Mahesa Eman Kurniawan	L	latif54@example.com	1	2021	56	151	2006-01-22	33.18
+621	3	2103100201	Zulfa Lailasari	P	ira82@example.net	4	2021	83	145	2006-07-04	35.71
+622	3	2103700202	Soleh Mangunsong	P	septi.hariyah@example.net	5	2021	94	172	2007-06-14	31.75
+623	3	2103710203	Nrima Firgantoro	P	ade43@example.org	3	2021	58	156	2006-10-21	31.72
+624	3	2103520204	Kardi Saputra	P	santoso.tami@example.com	5	2021	59	172	2006-12-07	32.16
+625	3	2103700205	Dodo Permadi M.Pd	P	farhunnisa36@example.org	3	2021	74	170	2006-12-08	33.04
+626	3	2103500206	Laksana Prasetya Prakasa	P	umardhiyah@example.org	6	2021	79	151	2006-07-16	33.18
+627	3	2103400207	Jatmiko Umar Pradana S.T.	P	ssitompul@example.com	2	2021	74	146	2006-02-10	33.26
+628	3	2103510208	Ratna Wijayanti M.Pd	L	adriansyah.eluh@example.com	2	2021	81	160	2007-01-16	33.24
+629	3	2103530209	Shakila Fujiati	L	carla34@example.com	5	2021	84	146	2007-09-01	32.09
+630	3	2103520210	Suci Usamah	P	pradana.vivi@example.org	2	2021	48	165	2007-07-30	34.03
+631	3	2103880211	Martani Kambali Hakim	P	setiawan.ami@example.com	5	2021	60	150	2006-04-02	14.05
+632	3	2103980212	Ani Ellis Rahimah S.Kom	L	sakti.farida@example.org	4	2021	55	159	2007-03-25	31.74
+633	3	2103790213	Unggul Ramadan S.IP	L	jelita53@example.com	5	2021	55	164	2007-05-09	52.03
+634	3	2103350214	Karja Kuswoyo	L	arsipatra45@example.net	3	2021	86	147	2007-04-28	18.04
+635	3	2103970215	Oni Padmasari	P	tampubolon.halim@example.org	6	2021	63	168	2006-05-26	33.10
+636	3	2103330216	Sadina Rahmawati	L	inababan@example.net	5	2021	90	156	2006-10-01	17.01
+637	3	2103410217	Laila Carla Hassanah	P	tfarida@example.net	6	2021	49	173	2007-05-31	33.72
+638	3	2103890218	Candra Megantara S.Gz	L	lalita.wijayanti@example.com	6	2021	94	146	2007-08-15	33.08
+639	3	2103290219	Luwes Mahendra	L	jasmani.uwais@example.net	2	2021	53	170	2007-03-19	33.17
+640	3	2103930220	Gamani Rajasa	P	tpuspasari@example.net	4	2021	95	147	2007-05-12	73.04
+641	3	2103630221	Ratna Wahyuni	L	cemani91@example.com	6	2021	45	156	2007-06-01	72.02
+642	3	2103540222	Maya Mardhiyah	P	smaulana@example.com	5	2021	62	163	2007-04-15	33.75
+643	3	2103460223	Rosman Napitupulu	P	kpuspasari@example.com	3	2021	53	178	2007-08-25	34.01
+644	3	2103850224	Ian Mangunsong M.TI.	P	kairav.suwarno@example.net	1	2021	95	149	2005-12-06	35.10
+645	3	2103220225	Langgeng Irawan	P	wahyuni.kemba@example.org	1	2021	82	145	2007-04-15	35.78
+646	3	2103420226	Ida Hastuti	L	devi.hariyah@example.net	3	2021	73	164	2006-07-03	31.75
+647	3	2103240227	Zizi Mardhiyah	P	rahayu.fitria@example.net	5	2021	92	180	2007-08-04	32.10
+648	3	2103370228	Alika Rahmi Rahimah S.Farm	L	farhunnisa33@example.com	3	2021	58	159	2006-11-13	72.02
+649	3	2103320229	Gamblang Kurniawan	L	jhasanah@example.org	2	2021	74	179	2007-09-13	35.28
+650	3	2103380230	Gabriella Patricia Yuniar	L	ika77@example.com	1	2021	90	145	2006-08-31	31.74
+651	3	2103200231	Balamantri Sinaga S.Farm	L	patricia94@example.net	5	2021	59	170	2005-12-02	13.05
+652	3	2103350232	Reksa Siregar	L	kezia17@example.net	4	2021	95	153	2006-12-27	75.03
+653	3	2103310233	Elon Galak Marpaung	P	xsetiawan@example.net	1	2021	54	148	2007-08-17	73.07
+654	3	2103980234	Malik Damanik	P	wibowo.jais@example.net	6	2021	52	154	2007-03-23	33.08
+655	3	2103770235	Aurora Agustina	L	samsul12@example.org	2	2021	72	180	2007-04-13	32.15
+656	3	2103270236	Karsa Tamba	P	wrajasa@example.net	3	2021	83	147	2006-12-19	35.20
+657	3	2103110237	Latika Aryani	P	dhidayanto@example.net	6	2021	69	173	2006-09-07	35.71
+658	3	2103520238	Aris Natsir	P	waluyo96@example.org	3	2021	75	177	2007-07-01	63.01
+659	3	2103160239	Mahesa Najmudin	P	akarsana.pertiwi@example.net	4	2021	95	147	2005-12-30	32.76
+660	3	2103170240	Kenes Purwadi Pranowo	L	yessi.hariyah@example.net	4	2021	52	145	2007-06-27	33.07
+661	3	2103500241	Endah Hartati	L	lailasari.luthfi@example.com	4	2021	87	158	2007-04-10	32.12
+662	3	2103530242	Nadine Sakura Lailasari	L	sarah.puspita@example.net	2	2021	90	173	2005-11-10	14.06
+663	3	2103110243	Jarwi Sinaga	L	cinthia46@example.org	3	2021	58	148	2007-01-21	31.75
+664	3	2103580244	Emin Tirtayasa Pradana M.Farm	P	yuni25@example.org	3	2021	54	166	2006-07-29	33.11
+665	3	2103710245	Tira Mila Handayani	L	nilam.handayani@example.net	5	2021	92	153	2006-08-11	33.05
+666	3	2103510246	Ratna Yolanda	P	siregar.faizah@example.net	3	2021	51	150	2006-12-28	74.04
+667	3	2103950247	Oman Budi Narpati M.TI.	P	puspita.kairav@example.net	5	2021	45	150	2006-02-05	73.13
+668	3	2103340248	Winda Haryanti	L	hendra20@example.org	5	2021	57	176	2007-07-09	31.01
+669	3	2103710249	Gatot Marpaung S.E.I	P	plailasari@example.org	2	2021	74	152	2006-05-23	32.08
+670	3	2103340250	Jane Suartini	P	sinaga.bajragin@example.org	6	2021	65	170	2006-05-19	73.04
+671	3	2103400251	Gaduh Dadap Hutasoit	L	utami.titi@example.com	5	2021	62	147	2007-08-01	32.08
+672	3	2103340252	Hasan Wasis Wacana M.Pd	L	nsuryatmi@example.net	3	2021	57	164	2007-01-23	33.02
+673	3	2103510253	Yono Saragih	L	abyasa66@example.com	6	2021	47	152	2006-02-08	35.78
+674	3	2103960254	Aisyah Mulyani S.Gz	L	daru95@example.com	5	2021	73	177	2005-12-19	31.74
+675	3	2103260255	Cemani Maheswara M.TI.	L	banawa72@example.org	1	2021	58	152	2007-04-01	35.75
+676	3	2103590256	Dimaz Latupono	L	gnovitasari@example.net	2	2021	50	145	2006-06-09	12.76
+677	3	2103600257	Belinda Kasiyah Nasyiah S.I.Kom	P	padmasari.jarwadi@example.com	3	2021	79	157	2006-12-11	35.25
+678	3	2103520258	Limar Wibowo	L	rahayu59@example.org	5	2021	58	147	2007-05-30	35.29
+679	3	2103260259	Darsirah Heru Mustofa	L	limar96@example.org	4	2021	90	170	2005-11-21	31.72
+680	3	2103370260	Ilsa Nasyiah	P	zsetiawan@example.com	5	2021	45	167	2006-10-22	51.03
+681	3	2103640261	Elisa Mayasari	P	goktaviani@example.org	5	2021	75	165	2007-03-08	35.11
+682	3	2103190262	Kenzie Pandu Hakim S.Sos	P	ghaliyati.manullang@example.net	3	2021	45	168	2006-04-18	31.01
+683	3	2103930263	Pia Hastuti S.E.I	P	kezia.anggriawan@example.net	3	2021	58	164	2007-04-14	32.18
+684	3	2103840264	Gawati Oktaviani	L	palastri.ihsan@example.org	1	2021	55	155	2006-05-17	32.11
+685	3	2103160265	Diana Sakura Nasyiah S.H.	P	silvia25@example.org	1	2021	73	147	2007-01-05	73.13
+686	3	2103820266	Paramita Wijayanti	L	situmorang.gasti@example.net	4	2021	77	153	2006-05-02	31.71
+687	3	2103590267	Karna Zulkarnain	P	karen.suwarno@example.com	1	2021	54	163	2006-08-13	14.06
+688	3	2103700268	Maida Mala Mulyani	L	paiman.hartati@example.net	6	2021	51	174	2006-02-09	31.72
+689	3	2103470269	Nurul Laksita	P	humaira98@example.com	3	2021	46	164	2006-04-12	12.76
+690	3	2103730270	Bala Bahuraksa Mandala	P	gadang.gunawan@example.net	3	2021	89	166	2007-05-23	33.02
+691	4	2104250001	Ikin Adriansyah	L	sprayoga@example.org	1	2021	87	167	2006-12-21	35.29
+692	4	2104950002	Rafi Najmudin	L	hwacana@example.com	3	2021	65	171	2006-07-17	33.12
+693	4	2104810003	Yessi Hartati	L	hastuti.bambang@example.net	5	2021	92	171	2007-03-01	73.13
+694	4	2104540004	Ivan Saefullah	P	vhasanah@example.com	6	2021	87	153	2007-07-18	35.29
+695	4	2104450005	Taufik Mahdi Januar	L	jaiman13@example.net	5	2021	55	147	2007-02-06	32.13
+696	4	2104160006	Liman Hutagalung	P	wpermadi@example.net	2	2021	82	165	2006-07-07	35.15
+697	4	2104870007	Agus Setya Rajasa	P	firgantoro.saiful@example.org	2	2021	54	151	2006-07-26	32.15
+698	4	2104710008	Asmadi Ardianto	P	kuncara45@example.net	6	2021	95	175	2005-10-29	74.04
+699	4	2104910009	Bagas Sinaga	P	aryani.uchita@example.com	2	2021	72	150	2006-08-25	72.03
+700	4	2104520010	Kasiyah Farida S.I.Kom	P	jnamaga@example.net	5	2021	69	174	2007-05-19	31.01
+701	4	2104230011	Dimaz Budiman	P	sitorus.ina@example.net	1	2021	53	175	2006-01-29	73.07
+702	4	2104990012	Oni Purwanti	L	sudiati.cinthia@example.net	6	2021	91	155	2007-01-14	31.75
+703	4	2104400013	Ratna Kuswandari M.Ak	L	ppratama@example.com	1	2021	62	150	2006-10-22	35.05
+704	4	2104400014	Adika Kasim Pratama S.E.	P	mandala.eli@example.org	1	2021	61	152	2006-04-28	35.04
+705	4	2104770015	Usman Wadi Saptono	L	rwijaya@example.com	2	2021	85	156	2007-08-12	35.27
+706	4	2104400016	Ophelia Halima Padmasari S.Ked	L	spudjiastuti@example.org	1	2021	73	145	2006-12-13	33.28
+707	4	2104530017	Siti Namaga M.Pd	L	uyainah.ade@example.net	1	2021	60	154	2005-11-15	64.03
+708	4	2104660018	Alika Oktaviani	L	amelia78@example.com	5	2021	63	176	2006-11-22	33.08
+709	4	2104190019	Rusman Dabukke	P	fhutagalung@example.org	5	2021	78	147	2005-12-19	31.71
+710	4	2104470020	Lidya Winarsih	L	sirawan@example.org	3	2021	46	167	2006-09-03	32.18
+711	4	2104800021	Tugiman Megantara	L	jamil98@example.org	2	2021	94	163	2005-10-25	62.02
+712	4	2104410022	Jelita Latika Pertiwi	L	dtarihoran@example.net	4	2021	47	168	2007-07-04	33.23
+713	4	2104160023	Utama Saragih	P	permata.sadina@example.net	2	2021	46	175	2006-09-09	31.01
+714	4	2104460024	Daniswara Agus Halim	L	banawa.maheswara@example.net	6	2021	88	180	2006-09-19	11.14
+715	4	2104510025	Zalindra Pudjiastuti	P	gawati.oktaviani@example.com	5	2021	82	172	2005-12-04	33.16
+716	4	2104480026	Malika Puspasari S.Pt	L	rahayu.samsul@example.org	6	2021	54	155	2007-03-08	33.08
+717	4	2104540027	Estiawan Sitompul	P	martana.lazuardi@example.org	6	2021	82	169	2007-01-24	33.17
+718	4	2104600028	Karimah Uyainah	L	tlazuardi@example.net	1	2021	77	162	2006-08-10	33.06
+719	4	2104980029	Anita Yuliarti	P	rsaputra@example.net	5	2021	92	151	2007-03-24	13.07
+720	4	2104370030	Ivan Budi Irawan	L	sihombing.puti@example.org	6	2021	45	174	2007-08-22	31.74
+721	5	2105520001	Diah Wahyuni M.Farm	P	hariyah.gilda@example.org	1	2021	85	147	2007-07-29	53.01
+722	5	2105610002	Jono Jayeng Iswahyudi	L	hastuti.luluh@example.org	3	2021	77	178	2007-09-21	75.01
+723	5	2105210003	Bagas Simbolon	L	halim.waluyo@example.org	1	2021	75	175	2007-05-04	33.72
+724	5	2105400004	Eman Waskita	L	eman55@example.net	1	2021	65	145	2007-04-16	33.19
+725	5	2105100005	Vanesa Fujiati	L	marsito72@example.com	5	2021	59	177	2007-03-12	32.12
+726	5	2105260006	Natalia Devi Nurdiyanti	P	zalindra.hartati@example.org	2	2021	60	145	2006-10-09	53.05
+727	5	2105150007	Wawan Ikin Hutapea	L	pia.santoso@example.com	1	2021	91	147	2007-09-15	32.75
+728	5	2105500008	Kania Andriani	P	hutapea.catur@example.net	4	2021	60	167	2006-10-19	33.25
+729	5	2105660009	Lanang Gaduh Situmorang	L	opung54@example.org	4	2021	73	177	2007-04-08	33.06
+730	5	2105580010	Raden Aswani Ramadan	P	asmadi06@example.net	3	2021	85	151	2006-02-20	15.04
+731	5	2105690011	Rama Sitompul	P	jarwi88@example.net	1	2021	45	172	2006-02-06	31.75
+732	5	2105870012	Julia Yolanda	L	ulva.uwais@example.org	1	2021	48	173	2005-12-01	31.01
+733	5	2105520013	Cindy Hastuti	L	danuja.novitasari@example.org	3	2021	79	165	2007-01-30	33.02
+734	5	2105840014	Warji Sinaga	P	galar66@example.com	3	2021	58	158	2007-06-16	35.06
+735	5	2105520015	Soleh Januar	P	hassanah.teddy@example.org	5	2021	56	158	2007-06-23	52.03
+736	5	2105770016	Gilda Pertiwi	P	ridwan.widodo@example.com	4	2021	62	176	2006-05-15	35.09
+737	5	2105510017	Jono Pangestu	P	gatot.pratiwi@example.org	5	2021	83	174	2006-01-17	17.01
+738	5	2105580018	Darmanto Kusumo	L	anastasia71@example.net	6	2021	83	166	2007-07-21	35.07
+739	5	2105490019	Indah Safina Melani S.IP	L	ellis66@example.net	6	2021	79	177	2007-04-03	35.79
+740	5	2105280020	Kajen Winarno	P	lhastuti@example.net	3	2021	56	156	2007-07-15	53.05
+741	5	2105470021	Maya Oktaviani S.H.	P	quwais@example.com	5	2021	61	176	2007-03-20	35.77
+742	5	2105710022	Cawuk Maulana S.T.	P	genta09@example.net	4	2021	72	148	2006-05-12	74.04
+743	5	2105310023	Silvia Astuti S.Farm	P	wanggraini@example.net	4	2021	57	156	2006-03-05	35.04
+744	5	2105120024	Laksana Rajata	L	earyani@example.com	4	2021	73	152	2006-03-13	32.12
+745	5	2105190025	Wakiman Rusman Pranowo S.H.	L	hassanah.kairav@example.net	2	2021	56	155	2006-04-21	32.18
+746	5	2105560026	Kamaria Eva Riyanti S.Pt	L	vsalahudin@example.com	2	2021	47	176	2006-06-24	73.13
+747	5	2105630027	Karimah Puspita M.Kom.	L	pratama.oliva@example.org	2	2021	59	159	2007-03-11	32.11
+748	5	2105170028	Rina Cinta Wahyuni M.TI.	P	wahyuni.salsabila@example.net	4	2021	55	151	2006-02-08	31.01
+749	5	2105410029	Ilsa Padmasari	P	najmudin.zalindra@example.com	2	2021	93	171	2006-12-31	32.72
+750	5	2105880030	Lasmanto Iswahyudi	L	edi44@example.com	4	2021	92	145	2005-11-08	31.75
+751	6	2106610001	Martani Erik Budiman	P	rahayu.yono@example.net	4	2021	72	169	2006-09-08	34.01
+752	6	2106400002	Prabu Santoso S.Kom	P	fhakim@example.net	6	2021	84	173	2006-07-23	33.72
+753	6	2106690003	Azalea Suci Oktaviani	L	srajasa@example.net	4	2021	88	148	2007-05-27	33.23
+754	6	2106770004	Hamzah Januar	P	cuyainah@example.net	6	2021	94	150	2006-10-29	33.01
+755	6	2106330005	Capa Simanjuntak S.Farm	P	umaya.namaga@example.org	5	2021	48	149	2007-02-21	33.01
+756	6	2106430006	Nilam Rahmawati	L	bsaragih@example.com	5	2021	74	177	2006-05-28	71.07
+757	6	2106650007	Vega Cahyanto Prasetya	L	putra.victoria@example.org	4	2021	78	171	2006-05-15	31.74
+758	6	2106890008	Umaya Waluyo S.Pd	L	mfujiati@example.net	3	2021	81	153	2006-02-10	74.04
+759	6	2106160009	Tami Puji Hartati	P	marpaung.hamima@example.org	1	2021	70	161	2006-09-04	31.73
+760	6	2106950010	Warji Budiyanto	P	janet70@example.net	1	2021	57	174	2007-08-01	33.28
+761	6	2106320011	Lukman Haryanto	L	mayasari.damu@example.org	5	2021	60	178	2006-05-04	34.02
+762	6	2106780012	Prayitna Karna Nainggolan S.Farm	L	gatra87@example.net	5	2021	55	154	2006-06-28	35.11
+763	6	2106480013	Yance Pia Hariyah S.Pt	P	dhastuti@example.com	4	2021	60	172	2007-04-28	33.16
+764	6	2106440014	Saiful Utama S.E.I	L	safitri.salwa@example.net	1	2021	89	156	2006-09-17	62.01
+765	6	2106720015	Nurul Sudiati	L	ulva51@example.com	2	2021	94	170	2007-07-10	33.19
+766	6	2106980016	Okta Bagas Januar S.Gz	P	damanik.tami@example.com	2	2021	91	146	2005-11-15	31.72
+767	6	2106300017	Raisa Astuti M.TI.	P	puspa84@example.net	1	2021	89	179	2005-11-06	32.09
+768	6	2106570018	Bagiya Dabukke	L	situmorang.kajen@example.org	2	2021	68	172	2007-04-11	33.12
+769	6	2106750019	Vivi Aryani S.E.I	L	hsaefullah@example.com	5	2021	57	151	2006-02-14	74.02
+770	6	2106930020	Dalimin Saefullah M.TI.	L	fpradana@example.net	2	2021	73	170	2006-04-11	32.78
+771	6	2106330021	Raisa Oktaviani	P	hartana.nasyiah@example.org	1	2021	66	170	2005-10-08	53.05
+772	6	2106190022	Kunthara Simbolon	L	nlestari@example.net	6	2021	59	145	2007-01-09	71.05
+773	6	2106810023	Muni Arsipatra Kurniawan	P	digdaya74@example.org	6	2021	62	172	2005-12-28	52.01
+774	6	2106640024	Kasim Sihombing	L	tira51@example.com	4	2021	57	164	2006-03-13	63.03
+775	6	2106210025	Cager Mandala	P	kasim21@example.org	5	2021	58	168	2006-10-25	33.14
+776	6	2106470026	Violet Maya Sudiati S.Ked	L	fathonah30@example.com	6	2021	45	167	2006-09-15	31.74
+777	6	2106870027	Lidya Laksita	L	digdaya.kusmawati@example.com	6	2021	87	160	2006-02-10	33.14
+778	6	2106100028	Warsa Kurniawan M.TI.	P	ismail.napitupulu@example.net	4	2021	54	166	2006-04-23	36.72
+779	6	2106940029	Titin Hartati S.E.I	L	anainggolan@example.org	6	2021	51	159	2007-04-11	32.03
+780	6	2106640030	Harimurti Hutapea	L	laksmiwati.sakura@example.org	3	2021	49	168	2006-05-11	33.72
+781	6	2106350031	Diah Lailasari	L	elma96@example.net	3	2021	90	145	2006-06-26	32.13
+782	6	2106800032	Yessi Wijayanti	L	qsiregar@example.org	1	2021	93	157	2006-05-20	31.74
+783	6	2106820033	Farah Gasti Riyanti S.Ked	L	samiah17@example.org	3	2021	45	162	2006-07-23	17.01
+784	6	2106150034	Ulva Padmasari	L	melani.wulan@example.com	3	2021	88	154	2007-05-25	53.01
+785	6	2106850035	Shakila Hasanah	L	halim.indah@example.com	5	2021	88	174	2006-01-16	31.73
+786	6	2106280036	Ulva Yuliarti	L	purwanto.nuraini@example.net	3	2021	56	149	2006-12-09	33.73
+787	6	2106590037	Ratih Sadina Rahmawati M.TI.	P	sihombing.keisha@example.com	1	2021	73	179	2006-11-13	71.02
+788	6	2106690038	Unjani Chelsea Mulyani	P	samosir.catur@example.net	2	2021	92	176	2006-10-17	35.72
+789	6	2106760039	Warsa Sihombing M.Pd	L	aisyah.farida@example.org	3	2021	74	162	2006-09-22	61.01
+790	6	2106650040	Dagel Maryadi	L	spratama@example.net	1	2021	49	153	2007-08-16	33.73
+791	6	2106960041	Kiandra Uli Utami	P	qgunawan@example.org	5	2021	94	167	2006-06-05	35.09
+792	6	2106580042	Mitra Hardiansyah	L	siti.winarno@example.org	3	2021	94	145	2006-03-20	35.78
+793	6	2106160043	Prabu Mustofa	L	pfirgantoro@example.org	1	2021	57	180	2006-07-08	35.04
+794	6	2106180044	Kani Nasyiah	P	karma.pudjiastuti@example.net	6	2021	72	148	2005-10-22	31.74
+795	6	2106720045	Ozy Manullang	P	zulaika.prasetya@example.com	1	2021	54	153	2006-03-06	18.04
+796	6	2106330046	Jumadi Maheswara	L	gada.yuliarti@example.com	4	2021	54	154	2007-04-26	14.06
+797	6	2106480047	Rachel Susanti	L	ami62@example.org	5	2021	52	154	2005-11-03	33.09
+798	6	2106990048	Salwa Wastuti	P	otarihoran@example.com	1	2021	93	169	2007-07-06	31.74
+799	6	2106710049	Zamira Prastuti	P	mandasari.kani@example.org	2	2021	75	148	2006-11-01	33.20
+800	6	2106260050	Marwata Gunawan	L	xanana09@example.org	6	2021	94	151	2006-08-22	63.03
+801	6	2106860051	Eka Astuti	P	nurdiyanti.fitria@example.org	6	2021	70	156	2005-11-29	33.07
+802	6	2106680052	Darsirah Halim	L	skuswandari@example.org	4	2021	85	154	2006-03-16	33.71
+803	6	2106650053	Rudi Pradana M.Farm	L	amelia.mandala@example.org	5	2021	79	150	2007-07-02	52.03
+804	6	2106220054	Queen Mulyani	L	hadi.pertiwi@example.com	3	2021	71	171	2006-09-11	31.71
+805	6	2106290055	Hasna Mardhiyah	L	pranowo.diana@example.com	3	2021	61	160	2006-05-20	35.04
+806	6	2106240056	Carub Hutagalung	L	tedi86@example.org	3	2021	70	159	2007-01-07	36.01
+807	6	2106660057	Bakti Wawan Winarno M.M.	P	tarihoran.pia@example.net	6	2021	47	170	2007-01-23	31.73
+808	6	2106190058	Hardi Siregar	L	mulyanto62@example.org	3	2021	69	170	2006-06-29	35.71
+809	6	2106980059	Ratih Winarsih	L	ohassanah@example.net	2	2021	82	175	2005-12-12	35.11
+810	6	2106240060	Ayu Latika Wastuti	P	atma97@example.net	1	2021	53	146	2006-01-16	32.18
+811	6	2106350061	Nova Jane Mandasari M.Ak	P	kayla.hastuti@example.com	5	2021	63	162	2006-11-09	33.18
+812	6	2106780062	Budi Candrakanta Saefullah S.I.Kom	L	nuyainah@example.net	3	2021	70	164	2006-09-29	32.08
+813	6	2106680063	Kemba Manullang	L	sirait.jumari@example.com	5	2021	55	146	2007-07-10	33.24
+814	6	2106300064	Raihan Jasmani Rajata	L	pangestu58@example.com	6	2021	55	173	2006-02-24	31.71
+815	6	2106890065	Alambana Murti Narpati	P	ade64@example.org	5	2021	62	178	2007-03-23	17.05
+816	6	2106210066	Purwadi Cahyanto Saragih	L	palastri.sakura@example.org	1	2021	81	146	2007-08-08	11.71
+817	6	2106930067	Pranata Nashiruddin	P	mnuraini@example.org	2	2021	86	166	2007-01-05	33.27
+818	6	2106970068	Hendra Niyaga Saputra	P	catur61@example.org	1	2021	65	162	2007-01-27	33.22
+819	6	2106710069	Prasetya Pratama S.Pt	L	bakiman27@example.net	3	2021	67	150	2007-09-22	14.06
+820	6	2106570070	Victoria Pratiwi	P	wani44@example.org	1	2021	67	165	2006-02-26	31.73
+821	6	2106950071	Salimah Lintang Permata M.M.	L	hakim.fitria@example.org	5	2021	45	147	2006-05-12	51.02
+822	6	2106190072	Najam Lukita Maulana S.Kom	P	megantara.jaya@example.net	1	2021	51	154	2006-08-22	14.03
+823	6	2106800073	Sari Oktaviani M.Farm	L	cengkir66@example.net	1	2021	61	147	2005-11-26	52.03
+824	6	2106120074	Clara Lestari	P	mahfud64@example.com	3	2021	79	150	2006-03-03	31.74
+825	6	2106590075	Kartika Pertiwi S.T.	P	azalea30@example.net	1	2021	89	167	2007-01-24	33.20
+826	6	2106290076	Kawaca Sihombing	L	oputra@example.org	1	2021	62	177	2006-09-15	33.10
+827	6	2106500077	Rini Novitasari S.Pt	L	firgantoro.keisha@example.com	3	2021	69	151	2007-05-26	17.05
+828	6	2106860078	Hilda Kusmawati	L	abyasa.putra@example.net	6	2021	47	170	2006-06-22	33.71
+829	6	2106900079	Nilam Uyainah	L	mpudjiastuti@example.com	5	2021	72	178	2006-05-01	12.78
+830	6	2106980080	Indah Uyainah M.Ak	L	randriani@example.com	3	2021	75	165	2006-01-28	33.07
+831	6	2106460081	Nardi Tampubolon	P	tirtayasa12@example.org	5	2021	81	178	2005-10-01	33.09
+832	6	2106310082	Vanya Yuniar	L	nhutagalung@example.net	4	2021	94	171	2005-10-27	31.72
+833	6	2106580083	Damar Mangunsong	L	panji.rajata@example.com	2	2021	89	147	2006-04-13	31.01
+834	6	2106740084	Indah Kuswandari S.Pd	P	laksmiwati.kamaria@example.org	1	2021	72	162	2006-06-06	18.04
+835	6	2106930085	Hardi Mansur	P	dhasanah@example.org	1	2021	69	163	2006-11-21	32.12
+836	6	2106240086	Yulia Pudjiastuti	P	nurul.saragih@example.net	4	2021	47	154	2005-10-02	61.04
+837	6	2106330087	Maryadi Erik Gunarto	L	bakidin17@example.com	3	2021	91	159	2006-09-15	33.21
+838	6	2106560088	Ajeng Cinthia Winarsih	L	hartati.farah@example.net	6	2021	58	148	2007-01-01	72.03
+839	6	2106410089	Cakrawala Utama M.M.	P	utama.samosir@example.net	1	2021	67	167	2006-08-21	35.15
+840	6	2106570090	Garang Okta Irawan	L	wpradipta@example.com	4	2021	85	179	2007-01-14	35.77
+841	7	2107970001	Kasiyah Samiah Agustina	L	raisa60@example.com	6	2021	52	147	2007-07-08	33.24
+842	7	2107400002	Yono Pratama	L	gpalastri@example.org	4	2021	95	170	2006-11-29	34.03
+843	7	2107820003	Atma Sihombing S.T.	P	rajasa.karta@example.com	4	2021	50	179	2006-12-02	32.16
+844	7	2107950004	Zulaikha Tami Uyainah	L	ahalim@example.com	2	2021	78	150	2005-10-11	33.08
+845	7	2107230005	Maria Sudiati S.Farm	P	zmelani@example.com	5	2021	93	158	2007-06-26	33.71
+846	7	2107610006	Gangsar Thamrin S.Gz	L	firmansyah.cakrajiya@example.org	1	2021	54	159	2006-07-03	75.03
+847	7	2107380007	Anom Hakim	L	prabu.yulianti@example.com	5	2021	73	152	2007-05-13	35.79
+848	7	2107780008	Shania Winda Oktaviani M.TI.	P	kasiyah36@example.net	1	2021	57	180	2007-04-07	33.76
+849	7	2107390009	Nyana Ramadan M.M.	L	dipa74@example.com	5	2021	49	164	2006-11-24	33.25
+850	7	2107760010	Novi Ana Lailasari	L	wadi30@example.net	1	2021	84	159	2006-03-15	36.03
+851	7	2107460011	Laras Maida Usamah S.Kom	L	ulaksita@example.org	2	2021	50	151	2006-07-15	33.17
+852	7	2107450012	Kasiran Sihombing	L	vpertiwi@example.net	6	2021	91	149	2006-02-01	12.76
+853	7	2107810013	Rafid Pangestu	L	kemba.aryani@example.com	6	2021	88	163	2006-12-13	31.75
+854	7	2107920014	Tiara Utami	L	usada.suci@example.net	6	2021	79	159	2007-02-19	33.29
+855	7	2107590015	Paris Kusmawati S.Ked	L	salahudin.aslijan@example.net	5	2021	53	157	2006-03-02	63.01
+856	7	2107590016	Harimurti Widodo S.Sos	L	sabrina.hardiansyah@example.org	2	2021	63	145	2006-05-24	36.71
+857	7	2107880017	Kanda Marwata Kuswoyo S.Ked	L	qfujiati@example.net	4	2021	78	154	2006-10-27	31.73
+858	7	2107240018	Nadia Hafshah Widiastuti S.IP	P	jail.kuswandari@example.net	5	2021	72	146	2006-07-25	31.72
+859	7	2107190019	Oman Zulkarnain	L	anastasia15@example.org	4	2021	78	148	2006-05-27	61.05
+860	7	2107190020	Yusuf Winarno	L	hairyanto55@example.org	4	2021	73	158	2006-08-24	35.06
+861	7	2107650021	Kalim Samosir	P	ida80@example.org	5	2021	65	169	2007-04-13	71.07
+862	7	2107660022	Lili Maria Yulianti S.Sos	L	harjasa31@example.net	5	2021	85	180	2006-09-01	35.25
+863	7	2107260023	Kania Wahyuni	L	hariyah.yulia@example.com	4	2021	77	156	2007-05-10	35.14
+864	7	2107750024	Ganda Koko Simanjuntak	P	uyainah.prabowo@example.org	5	2021	52	176	2007-01-29	32.02
+865	7	2107990025	Baktianto Mustofa	L	irfan10@example.com	3	2021	65	161	2006-08-28	32.76
+866	7	2107250026	Bahuwirya Wacana	L	cakrabirawa72@example.net	2	2021	84	178	2006-12-16	14.05
+867	7	2107700027	Gangsa Nyoman Maryadi	L	lfirgantoro@example.com	6	2021	91	147	2006-03-09	36.03
+868	7	2107930028	Cayadi Ilyas Suryono	P	halimah.hilda@example.net	3	2021	87	160	2006-12-25	52.03
+869	7	2107180029	Usyi Ifa Hariyah	P	usamah.balapati@example.net	6	2021	69	145	2005-09-29	33.71
+870	7	2107840030	Wisnu Prabowo S.E.	P	dwahyuni@example.net	5	2021	76	155	2007-04-05	32.14
+871	7	2107260031	Nadia Pudjiastuti	L	manah61@example.org	4	2021	57	167	2006-03-29	35.06
+872	7	2107200032	Jail Wijaya	L	unapitupulu@example.net	6	2021	50	170	2007-02-24	14.06
+873	7	2107230033	Ayu Suartini M.M.	P	rsitorus@example.org	5	2021	87	151	2007-09-03	34.03
+874	7	2107240034	Prima Jamil Sitorus S.Pd	P	salwa40@example.net	3	2021	76	168	2007-09-17	53.01
+875	7	2107530035	Ivan Danang Narpati	L	hariyah.mila@example.com	5	2021	72	147	2006-10-25	33.23
+876	7	2107510036	Dian Widiastuti	P	fitriani04@example.com	3	2021	84	179	2006-08-26	33.76
+877	7	2107510037	Chelsea Susanti	L	yulia44@example.com	1	2021	61	148	2007-09-02	35.06
+878	7	2107620038	Ulva Puspita	L	kezia.ramadan@example.org	2	2021	93	176	2006-03-01	35.71
+879	7	2107340039	Lukman Sihombing	L	bwinarsih@example.com	1	2021	81	176	2005-10-21	71.07
+880	7	2107750040	Ellis Hariyah	P	ysirait@example.org	3	2021	93	175	2007-05-30	74.04
+881	7	2107470041	Karman Tarihoran	P	winda.waskita@example.net	4	2021	88	165	2006-07-31	35.07
+882	7	2107740042	Malik Wibisono	L	baktianto.haryanto@example.org	1	2021	45	170	2006-11-06	33.06
+883	7	2107160043	Adhiarja Gilang Mangunsong	L	salahudin.vero@example.net	1	2021	92	178	2007-08-14	36.71
+884	7	2107120044	Kartika Wahyuni	L	ismail65@example.org	2	2021	90	147	2005-12-05	35.14
+885	7	2107650045	Setya Upik Ramadan S.E.	L	yani84@example.com	6	2021	46	162	2007-03-25	31.72
+886	7	2107930046	Karya Martana Natsir	L	msimbolon@example.net	4	2021	66	175	2005-11-13	33.01
+887	7	2107770047	Oskar Adiarja Megantara	L	kani.handayani@example.com	3	2021	95	171	2006-11-13	61.04
+888	7	2107670048	Kemba Kanda Prasetyo	L	wastuti.rusman@example.org	4	2021	92	173	2006-12-24	33.29
+889	7	2107440049	Satya Banara Sinaga	L	pandu66@example.org	2	2021	84	148	2006-01-25	35.78
+890	7	2107250050	Cawuk Marsudi Mahendra S.Gz	L	wakiman51@example.org	6	2021	73	160	2006-05-08	61.05
+891	7	2107600051	Gangsa Nugroho	L	cici.uyainah@example.net	1	2021	76	166	2006-07-04	32.77
+892	7	2107420052	Elisa Wulandari S.E.	L	suwarno.kurnia@example.org	3	2021	93	159	2005-11-19	71.02
+893	7	2107390053	Soleh Cahyono Setiawan	P	fuwais@example.net	5	2021	50	167	2005-11-15	32.75
+894	7	2107590054	Siti Farida S.T.	L	widiastuti.yani@example.net	2	2021	84	162	2007-03-25	35.29
+895	7	2107420055	Irfan Situmorang	P	haryanti.yuni@example.net	6	2021	60	175	2007-09-26	32.12
+896	7	2107910056	Damar Argono Maryadi	P	novitasari.ulya@example.org	2	2021	87	145	2007-01-18	35.20
+897	7	2107130057	Mujur Maryanto Firmansyah	L	saefullah.kalim@example.com	1	2021	51	175	2006-10-14	51.03
+898	7	2107300058	Raharja Rahmat Marpaung	L	narji.nasyidah@example.org	4	2021	95	172	2006-11-21	61.01
+899	7	2107470059	Malika Mila Hastuti M.Ak	L	kputra@example.org	5	2021	70	152	2006-02-19	31.71
+900	7	2107640060	Farhunnisa Astuti	L	ohariyah@example.org	2	2021	65	164	2006-05-03	35.28
+901	8	2108560001	Bella Nurdiyanti	L	bakiadi.wijayanti@example.com	6	2021	81	145	2006-10-31	62.04
+902	8	2108710002	Kawaya Maryadi	P	gyuniar@example.com	2	2021	46	179	2007-03-29	35.28
+903	8	2108930003	Indah Hamima Puspasari	P	swahyudin@example.org	4	2021	91	150	2006-10-28	35.29
+904	8	2108510004	Rama Timbul Damanik S.IP	L	prasetya.salimah@example.net	2	2021	64	145	2006-08-24	31.74
+905	8	2108110005	Balidin Kenes Budiyanto	P	farida.lasmanto@example.net	1	2021	48	167	2007-04-24	31.74
+906	8	2108870006	Garda Kurniawan	L	thamrin.cakrabuana@example.org	5	2021	73	177	2007-02-11	33.19
+907	8	2108500007	Kezia Kuswandari	L	ynuraini@example.net	1	2021	88	176	2006-01-30	35.71
+908	8	2108650008	Sabrina Padmasari	P	budiman.ibrani@example.org	3	2021	67	175	2006-04-14	32.12
+909	8	2108660009	Mila Padmi Yuliarti	P	gaduh.hastuti@example.org	6	2021	85	157	2007-03-14	32.75
+910	8	2108370010	Usyi Maida Purwanti M.Pd	P	pertiwi.syahrini@example.net	2	2021	73	176	2007-04-05	73.07
+911	8	2108270011	Silvia Safitri	P	widiastuti.catur@example.com	2	2021	93	167	2006-12-03	31.71
+912	8	2108930012	Nilam Sakura Haryanti	P	wpadmasari@example.org	5	2021	49	178	2006-01-05	65.01
+913	8	2108410013	Salimah Suartini	L	ewulandari@example.com	4	2021	77	167	2007-06-16	33.27
+914	8	2108920014	Erik Widodo	L	daru.santoso@example.org	1	2021	55	166	2006-11-15	33.07
+915	8	2108770015	Michelle Yuniar	L	aslijan16@example.net	4	2021	90	161	2007-04-12	51.02
+916	8	2108130016	Paris Utami	L	heru.marbun@example.org	2	2021	55	149	2006-12-21	36.01
+917	8	2108600017	Laswi Saragih	L	prayogo.pratiwi@example.net	6	2021	83	159	2006-08-14	35.29
+918	8	2108560018	Wani Anggraini	L	bpradipta@example.net	3	2021	95	161	2005-11-06	18.05
+919	8	2108910019	Mahesa Pranowo	P	wibisono.arsipatra@example.com	6	2021	73	155	2006-04-20	33.15
+920	8	2108620020	Siti Umi Kusmawati	L	wacana.tugiman@example.net	6	2021	63	149	2007-03-02	34.71
+921	8	2108710021	Latika Lailasari S.Psi	L	gina.suryatmi@example.net	3	2021	62	156	2006-11-13	35.27
+922	8	2108860022	Michelle Lailasari	L	uyainah.lintang@example.org	4	2021	77	161	2006-06-08	33.29
+923	8	2108750023	Lalita Jamalia Astuti S.Farm	L	suwarno.alambana@example.com	1	2021	88	152	2006-09-18	32.78
+924	8	2108180024	Qori Uyainah	L	uyainah.juli@example.org	2	2021	46	157	2006-11-17	18.04
+925	8	2108470025	Nardi Wasis Situmorang M.Kom.	L	karma.suartini@example.net	4	2021	63	172	2006-08-30	13.04
+926	8	2108790026	Ajeng Lestari	L	wahyudin.candrakanta@example.com	6	2021	62	167	2007-05-21	33.72
+927	8	2108190027	Puji Halimah	L	radriansyah@example.com	4	2021	84	172	2006-03-03	32.11
+928	8	2108590028	Radika Gandi Nugroho	L	icha.mandasari@example.net	1	2021	56	179	2006-04-15	35.05
+929	8	2108580029	Paiman Prabowo S.Ked	L	ohalimah@example.org	5	2021	47	152	2005-11-28	33.75
+930	8	2108700030	Ajimin Chandra Setiawan	P	cengkir.lestari@example.com	5	2021	53	160	2005-12-17	31.71
+931	8	2108630031	Bakiadi Raden Irawan S.Pd	P	vmulyani@example.org	3	2021	45	169	2007-03-13	32.03
+932	8	2108640032	Humaira Prastuti	L	lwidiastuti@example.org	5	2021	70	170	2006-05-05	52.72
+933	8	2108580033	Qori Safitri S.Gz	P	jaeman.suryono@example.com	4	2021	76	159	2007-06-27	32.03
+934	8	2108330034	Balidin Tarihoran	L	saptono.najwa@example.net	1	2021	95	170	2006-01-12	33.06
+935	8	2108350035	Latif Jailani	P	myuniar@example.net	1	2021	68	155	2006-08-05	18.05
+936	8	2108260036	Vivi Kania Agustina S.E.I	P	taswir.yuliarti@example.org	1	2021	72	155	2006-11-02	31.75
+937	8	2108940037	Ajimat Ridwan Firmansyah	P	zulaika.farhunnisa@example.net	3	2021	85	174	2006-06-22	32.71
+938	8	2108480038	Kamal Kuswoyo	L	bakianto78@example.net	3	2021	70	156	2007-06-11	61.01
+939	8	2108490039	Melinda Maryati S.Pd	P	awinarsih@example.com	1	2021	93	170	2007-03-26	31.72
+940	8	2108760040	Mulya Prakasa	P	setiawan.umi@example.net	3	2021	49	167	2007-04-21	33.14
+941	8	2108660041	Paulin Siti Hastuti S.I.Kom	P	padma36@example.net	1	2021	62	173	2006-01-26	32.75
+942	8	2108590042	Suci Raina Hassanah	P	titin37@example.net	3	2021	91	163	2006-04-09	18.05
+943	8	2108440043	Nadia Rahimah S.Pt	P	hutasoit.bakiman@example.com	5	2021	81	172	2007-05-18	63.02
+944	8	2108460044	Narji Arta Nashiruddin	P	margana.safitri@example.net	1	2021	55	178	2007-09-03	31.01
+945	8	2108610045	Nasrullah Tomi Lazuardi	L	keisha09@example.net	6	2021	48	175	2006-01-30	35.21
+946	8	2108400046	Ani Hassanah	P	usiregar@example.com	1	2021	64	154	2006-06-09	31.72
+947	8	2108980047	Kairav Mulyanto Samosir S.IP	L	vpradipta@example.net	2	2021	54	167	2007-04-23	52.03
+948	8	2108180048	Rudi Tamba	L	legawa25@example.net	6	2021	54	164	2005-12-15	35.20
+949	8	2108220049	Yunita Puspasari	L	csitorus@example.net	6	2021	88	166	2006-04-27	32.04
+950	8	2108170050	Gamanto Simbolon M.TI.	P	zalindra.usada@example.org	3	2021	50	161	2006-12-19	53.05
+951	8	2108500051	Zalindra Wastuti S.T.	P	fujiati.paiman@example.com	1	2021	54	161	2006-01-31	73.13
+952	8	2108750052	Tina Karen Prastuti S.Ked	L	vsafitri@example.net	1	2021	85	168	2006-05-02	35.19
+953	8	2108870053	Sakura Melani	L	nugraha.hastuti@example.com	2	2021	61	163	2006-02-18	33.13
+954	8	2108530054	Jais Utama	P	chelsea.maulana@example.net	6	2021	66	149	2007-03-10	63.01
+955	8	2108570055	Hasim Firmansyah	L	hakim.cayadi@example.net	2	2021	76	163	2006-07-01	33.04
+956	8	2108860056	Cinthia Pudjiastuti	P	maulana.eka@example.org	3	2021	79	145	2007-07-28	31.71
+957	8	2108670057	Nadia Wulandari S.I.Kom	L	cakrawala46@example.com	4	2021	77	152	2006-07-06	12.78
+958	8	2108130058	Zelaya Laksmiwati	L	yuliarti.mila@example.com	5	2021	48	156	2007-07-23	31.72
+959	8	2108550059	Ibrahim Mahendra	L	teguh77@example.com	1	2021	56	146	2007-08-12	35.16
+960	8	2108970060	Kawaya Jaeman Mangunsong M.Kom.	P	gunarto.halima@example.net	3	2021	46	175	2006-04-15	33.14
+961	8	2108370061	Wulan Suartini	L	lailasari.fathonah@example.com	1	2021	57	152	2007-04-21	35.78
+962	8	2108950062	Gaiman Gamani Hidayat	P	paiman.mangunsong@example.org	3	2021	95	147	2006-09-06	72.03
+963	8	2108860063	Putu Santoso	P	icha.kuswandari@example.com	1	2021	63	164	2007-06-25	33.10
+964	8	2108910064	Simon Nugroho S.H.	P	tantri.safitri@example.net	5	2021	49	163	2006-04-12	33.29
+965	8	2108320065	Dimas Suwarno M.Kom.	P	prayoga.septi@example.org	3	2021	70	166	2006-04-26	32.04
+966	8	2108860066	Rusman Dongoran	L	qori30@example.com	3	2021	89	156	2007-07-03	13.05
+967	8	2108600067	Kamila Puti Astuti	L	wadi44@example.org	2	2021	74	168	2006-06-17	52.71
+968	8	2108390068	Lalita Kuswandari S.Gz	P	elma.wibowo@example.com	5	2021	67	179	2005-11-18	65.01
+969	8	2108110069	Daru Viman Rajata	P	siska04@example.org	5	2021	92	164	2007-02-02	36.03
+970	8	2108930070	Karja Karma Zulkarnain S.Pt	P	nasrullah.putra@example.com	5	2021	72	158	2005-10-31	36.01
+971	8	2108780071	Kacung Muni Sitorus S.Sos	P	tri64@example.org	1	2021	76	174	2007-09-08	35.16
+972	8	2108860072	Gambira Mansur	L	mulyono15@example.org	5	2021	73	155	2006-11-08	51.02
+973	8	2108470073	Laksana Ganda Saputra	L	winarsih.alika@example.com	2	2021	83	152	2006-08-31	13.05
+974	8	2108390074	Kenes Suwarno	L	fathonah.winarsih@example.net	1	2021	75	152	2006-10-13	63.03
+975	8	2108510075	Cayadi Maryadi S.Pt	P	cdongoran@example.com	6	2021	66	157	2006-12-18	31.01
+976	8	2108210076	Cemplunk Usman Suryono S.E.	P	makuta.pradana@example.net	4	2021	45	162	2006-05-24	33.28
+977	8	2108780077	Cakrabuana Hutagalung	L	dhidayanto@example.org	4	2021	92	154	2006-07-09	35.29
+978	8	2108280078	Restu Kusmawati S.Gz	P	myulianti@example.com	2	2021	76	147	2005-11-15	35.06
+979	8	2108260079	Wahyu Pranowo	L	karen.gunarto@example.net	3	2021	69	159	2007-05-04	14.03
+980	8	2108920080	Aditya Xanana Firmansyah S.T.	L	puput.hastuti@example.org	4	2021	48	174	2006-11-07	33.14
+981	8	2108700081	Elvina Handayani	P	ykuswandari@example.org	1	2021	50	149	2006-05-25	35.14
+982	8	2108940082	Sari Andriani S.Psi	P	yuniar.harja@example.org	1	2021	72	162	2007-09-20	12.78
+983	8	2108280083	Maya Dewi Farida	P	rahmawati.empluk@example.org	2	2021	95	166	2007-07-03	72.03
+984	8	2108910084	Cinthia Novitasari S.T.	L	restu.safitri@example.net	4	2021	53	167	2007-06-08	31.71
+985	8	2108330085	Alika Permata M.Ak	L	ajimat24@example.com	5	2021	70	156	2006-11-14	33.09
+986	8	2108160086	Capa Prasetya	L	embuh.anggraini@example.net	5	2021	88	151	2006-09-22	18.04
+987	8	2108380087	Betania Oliva Melani M.Farm	P	ratna07@example.org	3	2021	70	158	2007-02-08	31.01
+988	8	2108180088	Alika Sarah Novitasari S.Farm	P	noktaviani@example.org	6	2021	46	150	2006-09-24	31.73
+989	8	2108470089	Cakrawangsa Bakti Halim	L	icha.nurdiyanti@example.com	2	2021	63	157	2006-09-27	33.04
+990	8	2108220090	Suci Safitri	L	soleh.hasanah@example.net	4	2021	80	146	2005-11-12	65.01
+991	9	2109220001	Lala Ira Lailasari S.Sos	P	bagya.yolanda@example.com	3	2021	68	145	2005-10-10	12.78
+992	9	2109260002	Ika Jane Aryani	L	utama21@example.com	5	2021	51	163	2006-01-20	31.73
+993	9	2109620003	Maya Purwanti	P	enteng.sihombing@example.org	5	2021	76	166	2006-04-06	72.02
+994	9	2109300004	Zelaya Dalima Andriani S.Sos	L	yhutagalung@example.org	5	2021	55	173	2006-03-12	31.74
+995	9	2109840005	Lala Vivi Winarsih	P	astuti.banawi@example.net	5	2021	69	179	2007-05-19	31.73
+996	9	2109480006	Bagya Prabawa Samosir	L	prasasta.maimunah@example.net	4	2021	81	161	2007-02-27	35.72
+997	9	2109150007	Sari Handayani	P	kamal36@example.net	2	2021	51	166	2007-06-10	11.71
+998	9	2109410008	Liman Makuta Permadi	P	septi.gunarto@example.org	1	2021	90	178	2005-09-30	33.08
+999	9	2109180009	Silvia Zulaikha Puspasari	L	jmegantara@example.org	4	2021	72	176	2006-08-29	31.01
+1000	9	2109980010	Aisyah Hartati M.Pd	P	cpudjiastuti@example.net	5	2021	83	164	2006-07-17	74.02
+1001	9	2109470011	Suci Uyainah S.E.	L	halimah.raina@example.net	2	2021	87	148	2007-07-21	74.02
+1002	9	2109190012	Emas Mahendra	L	lpuspasari@example.com	5	2021	47	174	2006-11-12	32.03
+1003	9	2109510013	Gandi Warta Pangestu	L	slamet18@example.org	3	2021	65	177	2006-04-03	32.74
+1004	9	2109230014	Aslijan Pranata Mansur	L	julia.puspita@example.org	3	2021	51	170	2006-02-27	32.15
+1005	9	2109570015	Yessi Hassanah S.Sos	L	adriansyah.martani@example.com	4	2021	55	150	2007-03-19	35.21
+1006	9	2109700016	Johan Setiawan	P	zalindra53@example.org	1	2021	66	150	2007-07-10	64.03
+1007	9	2109730017	Daliono Mandala	P	maria15@example.net	3	2021	76	168	2006-09-21	32.11
+1008	9	2109980018	Ibrahim Prasetyo S.Pt	L	capa05@example.net	4	2021	49	164	2005-12-31	32.05
+1009	9	2109970019	Mujur Karsa Suryono	L	wprayoga@example.com	4	2021	52	151	2007-08-01	35.15
+1010	9	2109410020	Ade Yulianti	L	vanya.situmorang@example.net	5	2021	92	161	2006-03-25	35.11
+1011	9	2109750021	Xanana Simanjuntak M.TI.	P	bahuraksa05@example.com	5	2021	53	154	2006-04-30	32.06
+1012	9	2109590022	Cawuk Budiyanto	P	nurul.zulkarnain@example.net	2	2021	56	145	2007-02-06	74.04
+1013	9	2109600023	Tira Mardhiyah S.Ked	P	bwibisono@example.com	4	2021	93	176	2006-11-16	12.76
+1014	9	2109400024	Bambang Wasita S.IP	P	gilda.hassanah@example.net	1	2021	91	159	2007-06-01	33.19
+1015	9	2109630025	Nalar Karta Sihotang S.IP	P	danang50@example.net	4	2021	58	158	2005-10-12	31.74
+1016	9	2109600026	Jaiman Marbun	L	ewulandari@example.com	3	2021	65	153	2006-02-15	31.72
+1017	9	2109860027	Zizi Nasyiah	L	nadine.puspita@example.com	3	2021	76	155	2005-10-12	33.20
+1018	9	2109590028	Aisyah Permata	L	hmaryati@example.net	1	2021	81	169	2007-05-16	31.75
+1019	9	2109900029	Cecep Wasita	P	ophelia.mustofa@example.net	3	2021	67	172	2006-10-12	73.07
+1020	9	2109430030	Halima Sari Rahimah	P	nugroho.jelita@example.net	2	2021	64	165	2006-07-15	33.04
+1021	9	2109380031	Devi Kuswandari	L	qwijayanti@example.com	6	2021	93	176	2006-02-16	17.04
+1022	9	2109440032	Aurora Lailasari M.Pd	L	harsana86@example.org	4	2021	93	146	2005-12-09	32.15
+1023	9	2109420033	Tania Titi Astuti	P	uastuti@example.org	2	2021	65	152	2006-12-24	35.79
+1024	9	2109680034	Hadi Ramadan	P	cnamaga@example.com	3	2021	54	161	2006-05-05	62.02
+1025	9	2109350035	Cici Nuraini	L	firmansyah.banawi@example.com	1	2021	62	159	2007-06-13	31.74
+1026	9	2109530036	Kani Wulan Palastri	L	kamal05@example.net	4	2021	46	169	2006-07-16	71.05
+1027	9	2109490037	Prayoga Dongoran	L	suartini.elma@example.com	1	2021	46	160	2005-12-19	33.27
+1028	9	2109140038	Cindy Yolanda	L	palastri.syahrini@example.org	3	2021	76	145	2005-12-17	32.75
+1029	9	2109600039	Darmanto Anggriawan	L	alambana50@example.net	5	2021	60	153	2006-08-08	35.07
+1030	9	2109950040	Lantar Pranowo	L	danu.yuliarti@example.net	5	2021	94	157	2007-08-02	15.01
+1031	9	2109900041	Wasis Napitupulu	L	niyaga06@example.org	4	2021	75	158	2005-10-17	72.03
+1032	9	2109310042	Maya Wulandari	L	icha80@example.com	3	2021	53	164	2006-12-19	32.09
+1033	9	2109910043	Prayogo Simbolon	L	rudi59@example.org	3	2021	66	169	2007-08-30	61.04
+1034	9	2109640044	Galuh Samosir	P	pranowo.estiono@example.net	1	2021	60	163	2007-06-03	31.73
+1035	9	2109440045	Danuja Gantar Thamrin M.Kom.	P	warsita85@example.com	6	2021	82	151	2007-05-08	17.05
+1036	9	2109570046	Suci Riyanti	L	eluh.prayoga@example.com	3	2021	76	167	2006-10-08	33.72
+1037	9	2109760047	Puti Suartini	P	queen.wijaya@example.com	6	2021	82	174	2006-01-10	31.73
+1038	9	2109150048	Genta Hasanah S.IP	L	mala.aryani@example.net	2	2021	80	173	2007-02-09	31.73
+1039	9	2109250049	Ajeng Laksmiwati	L	sudiati.diah@example.com	5	2021	52	169	2007-03-19	33.23
+1040	9	2109220050	Lintang Malika Padmasari M.Kom.	L	akuswoyo@example.org	4	2021	75	146	2006-10-09	33.06
+1041	9	2109420051	Ifa Uyainah	L	ismail92@example.org	1	2021	86	165	2006-07-09	36.71
+1042	9	2109740052	Samiah Hartati	L	wandriani@example.org	6	2021	84	169	2007-07-07	12.76
+1043	9	2109570053	Eli Anggraini	P	violet38@example.org	5	2021	54	150	2006-03-21	33.24
+1044	9	2109200054	Ghaliyati Salwa Safitri	L	jessica36@example.net	6	2021	69	156	2006-05-06	61.04
+1045	9	2109400055	Jasmin Palastri M.Farm	P	haryani@example.org	1	2021	73	177	2006-06-12	31.73
+1046	9	2109340056	Harsaya Mustofa	P	yessi30@example.com	5	2021	70	149	2005-10-25	31.01
+1047	9	2109110057	Anita Halimah S.T.	P	psalahudin@example.com	5	2021	57	158	2007-07-24	33.05
+1048	9	2109750058	Michelle Pertiwi M.Farm	L	lgunarto@example.com	6	2021	85	158	2006-01-14	35.12
+1049	9	2109990059	Titin Puspasari	L	maimunah50@example.org	3	2021	61	158	2006-01-15	35.19
+1050	9	2109950060	Faizah Agustina S.IP	P	asmuni.salahudin@example.com	3	2021	83	150	2006-06-06	75.03
+1051	9	2109920061	Amalia Raina Pudjiastuti	P	faizah15@example.net	3	2021	73	158	2006-06-30	61.01
+1052	9	2109650062	Elisa Humaira Mayasari S.H.	L	samosir.genta@example.net	6	2021	57	161	2006-04-19	73.04
+1053	9	2109140063	Maryanto Suryono	P	farhunnisa22@example.org	5	2021	54	161	2007-06-24	32.16
+1054	9	2109860064	Agus Gandi Siregar M.Farm	L	firmansyah.unjani@example.com	5	2021	67	159	2006-12-22	32.78
+1055	9	2109160065	Joko Saadat Sihotang	P	prasasta.eli@example.net	4	2021	48	159	2006-06-19	32.12
+1056	9	2109150066	Yani Rahmawati	L	raditya36@example.org	3	2021	65	171	2007-04-22	18.05
+1057	9	2109390067	Tirta Laksana Gunarto S.Farm	L	nasab.saputra@example.net	2	2021	92	147	2007-06-01	13.05
+1058	9	2109740068	Farhunnisa Purnawati	L	laksmiwati.joko@example.net	6	2021	49	169	2006-08-25	35.04
+1059	9	2109300069	Violet Usada	P	jail.wulandari@example.org	2	2021	90	178	2006-04-05	63.02
+1060	9	2109320070	Gasti Wahyuni	P	puji.kusumo@example.org	4	2021	88	164	2007-07-27	35.19
+1061	9	2109410071	Marwata Thamrin	L	unarpati@example.com	4	2021	57	173	2007-01-10	31.01
+1062	9	2109180072	Kayla Laksita	L	hasna.puspita@example.com	4	2021	65	153	2006-07-31	15.04
+1063	9	2109930073	Bahuwirya Martana Salahudin	L	warji50@example.org	1	2021	48	176	2006-04-28	32.02
+1064	9	2109360074	Mulyono Suwarno S.IP	P	paris30@example.com	1	2021	79	160	2007-06-06	31.73
+1065	9	2109100075	Bagya Kuncara Rajata S.T.	L	nfirgantoro@example.com	4	2021	94	168	2006-11-20	32.04
+1066	9	2109480076	Putri Janet Hariyah	L	mpudjiastuti@example.org	1	2021	67	169	2006-08-25	36.03
+1067	9	2109230077	Mila Laras Wulandari S.T.	P	dabukke.dian@example.org	2	2021	53	158	2005-10-07	32.05
+1068	9	2109830078	Rama Ardianto	L	rika06@example.com	1	2021	72	153	2007-03-16	31.73
+1069	9	2109520079	Yono Wasis Mansur	L	opermata@example.org	5	2021	55	178	2007-05-23	32.76
+1070	9	2109280080	Ifa Mulyani S.I.Kom	P	almira.andriani@example.com	3	2021	86	147	2005-12-16	32.76
+1071	9	2109620081	Usyi Rahmawati	P	riyanti.yoga@example.net	6	2021	76	170	2006-12-17	31.72
+1072	9	2109890082	Utama Hidayanto S.Pd	P	fhartati@example.com	3	2021	69	169	2006-08-06	31.75
+1073	9	2109350083	Zulfa Pertiwi	L	jindra.novitasari@example.net	1	2021	50	170	2007-03-05	31.75
+1074	9	2109530084	Olivia Salwa Winarsih	P	prabowo.artanto@example.org	1	2021	50	171	2006-07-28	51.01
+1075	9	2109840085	Eli Riyanti	P	kusmawati.lili@example.net	2	2021	58	165	2006-01-04	61.05
+1076	9	2109550086	Asmuni Emin Sihombing M.Pd	P	lhutapea@example.org	5	2021	53	179	2006-04-03	31.75
+1077	9	2109980087	Makuta Kuswoyo	L	qlazuardi@example.com	1	2021	62	160	2005-10-29	32.77
+1078	9	2109120088	Asmianto Ihsan Hutagalung	P	dewi92@example.org	1	2021	85	159	2006-04-16	31.74
+1079	9	2109550089	Respati Prakasa	P	salimah.widiastuti@example.net	6	2021	92	166	2005-11-21	17.04
+1080	9	2109540090	Estiawan Lazuardi	P	qgunarto@example.net	6	2021	77	172	2006-04-17	35.71
+1081	9	2109510091	Surya Salahudin	L	nadia82@example.com	6	2021	55	172	2006-04-14	31.72
+1082	9	2109900092	Timbul Adriansyah	L	hariyah.septi@example.com	1	2021	76	165	2006-01-27	34.03
+1083	9	2109410093	Anastasia Nuraini	P	yuliarti.gawati@example.net	5	2021	95	154	2006-03-08	35.11
+1084	9	2109950094	Melinda Uyainah	L	laksita.ratih@example.net	6	2021	90	166	2006-01-22	33.03
+1085	9	2109680095	Sabar Asmianto Nugroho	P	latupono.dacin@example.com	3	2021	51	164	2006-10-05	35.79
+1086	9	2109920096	Lulut Siregar	L	wtamba@example.org	6	2021	79	174	2007-03-16	32.14
+1087	9	2109730097	Jane Palastri S.Pd	L	garan.thamrin@example.net	2	2021	59	154	2007-02-11	35.74
+1088	9	2109930098	Opung Himawan Damanik	L	pmulyani@example.com	2	2021	53	165	2007-03-14	33.28
+1089	9	2109950099	Hani Gina Palastri S.Gz	P	dutama@example.org	4	2021	59	171	2006-03-23	33.27
+1090	9	2109230100	Kartika Yuni Susanti M.M.	L	icha81@example.com	5	2021	58	156	2006-03-04	35.04
+1091	9	2109220101	Vivi Oktaviani S.Ked	L	nugroho.prayitna@example.com	4	2021	65	166	2006-04-13	61.04
+1092	9	2109660102	Cornelia Anastasia Pertiwi	P	wnarpati@example.net	5	2021	90	172	2006-09-29	17.05
+1093	9	2109400103	Ulya Rahmawati S.E.I	L	unajmudin@example.com	5	2021	69	159	2006-09-26	74.02
+1094	9	2109340104	Praba Firmansyah	L	pranowo.zaenab@example.net	1	2021	48	167	2005-11-30	36.72
+1095	9	2109900105	Salsabila Purnawati	P	iyulianti@example.com	2	2021	81	167	2007-01-09	32.02
+1096	9	2109140106	Kiandra Rahimah	P	poktaviani@example.org	1	2021	54	154	2007-09-09	33.15
+1097	9	2109740107	Dalimin Sihotang	L	zulfa40@example.com	5	2021	63	163	2005-11-02	11.71
+1098	9	2109720108	Rafi Nugraha Sihombing S.T.	L	shakim@example.org	6	2021	53	146	2007-01-10	32.75
+1099	9	2109280109	Rendy Balangga Pratama S.IP	P	mutia06@example.com	6	2021	51	167	2006-07-11	33.73
+1100	9	2109440110	Yunita Rahmi Pudjiastuti	P	azalea.prastuti@example.net	2	2021	89	152	2007-05-29	31.01
+1101	9	2109780111	Dina Sudiati	P	tamba.prasetya@example.org	2	2021	79	163	2005-11-18	35.06
+1102	9	2109440112	Saadat Wibowo	L	chelsea02@example.org	2	2021	74	169	2007-03-02	72.02
+1103	9	2109510113	Samiah Genta Mardhiyah S.Pd	P	hariyah.nugraha@example.org	3	2021	62	175	2007-02-05	32.04
+1104	9	2109730114	Niyaga Suwarno S.E.I	P	pudjiastuti.cakrajiya@example.com	4	2021	57	177	2007-04-11	36.72
+1105	9	2109720115	Tania Yuniar	L	gasti63@example.org	5	2021	50	148	2006-05-30	73.13
+1106	9	2109460116	Latika Jamalia Astuti	L	wastuti.taufan@example.org	6	2021	65	178	2005-12-05	61.01
+1107	9	2109540117	Cahyo Hakim	L	cahyono53@example.com	1	2021	59	159	2006-04-28	36.01
+1108	9	2109450118	Bahuraksa Wasita	P	clara.kuswandari@example.org	1	2021	45	171	2007-05-19	53.01
+1109	9	2109240119	Yuliana Lestari	L	kusumo.endah@example.org	1	2021	48	152	2006-05-20	33.27
+1110	9	2109240120	Lala Aryani	P	malika21@example.net	3	2021	68	158	2005-11-16	32.09
+1111	9	2109830121	Kemal Najmudin	L	imam69@example.org	6	2021	68	147	2007-05-12	72.03
+1112	9	2109300122	Kamaria Melani S.T.	L	xriyanti@example.org	6	2021	76	164	2007-05-21	63.01
+1113	9	2109890123	Unggul Waluyo S.Ked	P	lintang.mayasari@example.com	4	2021	76	147	2007-05-20	31.74
+1114	9	2109850124	Mahfud Hakim	L	galiono81@example.com	2	2021	54	159	2006-01-05	32.77
+1115	9	2109720125	Alika Rahimah M.Kom.	L	zulaika.garang@example.com	5	2021	94	163	2006-04-13	73.13
+1116	9	2109680126	Yuni Tantri Rahayu S.I.Kom	P	hartati.sadina@example.com	4	2021	76	147	2007-07-06	32.01
+1117	9	2109750127	Galak Satya Ardianto M.Pd	L	mitra18@example.org	1	2021	82	159	2006-12-18	32.04
+1118	9	2109200128	Restu Mandasari	P	samosir.elma@example.org	4	2021	91	178	2007-02-24	34.71
+1119	9	2109780129	Panji Tampubolon	L	simon32@example.com	5	2021	83	164	2005-12-08	33.01
+1120	9	2109940130	Agus Samosir	L	jessica40@example.org	1	2021	64	152	2006-10-30	33.72
+1121	9	2109900131	Aurora Zulfa Permata	P	cornelia13@example.com	2	2021	71	165	2005-12-10	31.73
+1122	9	2109660132	Aditya Tirta Pradana S.Pd	P	olivia22@example.org	6	2021	66	156	2007-06-04	32.77
+1123	9	2109370133	Bella Jelita Laksmiwati	L	marbun.ellis@example.org	1	2021	79	180	2007-05-16	34.01
+1124	9	2109930134	Bajragin Habibi S.Gz	P	intan91@example.org	6	2021	77	145	2006-07-03	35.11
+1125	9	2109210135	Ihsan Slamet Pranowo	P	ohalim@example.org	1	2021	90	153	2007-05-31	32.16
+1126	9	2109560136	Fathonah Andriani	L	rika.saptono@example.com	1	2021	60	145	2007-07-16	35.72
+1127	9	2109560137	Sabri Winarno	L	vera.suartini@example.net	2	2021	76	159	2006-11-04	71.02
+1128	9	2109750138	Paris Wulandari	L	budiyanto.opan@example.com	4	2021	54	177	2006-09-22	18.05
+1129	9	2109460139	Raden Putra	P	mprasetya@example.org	1	2021	81	157	2006-09-29	32.77
+1130	9	2109460140	Ella Uyainah	P	ipalastri@example.net	1	2021	72	172	2005-11-02	31.01
+1131	9	2109380141	Bagas Gangsar Sihotang S.I.Kom	P	butami@example.net	1	2021	65	148	2007-09-22	35.75
+1132	9	2109880142	Adiarja Hidayanto S.Kom	P	amelia13@example.com	5	2021	94	177	2005-10-11	31.75
+1133	9	2109780143	Jessica Nasyiah	P	wawan61@example.net	6	2021	76	170	2007-02-17	14.03
+1134	9	2109130144	Raharja Halim	L	malika54@example.net	6	2021	49	158	2006-01-01	51.02
+1135	9	2109200145	Kenari Januar	P	juli18@example.com	3	2021	57	151	2007-06-13	33.08
+1136	9	2109850146	Novi Nurdiyanti	P	wirda.yolanda@example.org	1	2021	66	162	2005-10-29	33.05
+1137	9	2109700147	Farah Uyainah	P	martani28@example.org	4	2021	62	153	2006-11-07	33.01
+1138	9	2109750148	Ophelia Oktaviani	P	talia.mansur@example.org	1	2021	77	171	2007-06-17	33.06
+1139	9	2109630149	Usyi Amelia Nurdiyanti M.Pd	P	tnuraini@example.com	2	2021	58	164	2005-10-19	31.01
+1140	9	2109990150	Halim Setiawan	P	yuliarti.bala@example.com	2	2021	61	148	2007-01-13	34.71
+1141	10	2110210001	Winda Yulia Anggraini S.Sos	L	tiara.natsir@example.net	4	2021	50	154	2006-09-29	34.04
+1142	10	2110230002	Kawaya Cawisadi Sihombing M.Kom.	L	suci.hassanah@example.net	2	2021	70	150	2007-01-19	15.01
+1143	10	2110510003	Ana Shakila Nasyiah	P	faryani@example.org	3	2021	68	169	2007-01-11	31.75
+1144	10	2110900004	Cornelia Handayani	P	gunarto.unjani@example.com	1	2021	58	176	2006-02-07	33.71
+1145	10	2110400005	Padmi Riyanti	P	waskita.caturangga@example.net	2	2021	86	152	2006-06-19	33.21
+1146	10	2110670006	Mursita Habibi M.Ak	P	teguh10@example.org	4	2021	94	153	2006-05-18	52.03
+1147	10	2110140007	Dipa Sirait	P	prayoga.jamil@example.org	4	2021	48	147	2006-07-11	73.04
+1148	10	2110460008	Halima Yuliarti	P	thamrin.nova@example.com	6	2021	58	153	2005-10-22	33.11
+1149	10	2110120009	Humaira Gina Puspasari S.Psi	P	lembah.padmasari@example.net	4	2021	77	145	2007-04-02	32.76
+1150	10	2110430010	Faizah Widya Utami S.H.	P	npuspita@example.net	3	2021	73	168	2006-08-08	64.03
+1151	10	2110530011	Tiara Permata	P	bella05@example.com	1	2021	73	162	2007-01-21	32.76
+1152	10	2110890012	Eka Safitri M.M.	L	dirja46@example.com	3	2021	53	169	2006-10-28	34.03
+1153	10	2110710013	Bella Lestari	P	adikara21@example.org	3	2021	78	146	2006-10-05	35.06
+1154	10	2110400014	Slamet Mansur	L	dandriani@example.net	2	2021	45	165	2007-01-18	32.74
+1155	10	2110780015	Prabu Latupono	P	hairyanto.wastuti@example.org	6	2021	53	168	2006-06-20	31.71
+1156	10	2110990016	Oliva Mayasari	P	lprabowo@example.org	5	2021	87	177	2006-11-05	35.06
+1157	10	2110730017	Sakti Pranowo	P	hesti.wibisono@example.org	6	2021	68	156	2006-07-23	32.09
+1158	10	2110830018	Muni Sihombing	P	rika89@example.net	1	2021	87	180	2005-10-20	74.02
+1159	10	2110900019	Ellis Maida Lailasari	L	jaga.namaga@example.net	3	2021	68	163	2006-03-25	33.02
+1160	10	2110320020	Maryanto Endra Wahyudin	L	yuliarti.harjaya@example.org	6	2021	46	170	2005-11-11	31.75
+1161	10	2110620021	Mala Safitri	L	cemplunk36@example.org	5	2021	90	172	2006-11-17	32.06
+1162	10	2110140022	Widya Usamah S.I.Kom	L	farhunnisa10@example.net	1	2021	60	162	2007-02-25	32.14
+1163	10	2110220023	Umi Namaga	L	samiah.mansur@example.net	2	2021	86	171	2006-02-16	73.13
+1164	10	2110750024	Nova Mandasari	P	karya.wibowo@example.com	4	2021	47	162	2007-06-12	35.76
+1165	10	2110340025	Ika Ilsa Wahyuni	P	ibun38@example.org	4	2021	85	146	2007-08-26	32.15
+1166	10	2110570026	Kuncara Lazuardi	L	rajasa.lili@example.net	5	2021	78	146	2007-01-03	33.13
+1167	10	2110450027	Latika Anggraini M.Kom.	P	rahimah.jelita@example.com	6	2021	70	175	2007-04-02	72.03
+1168	10	2110560028	Cinthia Anggraini	L	eli.firgantoro@example.org	5	2021	58	156	2006-07-03	35.15
+1169	10	2110700029	Tari Zizi Winarsih	P	sabri.irawan@example.net	4	2021	59	167	2007-06-22	14.06
+1170	10	2110620030	Kezia Kiandra Usada M.Kom.	P	elma75@example.org	1	2021	57	178	2006-01-30	32.79
+1171	10	2110350031	Cornelia Pudjiastuti M.Ak	L	bahuwarna.maheswara@example.org	6	2021	83	157	2005-11-14	33.71
+1172	10	2110250032	Salimah Mayasari	P	hassanah.karsana@example.net	3	2021	80	170	2007-08-20	33.15
+1173	10	2110270033	Alambana Cahyanto Gunawan S.Kom	P	bsaefullah@example.net	3	2021	91	161	2006-03-27	32.78
+1174	10	2110430034	Ulya Yuniar	L	michelle.rahimah@example.com	1	2021	45	150	2006-04-04	31.75
+1175	10	2110990035	Ellis Septi Halimah S.Sos	P	wibowo.tiara@example.org	1	2021	47	148	2006-03-09	35.05
+1176	10	2110790036	Jamil Rizki Habibi	L	damanik.ifa@example.net	4	2021	71	175	2007-03-30	64.03
+1177	10	2110190037	Gambira Widodo S.Sos	P	jsetiawan@example.com	6	2021	69	156	2006-07-07	33.12
+1178	10	2110220038	Dian Wulandari S.Psi	L	titin.laksmiwati@example.net	1	2021	84	164	2006-01-10	31.72
+1179	10	2110380039	Jaya Iswahyudi	P	qsinaga@example.org	3	2021	62	147	2006-05-09	31.73
+1180	10	2110880040	Dono Rahman Kuswoyo	L	eli.siregar@example.org	3	2021	83	179	2006-02-01	35.27
+1181	10	2110510041	Taswir Nugroho	L	tira.riyanti@example.net	4	2021	93	156	2007-01-12	62.01
+1182	10	2110440042	Irfan Banara Mansur S.Kom	P	darmaji.melani@example.com	4	2021	48	176	2006-02-07	12.76
+1183	10	2110630043	Septi Hariyah	P	fkuswandari@example.com	2	2021	48	150	2005-12-03	31.01
+1184	10	2110710044	Baktiono Saptono	P	yulianti.tirta@example.com	4	2021	64	151	2006-10-08	32.73
+1185	10	2110600045	Gamanto Mustofa	P	yulia.hutasoit@example.com	2	2021	64	163	2005-12-12	35.74
+1186	10	2110950046	Elma Laras Hartati	L	vnapitupulu@example.com	5	2021	91	175	2006-01-11	35.09
+1187	10	2110290047	Opan Nainggolan	L	mjanuar@example.com	2	2021	73	165	2006-08-04	33.05
+1188	10	2110160048	Najwa Nurdiyanti	P	rriyanti@example.org	5	2021	50	154	2006-10-30	64.07
+1189	10	2110810049	Carla Laksita	P	mangunsong.gaman@example.net	3	2021	57	167	2006-03-23	72.02
+1190	10	2110160050	Ilsa Nasyiah	L	zpertiwi@example.org	5	2021	55	173	2006-06-25	34.03
+1191	10	2110350051	Paiman Mustofa S.Pt	P	purwanti.cinthia@example.com	2	2021	87	159	2007-07-27	53.01
+1192	10	2110230052	Okto Maheswara	L	fpadmasari@example.org	2	2021	66	155	2005-12-08	52.72
+1193	10	2110650053	Ophelia Astuti	L	januar.melinda@example.net	3	2021	57	145	2007-07-15	15.01
+1194	10	2110280054	Teddy Hardiansyah S.Kom	P	hpadmasari@example.org	6	2021	79	154	2007-03-21	31.75
+1195	10	2110660055	Simon Arsipatra Prayoga M.Kom.	P	gmayasari@example.com	2	2021	88	172	2007-07-30	32.13
+1196	10	2110660056	Emong Wahyudin	P	luhung.mardhiyah@example.net	1	2021	49	157	2005-11-02	32.04
+1197	10	2110970057	Faizah Zelaya Riyanti S.Farm	P	hasanah.marsito@example.net	2	2021	65	160	2007-06-02	34.01
+1198	10	2110490058	Gara Jaiman Hardiansyah M.Farm	L	claksita@example.org	6	2021	95	179	2006-08-01	32.18
+1199	10	2110110059	Lintang Prastuti S.IP	L	gsimbolon@example.org	5	2021	78	153	2006-07-24	18.04
+1200	10	2110210060	Cemplunk Jinawi Hidayanto S.T.	L	yuliana42@example.net	6	2021	72	161	2006-12-12	35.74
+1201	10	2110170061	Wirda Hariyah	P	putri.situmorang@example.net	1	2021	59	174	2006-06-10	62.01
+1202	10	2110720062	Prima Saefullah	P	rusman.marbun@example.org	2	2021	87	145	2006-12-08	35.09
+1203	10	2110310063	Vero Bagas Ardianto S.Ked	L	zsihombing@example.net	4	2021	63	162	2007-01-12	34.71
+1204	10	2110780064	Daliman Baktiono Prasasta	P	kamal27@example.org	1	2021	60	146	2005-10-05	14.05
+1205	10	2110800065	Ella Hartati	P	gasti38@example.org	2	2021	77	151	2005-12-02	33.05
+1206	10	2110440066	Padma Palastri S.E.I	P	nasab.prabowo@example.net	5	2021	83	167	2007-03-03	32.13
+1207	10	2110700067	Dina Novitasari	P	ksaptono@example.com	2	2021	61	172	2005-10-08	31.74
+1208	10	2110800068	Jaya Mangunsong S.Pd	L	juli.lestari@example.com	4	2021	74	158	2007-04-28	33.71
+1209	10	2110210069	Kayun Mulya Halim	L	lailasari.emil@example.org	1	2021	54	165	2006-02-19	35.06
+1210	10	2110900070	Elma Yuniar S.I.Kom	L	charyanti@example.org	5	2021	87	156	2007-08-25	33.17
+1211	10	2110460071	Sari Lailasari	P	intan90@example.org	1	2021	84	164	2006-01-30	73.04
+1212	10	2110210072	Lala Wahyuni	P	mulyani.shania@example.org	3	2021	45	169	2006-03-02	17.05
+1213	10	2110110073	Kartika Lintang Sudiati	P	halimah.ani@example.com	2	2021	68	179	2006-04-13	32.73
+1214	10	2110690074	Erik Saptono S.Kom	L	simanjuntak.janet@example.com	4	2021	61	179	2005-11-07	35.22
+1215	10	2110550075	Tirtayasa Irawan	P	iwacana@example.com	5	2021	67	150	2007-08-02	35.28
+1216	10	2110110076	Pranata Samosir	P	hharyanto@example.net	3	2021	46	151	2007-07-27	31.75
+1217	10	2110890077	Taufan Hasan Prasetya S.Pd	P	vicky75@example.com	3	2021	82	154	2007-09-26	35.76
+1218	10	2110800078	Cinthia Farida	L	johan.pranowo@example.net	4	2021	89	149	2007-01-30	33.71
+1219	10	2110770079	Murti Wardaya Mansur	L	harsaya.yolanda@example.net	6	2021	45	151	2007-04-08	35.25
+1220	10	2110690080	Cici Maryati	P	sadina13@example.net	6	2021	85	165	2006-08-15	31.74
+1221	10	2110910081	Genta Melani	P	eka.ramadan@example.org	5	2021	78	155	2006-04-25	32.06
+1222	10	2110470082	Rahmi Padmasari S.Gz	L	ella95@example.com	5	2021	73	163	2006-11-27	33.15
+1223	10	2110180083	Galiono Teddy Pradana	P	wusamah@example.net	5	2021	47	160	2006-09-12	75.03
+1224	10	2110600084	Malika Mayasari	P	puspita.ajeng@example.com	3	2021	71	166	2006-12-18	32.74
+1225	10	2110300085	Ibun Sitompul	L	puspa51@example.com	2	2021	90	159	2005-12-28	33.23
+1226	10	2110530086	Gilda Elisa Yuliarti M.Pd	L	mpadmasari@example.net	2	2021	61	168	2006-12-04	35.15
+1227	10	2110780087	Tantri Nasyidah	P	lsihombing@example.net	4	2021	72	179	2007-05-17	31.72
+1228	10	2110710088	Galuh Eko Hutapea	L	rahayu.rachel@example.net	1	2021	91	178	2006-07-30	11.14
+1229	10	2110760089	Estiono Gunawan	L	jaeman42@example.com	5	2021	59	164	2007-02-27	31.75
+1230	10	2110470090	Michelle Purnawati	P	earyani@example.net	1	2021	70	168	2006-02-26	64.07
+1231	10	2110130091	Lili Uyainah	L	zulaikha76@example.com	1	2021	49	168	2006-10-17	35.27
+1232	10	2110650092	Martani Prabowo	P	ayu44@example.com	5	2021	65	146	2006-03-16	35.21
+1233	10	2110930093	Zulfa Dina Susanti S.Farm	P	cahyanto42@example.org	4	2021	78	151	2006-10-02	33.25
+1234	10	2110970094	Balapati Halim	P	nugroho.anggabaya@example.org	6	2021	73	180	2006-04-02	32.75
+1235	10	2110870095	Kamaria Mardhiyah	L	kenari25@example.org	3	2021	71	164	2007-02-12	31.73
+1236	10	2110440096	Edison Kusuma Kurniawan S.Pt	L	mutia78@example.com	6	2021	67	166	2007-03-14	31.01
+1237	10	2110790097	Warsa Prasetya	L	dhabibi@example.org	3	2021	50	179	2007-03-05	35.28
+1238	10	2110270098	Sadina Yuniar	P	elma.hutagalung@example.org	3	2021	70	166	2006-03-06	31.72
+1239	10	2110580099	Paramita Mayasari S.I.Kom	P	tania.kusumo@example.net	1	2021	53	172	2007-08-04	33.17
+1240	10	2110110100	Bella Lestari	P	cnasyiah@example.com	1	2021	75	152	2006-10-01	36.01
+1241	10	2110860101	Irma Ajeng Halimah	L	yessi00@example.org	6	2021	45	145	2006-02-04	34.01
+1242	10	2110200102	Asirwanda Kambali Prayoga S.Ked	L	csuryono@example.com	6	2021	53	169	2006-08-08	33.14
+1243	10	2110100103	Tira Nurdiyanti S.I.Kom	L	irajasa@example.com	4	2021	72	171	2006-05-01	32.14
+1244	10	2110290104	Surya Balidin Uwais S.Pd	P	mulyani.kezia@example.net	3	2021	72	174	2007-01-25	35.77
+1245	10	2110290105	Ira Tania Nuraini M.Pd	P	dpadmasari@example.net	1	2021	77	173	2006-11-30	63.01
+1246	10	2110470106	Cahyadi Samsul Kusumo M.TI.	L	hidayat.tirtayasa@example.com	2	2021	64	170	2005-11-11	35.15
+1247	10	2110370107	Balamantri Sitorus	L	nurdiyanti.dian@example.org	6	2021	58	171	2006-11-01	32.01
+1248	10	2110910108	Irfan Gilang Mangunsong	P	johan80@example.net	5	2021	48	167	2006-04-16	52.72
+1249	10	2110600109	Purwanto Rafi Wijaya	P	emong49@example.net	3	2021	90	171	2007-05-27	52.71
+1250	10	2110410110	Qori Padmasari	P	syuniar@example.com	5	2021	73	148	2007-08-07	33.15
+1251	10	2110520111	Langgeng Simon Dongoran	L	edison00@example.org	3	2021	87	158	2006-10-25	32.18
+1252	10	2110870112	Icha Sudiati	P	iriana.winarno@example.org	4	2021	84	176	2006-07-06	36.01
+1253	10	2110800113	Padma Zaenab Agustina S.H.	P	bambang89@example.net	2	2021	93	154	2005-12-28	15.01
+1254	10	2110100114	Ade Halima Hassanah	P	bandriani@example.org	3	2021	88	170	2006-10-24	33.16
+1255	10	2110450115	Jaswadi Teguh Maryadi	P	habibi.emin@example.com	2	2021	71	163	2007-09-08	35.12
+1256	10	2110240116	Kacung Saptono M.M.	P	mursinin77@example.net	4	2021	93	151	2006-08-08	35.74
+1257	10	2110950117	Bahuwirya Kurniawan M.Ak	P	mustofa.lidya@example.org	2	2021	48	149	2007-07-04	52.71
+1258	10	2110860118	Asmuni Salahudin	P	qzulkarnain@example.net	6	2021	57	168	2006-06-14	51.03
+1259	10	2110120119	Calista Kusmawati	P	daniswara03@example.com	2	2021	84	160	2007-06-14	17.01
+1260	10	2110990120	Parman Widodo	L	viman57@example.com	2	2021	58	155	2006-06-13	33.15
+1261	11	2111710001	Radit Rajata	P	oktaviani.jaiman@example.org	3	2021	48	168	2006-01-24	52.01
+1262	11	2111490002	Cinthia Kusmawati	L	pradipta.ade@example.net	5	2021	53	164	2006-08-15	32.09
+1263	11	2111790003	Ifa Agustina	L	zulkarnain.tirtayasa@example.net	5	2021	62	147	2006-07-10	35.78
+1264	11	2111710004	Galuh Hidayanto S.E.I	P	vsusanti@example.com	6	2021	91	174	2006-10-13	61.05
+1265	11	2111890005	Gatot Gandi Kurniawan S.Psi	P	usuartini@example.com	5	2021	51	155	2006-03-13	32.16
+1266	11	2111660006	Winda Elma Lailasari	P	emandasari@example.org	5	2021	71	165	2006-11-27	35.29
+1267	11	2111160007	Heru Artawan Maryadi	L	gilang.firmansyah@example.org	1	2021	74	179	2007-08-26	33.04
+1268	11	2111100008	Zulfa Usada	L	violet96@example.org	2	2021	70	165	2006-10-09	12.77
+1269	11	2111500009	Hesti Purwanti	P	samosir.rusman@example.net	1	2021	56	155	2006-06-10	18.05
+1270	11	2111530010	Martaka Setiawan S.Sos	L	nuraini.aisyah@example.net	6	2021	57	167	2007-07-21	31.75
+1271	11	2111990011	Kasiran Thamrin M.Kom.	L	hassanah.ikin@example.com	1	2021	65	166	2005-10-30	32.05
+1272	11	2111320012	Jail Vino Simbolon	L	melinda46@example.com	5	2021	69	163	2006-09-08	33.21
+1273	11	2111450013	Edi Saefullah	L	harto.wahyudin@example.org	6	2021	86	174	2005-10-28	31.72
+1274	11	2111900014	Luthfi Halim	P	eka42@example.net	2	2021	49	166	2005-10-04	64.07
+1275	11	2111640015	Putri Safitri M.Farm	P	kadir41@example.org	2	2021	78	176	2006-05-18	13.07
+1276	11	2111600016	Zalindra Padmasari	L	wsaefullah@example.org	4	2021	84	161	2006-06-14	33.17
+1277	11	2111620017	Cager Uwais	L	dwi77@example.org	4	2021	84	168	2007-04-14	35.09
+1278	11	2111840018	Cahyo Winarno	L	diah.wibisono@example.org	5	2021	89	171	2007-08-23	33.06
+1279	11	2111690019	Ilsa Rachel Handayani	P	pwacana@example.org	4	2021	92	160	2007-05-05	35.04
+1280	11	2111120020	Karsa Januar	P	bahuwarna.latupono@example.org	2	2021	57	153	2006-04-18	12.77
+1281	11	2111690021	Dodo Raden Sitompul	P	violet.sudiati@example.net	3	2021	87	160	2006-07-07	61.04
+1282	11	2111710022	Purwa Putra	P	sabar.mansur@example.net	1	2021	63	173	2006-11-27	32.73
+1283	11	2111100023	Vera Calista Laksita S.Ked	P	tamba.malika@example.net	4	2021	46	163	2006-06-08	65.01
+1284	11	2111720024	Budi Latupono	P	gamblang.putra@example.com	1	2021	94	164	2007-07-14	36.72
+1285	11	2111130025	Lalita Purwanti	L	spalastri@example.com	3	2021	73	174	2006-02-14	17.04
+1286	11	2111290026	Unjani Suryatmi	P	usimanjuntak@example.org	6	2021	50	172	2007-06-23	12.77
+1287	11	2111810027	Dalima Paramita Hariyah S.Pt	P	rina29@example.net	4	2021	77	179	2006-08-12	32.71
+1288	11	2111620028	Irnanto Prasetya	L	wwinarsih@example.net	5	2021	95	151	2006-01-01	31.73
+1289	11	2111510029	Maras Balapati Mustofa	L	purnawati.endah@example.com	2	2021	94	147	2007-09-13	52.72
+1290	11	2111210030	Paramita Jane Novitasari M.Pd	P	narpati.kurnia@example.org	2	2021	50	165	2007-05-27	72.02
+1291	11	2111420031	Rosman Ardianto M.M.	P	rahmawati.cawisadi@example.net	1	2021	85	156	2006-01-29	65.01
+1292	11	2111730032	Raden Dabukke S.Farm	P	aisyah.hutasoit@example.org	1	2021	76	148	2007-06-24	51.01
+1293	11	2111820033	Kurnia Marbun	L	lanang.prasasta@example.org	5	2021	84	159	2006-07-19	33.17
+1294	11	2111950034	Kariman Gaduh Tamba S.Kom	P	saptono.lanjar@example.org	4	2021	70	148	2006-08-19	52.02
+1295	11	2111490035	Kawaya Jefri Natsir	L	rahman.nurdiyanti@example.org	2	2021	58	153	2007-08-16	36.72
+1296	11	2111960036	Kasiran Pranowo	P	oktaviani.maryadi@example.org	3	2021	77	154	2005-11-05	33.19
+1297	11	2111550037	Jayadi Prasetya	L	vega54@example.com	6	2021	64	151	2006-12-08	33.22
+1298	11	2111400038	Qori Mardhiyah	P	intan.waskita@example.net	4	2021	50	154	2006-01-16	35.77
+1299	11	2111690039	Candra Nainggolan	P	pratiwi.hilda@example.com	3	2021	83	179	2007-06-18	72.03
+1300	11	2111120040	Imam Kamidin Kurniawan S.Ked	L	ega18@example.com	2	2021	58	150	2005-11-02	31.71
+1301	11	2111830041	Garda Firmansyah	L	mandala.anastasia@example.com	5	2021	78	162	2007-04-08	31.01
+1302	11	2111720042	Shakila Haryanti	L	kani44@example.com	2	2021	83	151	2005-12-03	32.17
+1303	11	2111670043	Garang Sinaga	L	aurora.narpati@example.com	3	2021	77	150	2006-04-06	52.72
+1304	11	2111680044	Tina Yulianti S.Gz	P	safina57@example.com	4	2021	60	165	2005-11-27	36.72
+1305	11	2111200045	Eva Nurdiyanti S.Sos	P	carub.widodo@example.net	1	2021	64	148	2006-12-13	32.15
+1306	11	2111690046	Emong Pranowo	P	caraka23@example.net	4	2021	89	180	2006-01-14	35.12
+1307	11	2111560047	Putri Hariyah	L	purwa12@example.net	6	2021	55	172	2006-07-14	71.02
+1308	11	2111120048	Jarwa Jais Manullang S.H.	L	setiawan.nilam@example.org	1	2021	51	170	2006-10-16	31.73
+1309	11	2111290049	Alika Salimah Nuraini	P	kayla33@example.org	4	2021	90	153	2007-08-27	18.05
+1310	11	2111530050	Zulfa Purnawati	P	marwata.suwarno@example.net	1	2021	56	146	2007-09-01	64.03
+1311	11	2111540051	Damu Mangunsong M.Farm	P	dhardiansyah@example.com	5	2021	88	160	2006-11-18	31.72
+1312	11	2111430052	Luis Respati Mandala	P	ismail69@example.org	1	2021	75	174	2006-05-12	33.05
+1313	11	2111330053	Ghaliyati Andriani	P	fwibisono@example.com	3	2021	66	147	2007-07-22	31.71
+1314	11	2111620054	Salwa Yessi Yulianti M.M.	L	wastuti.jaeman@example.org	2	2021	83	177	2006-06-26	32.06
+1315	11	2111730055	Gandewa Cengkir Wibowo S.Psi	L	luluh.maulana@example.net	1	2021	84	148	2006-01-02	31.73
+1316	11	2111800056	Tami Karen Sudiati S.Ked	L	nwidodo@example.org	5	2021	48	175	2006-10-13	34.04
+1317	11	2111980057	Puput Dian Usada	P	yulianti.aisyah@example.com	3	2021	78	156	2007-03-06	62.04
+1318	11	2111510058	Latika Purnawati M.Kom.	L	nabila.permadi@example.net	2	2021	86	159	2007-08-24	36.72
+1319	11	2111400059	Paulin Hartati	L	ulya28@example.org	3	2021	79	178	2007-03-07	34.71
+1320	11	2111990060	Rangga Saputra S.Ked	P	kmanullang@example.com	3	2021	72	149	2006-09-21	18.05
+1321	11	2111650061	Dono Suryono	L	sarah08@example.net	3	2021	50	145	2007-05-14	63.02
+1322	11	2111730062	Karman Maheswara	P	cayadi.tampubolon@example.com	2	2021	59	169	2006-09-03	64.03
+1323	11	2111570063	Lasmono Gunawan	P	novitasari.nurul@example.net	2	2021	93	147	2006-03-14	33.07
+1324	11	2111900064	Nadia Hartati	P	bambang.yulianti@example.net	5	2021	80	173	2006-06-04	35.27
+1325	11	2111160065	Lanjar Simbolon	L	pangestu.tomi@example.net	4	2021	80	176	2006-02-14	17.05
+1326	11	2111720066	Yessi Hastuti	L	halimah.balijan@example.net	2	2021	86	148	2006-11-10	12.76
+1327	11	2111450067	Digdaya Haryanto	P	dian.hastuti@example.com	6	2021	60	172	2006-08-22	35.22
+1328	11	2111980068	Teguh Maryanto Napitupulu	L	budiman.paiman@example.com	2	2021	77	165	2006-08-13	32.73
+1329	11	2111570069	Gantar Siregar S.Pt	P	tsitompul@example.net	1	2021	63	179	2005-12-05	73.13
+1330	11	2111940070	Restu Lestari	P	taufan43@example.com	4	2021	72	155	2007-06-05	33.03
+1331	11	2111340071	Hesti Puspasari	P	harjasa37@example.org	3	2021	81	163	2007-06-08	13.05
+1332	11	2111680072	Dacin Putra	P	jutama@example.org	4	2021	64	179	2006-12-10	31.74
+1333	11	2111590073	Artawan Marpaung	L	uchita06@example.org	5	2021	45	177	2007-07-21	63.03
+1334	11	2111290074	Qori Oni Suryatmi S.Farm	L	nadia.wahyuni@example.com	4	2021	89	165	2006-06-03	35.28
+1335	11	2111400075	Cayadi Jumadi Thamrin	P	maulana.gasti@example.net	4	2021	55	164	2006-12-10	33.13
+1336	11	2111820076	Baktiadi Sinaga S.E.I	P	qori.saragih@example.org	3	2021	47	174	2006-12-22	35.04
+1337	11	2111890077	Atma Rajasa	P	snashiruddin@example.com	6	2021	58	180	2005-11-15	35.05
+1338	11	2111130078	Umar Suryono S.Sos	P	ophelia92@example.org	6	2021	55	152	2006-10-15	34.71
+1339	11	2111500079	Yance Hasanah S.Pd	L	mila.nugroho@example.org	5	2021	62	161	2007-08-31	36.72
+1340	11	2111930080	Kacung Widodo	P	laksita.ilyas@example.net	6	2021	69	162	2006-10-13	35.28
+1341	11	2111980081	Kemba Suryono	P	farah23@example.org	3	2021	87	174	2007-07-27	33.72
+1342	11	2111990082	Purwa Darimin Simanjuntak S.Psi	L	bbudiyanto@example.org	6	2021	79	178	2007-02-27	64.03
+1343	11	2111680083	Ikhsan Wasita	P	salman79@example.com	5	2021	92	168	2006-09-20	33.07
+1344	11	2111590084	Gina Febi Utami S.E.	P	randriani@example.com	4	2021	48	152	2007-07-05	61.01
+1345	11	2111140085	Ifa Usamah	L	raisa39@example.net	4	2021	71	180	2006-04-06	35.25
+1346	11	2111980086	Teguh Latupono	P	kamaria.nurdiyanti@example.net	6	2021	56	151	2006-05-17	35.15
+1347	11	2111950087	Liman Hutapea S.Psi	L	cinthia24@example.com	6	2021	49	148	2006-08-07	51.02
+1348	11	2111130088	Fitriani Mandasari	L	rdabukke@example.com	6	2021	46	170	2006-10-26	32.12
+1349	11	2111240089	Cayadi Tamba S.Pd	P	maimunah45@example.net	3	2021	72	156	2007-08-28	33.16
+1350	11	2111320090	Drajat Narji Maryadi M.M.	L	ayu.nainggolan@example.net	2	2021	51	168	2005-11-04	33.04
+1351	12	2112450001	Rahmi Haryanti	L	citra07@example.org	6	2021	75	179	2007-07-05	33.71
+1352	12	2112900002	Wani Aryani	P	zagustina@example.org	5	2021	93	170	2006-09-16	32.03
+1353	12	2112970003	Lalita Laksita	P	elvina.lazuardi@example.com	2	2021	53	172	2007-06-19	71.05
+1354	12	2112180004	Gatra Haryanto	L	cwijayanti@example.org	5	2021	66	155	2006-08-05	32.71
+1355	12	2112420005	Fathonah Malika Pratiwi S.H.	L	sirait.gara@example.com	1	2021	82	150	2005-09-30	33.19
+1356	12	2112280006	Jono Prasetya S.IP	L	liswahyudi@example.net	3	2021	54	177	2006-09-02	32.71
+1357	12	2112720007	Intan Suryatmi	L	banawa45@example.net	1	2021	50	180	2006-05-12	34.04
+1358	12	2112890008	Nyana Wacana	P	nurul61@example.org	3	2021	53	169	2006-04-30	36.71
+1359	12	2112160009	Adhiarja Gunawan	P	hartati.oskar@example.com	1	2021	53	163	2006-05-21	31.71
+1360	12	2112880010	Ghaliyati Kartika Uyainah	L	padmasari.martaka@example.org	1	2021	92	160	2006-05-27	12.77
+1361	12	2112890011	Parman Sitorus	P	fathonah29@example.com	4	2021	46	165	2007-02-17	33.06
+1362	12	2112930012	Usyi Aryani	L	baktiono94@example.org	4	2021	46	179	2007-08-19	13.04
+1363	12	2112630013	Queen Clara Lestari	L	hamima70@example.org	2	2021	66	159	2005-11-14	32.73
+1364	12	2112720014	Irwan Sirait	P	usuartini@example.net	4	2021	52	160	2007-02-08	35.20
+1365	12	2112810015	Tasnim Halim	L	habibi.icha@example.net	4	2021	73	165	2006-05-02	35.78
+1366	12	2112780016	Gina Nasyiah	L	wrahimah@example.com	1	2021	95	171	2007-03-10	36.01
+1367	12	2112350017	Anastasia Qori Halimah S.Psi	L	ira.suartini@example.net	1	2021	46	154	2006-03-08	35.04
+1368	12	2112450018	Kambali Mustofa S.Ked	L	zelda.anggraini@example.com	3	2021	84	166	2006-07-08	31.72
+1369	12	2112700019	Samiah Nasyiah	P	vino.budiyanto@example.org	3	2021	68	178	2006-01-03	35.11
+1370	12	2112130020	Syahrini Lailasari	L	nwibisono@example.org	4	2021	73	153	2006-04-04	32.02
+1371	12	2112950021	Maryadi Pranowo	L	samiah.laksmiwati@example.org	2	2021	56	151	2006-04-09	36.71
+1372	12	2112990022	Latika Padmasari	L	xmaulana@example.com	4	2021	84	179	2007-08-17	31.72
+1373	12	2112990023	Septi Betania Melani S.Ked	L	kusmawati.rina@example.com	2	2021	53	175	2006-10-11	31.71
+1374	12	2112310024	Gadang Situmorang S.Ked	P	elestari@example.net	6	2021	71	178	2007-03-28	32.16
+1375	12	2112960025	Hana Wastuti S.Farm	P	nurdiyanti.indah@example.com	3	2021	62	147	2006-05-19	35.20
+1376	12	2112810026	Pangestu Prasasta	L	nashiruddin.jamal@example.com	2	2021	93	163	2007-08-16	32.12
+1377	12	2112760027	Lukita Lamar Siregar	P	zprasasta@example.net	4	2021	66	173	2006-05-09	31.74
+1378	12	2112350028	Yance Melani S.I.Kom	P	prasetya.dono@example.org	3	2021	76	156	2007-04-03	33.15
+1379	12	2112810029	Raina Nova Padmasari	L	irawan.dinda@example.com	6	2021	50	146	2006-09-18	71.05
+1380	12	2112780030	Parman Irawan M.Ak	P	yrahayu@example.net	5	2021	68	151	2007-02-01	71.07
+1381	13	2113230001	Rahmat Setiawan	P	pratiwi.bahuwarna@example.org	1	2021	76	163	2007-02-05	35.10
+1382	13	2113880002	Tina Ida Wulandari	L	paulin.wibisono@example.net	5	2021	86	148	2006-12-28	31.75
+1383	13	2113820003	Eva Hafshah Wastuti S.I.Kom	P	dalima.sihombing@example.com	3	2021	69	165	2006-01-01	32.14
+1384	13	2113540004	Lili Nasyiah	P	uhutapea@example.net	3	2021	50	145	2005-10-28	73.07
+1385	13	2113420005	Hamima Pudjiastuti	L	ebudiman@example.net	6	2021	82	145	2006-09-13	33.73
+1386	13	2113750006	Cawuk Adriansyah S.T.	L	siregar.imam@example.com	1	2021	58	156	2005-12-17	35.14
+1387	13	2113910007	Karman Cakrajiya Nababan S.Sos	P	dono.tampubolon@example.com	2	2021	54	175	2006-03-07	11.71
+1388	13	2113860008	Maya Jane Mardhiyah	P	saadat.tarihoran@example.net	6	2021	69	173	2006-01-05	72.02
+1389	13	2113290009	Cawisadi Darman Pratama S.E.	P	mwijayanti@example.com	1	2021	82	168	2007-05-18	34.02
+1390	13	2113580010	Daru Kusumo	P	harjasa.halimah@example.org	6	2021	59	165	2006-10-04	74.04
+1391	13	2113250011	Jessica Maryati	L	nova.nuraini@example.com	5	2021	92	171	2006-12-18	32.12
+1392	13	2113180012	Halima Nurdiyanti	P	salahudin.ida@example.net	1	2021	56	169	2007-01-20	31.71
+1393	13	2113380013	Olivia Haryanti	P	raden.wibowo@example.net	2	2021	46	157	2007-04-16	35.77
+1394	13	2113700014	Julia Pudjiastuti	L	damar35@example.org	5	2021	80	162	2006-06-14	17.01
+1395	13	2113280015	Paris Halimah	L	nuraini.ghaliyati@example.net	3	2021	45	178	2007-02-01	11.71
+1396	13	2113200016	Jaiman Nrima Latupono	P	raditya91@example.net	1	2021	93	159	2007-04-02	33.72
+1397	13	2113210017	Shakila Aryani S.IP	P	puspasari.banawa@example.org	3	2021	55	173	2006-11-04	35.72
+1398	13	2113140018	Kala Budiyanto	P	wasita.cici@example.com	2	2021	93	145	2007-01-29	15.01
+1399	13	2113400019	Irsad Sabri Winarno M.Farm	L	winda.rahimah@example.net	1	2021	82	151	2005-10-06	35.71
+1400	13	2113270020	Zelda Purwanti S.Gz	L	pwijaya@example.net	6	2021	61	163	2006-12-08	11.71
+1401	13	2113100021	Shakila Karimah Hassanah	L	winarno.icha@example.com	3	2021	77	169	2006-06-14	32.77
+1402	13	2113990022	Taufan Sirait M.TI.	P	pardi.waskita@example.net	6	2021	48	162	2007-06-29	32.15
+1403	13	2113710023	Cindy Eka Namaga S.Pd	P	mala01@example.com	1	2021	90	145	2006-06-12	74.02
+1404	13	2113290024	Patricia Utami	P	spranowo@example.net	5	2021	55	159	2007-09-04	33.26
+1405	13	2113470025	Kamaria Yuliarti	L	kasusra74@example.net	4	2021	78	166	2006-12-24	71.05
+1406	13	2113140026	Padma Haryanti	P	cagustina@example.net	6	2021	72	167	2007-04-20	35.21
+1407	13	2113430027	Raina Natalia Usamah	L	galur79@example.org	4	2021	57	149	2006-06-27	13.07
+1408	13	2113430028	Shakila Hana Suartini	P	prahmawati@example.org	1	2021	79	158	2005-12-04	35.05
+1409	13	2113660029	Zaenab Andriani	L	ciaobella20@example.org	2	2021	67	151	2007-01-30	31.72
+1410	13	2113900030	Chelsea Victoria Wulandari M.Ak	L	endah.suartini@example.org	3	2021	48	166	2006-05-06	63.03
+1411	13	2113370031	Warsita Mahfud Siregar	L	gunawan.nilam@example.net	6	2021	67	146	2007-04-30	52.72
+1412	13	2113350032	Estiono Cahyadi Samosir	L	qsuryatmi@example.net	3	2021	79	157	2007-03-01	31.72
+1413	13	2113340033	Ibrani Karya Utama	L	dalima.hariyah@example.net	5	2021	91	168	2006-12-30	33.75
+1414	13	2113790034	Emas Sihombing S.T.	L	xmayasari@example.com	4	2021	67	150	2007-05-04	32.05
+1415	13	2113950035	Martana Saputra	P	aryani.nilam@example.org	3	2021	45	176	2007-08-25	32.01
+1416	13	2113300036	Ajeng Purwanti M.Farm	L	rahmi88@example.net	3	2021	64	173	2007-04-06	31.71
+1417	13	2113130037	Amalia Prastuti	P	isaefullah@example.net	3	2021	88	169	2007-02-19	31.74
+1418	13	2113590038	Paris Anggraini S.Pd	P	aisyah25@example.org	4	2021	49	178	2007-05-03	34.03
+1419	13	2113380039	Elvina Mayasari	L	mujur.damanik@example.net	3	2021	93	171	2006-12-20	32.74
+1420	13	2113320040	Jarwadi Firmansyah	L	bakiadi.kuswoyo@example.org	5	2021	83	163	2007-07-15	32.08
+1421	13	2113860041	Adiarja Samosir S.E.I	P	astuti.harto@example.com	3	2021	50	155	2006-05-05	52.72
+1422	13	2113960042	Cakrawangsa Adriansyah	P	yaryani@example.net	6	2021	73	146	2006-09-17	15.04
+1423	13	2113810043	Febi Samiah Mardhiyah S.Kom	P	awijaya@example.net	2	2021	70	156	2006-01-07	35.24
+1424	13	2113910044	Rahayu Hassanah	P	hpratiwi@example.com	2	2021	90	149	2006-12-04	35.22
+1425	13	2113280045	Gandi Marpaung	L	xmelani@example.org	1	2021	58	158	2007-09-08	32.17
+1426	13	2113120046	Paulin Utami	L	qrajasa@example.com	4	2021	89	151	2006-04-25	62.04
+1427	13	2113580047	Eko Kasusra Sirait	P	zirawan@example.com	6	2021	88	148	2007-02-02	32.09
+1428	13	2113340048	Digdaya Nugroho	L	yuliana89@example.com	3	2021	61	161	2005-11-06	18.05
+1429	13	2113570049	Yessi Yuliana Andriani	P	iswahyudi.dagel@example.net	5	2021	49	150	2006-08-08	31.71
+1430	13	2113220050	Lalita Nasyidah	P	fwaskita@example.com	1	2021	68	157	2006-11-30	51.01
+1431	13	2113230051	Tomi Irawan	L	maman99@example.net	4	2021	66	165	2006-03-06	31.73
+1432	13	2113790052	Tiara Vicky Haryanti M.TI.	P	uuyainah@example.com	1	2021	68	162	2007-08-13	52.03
+1433	13	2113730053	Elma Laksita S.I.Kom	P	kadir67@example.com	4	2021	68	171	2006-05-30	35.77
+1434	13	2113960054	Bagiya Saptono	L	latupono.jasmin@example.com	4	2021	68	162	2007-05-22	32.15
+1435	13	2113650055	Septi Permata	P	olivia.haryanti@example.org	6	2021	68	160	2005-10-21	35.12
+1436	13	2113800056	Siska Pertiwi	L	lwahyuni@example.net	2	2021	76	167	2006-11-08	12.77
+1437	13	2113450057	Victoria Aryani	P	zlatupono@example.org	5	2021	65	169	2006-03-25	31.73
+1438	13	2113940058	Jarwi Kanda Hutasoit S.Farm	L	nharyanto@example.net	1	2021	62	178	2007-07-18	31.72
+1439	13	2113700059	Harja Suwarno	P	irnanto.haryanti@example.org	5	2021	45	170	2005-11-27	35.72
+1440	13	2113630060	Zelda Pratiwi S.E.	P	thamrin.alika@example.org	1	2021	52	162	2006-09-24	61.04
+1441	14	2114150001	Cawisadi Napitupulu	L	halimah.wasis@example.net	5	2021	61	169	2006-05-21	33.16
+1442	14	2114670002	Panca Irawan	P	chelsea.usada@example.com	6	2021	63	172	2006-07-17	53.01
+1443	14	2114650003	Raina Agustina	P	jhalimah@example.com	4	2021	45	177	2007-02-01	11.14
+1444	14	2114650004	Balidin Hidayat	P	saragih.pia@example.com	5	2021	47	159	2007-02-28	32.08
+1445	14	2114630005	Clara Putri Zulaika	L	mujur.puspita@example.net	6	2021	53	160	2005-10-22	35.05
+1446	14	2114400006	Asmuni Sihombing	P	gandewa.padmasari@example.org	2	2021	72	167	2007-02-28	33.71
+1447	14	2114220007	Salwa Belinda Susanti S.T.	P	enteng.pratiwi@example.net	1	2021	47	171	2007-07-14	32.04
+1448	14	2114430008	Kiandra Ayu Halimah	L	rsuryatmi@example.net	6	2021	91	152	2006-09-03	53.05
+1449	14	2114280009	Narji Pranowo	P	uchita.nuraini@example.com	1	2021	54	146	2007-02-14	31.71
+1450	14	2114930010	Panji Budiman S.Ked	L	mfujiati@example.com	1	2021	94	145	2006-11-04	31.75
+1451	14	2114700011	Jono Purwa Hidayat S.Farm	P	dian83@example.net	5	2021	55	173	2006-01-09	32.11
+1452	14	2114830012	Vanesa Pratiwi S.Kom	P	marbun.limar@example.net	5	2021	52	169	2006-09-09	33.71
+1453	14	2114950013	Maya Nasyidah	L	juli.kurniawan@example.com	3	2021	59	150	2007-05-04	35.24
+1454	14	2114630014	Asman Najmudin	P	utami.bajragin@example.com	4	2021	58	170	2006-03-29	62.02
+1455	14	2114840015	Cornelia Jamalia Kusmawati S.E.I	P	elma73@example.net	3	2021	46	175	2005-12-24	53.05
+1456	14	2114430016	Hana Carla Halimah S.I.Kom	L	uchita.kurniawan@example.com	5	2021	77	147	2007-03-31	32.18
+1457	14	2114580017	Ophelia Nurdiyanti	P	kalim84@example.net	3	2021	93	160	2006-05-06	33.20
+1458	14	2114260018	Farhunnisa Tantri Zulaika S.Farm	L	oliva.melani@example.org	5	2021	53	161	2006-12-30	34.04
+1459	14	2114530019	Melinda Mardhiyah M.M.	L	rahayu77@example.org	4	2021	83	158	2006-09-10	17.01
+1460	14	2114580020	Dimaz Pangestu S.Farm	L	jrahimah@example.org	3	2021	49	158	2007-08-17	31.73
+1461	14	2114240021	Paramita Malika Melani	L	yulianti.pandu@example.org	6	2021	58	152	2005-10-22	32.76
+1462	14	2114630022	Baktiadi Irawan S.E.I	L	puspita.padmi@example.org	1	2021	76	175	2006-09-18	33.71
+1463	14	2114390023	Kasiyah Uyainah	L	sadina.wibisono@example.org	3	2021	68	160	2006-08-07	33.23
+1464	14	2114920024	Opan Hutapea S.Gz	L	alaksmiwati@example.com	3	2021	91	166	2006-04-11	32.04
+1465	14	2114290025	Gilda Hastuti	P	tania03@example.net	5	2021	47	166	2006-09-21	33.73
+1466	14	2114700026	Bala Waskita	L	hassanah.cemeti@example.com	5	2021	58	168	2006-11-22	33.29
+1467	14	2114270027	Limar Manullang S.Ked	L	latupono.daliman@example.com	4	2021	89	147	2006-05-15	71.02
+1468	14	2114110028	Nadia Diah Kuswandari S.IP	L	eman.hartati@example.org	2	2021	57	149	2006-12-12	71.07
+1469	14	2114650029	Salsabila Siti Suartini	L	epurwanti@example.com	4	2021	83	155	2006-07-24	32.14
+1470	14	2114710030	Rahmi Laksita	P	widya.mandala@example.net	5	2021	77	148	2005-11-06	35.15
+1471	14	2114340031	Arsipatra Wahyudin M.Farm	L	widodo.murti@example.net	4	2021	86	179	2007-04-24	32.08
+1472	14	2114490032	Raharja Prasetyo S.Farm	P	zulaika.padma@example.org	4	2021	68	167	2005-10-04	65.01
+1473	14	2114710033	Aurora Yuliana Nasyidah	P	mayasari.mariadi@example.org	6	2021	66	167	2005-11-13	32.79
+1474	14	2114220034	Rudi Prayoga	L	hwahyuni@example.net	1	2021	94	163	2005-11-20	18.04
+1475	14	2114630035	Salman Damanik	L	samosir.legawa@example.org	1	2021	88	161	2007-06-16	33.14
+1476	14	2114900036	Cici Padmasari	P	cthamrin@example.net	2	2021	86	174	2007-07-02	35.27
+1477	14	2114220037	Nilam Fujiati M.Farm	P	umaryadi@example.org	6	2021	63	177	2006-04-25	34.04
+1478	14	2114130038	Bella Susanti	P	satya.sitorus@example.org	1	2021	79	168	2006-04-03	63.02
+1479	14	2114710039	Kamila Wastuti	P	warji.wasita@example.com	6	2021	56	167	2006-01-30	33.18
+1480	14	2114140040	Jati Cemani Nababan S.Psi	L	karen26@example.com	5	2021	68	165	2006-12-29	32.77
+1481	14	2114240041	Kariman Mustofa	P	tania70@example.net	1	2021	59	173	2007-01-27	71.07
+1482	14	2114860042	Iriana Halimah	P	firmansyah.wawan@example.org	2	2021	45	147	2007-01-20	12.76
+1483	14	2114700043	Mursinin Lukita Tarihoran	L	indra11@example.org	4	2021	75	179	2006-03-02	33.23
+1484	14	2114170044	Luthfi Ikhsan Budiman S.Pt	P	samosir.maida@example.com	3	2021	91	163	2007-01-18	32.79
+1485	14	2114730045	Muhammad Gadang Mangunsong	L	elisa.palastri@example.net	1	2021	73	176	2006-02-18	35.28
+1486	14	2114170046	Dwi Wasita M.Ak	P	uprakasa@example.net	5	2021	51	150	2006-01-31	36.72
+1487	14	2114750047	Dalima Aurora Mayasari	L	asimanjuntak@example.org	5	2021	47	180	2006-05-04	35.72
+1488	14	2114710048	Oliva Puspita	P	fitriani.rahmawati@example.com	2	2021	64	177	2006-10-08	13.04
+1489	14	2114850049	Ifa Laras Nasyidah	P	padmasari.warta@example.com	4	2021	78	152	2005-12-17	33.16
+1490	14	2114930050	Warsita Jati Haryanto	P	tari.pudjiastuti@example.com	5	2021	63	151	2007-05-25	32.08
+1491	14	2114920051	Banawi Pranowo	P	cnurdiyanti@example.com	3	2021	51	170	2007-01-10	35.21
+1492	14	2114820052	Ciaobella Devi Riyanti S.E.	P	lyuliarti@example.org	2	2021	66	148	2006-01-28	33.18
+1493	14	2114290053	Oliva Usamah	L	purwa.padmasari@example.net	2	2021	91	168	2007-02-13	32.72
+1494	14	2114950054	Tari Talia Hariyah S.H.	P	anggriawan.viktor@example.org	4	2021	66	153	2005-10-16	17.05
+1495	14	2114870055	Iriana Hafshah Safitri S.Gz	L	qwidiastuti@example.net	5	2021	55	158	2006-05-13	33.20
+1496	14	2114270056	Manah Zulkarnain S.E.	L	yuliarti.shania@example.com	3	2021	50	157	2006-06-24	61.01
+1497	14	2114560057	Eko Sabri Dabukke S.IP	P	napitupulu.viktor@example.org	4	2021	62	163	2007-04-25	71.07
+1498	14	2114420058	Elvin Santoso	P	yolanda.karsana@example.com	4	2021	89	156	2006-04-18	32.74
+1499	14	2114530059	Nyana Kuswoyo	L	wahyu38@example.com	6	2021	80	151	2006-10-13	36.03
+1500	14	2114620060	Warsa Agus Natsir S.IP	L	murti.hassanah@example.net	6	2021	51	178	2006-02-15	31.73
+1501	14	2114260061	Suci Aryani	P	maryanto57@example.com	4	2021	55	179	2006-09-08	35.10
+1502	14	2114160062	Septi Wijayanti	P	puspita.anita@example.org	5	2021	45	158	2006-02-21	32.06
+1503	14	2114710063	Zizi Nasyidah M.Kom.	L	pia.suryono@example.org	6	2021	54	149	2006-11-05	33.28
+1504	14	2114960064	Jagaraga Januar	L	pertiwi.usman@example.net	5	2021	59	171	2006-12-19	35.28
+1505	14	2114560065	Daliman Pradana	P	winda.natsir@example.com	5	2021	74	177	2006-05-23	32.73
+1506	14	2114260066	Dadi Firgantoro	L	handayani.gasti@example.org	3	2021	81	146	2006-02-13	32.12
+1507	14	2114610067	Maryanto Pangestu	L	suartini.raina@example.com	5	2021	77	148	2005-11-03	35.19
+1508	14	2114660068	Dadi Wira Pangestu S.E.I	L	januar.silvia@example.net	3	2021	62	150	2007-09-04	31.72
+1509	14	2114440069	Nadia Karimah Palastri S.T.	L	samosir.luwes@example.org	2	2021	79	162	2006-07-30	31.72
+1510	14	2114230070	Lidya Ina Oktaviani S.T.	P	mahdi.halimah@example.net	3	2021	83	172	2006-01-17	13.05
+1511	14	2114710071	Sarah Yuliarti	P	lsudiati@example.net	4	2021	72	155	2006-06-23	32.17
+1512	14	2114990072	Jamalia Handayani	P	jessica55@example.org	3	2021	81	172	2006-12-17	64.07
+1513	14	2114940073	Bambang Jindra Wijaya S.Psi	L	wijaya.koko@example.org	3	2021	80	176	2006-03-02	35.75
+1514	14	2114950074	Martani Adriansyah	P	xprasetyo@example.org	1	2021	50	145	2006-12-20	31.75
+1515	14	2114160075	Irsad Napitupulu	P	yosef.utami@example.net	6	2021	78	171	2006-11-11	11.14
+1516	14	2114150076	Ratih Utami S.Pt	L	thamrin.darmaji@example.com	4	2021	78	164	2007-03-08	35.79
+1517	14	2114900077	Raina Puspasari	L	patricia94@example.org	4	2021	79	163	2006-06-09	35.20
+1518	14	2114750078	Mutia Widiastuti	L	teguh.nurdiyanti@example.org	1	2021	76	149	2007-08-25	35.21
+1519	14	2114840079	Eja Adriansyah	P	osuryatmi@example.net	2	2021	88	162	2007-07-16	32.15
+1520	14	2114170080	Gamblang Balapati Hutagalung S.Pd	L	gantar25@example.org	5	2021	65	165	2006-04-24	33.23
+1521	14	2114170081	Aisyah Andriani	P	jasmin.wastuti@example.net	4	2021	93	159	2007-06-05	33.26
+1522	14	2114530082	Prabawa Jaya Rajasa S.Pd	P	tmaryadi@example.org	6	2021	68	180	2006-04-10	72.03
+1523	14	2114330083	Silvia Winarsih	P	kusmawati.galak@example.net	6	2021	62	173	2007-01-02	33.18
+1524	14	2114530084	Rama Jail Kuswoyo S.Gz	P	karsana.najmudin@example.net	6	2021	93	149	2006-09-23	72.03
+1525	14	2114590085	Parman Ramadan	P	kuswoyo.langgeng@example.com	4	2021	48	158	2006-04-11	31.75
+1526	14	2114640086	Heru Latupono	P	mardhiyah.hana@example.net	2	2021	78	145	2006-08-21	52.03
+1527	14	2114220087	Talia Riyanti	P	nilam06@example.net	6	2021	90	155	2006-02-10	32.04
+1528	14	2114910088	Vicky Haryanti	L	fitriani.mandasari@example.org	4	2021	47	159	2006-01-12	31.75
+1529	14	2114150089	Tami Pudjiastuti M.Ak	L	ami02@example.org	2	2021	84	170	2005-11-16	74.02
+1530	14	2114190090	Patricia Lestari	L	juli.permadi@example.com	1	2021	62	151	2006-12-18	73.04
+1531	14	2114840091	Tania Oktaviani	L	drajat.prastuti@example.org	4	2021	65	156	2007-07-11	33.17
+1532	14	2114770092	Ikin Sirait	P	mila61@example.org	4	2021	62	159	2007-08-20	35.78
+1533	14	2114960093	Lalita Laksmiwati M.TI.	P	daruna40@example.org	4	2021	50	148	2006-10-16	31.73
+1534	14	2114390094	Galang Pradipta	L	satya.prayoga@example.org	1	2021	68	175	2006-04-14	11.71
+1535	14	2114960095	Dirja Pranowo	L	hasanah.jamalia@example.com	4	2021	50	156	2007-03-06	33.28
+1536	14	2114800096	Ajeng Shakila Fujiati S.E.	L	uchita56@example.net	6	2021	77	178	2005-10-17	33.29
+1537	14	2114190097	Salsabila Sudiati	L	kasiyah.mandasari@example.org	5	2021	58	168	2006-06-19	31.75
+1538	14	2114630098	Halima Oktaviani	L	hendri.fujiati@example.com	3	2021	80	166	2006-04-16	31.01
+1539	14	2114970099	Farhunnisa Raina Hasanah S.Pd	P	maya53@example.org	4	2021	93	150	2007-06-08	35.07
+1540	14	2114880100	Gangsar Waskita S.Sos	L	putra.reksa@example.net	4	2021	50	153	2005-12-09	12.77
+1541	14	2114610101	Artanto Widodo S.Ked	P	ana.pratiwi@example.com	1	2021	56	162	2007-02-26	14.06
+1542	14	2114180102	Nugraha Lazuardi	L	atma78@example.net	6	2021	65	180	2006-04-15	32.16
+1543	14	2114540103	Ega Mahendra	L	mmandasari@example.com	5	2021	68	163	2006-08-27	33.05
+1544	14	2114340104	Surya Sihombing S.T.	L	kania.kuswandari@example.com	4	2021	62	163	2006-11-25	15.01
+1545	14	2114260105	Ikin Saefullah	P	budi92@example.net	6	2021	45	168	2007-03-04	32.04
+1546	14	2114380106	Zalindra Mulyani S.H.	P	vicky05@example.net	1	2021	58	177	2007-02-19	75.01
+1547	14	2114830107	Oni Mardhiyah M.Ak	P	xpurnawati@example.com	1	2021	78	159	2007-07-09	36.72
+1548	14	2114490108	Mursita Maryadi	P	usamosir@example.org	3	2021	82	177	2006-04-17	32.73
+1549	14	2114530109	Syahrini Yulia Novitasari S.Kom	P	puput.pradipta@example.net	6	2021	89	177	2006-12-10	62.01
+1550	14	2114470110	Mitra Edward Sitorus	P	lidya.pertiwi@example.com	4	2021	54	173	2007-09-23	12.76
+1551	14	2114910111	Eka Kambali Winarno	L	pratama.halima@example.com	1	2021	64	147	2006-11-07	12.77
+1552	14	2114740112	Ana Melani	P	iusamah@example.com	2	2021	54	155	2007-02-26	33.11
+1553	14	2114950113	Jamalia Febi Rahimah	L	elvina29@example.net	4	2021	46	151	2005-12-28	31.74
+1554	14	2114920114	Arta Budiman	P	qmegantara@example.net	4	2021	94	161	2007-07-29	34.02
+1555	14	2114660115	Hesti Mardhiyah	P	melani.jabal@example.org	5	2021	53	152	2006-06-04	12.77
+1556	14	2114700116	Latika Oktaviani	L	firgantoro.purwanto@example.org	6	2021	47	166	2006-07-10	15.04
+1557	14	2114490117	Yessi Andriani	L	nrahayu@example.com	3	2021	75	167	2006-07-26	74.04
+1558	14	2114940118	Ani Handayani S.E.	L	dewi90@example.com	6	2021	76	160	2006-04-25	33.71
+1559	14	2114310119	Capa Baktiadi Hakim S.Ked	L	wfujiati@example.net	3	2021	53	162	2007-06-07	18.04
+1560	14	2114660120	Padmi Wijayanti	L	putri.hassanah@example.com	1	2021	56	178	2007-09-01	32.13
+1561	15	2115740001	Jasmin Eka Mayasari S.T.	P	salman89@example.org	5	2021	82	172	2007-02-05	51.03
+1562	15	2115990002	Jane Permata	L	hassanah.paris@example.org	4	2021	65	171	2007-08-08	33.16
+1563	15	2115760003	Ani Rahayu	L	prasetyo.murti@example.com	3	2021	54	170	2006-04-18	35.76
+1564	15	2115880004	Sarah Mandasari S.Farm	L	vino.riyanti@example.org	2	2021	76	168	2006-11-09	31.72
+1565	15	2115320005	Zahra Mayasari	L	psiregar@example.com	5	2021	52	157	2006-11-20	75.01
+1566	15	2115440006	Widya Riyanti	P	santoso.oni@example.net	4	2021	60	173	2007-04-18	52.01
+1567	15	2115620007	Atmaja Suryono	L	winarsih.paris@example.com	4	2021	60	151	2007-04-14	33.20
+1568	15	2115730008	Laila Sudiati	P	ajimin.hariyah@example.net	5	2021	94	180	2007-04-16	33.76
+1569	15	2115420009	Viktor Nashiruddin	P	ypuspasari@example.net	6	2021	50	172	2006-02-26	32.15
+1570	15	2115110010	Taswir Megantara	P	pangestu.gaduh@example.com	1	2021	69	155	2006-09-09	51.02
+1571	15	2115830011	Eka Vanesa Melani	P	elatupono@example.net	2	2021	79	150	2006-04-14	32.05
+1572	15	2115490012	Nalar Saptono	P	osimanjuntak@example.org	5	2021	50	156	2007-05-27	31.75
+1573	15	2115430013	Galiono Nashiruddin	L	hyolanda@example.com	2	2021	64	150	2007-06-13	31.75
+1574	15	2115170014	Umar Kusumo	P	sihombing.zizi@example.com	5	2021	50	173	2006-08-25	31.01
+1575	15	2115910015	Raina Chelsea Padmasari S.Ked	P	eli78@example.net	3	2021	85	169	2006-12-04	52.72
+1576	15	2115590016	Gara Simanjuntak	L	karya.rahayu@example.org	5	2021	64	149	2006-10-09	33.02
+1577	15	2115840017	Eman Cakrawangsa Habibi S.T.	P	ade.suryatmi@example.net	2	2021	75	154	2006-01-26	35.77
+1578	15	2115660018	Azalea Pertiwi	P	uda.manullang@example.org	3	2021	49	156	2007-08-01	32.04
+1579	15	2115370019	Usyi Laksmiwati	P	agnes56@example.net	4	2021	69	159	2006-01-23	17.05
+1580	15	2115410020	Tiara Pertiwi	L	gabriella.widodo@example.org	3	2021	75	163	2007-02-17	35.24
+1581	15	2115320021	Salwa Wastuti	L	csuwarno@example.com	5	2021	54	178	2005-11-30	32.12
+1582	15	2115680022	Halima Yulianti M.Pd	P	susanti.gasti@example.com	5	2021	86	146	2006-12-30	31.74
+1583	15	2115980023	Maimunah Pertiwi	L	darimin.ardianto@example.org	1	2021	70	169	2007-08-03	35.12
+1584	15	2115600024	Cemplunk Uwais S.Psi	L	ppermadi@example.net	3	2021	76	172	2007-05-05	32.72
+1585	15	2115280025	Kasim Dabukke	P	nadine98@example.net	6	2021	55	150	2006-11-22	33.06
+1586	15	2115470026	Oni Fitriani Sudiati S.IP	P	samsul61@example.com	1	2021	92	168	2007-03-31	33.72
+1587	15	2115230027	Luis Candrakanta Adriansyah	P	indra18@example.com	5	2021	75	178	2006-02-03	32.78
+1588	15	2115870028	Nurul Hariyah S.T.	P	gilda26@example.org	6	2021	90	163	2006-02-02	33.14
+1589	15	2115100029	Betania Pudjiastuti S.H.	P	najmudin.adikara@example.net	1	2021	54	180	2007-08-10	15.04
+1590	15	2115610030	Rika Wastuti	P	gsuryatmi@example.org	5	2021	74	159	2007-01-01	33.07
+1591	15	2115120031	Tira Melani	L	bakiono.gunawan@example.net	2	2021	67	167	2006-07-03	32.74
+1592	15	2115330032	Prasetya Firmansyah S.Pd	L	suci51@example.com	6	2021	78	168	2006-11-30	35.28
+1593	15	2115260033	Rahayu Febi Hastuti S.E.I	L	farhunnisa.nurdiyanti@example.org	1	2021	84	150	2006-05-01	32.10
+1594	15	2115620034	Jabal Irawan	L	prasasta.rudi@example.com	2	2021	86	150	2007-02-22	33.71
+1595	15	2115650035	Jagaraga Damanik	L	jane91@example.org	5	2021	65	145	2005-12-09	35.76
+1596	15	2115600036	Rizki Januar	L	uli.utami@example.com	3	2021	68	178	2007-04-17	31.75
+1597	15	2115880037	Raisa Andriani	L	kezia32@example.org	3	2021	81	145	2006-08-01	33.23
+1598	15	2115140038	Paris Nadine Purwanti	L	pnovitasari@example.com	1	2021	71	153	2005-12-03	33.27
+1599	15	2115650039	Tina Mayasari	P	jessica08@example.com	4	2021	45	158	2007-07-09	32.05
+1600	15	2115880040	Chelsea Puti Puspasari	P	nasyiah.ifa@example.net	3	2021	64	156	2007-03-24	62.04
+1601	15	2115310041	Humaira Ciaobella Puspita	P	pnuraini@example.com	2	2021	89	162	2007-02-20	32.12
+1602	15	2115310042	Belinda Yolanda M.Kom.	L	qrahmawati@example.net	3	2021	72	179	2006-08-02	32.04
+1603	15	2115620043	Darman Mandala	L	zulfa.zulaika@example.net	5	2021	71	176	2005-10-29	32.12
+1604	15	2115750044	Nilam Permata S.Psi	L	mandasari.nadia@example.org	3	2021	52	152	2006-03-01	33.27
+1605	15	2115880045	Lintang Paulin Kuswandari	P	gasti.mardhiyah@example.net	4	2021	77	153	2007-05-27	32.11
+1606	15	2115290046	Anom Jindra Wahyudin M.Ak	P	rahayu.namaga@example.net	3	2021	90	171	2006-10-23	65.01
+1607	15	2115670047	Humaira Anggraini	L	hutagalung.belinda@example.org	6	2021	56	147	2007-09-08	75.03
+1608	15	2115360048	Clara Palastri M.Farm	L	hnapitupulu@example.org	5	2021	65	160	2006-06-03	31.75
+1609	15	2115610049	Dwi Kairav Rajasa S.IP	P	vpranowo@example.org	6	2021	89	149	2006-05-04	31.74
+1610	15	2115270050	Pranawa Mansur	L	cahyo92@example.org	2	2021	80	168	2007-04-25	31.73
+1611	15	2115860051	Laras Farida	L	pradipta.hamima@example.com	3	2021	73	147	2007-06-22	34.03
+1612	15	2115680052	Harimurti Nainggolan	P	ifa.pangestu@example.net	2	2021	54	175	2006-06-11	31.72
+1613	15	2115450053	Hasna Nuraini	P	anita.purwanti@example.org	4	2021	82	180	2007-09-04	32.14
+1614	15	2115320054	Cinta Handayani	L	jagaraga.purwanti@example.net	6	2021	48	161	2007-08-25	33.12
+1615	15	2115600055	Mustofa Kairav Marpaung	L	asmianto78@example.com	3	2021	90	158	2006-09-23	33.25
+1616	15	2115360056	Hendra Reza Budiyanto S.T.	P	oyuliarti@example.org	6	2021	65	164	2007-06-27	34.03
+1617	15	2115600057	Prasetya Cahyo Sihotang	P	ratna33@example.org	4	2021	92	154	2006-09-22	31.72
+1618	15	2115680058	Harsana Lurhur Marpaung	P	gasti.hassanah@example.net	6	2021	65	166	2006-11-25	33.03
+1619	15	2115560059	Cinthia Jane Astuti	P	sakura.mayasari@example.net	5	2021	71	145	2005-12-29	14.03
+1620	15	2115870060	Harjo Muhammad Siregar M.Ak	P	virman47@example.com	5	2021	74	180	2005-11-29	33.07
+1621	15	2115190061	Kezia Rahmi Widiastuti S.Farm	L	prasetya.gilda@example.com	6	2021	65	163	2006-05-25	35.14
+1622	15	2115180062	Silvia Nuraini M.M.	L	cnababan@example.org	2	2021	84	168	2006-08-14	32.79
+1623	15	2115390063	Cakrajiya Maulana	P	faizah28@example.org	5	2021	88	146	2007-09-11	64.03
+1624	15	2115270064	Daliman Setiawan	L	pranata79@example.org	2	2021	49	168	2006-09-25	35.18
+1625	15	2115440065	Hafshah Yuniar	P	mangunsong.kambali@example.com	2	2021	81	162	2005-12-20	32.08
+1626	15	2115820066	Cakrajiya Prasasta	P	diana.suryatmi@example.net	4	2021	85	156	2007-03-26	13.04
+1627	15	2115780067	Uchita Hastuti	P	ojanuar@example.net	4	2021	87	174	2006-04-27	34.71
+1628	15	2115290068	Limar Natsir	P	rajata.cinta@example.org	5	2021	56	151	2005-12-01	31.73
+1629	15	2115840069	Virman Haryanto	L	utarihoran@example.net	6	2021	85	178	2007-02-12	31.71
+1630	15	2115710070	Ida Oliva Wulandari	L	muni.saefullah@example.org	5	2021	59	150	2007-03-01	33.72
+1631	15	2115980071	Emas Mansur S.I.Kom	P	oktaviani.emin@example.org	3	2021	55	170	2007-09-25	62.01
+1632	15	2115510072	Kenari Taufan Damanik	L	yhastuti@example.org	6	2021	52	172	2007-04-06	36.01
+1633	15	2115180073	Kartika Mutia Hassanah S.Farm	L	opratama@example.net	3	2021	72	172	2005-12-07	52.03
+1634	15	2115520074	Puput Maryati S.I.Kom	P	fadriansyah@example.net	2	2021	79	164	2007-02-07	13.05
+1635	15	2115580075	Karta Situmorang	P	tira.palastri@example.com	5	2021	88	170	2007-02-19	33.09
+1636	15	2115690076	Zamira Yuni Puspasari	L	pmaryati@example.org	1	2021	47	177	2006-07-07	33.75
+1637	15	2115670077	Galuh Dongoran S.Psi	L	snuraini@example.com	5	2021	85	152	2006-11-26	32.13
+1638	15	2115960078	Aslijan Tedi Dongoran	L	gabriella.mustofa@example.com	3	2021	55	169	2007-07-14	62.02
+1639	15	2115490079	Nabila Septi Laksmiwati S.Pt	P	nhalim@example.com	5	2021	86	163	2007-02-09	33.05
+1640	15	2115830080	Ira Hassanah M.Pd	P	hanggraini@example.org	4	2021	85	165	2006-08-14	35.15
+1641	15	2115880081	Jessica Anita Andriani S.Gz	P	unasyidah@example.com	4	2021	65	149	2006-05-30	33.20
+1642	15	2115680082	Gaiman Mustofa M.Pd	P	wastuti.umaya@example.com	5	2021	89	177	2007-04-10	61.04
+1643	15	2115630083	Kezia Yuni Hastuti	L	tugiman.riyanti@example.com	5	2021	73	162	2006-11-24	32.17
+1644	15	2115860084	Maya Riyanti	L	mila.marpaung@example.com	2	2021	94	147	2007-01-20	31.75
+1645	15	2115350085	Oman Kunthara Ardianto	P	indra49@example.com	3	2021	48	145	2007-08-03	14.05
+1646	15	2115450086	Puput Ratih Pertiwi	P	nsuryono@example.org	6	2021	66	159	2007-02-06	33.73
+1647	15	2115160087	Kemal Darimin Suryono	P	viktor.hutagalung@example.net	4	2021	89	152	2006-11-18	35.19
+1648	15	2115680088	Bambang Banara Thamrin	L	prasetyo56@example.net	3	2021	84	149	2006-10-10	31.75
+1649	15	2115720089	Rafid Ikin Permadi	L	tania.melani@example.net	6	2021	45	171	2005-11-25	33.29
+1650	15	2115900090	Cinta Lailasari	P	thamrin.nova@example.com	5	2021	75	179	2007-08-21	35.72
+1651	16	2116990001	Zelaya Usamah S.Farm	L	tarihoran.gantar@example.com	1	2021	54	156	2006-03-05	35.27
+1652	16	2116330002	Agnes Laras Nuraini S.H.	L	chalimah@example.org	2	2021	56	157	2006-03-30	33.25
+1653	16	2116940003	Maida Ghaliyati Nuraini M.M.	L	raditya.putra@example.org	2	2021	70	165	2007-03-04	31.75
+1654	16	2116120004	Hani Lidya Usamah	L	suartini.lalita@example.org	2	2021	50	168	2006-06-04	35.22
+1655	16	2116530005	Cindy Kuswandari M.Pd	L	puji.rajasa@example.org	4	2021	53	168	2006-07-19	31.75
+1656	16	2116590006	Anita Jessica Winarsih	P	bakti.wibisono@example.org	2	2021	92	165	2005-10-08	32.05
+1657	16	2116460007	Lala Laksita	L	smustofa@example.net	3	2021	69	158	2006-03-23	33.72
+1658	16	2116800008	Candrakanta Usman Tampubolon M.Ak	P	bakijan94@example.com	6	2021	77	165	2007-06-06	33.21
+1659	16	2116450009	Kardi Nababan	P	ani02@example.org	3	2021	49	153	2007-09-16	35.71
+1660	16	2116770010	Harsanto Galiono Firmansyah	L	baktiadi.simanjuntak@example.org	3	2021	62	157	2006-02-28	32.74
+1661	16	2116970011	Bakiman Rajata	P	caket.pratama@example.org	2	2021	58	171	2007-03-09	32.73
+1662	16	2116510012	Hasim Bahuraksa Halim S.Gz	P	firgantoro.jelita@example.org	1	2021	66	155	2006-07-18	32.02
+1663	16	2116790013	Paramita Wijayanti	L	pertiwi.respati@example.net	2	2021	67	180	2007-07-02	34.01
+1664	16	2116720014	Nova Cornelia Yolanda	L	farida.raina@example.com	2	2021	77	148	2006-10-10	17.01
+1665	16	2116650015	Taufik Thamrin	P	prasetyo.almira@example.com	5	2021	61	174	2007-01-25	17.04
+1666	16	2116530016	Panji Salman Tamba	L	yunita01@example.com	2	2021	63	180	2007-06-24	33.29
+1667	16	2116240017	Tania Shania Mayasari	L	rahman56@example.net	1	2021	45	154	2006-09-17	32.76
+1668	16	2116680018	Sari Puspita	P	ynugroho@example.com	2	2021	50	149	2006-11-02	33.15
+1669	16	2116340019	Kasiyah Rahimah S.Kom	P	megantara.jaga@example.net	3	2021	69	155	2007-01-11	36.03
+1670	16	2116830020	Martaka Mangunsong	L	zulfa.prabowo@example.net	4	2021	95	160	2006-11-07	35.05
+1671	16	2116680021	Siti Tami Purwanti S.Psi	L	sprakasa@example.net	2	2021	54	157	2007-09-26	32.79
+1672	16	2116870022	Gatot Adiarja Wacana M.M.	L	gilda54@example.net	5	2021	85	178	2006-07-13	35.07
+1673	16	2116630023	Ghaliyati Dalima Rahmawati	L	raisa39@example.org	5	2021	56	180	2006-07-30	31.72
+1674	16	2116990024	Gandi Putra S.IP	P	makara34@example.org	3	2021	72	177	2005-10-19	35.25
+1675	16	2116240025	Ciaobella Rahimah S.I.Kom	L	gunarto.ulva@example.net	1	2021	65	150	2006-05-11	33.17
+1676	16	2116370026	Putu Daru Tampubolon M.TI.	L	pardi.nugroho@example.org	5	2021	64	160	2006-03-29	33.12
+1677	16	2116680027	Emong Budiyanto	P	karna44@example.com	2	2021	53	180	2007-07-12	31.01
+1678	16	2116780028	Hafshah Endah Lestari	L	apuspita@example.net	2	2021	66	170	2006-12-10	31.73
+1679	16	2116150029	Raina Laksita	P	bharyanti@example.org	5	2021	79	164	2007-06-20	11.71
+1680	16	2116700030	Ratna Novitasari S.E.	L	hilda.namaga@example.net	6	2021	95	180	2006-05-31	31.01
+1681	16	2116810031	Narji Situmorang M.M.	P	praba69@example.com	6	2021	78	157	2006-03-09	33.19
+1682	16	2116500032	Ani Hastuti	P	ipuspasari@example.org	6	2021	53	165	2006-10-27	32.01
+1683	16	2116910033	Umi Yuliarti	P	febi32@example.org	2	2021	67	175	2007-02-09	32.74
+1684	16	2116970034	Uli Pratiwi	P	kariman.hutapea@example.org	4	2021	47	149	2006-10-29	34.71
+1685	16	2116830035	Ikin Ilyas Kurniawan S.E.I	L	wira.narpati@example.org	1	2021	95	180	2007-02-13	33.23
+1686	16	2116520036	Rina Laksmiwati	L	megantara.ida@example.net	4	2021	53	163	2006-04-27	32.74
+1687	16	2116400037	Farah Yulianti	P	martani30@example.org	4	2021	86	178	2006-05-05	61.05
+1688	16	2116770038	Jefri Januar S.Ked	P	yuniar.usyi@example.org	3	2021	85	172	2005-12-07	33.11
+1689	16	2116180039	Bakianto Gunarto	L	jumari02@example.org	6	2021	81	156	2007-01-21	51.01
+1690	16	2116920040	Galuh Luwar Sihombing S.H.	L	uhalimah@example.org	3	2021	70	157	2006-10-05	17.05
+1691	16	2116400041	Putri Mutia Laksita S.Psi	L	indra97@example.com	1	2021	61	145	2007-06-02	35.05
+1692	16	2116930042	Nova Kamila Winarsih M.M.	L	lantar.ramadan@example.org	4	2021	73	178	2005-10-30	18.05
+1693	16	2116950043	Manah Wijaya M.Ak	P	suci.latupono@example.net	6	2021	70	174	2006-03-07	74.04
+1694	16	2116500044	Gaduh Jarwi Lazuardi S.I.Kom	P	hutasoit.gilda@example.org	3	2021	69	176	2005-09-30	15.01
+1695	16	2116400045	Hasna Yulianti S.IP	L	hpurwanti@example.com	4	2021	48	153	2006-12-19	33.03
+1696	16	2116920046	Widya Aryani	L	febi.safitri@example.com	2	2021	95	169	2005-11-30	65.01
+1697	16	2116290047	Carla Permata	L	adhiarja.purwanti@example.org	1	2021	86	155	2006-09-14	36.72
+1698	16	2116640048	Uchita Lailasari	P	shakila.wulandari@example.net	4	2021	56	175	2006-04-18	33.10
+1699	16	2116500049	Ganda Sihombing S.Pt	P	byolanda@example.com	1	2021	50	160	2007-05-18	32.05
+1700	16	2116850050	Darmanto Radit Natsir	P	jabal.nasyidah@example.org	3	2021	63	161	2006-06-02	18.03
+1701	16	2116340051	Jabal Iswahyudi	L	yolanda.fitriani@example.org	5	2021	58	150	2007-04-25	33.11
+1702	16	2116530052	Ophelia Hariyah	P	janggraini@example.org	6	2021	70	172	2005-10-19	35.21
+1703	16	2116420053	Yunita Laksmiwati S.E.I	P	kasiran.sudiati@example.org	4	2021	60	155	2006-06-28	31.75
+1704	16	2116170054	Ana Hassanah S.IP	L	diana94@example.org	1	2021	85	164	2006-04-06	32.10
+1705	16	2116960055	Kurnia Saptono	L	labuh.nasyidah@example.org	3	2021	64	151	2006-05-12	36.01
+1706	16	2116880056	Cawisono Wacana	P	najwa40@example.com	3	2021	55	149	2005-11-05	33.14
+1707	16	2116460057	Perkasa Dono Salahudin	L	puput36@example.com	5	2021	48	147	2005-12-08	74.04
+1708	16	2116480058	Kiandra Handayani S.Farm	P	prasasta.drajat@example.org	6	2021	84	166	2006-05-28	35.71
+1709	16	2116690059	Zelaya Alika Mayasari S.Sos	P	narji32@example.net	6	2021	68	165	2007-03-01	33.21
+1710	16	2116400060	Wardi Wahyu Rajata	L	ella10@example.com	5	2021	50	167	2007-07-29	72.03
+1711	16	2116740061	Gangsa Dongoran	P	gamblang.halimah@example.com	6	2021	82	175	2006-11-29	32.06
+1712	16	2116100062	Vero Rajasa M.TI.	P	rahimah.jayeng@example.com	3	2021	58	169	2007-07-11	18.03
+1713	16	2116490063	Ajimat Utama S.IP	L	fitriani.laksita@example.net	4	2021	61	152	2006-01-29	33.24
+1714	16	2116810064	Ika Nasyidah	P	sihombing.cornelia@example.com	6	2021	46	175	2007-06-11	35.18
+1715	16	2116280065	Rahmi Mulyani S.T.	L	upermata@example.com	4	2021	81	165	2007-04-12	35.12
+1716	16	2116630066	Ciaobella Zaenab Anggraini	P	qmegantara@example.net	5	2021	46	171	2006-11-22	31.01
+1717	16	2116200067	Martaka Dariati Pranowo	P	fitriani59@example.org	1	2021	79	155	2006-11-01	31.74
+1718	16	2116880068	Nurul Kusmawati	L	prasetyo.zelaya@example.net	6	2021	71	174	2005-10-03	12.78
+1719	16	2116110069	Jessica Anggraini	P	daniswara67@example.net	4	2021	51	157	2006-09-01	32.74
+1720	16	2116850070	Usyi Ida Wijayanti M.Kom.	L	dimaz.puspasari@example.net	2	2021	93	162	2007-02-28	73.04
+1721	16	2116410071	Hamima Lestari S.I.Kom	L	utama.devi@example.com	4	2021	72	151	2007-01-06	32.01
+1722	16	2116930072	Sakura Handayani	P	carla09@example.org	1	2021	81	165	2006-07-19	33.71
+1723	16	2116930073	Suci Lala Nurdiyanti S.Kom	P	fsuryono@example.com	1	2021	53	178	2006-11-29	33.21
+1724	16	2116670074	Queen Maida Oktaviani	L	qsiregar@example.net	6	2021	63	158	2006-11-09	35.25
+1725	16	2116220075	Gandi Gunawan	L	coktaviani@example.com	2	2021	63	166	2006-01-13	32.77
+1726	16	2116160076	Oni Hamima Prastuti S.Psi	L	omaryati@example.org	5	2021	67	150	2005-10-03	31.73
+1727	16	2116250077	Mila Laksita	L	rprasetya@example.org	6	2021	92	180	2006-11-03	52.71
+1728	16	2116880078	Shania Prastuti	L	simbolon.adika@example.net	1	2021	79	167	2007-09-27	32.01
+1729	16	2116450079	Irma Maryati	L	nadia70@example.net	3	2021	64	171	2007-05-30	52.71
+1730	16	2116640080	Reza Darman Nainggolan M.Kom.	P	kamaria.anggraini@example.com	1	2021	91	175	2005-10-29	31.73
+1731	16	2116870081	Hani Eka Haryanti	P	aagustina@example.net	3	2021	52	145	2006-05-20	31.74
+1732	16	2116560082	Zulaikha Hariyah M.Pd	P	cwulandari@example.com	6	2021	64	159	2006-11-12	52.03
+1733	16	2116180083	Bahuwarna Widodo	L	lurhur45@example.org	2	2021	67	148	2007-07-31	32.02
+1734	16	2116640084	Mila Victoria Suartini	L	ellis.yuniar@example.com	3	2021	87	155	2005-10-10	31.01
+1735	16	2116210085	Maida Yunita Sudiati	P	eva12@example.org	2	2021	58	179	2006-06-28	33.11
+1736	16	2116460086	Irfan Bagus Situmorang	L	qori16@example.org	1	2021	62	161	2007-07-22	14.06
+1737	16	2116450087	Kasim Saptono S.H.	P	nutami@example.org	2	2021	50	156	2006-07-28	52.03
+1738	16	2116640088	Jamil Vero Narpati	L	keisha49@example.net	3	2021	54	160	2006-01-05	35.77
+1739	16	2116710089	Digdaya Ganjaran Thamrin	L	lestari.jelita@example.net	3	2021	51	167	2006-12-22	65.02
+1740	16	2116300090	Wulan Karen Handayani M.TI.	L	latika.hutagalung@example.com	3	2021	53	170	2006-01-07	33.26
+1741	16	2116880091	Hadi Latupono	P	puput.puspasari@example.net	2	2021	85	149	2006-01-02	62.02
+1742	16	2116860092	Carub Wahyudin S.E.	L	pradipta.hasan@example.org	3	2021	55	153	2006-11-04	75.01
+1743	16	2116560093	Mursita Martani Pradana	L	rafi07@example.org	6	2021	58	157	2006-05-11	11.71
+1744	16	2116740094	Hamima Kuswandari S.T.	P	raina.wibowo@example.org	4	2021	92	156	2006-05-04	61.05
+1745	16	2116520095	Tira Melani	L	tiara.nugroho@example.net	2	2021	78	147	2005-12-05	63.02
+1746	16	2116800096	Cecep Dongoran	L	eva.habibi@example.com	4	2021	79	158	2007-08-29	31.73
+1747	16	2116500097	Agnes Ika Zulaika	L	yuliarti.paramita@example.com	6	2021	60	146	2007-05-09	35.19
+1748	16	2116680098	Samiah Nilam Rahmawati S.I.Kom	P	umar.nashiruddin@example.org	4	2021	92	173	2006-01-05	31.71
+1749	16	2116970099	Mursinin Nashiruddin M.M.	P	harsaya.uyainah@example.net	3	2021	69	172	2006-01-28	32.17
+1750	16	2116780100	Ade Prabowo	P	pardi.novitasari@example.org	3	2021	53	145	2006-08-31	75.03
+1751	16	2116800101	Viktor Ibrani Saptono S.Gz	L	mariadi.nasyidah@example.com	4	2021	55	171	2006-06-06	62.02
+1752	16	2116850102	Devi Suartini	L	indah31@example.org	5	2021	92	176	2005-11-01	13.07
+1753	16	2116730103	Putri Yulianti S.E.	L	zahra74@example.org	1	2021	71	170	2006-02-19	32.09
+1754	16	2116780104	Estiawan Cakrawala Halim S.Sos	P	vtarihoran@example.net	5	2021	77	167	2006-10-13	33.17
+1755	16	2116110105	Mila Fujiati	L	pertiwi.nrima@example.com	4	2021	70	156	2007-05-03	33.28
+1756	16	2116910106	Zelda Mayasari	P	lyuniar@example.net	2	2021	82	175	2006-02-26	33.71
+1757	16	2116700107	Sabri Ardianto	P	edi.namaga@example.org	3	2021	48	157	2006-09-19	33.02
+1758	16	2116250108	Keisha Mila Winarsih	L	vera29@example.org	4	2021	95	157	2006-02-25	31.01
+1759	16	2116310109	Vero Kusuma Siregar S.Gz	P	tmandasari@example.org	4	2021	49	151	2005-11-30	31.71
+1760	16	2116130110	Hairyanto Pradana	L	jamalia78@example.net	6	2021	80	153	2007-08-13	36.72
+1761	16	2116360111	Hesti Zulaika M.Ak	P	najmudin.melinda@example.org	5	2021	67	155	2006-02-17	31.74
+1762	16	2116950112	Wage Mahendra	L	winda43@example.com	5	2021	49	169	2006-11-15	32.79
+1763	16	2116620113	Yosef Samosir	L	prayitna.utami@example.com	3	2021	72	180	2006-10-22	65.01
+1764	16	2116250114	Ida Betania Wahyuni S.H.	P	talia.utami@example.org	1	2021	73	179	2005-10-21	32.17
+1765	16	2116220115	Vera Usamah	P	swidiastuti@example.com	6	2021	82	176	2006-04-26	71.07
+1766	16	2116510116	Shania Uyainah	L	hari.namaga@example.com	4	2021	94	146	2005-12-06	33.09
+1767	16	2116800117	Jaswadi Situmorang	P	lala.purwanti@example.com	4	2021	94	155	2006-08-25	33.01
+1768	16	2116910118	Citra Agustina	P	ppurwanti@example.net	4	2021	73	170	2007-03-23	31.01
+1769	16	2116760119	Jati Emin Napitupulu	P	paris98@example.org	5	2021	80	177	2007-01-21	31.01
+1770	16	2116240120	Reksa Kajen Prabowo	P	keisha.wulandari@example.org	5	2021	70	154	2006-08-12	36.03
+1771	17	2117180001	Hasna Mulyani S.Farm	P	astuti.alika@example.org	3	2021	71	171	2006-08-23	71.05
+1772	17	2117160002	Genta Pudjiastuti	P	bakda.jailani@example.org	4	2021	93	169	2007-08-01	13.05
+1773	17	2117910003	Kasusra Budiman	P	handayani.ghaliyati@example.com	4	2021	87	179	2007-04-07	11.71
+1774	17	2117700004	Janet Oktaviani	P	kusumo.genta@example.net	5	2021	48	160	2006-04-21	61.04
+1775	17	2117910005	Ganda Adika Saefullah M.Kom.	L	queen.wibisono@example.org	3	2021	81	170	2006-01-17	12.77
+1776	17	2117970006	Cinta Susanti	P	oriyanti@example.com	4	2021	54	177	2006-03-09	35.15
+1777	17	2117840007	Jaiman Irawan	L	phakim@example.com	6	2021	91	160	2006-09-17	64.07
+1778	17	2117450008	Pia Hariyah M.Kom.	L	lasmanto52@example.com	1	2021	61	147	2007-05-05	31.75
+1779	17	2117250009	Wirda Rahmawati	P	hariyah.yunita@example.org	4	2021	60	178	2007-01-17	64.07
+1780	17	2117640010	Wirda Wijayanti S.Farm	P	gamblang.salahudin@example.net	5	2021	70	160	2005-11-11	61.04
+1781	17	2117750011	Fathonah Permata S.T.	L	enteng74@example.com	5	2021	48	150	2007-04-14	13.04
+1782	17	2117570012	Mahesa Raden Uwais	P	thamrin.dalima@example.org	4	2021	72	155	2006-01-08	33.08
+1783	17	2117990013	Rahmi Lidya Nurdiyanti M.Farm	L	vhidayat@example.org	2	2021	72	147	2005-10-22	32.72
+1784	17	2117420014	Lanjar Jailani S.Pt	L	hrahayu@example.org	2	2021	64	159	2007-06-22	11.14
+1785	17	2117470015	Ade Nabila Oktaviani S.E.	L	baktianto04@example.com	2	2021	45	154	2005-12-13	74.02
+1786	17	2117110016	Julia Maryati	L	laksmiwati.rizki@example.com	2	2021	63	178	2007-02-23	35.22
+1787	17	2117470017	Rafi Prabowo	L	siska.farida@example.net	1	2021	90	148	2007-05-05	31.75
+1788	17	2117640018	Jefri Saefullah S.E.	P	bakianto00@example.com	5	2021	45	150	2006-02-18	31.75
+1789	17	2117670019	Laila Pudjiastuti	L	panggraini@example.org	5	2021	69	166	2007-04-20	32.16
+1790	17	2117910020	Wahyu Mahendra	P	akarsana.anggraini@example.net	6	2021	51	153	2006-08-29	61.04
+1791	17	2117760021	Ratih Mutia Wastuti	L	putri.tampubolon@example.com	3	2021	53	180	2007-08-21	13.04
+1792	17	2117490022	Luthfi Sihotang S.Kom	L	yuliana68@example.org	5	2021	70	146	2007-05-08	36.01
+1793	17	2117390023	Patricia Zaenab Mulyani M.Farm	L	ehidayat@example.net	5	2021	80	180	2006-10-30	13.04
+1794	17	2117710024	Carla Pudjiastuti	L	hasanah.dariati@example.org	6	2021	82	177	2007-09-24	33.29
+1795	17	2117380025	Warsa Wahyudin M.Ak	L	vlaksmiwati@example.com	2	2021	53	174	2005-12-11	35.77
+1796	17	2117910026	Harimurti Harsana Marpaung	P	kamila97@example.com	5	2021	45	177	2007-05-12	52.01
+1797	17	2117860027	Liman Hutapea	P	paris02@example.net	2	2021	94	150	2007-08-18	12.77
+1798	17	2117890028	Syahrini Winarsih	P	tina.hardiansyah@example.com	4	2021	62	153	2006-02-12	75.01
+1799	17	2117610029	Timbul Sihotang S.IP	L	nababan.kasim@example.net	5	2021	92	176	2006-11-20	31.73
+1800	17	2117330030	Ani Lailasari	L	gzulaika@example.org	3	2021	45	167	2007-05-22	52.72
+1801	18	2118390001	Cager Sirait	L	lrajata@example.net	1	2021	65	156	2005-10-11	32.77
+1802	18	2118340002	Dinda Oktaviani S.Gz	P	banggraini@example.com	2	2021	53	162	2007-07-23	32.15
+1803	18	2118230003	Hamzah Wibowo	L	sirait.bakda@example.net	3	2021	76	177	2007-09-09	35.21
+1804	18	2118970004	Hardana Firgantoro	L	paris.nasyiah@example.net	3	2021	68	164	2006-09-19	31.71
+1805	18	2118750005	Carla Pudjiastuti M.Ak	L	griyanti@example.com	5	2021	71	165	2007-06-05	35.16
+1806	18	2118540006	Cornelia Rahayu S.Ked	P	bagus87@example.com	1	2021	51	160	2006-11-24	31.73
+1807	18	2118340007	Lala Sari Novitasari	P	ulva26@example.org	3	2021	80	164	2006-08-29	63.03
+1808	18	2118840008	Silvia Faizah Laksmiwati S.Ked	L	mandasari.nadine@example.com	1	2021	53	156	2007-05-24	52.03
+1809	18	2118370009	Mila Kezia Aryani	L	permadi.bagas@example.org	6	2021	76	169	2005-12-21	31.71
+1810	18	2118820010	Koko Firgantoro	L	jarwi53@example.com	4	2021	88	161	2005-12-22	35.29
+1811	18	2118210011	Kani Farida	P	cinthia27@example.org	1	2021	49	170	2007-06-13	33.13
+1812	18	2118460012	Tiara Uyainah	L	jais.usamah@example.org	4	2021	94	171	2006-09-12	32.16
+1813	18	2118690013	Utama Bakiadi Irawan S.Kom	L	ega40@example.com	4	2021	50	174	2007-02-05	34.03
+1814	18	2118700014	Putri Yulianti S.E.	P	rama64@example.com	3	2021	80	159	2006-01-10	71.05
+1815	18	2118780015	Niyaga Situmorang	P	yuliana.prakasa@example.net	1	2021	74	171	2007-09-05	33.09
+1816	18	2118360016	Rusman Simbolon	L	puspasari.himawan@example.com	6	2021	51	169	2006-12-07	32.04
+1817	18	2118670017	Lulut Irawan M.Farm	L	eka.prakasa@example.net	4	2021	95	177	2006-12-26	32.75
+1818	18	2118660018	Zelda Eva Palastri S.E.	P	syolanda@example.net	1	2021	95	167	2007-04-27	32.10
+1819	18	2118650019	Samsul Mahdi Kurniawan	L	limar43@example.org	5	2021	52	151	2007-01-06	31.72
+1820	18	2118510020	Ana Nasyidah	P	lazuardi.hartaka@example.com	4	2021	90	149	2007-06-18	33.10
+1821	19	2119240001	Anom Cahyadi Mangunsong	P	wadi81@example.com	3	2021	84	173	2007-08-06	35.22
+1822	19	2119850002	Faizah Ika Permata	L	citra71@example.org	1	2021	65	175	2005-10-27	63.02
+1823	19	2119480003	Dasa Tarihoran	L	winarsih.salwa@example.net	1	2021	89	174	2006-07-28	31.75
+1824	19	2119240004	Balijan Tampubolon	L	ghani.kusmawati@example.net	5	2021	86	168	2006-04-21	17.05
+1825	19	2119340005	Atmaja Gunawan	P	panji88@example.net	6	2021	90	155	2007-09-06	15.01
+1826	19	2119900006	Ajiman Utama	L	kprasetyo@example.net	1	2021	79	148	2007-05-24	63.03
+1827	19	2119320007	Safina Winarsih	L	vwulandari@example.org	6	2021	92	157	2007-04-20	13.05
+1828	19	2119930008	Zulfa Laksita	P	rini.mustofa@example.com	2	2021	48	174	2007-04-25	32.18
+1829	19	2119140009	Nadine Andriani	L	halim.restu@example.org	2	2021	61	179	2006-04-09	35.14
+1830	19	2119620010	Maryadi Raharja Mangunsong M.Kom.	P	qsuryono@example.net	1	2021	80	162	2007-07-29	32.10
+1831	19	2119690011	Gangsa Kusumo	L	kartika75@example.org	1	2021	81	149	2006-07-19	31.74
+1832	19	2119930012	Titin Yuniar	L	yjanuar@example.org	6	2021	89	150	2007-08-28	35.76
+1833	19	2119950013	Siska Oktaviani	L	kusuma49@example.org	3	2021	61	161	2006-09-30	35.25
+1834	19	2119780014	Kamaria Pudjiastuti	L	xsihombing@example.net	5	2021	86	150	2006-04-19	33.25
+1835	19	2119830015	Ibrani Prasetya	P	endah.kuswandari@example.com	3	2021	81	178	2007-04-21	35.78
+1836	19	2119710016	Gasti Laksmiwati	P	halima57@example.org	1	2021	94	152	2006-08-29	31.74
+1837	19	2119330017	Yosef Haryanto S.Sos	P	indah.laksita@example.net	4	2021	49	177	2006-05-23	35.27
+1838	19	2119890018	Manah Firgantoro	L	natalia.mangunsong@example.org	3	2021	90	164	2006-10-12	35.10
+1839	19	2119730019	Ika Fujiati S.Gz	P	dadi72@example.com	2	2021	85	149	2007-06-27	31.71
+1840	19	2119630020	Jaiman Mansur S.Pt	L	septi.sihombing@example.com	6	2021	55	169	2007-07-05	12.76
+1841	19	2119770021	Paiman Mansur	L	hyolanda@example.org	6	2021	49	158	2007-03-03	75.01
+1842	19	2119830022	Vicky Yuni Sudiati	L	thamrin.wardi@example.com	4	2021	54	175	2006-12-20	35.15
+1843	19	2119490023	Yuliana Uli Permata S.IP	P	banawi.siregar@example.com	5	2021	93	156	2006-04-03	31.71
+1844	19	2119850024	Kamidin Sihombing S.H.	P	hafshah.pertiwi@example.com	1	2021	87	155	2007-03-21	35.06
+1845	19	2119180025	Dimaz Thamrin	L	mustofa.ami@example.net	1	2021	59	172	2006-05-20	33.08
+1846	19	2119410026	Ratna Riyanti	L	yolanda.padmi@example.net	1	2021	63	177	2006-04-24	32.13
+1847	19	2119790027	Alika Palastri	P	ssafitri@example.org	3	2021	47	157	2006-06-25	63.02
+1848	19	2119780028	Cecep Hutapea	L	kardi96@example.net	1	2021	61	163	2005-10-12	52.71
+1849	19	2119300029	Gaman Saptono	L	rika64@example.net	5	2021	61	179	2006-12-06	31.74
+1850	19	2119420030	Paramita Hariyah	L	lestari.halim@example.org	5	2021	91	170	2006-02-08	35.09
+1851	19	2119240031	Tiara Chelsea Yuniar	P	yuni.hartati@example.net	1	2021	92	172	2007-09-17	51.03
+1852	19	2119550032	Ozy Eman Simbolon	L	mmandasari@example.com	5	2021	61	173	2006-05-26	62.01
+1853	19	2119180033	Kardi Situmorang	L	ade17@example.com	3	2021	83	180	2007-09-14	32.75
+1854	19	2119540034	Diah Riyanti	P	zahra93@example.com	1	2021	58	174	2007-04-13	62.04
+1855	19	2119800035	Latika Dian Nasyiah	P	janet88@example.com	4	2021	85	176	2006-03-17	32.04
+1856	19	2119970036	Agnes Namaga	L	kasiyah69@example.com	6	2021	72	146	2006-11-07	32.18
+1857	19	2119520037	Wulan Haryanti	L	yahya.prasetyo@example.org	4	2021	62	159	2007-01-26	73.04
+1858	19	2119930038	Rama Sihombing	L	npuspasari@example.net	2	2021	86	161	2005-10-03	32.77
+1859	19	2119540039	Rahmi Nasyidah S.Pt	L	halimah.galiono@example.net	3	2021	62	171	2006-08-03	17.01
+1860	19	2119110040	Kemal Lanang Permadi	P	bmayasari@example.com	5	2021	95	162	2005-11-06	51.02
+1861	19	2119770041	Kajen Mahendra	P	nsuartini@example.com	3	2021	79	172	2007-07-21	33.02
+1862	19	2119760042	Anita Nurdiyanti	L	jarwi02@example.com	4	2021	92	174	2006-05-21	31.01
+1863	19	2119200043	Nova Padmi Andriani S.E.	P	tampubolon.ganda@example.net	6	2021	52	167	2006-03-06	36.71
+1864	19	2119210044	Garda Hakim	L	pyolanda@example.org	5	2021	61	147	2005-10-21	32.01
+1865	19	2119310045	Vero Habibi M.Farm	L	thidayat@example.org	3	2021	45	179	2005-11-20	33.10
+1866	19	2119950046	Gadang Jailani	L	lidya.irawan@example.org	5	2021	91	152	2007-03-13	32.16
+1867	19	2119600047	Cinta Yuliarti	L	cici96@example.org	6	2021	46	149	2007-07-13	73.13
+1868	19	2119910048	Kayla Usamah S.E.	L	riyanti.qori@example.net	5	2021	94	173	2007-04-06	32.15
+1869	19	2119650049	Omar Narpati	L	ophelia.saefullah@example.net	5	2021	90	166	2005-10-23	31.73
+1870	19	2119440050	Ikhsan Sihotang	L	artawan14@example.com	4	2021	83	145	2007-06-22	72.02
+1871	19	2119460051	Zizi Farida	L	wibisono.dodo@example.net	3	2021	60	156	2007-02-11	11.14
+1872	19	2119350052	Suci Ani Agustina S.Psi	L	qdamanik@example.com	4	2021	76	170	2006-07-23	62.04
+1873	19	2119670053	Setya Januar	L	bmaheswara@example.org	3	2021	50	164	2005-12-31	31.73
+1874	19	2119180054	Jagaraga Najmudin	P	galur.gunawan@example.org	2	2021	51	159	2007-08-30	35.11
+1875	19	2119750055	Intan Tina Hasanah M.M.	L	zahra.nainggolan@example.com	6	2021	61	146	2007-03-19	18.03
+1876	19	2119440056	Imam Pranata Wibowo	L	autami@example.com	5	2021	50	162	2006-01-04	32.16
+1877	19	2119490057	Dasa Hendra Simanjuntak S.E.	L	ulazuardi@example.net	4	2021	95	149	2007-06-03	31.72
+1878	19	2119230058	Asmuni Damanik	P	ira73@example.com	4	2021	68	145	2006-05-27	31.75
+1879	19	2119120059	Enteng Kasusra Zulkarnain	P	widiastuti.jaiman@example.com	6	2021	68	178	2007-02-27	32.76
+1880	19	2119520060	Sabar Siregar	P	fandriani@example.org	5	2021	87	153	2005-12-29	32.06
+1881	19	2119220061	Ophelia Riyanti	P	jais28@example.com	5	2021	47	163	2006-12-15	31.01
+1882	19	2119800062	Unjani Yuniar S.E.	P	daliman57@example.com	2	2021	53	169	2006-09-02	32.75
+1883	19	2119120063	Michelle Pertiwi	P	olivia.wacana@example.net	5	2021	92	167	2007-05-24	35.77
+1884	19	2119860064	Rahayu Purwanti	L	ina08@example.org	2	2021	69	157	2006-03-16	13.04
+1885	19	2119610065	Dipa Gunarto	L	novi40@example.com	4	2021	85	145	2006-06-14	63.02
+1886	19	2119140066	Zelda Kuswandari	P	puji91@example.org	5	2021	94	154	2007-03-18	14.03
+1887	19	2119890067	Titin Vanesa Melani M.Farm	L	yuni37@example.com	5	2021	83	147	2006-05-23	34.02
+1888	19	2119100068	Ella Samiah Hastuti S.Sos	P	puspasari.iriana@example.org	3	2021	75	161	2006-11-14	32.73
+1889	19	2119130069	Nova Wijayanti	P	yoga.marpaung@example.org	5	2021	50	166	2006-06-28	13.05
+1890	19	2119450070	Belinda Mulyani	P	farida.elon@example.org	6	2021	52	157	2007-04-13	12.76
+1891	19	2119800071	Margana Rosman Mahendra	L	melani.endah@example.net	4	2021	45	180	2007-06-21	12.78
+1892	19	2119630072	Winda Maryati	P	hanggraini@example.org	2	2021	72	156	2007-07-31	52.01
+1893	19	2119940073	Alika Kania Laksita M.Pd	P	bakiono.jailani@example.org	3	2021	86	161	2007-06-11	72.02
+1894	19	2119490074	Balidin Uwais	P	zsiregar@example.org	2	2021	54	155	2005-10-04	35.18
+1895	19	2119730075	Tirta Januar	P	mahfud.saefullah@example.org	1	2021	88	170	2007-03-23	35.24
+1896	19	2119480076	Dalima Kania Wijayanti S.Kom	P	ehandayani@example.net	2	2021	92	162	2006-06-30	31.71
+1897	19	2119700077	Putri Agustina S.Gz	P	frajasa@example.net	1	2021	85	145	2006-05-30	51.02
+1898	19	2119550078	Ghaliyati Suryatmi	L	vero.usada@example.net	1	2021	77	172	2007-09-14	35.79
+1899	19	2119250079	Bakidin Jailani	L	vprastuti@example.net	2	2021	80	161	2005-10-09	32.12
+1900	19	2119920080	Dono Januar	P	nababan.olivia@example.com	6	2021	64	151	2005-11-09	33.17
+1901	19	2119780081	Warji Pratama	P	zulaika.titi@example.net	3	2021	52	155	2006-08-06	31.75
+1902	19	2119250082	Kawaya Mahendra S.E.I	L	novitasari.gatra@example.com	3	2021	45	149	2007-09-25	33.09
+1903	19	2119330083	Ega Halim	L	fathonah.nurdiyanti@example.com	4	2021	84	163	2005-10-25	33.20
+1904	19	2119150084	Damu Wibowo	P	melinda.mangunsong@example.com	5	2021	52	146	2007-03-30	18.03
+1905	19	2119690085	Gandewa Narpati	L	rajata.arta@example.org	2	2021	69	165	2006-05-07	65.02
+1906	19	2119830086	Artawan Cemplunk Ramadan S.I.Kom	L	nwacana@example.com	2	2021	61	167	2007-08-24	35.24
+1907	19	2119710087	Tira Elisa Handayani	L	dkusumo@example.com	2	2021	67	148	2006-10-24	18.03
+1908	19	2119640088	Ajimin Jailani	P	fitriani33@example.com	5	2021	60	167	2006-03-17	11.71
+1909	19	2119970089	Opung Cemeti Hardiansyah	P	marpaung.rini@example.com	3	2021	82	159	2006-02-01	32.06
+1910	19	2119410090	Wirda Lalita Susanti S.T.	L	wsuryatmi@example.com	5	2021	53	169	2006-11-06	33.04
+1911	20	2120540001	Eka Padmasari	P	hutagalung.panca@example.org	1	2021	61	162	2005-11-15	31.72
+1912	20	2120210002	Cornelia Mayasari	P	harto.nashiruddin@example.net	2	2021	95	154	2006-08-20	33.05
+1913	20	2120930003	Bala Santoso	P	nhastuti@example.net	4	2021	60	163	2007-04-12	33.21
+1914	20	2120760004	Oni Ajeng Prastuti S.E.	P	jagapati.farida@example.net	5	2021	62	149	2006-12-10	33.08
+1915	20	2120690005	Citra Lintang Yulianti M.Pd	L	radit.wastuti@example.com	6	2021	46	170	2006-05-23	14.03
+1916	20	2120700006	Raisa Nuraini	P	suwarno.lasmono@example.org	6	2021	68	166	2006-10-20	33.02
+1917	20	2120790007	Nabila Nurdiyanti	P	wijayanti.raihan@example.net	2	2021	52	173	2007-04-22	73.13
+1918	20	2120750008	Hendra Samosir	L	hasanah.banawi@example.org	3	2021	49	161	2006-09-25	33.29
+1919	20	2120720009	Aris Prayoga	P	kamila.manullang@example.org	2	2021	55	163	2006-01-26	32.17
+1920	20	2120150010	Olga Ardianto S.Gz	L	bardianto@example.com	1	2021	72	152	2005-12-13	31.75
+1921	20	2120280011	Lurhur Murti Prabowo S.Kom	P	novi38@example.net	2	2021	90	157	2007-03-30	33.28
+1922	20	2120330012	Ciaobella Ani Puspasari	P	wacana.joko@example.com	1	2021	89	154	2006-11-22	32.71
+1923	20	2120630013	Empluk Ridwan Marbun	L	febi98@example.com	4	2021	49	163	2006-01-03	31.72
+1924	20	2120880014	Gada Hamzah Salahudin	L	uzulaika@example.org	4	2021	69	167	2006-11-29	32.75
+1925	20	2120960015	Saka Latupono S.Ked	L	prayoga.candrakanta@example.net	1	2021	85	150	2005-11-29	32.73
+1926	20	2120900016	Wardi Pangestu	P	padmasari.zahra@example.com	3	2021	66	146	2007-09-15	15.01
+1927	20	2120460017	Gawati Mulyani	L	kayla.kuswandari@example.com	2	2021	90	176	2007-05-22	73.04
+1928	20	2120510018	Marsudi Kusumo	L	tadriansyah@example.net	2	2021	51	167	2006-03-09	72.02
+1929	20	2120900019	Leo Bakidin Mahendra	L	shania.nurdiyanti@example.com	4	2021	77	175	2006-03-09	11.71
+1930	20	2120970020	Devi Farida	P	rahmawati.cecep@example.com	3	2021	57	176	2005-12-14	31.72
+1931	20	2120970021	Paulin Gilda Nasyidah	L	lbudiyanto@example.net	5	2021	62	154	2006-06-23	14.06
+1932	20	2120480022	Maya Agnes Kuswandari S.Psi	L	rahayu.ajimat@example.com	6	2021	49	166	2005-12-02	65.01
+1933	20	2120780023	Cinta Maya Maryati S.Sos	L	mahesa92@example.net	5	2021	86	155	2006-08-18	35.06
+1934	20	2120890024	Yunita Nasyiah	L	harto.maryadi@example.com	4	2021	47	149	2006-09-15	33.18
+1935	20	2120480025	Calista Icha Kuswandari	P	hardiansyah.patricia@example.net	1	2021	70	167	2006-03-03	32.79
+1936	20	2120250026	Hartaka Nalar Mandala	P	jaeman.tamba@example.net	3	2021	65	162	2007-03-24	32.18
+1937	20	2120620027	Satya Panji Tarihoran	P	oskar.laksita@example.com	5	2021	94	180	2007-06-05	17.05
+1938	20	2120830028	Alambana Jagapati Firmansyah M.TI.	P	emaulana@example.org	6	2021	73	152	2007-09-02	35.19
+1939	20	2120430029	Lurhur Bakijan Prasasta M.Pd	L	hakim.dimaz@example.org	4	2021	74	150	2007-04-20	32.05
+1940	20	2120530030	Narji Prasetyo	L	ilyas.siregar@example.com	6	2021	67	175	2006-04-04	33.29
+1941	20	2120380031	Lintang Pertiwi	P	najib24@example.org	4	2021	66	149	2006-11-19	36.01
+1942	20	2120120032	Empluk Rendy Gunawan	P	tantri57@example.com	6	2021	63	168	2006-11-05	51.02
+1943	20	2120830033	Cinta Aryani	P	namaga.marsito@example.org	5	2021	67	147	2007-07-17	33.13
+1944	20	2120610034	Gilang Irawan	P	cici14@example.com	4	2021	47	164	2005-11-06	33.02
+1945	20	2120120035	Bakijan Suryono	L	zhalim@example.net	3	2021	91	149	2006-07-07	35.27
+1946	20	2120510036	Cemani Manullang S.IP	P	adriansyah.enteng@example.com	4	2021	65	169	2007-08-08	31.01
+1947	20	2120640037	Ratih Yuniar	P	uyainah.safina@example.net	3	2021	71	176	2006-10-22	33.22
+1948	20	2120810038	Galang Simbolon	L	puspasari.kasiyah@example.com	6	2021	61	175	2007-04-29	36.71
+1949	20	2120720039	Darijan Banawi Tampubolon S.T.	P	umayasari@example.net	5	2021	50	178	2007-08-29	32.05
+1950	20	2120520040	Raina Laksmiwati	P	rahimah.rahayu@example.org	5	2021	73	164	2006-11-01	71.07
+1951	20	2120650041	Rosman Karsa Nugroho	L	qprasetyo@example.org	1	2021	65	161	2005-12-26	31.72
+1952	20	2120150042	Ella Nurdiyanti	P	xnapitupulu@example.com	3	2021	61	159	2006-02-18	33.72
+1953	20	2120610043	Sabri Santoso	P	rfarida@example.com	2	2021	91	180	2006-11-22	34.71
+1954	20	2120710044	Ulya Zaenab Nasyiah	P	mardhiyah.gasti@example.net	2	2021	45	164	2007-08-02	33.16
+1955	20	2120540045	Pia Anggraini	L	rama.usada@example.com	6	2021	84	157	2005-12-10	71.05
+1956	20	2120810046	Salwa Pia Nurdiyanti	L	jessica.prastuti@example.com	4	2021	81	152	2006-12-09	31.01
+1957	20	2120160047	Kamaria Padmasari	P	hhabibi@example.com	4	2021	56	156	2007-01-24	31.74
+1958	20	2120180048	Febi Belinda Rahmawati M.Kom.	L	siregar.maria@example.com	3	2021	67	163	2006-11-29	13.04
+1959	20	2120220049	Karen Lailasari	P	usada.wasis@example.net	5	2021	91	154	2006-10-23	31.71
+1960	20	2120160050	Hartaka Ega Hidayat	L	mahdi97@example.net	1	2021	92	170	2007-04-16	32.78
+1961	20	2120100051	Emin Wacana	P	utami.tami@example.com	4	2021	94	154	2006-08-24	71.05
+1962	20	2120830052	Nadia Puspasari	P	tamba.genta@example.net	1	2021	45	162	2006-11-04	32.04
+1963	20	2120600053	Vivi Titi Nurdiyanti	L	tgunawan@example.com	3	2021	82	180	2006-09-07	31.75
+1964	20	2120730054	Simon Mangunsong	P	widiastuti.icha@example.com	2	2021	76	176	2007-09-27	31.71
+1965	20	2120470055	Jarwi Suryono	P	hutagalung.uchita@example.net	2	2021	58	171	2006-10-16	62.04
+1966	20	2120620056	Dirja Thamrin	P	naryani@example.net	3	2021	65	157	2006-12-26	31.75
+1967	20	2120800057	Bahuwarna Wahyudin	P	emas52@example.com	1	2021	60	179	2006-08-20	35.12
+1968	20	2120300058	Lega Wacana	P	bambang.budiman@example.org	4	2021	78	167	2005-11-20	13.05
+1969	20	2120900059	Eka Agnes Nuraini	P	talia04@example.com	1	2021	66	163	2007-06-17	35.79
+1970	20	2120350060	Hafshah Fitriani Wijayanti S.Pd	P	raditya27@example.com	1	2021	87	161	2007-03-09	18.05
+1971	20	2120990061	Garang Hasta Mandala	P	rsaefullah@example.com	1	2021	51	169	2007-05-23	33.24
+1972	20	2120870062	Iriana Malika Permata S.Pt	P	wahyudin.ian@example.com	2	2021	75	161	2006-04-09	35.79
+1973	20	2120570063	Oni Nasyidah	P	olivia88@example.org	6	2021	84	167	2007-06-06	34.04
+1974	20	2120890064	Umar Zulkarnain	L	tiara.wibisono@example.org	3	2021	91	166	2006-05-24	35.12
+1975	20	2120250065	Bahuwirya Pangeran Januar	L	rutama@example.net	2	2021	52	168	2006-02-11	33.11
+1976	20	2120490066	Dina Safitri	P	balidin24@example.com	3	2021	93	168	2007-09-12	71.02
+1977	20	2120150067	Cornelia Tari Hasanah	L	hutasoit.mariadi@example.net	5	2021	60	149	2007-07-23	52.02
+1978	20	2120690068	Ratna Lailasari	P	bwinarsih@example.net	4	2021	82	156	2005-12-05	33.05
+1979	20	2120720069	Sari Hana Anggraini	L	agustina.sari@example.com	5	2021	49	155	2007-05-24	63.03
+1980	20	2120340070	Labuh Jati Sihombing M.Kom.	L	mangunsong.daniswara@example.org	4	2021	83	158	2006-11-30	34.04
+1981	20	2120680071	Oskar Darsirah Thamrin	L	purnawati.lega@example.net	2	2021	86	164	2006-02-10	73.04
+1982	20	2120400072	Yance Rahayu	L	hasim99@example.org	6	2021	75	169	2006-04-06	52.72
+1983	20	2120460073	Betania Ifa Hastuti	P	hidayat.ganep@example.com	5	2021	57	178	2006-09-21	35.12
+1984	20	2120520074	Ani Laksita M.Farm	L	darimin26@example.org	5	2021	64	165	2007-04-30	35.14
+1985	20	2120520075	Salimah Nurdiyanti	P	putri37@example.com	2	2021	71	178	2006-12-25	62.01
+1986	20	2120990076	Kezia Mandasari S.H.	L	coktaviani@example.com	6	2021	86	160	2006-05-12	33.73
+1987	20	2120800077	Siska Laras Utami S.H.	L	snovitasari@example.net	1	2021	61	147	2007-07-15	35.16
+1988	20	2120540078	Bagas Siregar	L	anastasia15@example.net	2	2021	90	151	2007-05-15	33.72
+1989	20	2120110079	Mursita Megantara	L	asirwanda67@example.net	5	2021	88	155	2007-05-19	33.23
+1990	20	2120480080	Genta Lailasari S.Sos	L	ella.wasita@example.net	1	2021	84	161	2007-03-09	32.06
+1991	20	2120620081	Pia Puspasari	L	caturangga.adriansyah@example.com	5	2021	63	156	2005-11-07	17.01
+1992	20	2120620082	Among Waskita	L	pzulaika@example.com	6	2021	78	174	2007-05-14	32.77
+1993	20	2120830083	Ulya Padmasari	L	safina29@example.com	2	2021	56	162	2007-02-11	62.01
+1994	20	2120820084	Asman Prasasta	L	naradi33@example.com	6	2021	78	175	2007-02-24	35.10
+1995	20	2120180085	Jelita Lailasari	P	xyolanda@example.org	3	2021	46	179	2007-05-17	12.78
+1996	20	2120620086	Eka Purwanti	P	riyanti.siska@example.org	4	2021	62	145	2006-12-16	35.04
+1997	20	2120810087	Puti Laksita	L	wahyu91@example.org	3	2021	57	158	2006-09-13	35.18
+1998	20	2120820088	Karen Jessica Rahimah	P	euwais@example.com	1	2021	69	178	2007-02-23	32.01
+1999	20	2120460089	Hafshah Nurdiyanti S.T.	P	nabila.purnawati@example.com	3	2021	91	163	2006-07-23	63.02
+2000	20	2120560090	Jamalia Rahayu	P	warji.farida@example.com	2	2021	82	146	2007-07-28	31.73
+2001	20	2120900091	Lembah Zulkarnain	L	hariyah.suci@example.org	5	2021	48	177	2006-11-04	35.27
+2002	20	2120100092	Yessi Kusmawati	L	ardianto.daryani@example.com	3	2021	66	170	2007-06-19	35.06
+2003	20	2120590093	Estiono Prasetya	P	esafitri@example.com	2	2021	60	151	2007-06-12	35.15
+2004	20	2120310094	Mahmud Saragih	L	bhasanah@example.net	4	2021	93	166	2007-08-16	33.27
+2005	20	2120600095	Safina Yolanda	P	laksita.kamidin@example.net	1	2021	58	171	2007-09-13	33.16
+2006	20	2120450096	Carla Mayasari	L	raina.palastri@example.net	2	2021	83	156	2006-06-09	61.04
+2007	20	2120150097	Soleh Rajasa S.Pd	P	kutami@example.com	4	2021	49	178	2006-10-15	31.74
+2008	20	2120940098	Bakijan Lantar Sitorus S.Pt	L	tampubolon.olga@example.net	5	2021	94	178	2007-08-26	35.71
+2009	20	2120140099	Maya Zulaika	L	imam.gunawan@example.com	1	2021	75	174	2006-07-03	36.72
+2010	20	2120230100	Respati Wijaya	L	gnasyidah@example.com	5	2021	94	149	2007-04-26	64.03
+2011	20	2120140101	Setya Gunarto M.Pd	P	martana66@example.com	4	2021	88	180	2007-02-23	73.13
+2012	20	2120860102	Shakila Andriani S.T.	L	faizah.rahimah@example.com	2	2021	45	156	2006-09-03	31.01
+2013	20	2120670103	Gatot Rajata S.Kom	L	lutfan02@example.net	1	2021	92	180	2005-12-25	52.02
+2014	20	2120610104	Carla Pia Mayasari S.Psi	L	rmelani@example.org	6	2021	79	147	2006-08-08	35.24
+2015	20	2120470105	Purwadi Jailani	P	prasetyo25@example.org	5	2021	48	150	2007-01-12	31.01
+2016	20	2120790106	Laksana Napitupulu	L	widodo.bella@example.com	6	2021	93	170	2007-04-25	31.75
+2017	20	2120940107	Latif Wibisono S.Farm	P	tyuniar@example.net	2	2021	55	152	2006-11-28	33.17
+2018	20	2120570108	Caket Galang Hutasoit	L	usyi76@example.net	1	2021	54	152	2007-01-08	33.06
+2019	20	2120400109	Leo Pratama	P	wasita.rina@example.net	6	2021	62	147	2007-09-09	34.04
+2020	20	2120800110	Mumpuni Permadi	P	pia.iswahyudi@example.com	4	2021	63	145	2005-11-07	35.71
+2021	20	2120780111	Zelaya Kusmawati	P	suartini.makara@example.net	3	2021	67	155	2006-09-30	35.78
+2022	20	2120670112	Patricia Diana Puspasari S.Ked	P	januar.samiah@example.com	4	2021	64	158	2006-11-16	31.01
+2023	20	2120110113	Yoga Gangsa Pradana	L	aditya.farida@example.net	2	2021	71	149	2007-04-09	73.07
+2024	20	2120140114	Karimah Wahyuni	L	ian72@example.net	1	2021	46	166	2007-07-07	33.17
+2025	20	2120210115	Ilsa Prastuti S.Sos	P	dzulaika@example.com	2	2021	66	172	2007-05-06	52.01
+2026	20	2120180116	Halim Dongoran	P	pratiwi.eli@example.com	4	2021	69	151	2007-01-07	31.01
+2027	20	2120190117	Syahrini Novitasari	L	siregar.cager@example.net	5	2021	81	145	2006-03-07	35.12
+2028	20	2120290118	Galiono Irawan	L	ajiono59@example.net	6	2021	49	165	2007-06-02	64.07
+2029	20	2120540119	Lulut Samosir	L	vkusumo@example.org	1	2021	80	179	2007-07-01	33.12
+2030	20	2120980120	Tantri Fathonah Namaga	L	fmustofa@example.org	2	2021	93	167	2005-12-04	61.05
+2031	20	2120410121	Kalim Thamrin	L	nrima99@example.org	5	2021	76	167	2006-10-27	33.09
+2032	20	2120430122	Kasiran Sinaga	P	oktaviani.irfan@example.org	6	2021	74	160	2007-09-14	33.23
+2033	20	2120890123	Paramita Almira Mayasari M.M.	L	chandra.mandala@example.org	2	2021	60	158	2006-01-04	35.06
+2034	20	2120340124	Sakura Queen Purnawati S.Sos	L	rahimah.victoria@example.com	1	2021	58	167	2006-07-29	33.16
+2035	20	2120450125	Perkasa Caraka Wasita S.Psi	P	mmansur@example.org	3	2021	82	155	2006-09-27	31.01
+2036	20	2120370126	Enteng Hutagalung S.I.Kom	P	kusmawati.kusuma@example.org	6	2021	52	174	2006-09-12	31.74
+2037	20	2120240127	Janet Winarsih	L	sakura79@example.org	4	2021	75	163	2007-01-29	32.74
+2038	20	2120540128	Vero Mahendra	L	baryani@example.com	6	2021	90	160	2007-05-28	32.08
+2039	20	2120300129	Keisha Aryani S.H.	L	puput94@example.com	5	2021	68	180	2006-09-14	33.26
+2040	20	2120330130	Asirwanda Suryono	P	melani.kawaca@example.org	5	2021	66	172	2007-06-28	35.29
+2041	20	2120320131	Ophelia Winarsih	P	paris06@example.com	2	2021	50	153	2006-01-29	35.29
+2042	20	2120290132	Febi Fitria Fujiati S.Gz	P	salwa09@example.org	5	2021	83	149	2006-03-18	36.01
+2043	20	2120410133	Mila Wastuti	P	ozy.nababan@example.net	4	2021	87	177	2007-02-23	62.04
+2044	20	2120260134	Galuh Hardiansyah	L	fwinarsih@example.org	2	2021	86	160	2007-05-25	52.71
+2045	20	2120400135	Hilda Aryani	P	usyi.prakasa@example.net	1	2021	54	152	2007-09-27	35.79
+2046	20	2120230136	Prayoga Mahesa Ardianto	L	yono.hakim@example.com	2	2021	49	152	2007-07-08	35.27
+2047	20	2120270137	Jarwadi Utama	P	zulkarnain.cinthia@example.org	1	2021	55	178	2006-06-23	32.10
+2048	20	2120380138	Martana Gantar Setiawan	L	wadi.hastuti@example.com	3	2021	86	163	2006-12-25	62.04
+2049	20	2120210139	Nova Mandasari S.T.	L	almira.haryanto@example.net	1	2021	48	177	2006-07-26	74.02
+2050	20	2120840140	Balidin Suryono	P	mangunsong.kiandra@example.net	5	2021	93	155	2007-07-17	52.72
+2051	20	2120560141	Juli Nurdiyanti	L	waskita.asmianto@example.net	5	2021	90	166	2005-12-28	11.14
+2052	20	2120730142	Cahyono Winarno	P	elvina.natsir@example.org	3	2021	62	148	2006-01-09	15.04
+2053	20	2120880143	Rafid Cakrawangsa Marpaung S.Gz	P	bakijan.rahayu@example.org	1	2021	81	145	2005-10-13	17.01
+2054	20	2120450144	Emong Santoso	P	rika93@example.com	4	2021	56	159	2005-12-29	32.06
+2055	20	2120790145	Septi Hastuti	P	ypuspasari@example.com	2	2021	54	158	2006-08-18	35.11
+2056	20	2120760146	Cengkir Pranowo	L	janet.aryani@example.com	4	2021	63	162	2007-05-09	34.01
+2057	20	2120610147	Tari Laksita	L	usman.wulandari@example.net	6	2021	78	178	2005-11-01	35.07
+2058	20	2120170148	Latika Namaga	P	prasetya.maida@example.net	5	2021	52	173	2005-12-14	33.26
+2059	20	2120930149	Tira Pratiwi M.Pd	L	febi.wahyuni@example.org	1	2021	46	174	2007-03-23	32.01
+2060	20	2120100150	Kalim Nababan	L	gilang04@example.net	4	2021	48	164	2007-09-22	32.79
+2061	21	2121850001	Kezia Prastuti	L	unababan@example.org	5	2021	83	153	2006-10-28	12.78
+2062	21	2121460002	Saiful Prasasta	L	rina98@example.org	2	2021	63	160	2007-03-26	35.19
+2063	21	2121980003	Eka Cinthia Widiastuti	L	riyanti.dartono@example.com	4	2021	62	164	2007-03-03	33.29
+2064	21	2121290004	Asmianto Dongoran	L	mariadi10@example.org	6	2021	51	163	2006-08-23	14.06
+2065	21	2121950005	Oni Usada	L	salsabila20@example.net	2	2021	49	174	2007-07-22	33.14
+2066	21	2121440006	Jamalia Usamah S.Sos	L	gara74@example.net	1	2021	51	151	2007-02-20	52.01
+2067	21	2121100007	Bagus Harsanto Adriansyah	L	anggabaya12@example.net	5	2021	91	160	2007-04-03	33.25
+2068	21	2121830008	Nalar Natsir	P	tampubolon.julia@example.net	2	2021	61	165	2006-09-20	32.02
+2069	21	2121840009	Liman Kuswoyo M.Ak	P	uwahyudin@example.com	4	2021	56	168	2007-03-15	63.02
+2070	21	2121180010	Sabar Salahudin	L	rini94@example.com	4	2021	63	153	2006-11-26	33.22
+2071	21	2121900011	Dasa Prabawa Ardianto S.Pt	L	thamrin.karta@example.net	1	2021	79	160	2006-04-04	31.71
+2072	21	2121200012	Himawan Hardiansyah S.H.	P	kayun01@example.org	3	2021	68	148	2005-12-01	34.04
+2073	21	2121490013	Violet Iriana Rahmawati M.Kom.	P	astuti.marwata@example.com	3	2021	72	152	2006-06-05	35.16
+2074	21	2121650014	Adikara Gatot Ramadan	P	dkuswoyo@example.org	6	2021	73	170	2006-12-13	31.01
+2075	21	2121900015	Zizi Ciaobella Haryanti	L	zelda.habibi@example.net	3	2021	82	151	2007-05-01	35.24
+2076	21	2121230016	Prasetya Ganda Firmansyah S.Gz	P	jaya.saefullah@example.com	4	2021	81	159	2005-11-17	35.21
+2077	21	2121580017	Karen Aryani S.Farm	L	hlailasari@example.net	5	2021	61	158	2005-11-02	17.04
+2078	21	2121980018	Dian Mulyani	P	samiah.hasanah@example.net	6	2021	51	150	2006-03-31	71.07
+2079	21	2121780019	Dalimin Suwarno	L	pkuswandari@example.com	2	2021	68	165	2007-03-26	31.72
+2080	21	2121660020	Tira Hassanah S.Sos	P	laksita.ajiono@example.org	5	2021	80	159	2006-07-18	35.05
+2081	21	2121610021	Rahmi Laksmiwati	P	jati10@example.com	4	2021	53	160	2007-07-23	32.79
+2082	21	2121840022	Maya Zamira Rahimah	L	latupono.lala@example.org	6	2021	91	166	2006-04-21	51.02
+2083	21	2121900023	Dartono Narpati	L	baktiono49@example.net	1	2021	64	174	2006-01-14	17.04
+2084	21	2121460024	Kambali Anggriawan	P	nyana75@example.net	1	2021	83	162	2007-05-10	32.15
+2085	21	2121740025	Zizi Fathonah Hasanah	P	nhabibi@example.net	6	2021	49	148	2006-01-26	51.01
+2086	21	2121890026	Himawan Wibisono	L	simbolon.tri@example.com	6	2021	95	170	2006-02-11	64.03
+2087	21	2121900027	Nabila Sari Oktaviani	P	kala29@example.net	3	2021	66	153	2006-08-11	73.04
+2088	21	2121120028	Garda Pradipta	P	waluyo.wasis@example.org	4	2021	85	162	2006-10-03	35.12
+2089	21	2121120029	Malika Andriani	P	gangsar50@example.org	5	2021	59	170	2007-09-10	31.73
+2090	21	2121170030	Emong Uwais	L	situmorang.ida@example.com	2	2021	47	165	2007-03-27	12.77
+2091	21	2121830031	Jagapati Hardiansyah	L	yolanda.farah@example.com	6	2021	90	165	2007-09-27	32.75
+2092	21	2121870032	Tiara Usada M.TI.	P	padma11@example.net	1	2021	53	152	2007-04-20	73.13
+2093	21	2121700033	Ida Riyanti	P	xuyainah@example.org	4	2021	57	159	2007-08-30	32.77
+2094	21	2121350034	Janet Mandasari	P	eman.sudiati@example.com	6	2021	87	179	2007-06-05	35.07
+2095	21	2121910035	Elma Kiandra Mardhiyah M.M.	P	zulkarnain.putri@example.org	2	2021	88	175	2007-08-21	32.73
+2096	21	2121270036	Lutfan Hutasoit	P	manggraini@example.org	2	2021	61	174	2007-04-02	52.03
+2097	21	2121980037	Harja Nasim Manullang S.H.	L	vagustina@example.com	3	2021	83	172	2007-07-30	17.01
+2098	21	2121380038	Rini Eva Novitasari	L	fusada@example.com	6	2021	94	165	2006-08-21	32.73
+2099	21	2121110039	Zelaya Suartini	P	putra.putri@example.net	6	2021	84	163	2006-08-17	72.02
+2100	21	2121960040	Muni Irawan S.Kom	P	damanik.irma@example.org	2	2021	77	171	2006-06-19	32.08
+2101	21	2121190041	Ulya Yolanda	L	jamalia78@example.net	2	2021	60	159	2005-11-13	33.04
+2102	21	2121660042	Ani Puji Astuti S.Farm	L	siska38@example.com	6	2021	83	168	2006-07-08	32.03
+2103	21	2121770043	Gabriella Puput Zulaika	P	purwanto.anggraini@example.net	5	2021	73	168	2007-03-16	52.72
+2104	21	2121530044	Ina Permata S.I.Kom	P	yulia.halimah@example.net	1	2021	79	146	2005-12-30	32.12
+2105	21	2121500045	Daruna Waluyo Nashiruddin	L	raden73@example.org	5	2021	46	164	2006-07-23	18.05
+2106	21	2121660046	Ian Utama	L	citra.mahendra@example.net	2	2021	91	151	2005-11-29	32.76
+2107	21	2121960047	Cici Tami Farida S.Gz	P	ina65@example.com	2	2021	60	166	2007-02-10	32.09
+2108	21	2121410048	Endra Santoso	P	ypuspita@example.net	4	2021	68	170	2006-06-28	14.06
+2109	21	2121320049	Gandi Jail Mustofa S.E.I	P	kartika.mustofa@example.org	1	2021	56	168	2007-07-04	32.09
+2110	21	2121790050	Maimunah Malika Mandasari	L	saputra.olga@example.com	1	2021	73	153	2006-03-27	35.10
+2111	21	2121930051	Martana Cakrawala Gunawan	P	dputra@example.net	2	2021	91	174	2006-06-16	17.01
+2112	21	2121990052	Imam Lanjar Maryadi M.Farm	P	dabukke.saadat@example.org	1	2021	59	160	2007-09-28	36.72
+2113	21	2121210053	Ratna Laksmiwati M.Kom.	L	aharyanti@example.com	4	2021	66	165	2006-01-17	33.06
+2114	21	2121130054	Umaya Jailani S.Sos	L	salimah64@example.com	4	2021	47	146	2006-02-18	31.75
+2115	21	2121870055	Kemal Mangunsong	L	enteng29@example.com	3	2021	52	151	2006-05-12	35.16
+2116	21	2121830056	Baktianto Danu Saefullah S.E.	L	ipermadi@example.net	5	2021	56	180	2006-11-27	35.07
+2117	21	2121530057	Rahmi Astuti	L	ayu.aryani@example.org	3	2021	74	158	2007-05-12	31.73
+2118	21	2121360058	Tania Raisa Astuti M.Ak	P	karimah08@example.org	5	2021	95	161	2006-01-30	31.72
+2119	21	2121430059	Karen Puspasari S.Farm	L	laksita.galih@example.org	2	2021	79	167	2006-11-04	33.13
+2120	21	2121260060	Karman Mahfud Prayoga M.Kom.	P	gmaryadi@example.com	3	2021	68	179	2006-01-31	32.79
+2121	22	2122890001	Natalia Puspasari	L	agnes.permadi@example.org	1	2021	53	153	2007-09-12	36.03
+2122	22	2122340002	Mila Suryatmi	L	tina.gunawan@example.com	1	2021	89	169	2006-03-23	35.11
+2123	22	2122850003	Lintang Laksmiwati	L	gina.maheswara@example.net	5	2021	80	157	2005-10-11	35.25
+2124	22	2122340004	Tami Wijayanti	P	simbolon.lidya@example.net	4	2021	49	176	2005-12-25	36.72
+2125	22	2122470005	Tania Restu Oktaviani	P	firgantoro.rahman@example.net	1	2021	73	158	2007-02-23	74.02
+2126	22	2122150006	Taufan Jailani S.H.	L	omaryadi@example.org	4	2021	45	170	2006-03-24	53.05
+2127	22	2122240007	Indra Emin Saragih	L	eva04@example.com	6	2021	90	162	2007-07-25	33.01
+2128	22	2122300008	Jamal Gunarto	P	baktiadi59@example.org	3	2021	79	165	2007-09-18	31.73
+2129	22	2122520009	Respati Mahendra M.M.	P	ramadan.uli@example.com	5	2021	58	180	2006-05-29	33.72
+2130	22	2122760010	Cakrawala Himawan Maulana S.H.	L	mahesa24@example.net	3	2021	83	147	2007-09-25	33.14
+2131	22	2122650011	Gantar Maulana M.M.	P	lalita31@example.net	5	2021	78	157	2006-10-28	31.73
+2132	22	2122450012	Salimah Riyanti	L	lailasari.amelia@example.net	1	2021	93	177	2006-12-26	32.17
+2133	22	2122180013	Jane Mulyani	P	banara.thamrin@example.com	6	2021	66	168	2005-12-13	31.74
+2134	22	2122640014	Laila Tina Riyanti S.Sos	P	diah.pradana@example.com	1	2021	91	171	2007-01-26	35.05
+2135	22	2122190015	Rusman Suwarno	L	winarsih.irfan@example.com	4	2021	94	173	2006-09-06	33.76
+2136	22	2122810016	Lalita Rahayu	L	indra.palastri@example.net	1	2021	65	159	2005-11-26	35.72
+2137	22	2122370017	Makara Cahyono Halim	L	fhandayani@example.com	5	2021	67	152	2006-11-12	36.03
+2138	22	2122140018	Alika Handayani	P	laras.hariyah@example.net	5	2021	80	173	2007-08-23	52.02
+2139	22	2122210019	Padma Hartati	L	luwar.mustofa@example.com	6	2021	64	159	2006-06-28	35.10
+2140	22	2122420020	Ciaobella Usamah	P	lulut.handayani@example.com	4	2021	93	163	2007-01-01	35.18
+2141	22	2122600021	Tami Suci Padmasari	L	qwasita@example.com	5	2021	84	158	2006-01-01	31.01
+2142	22	2122140022	Ika Aryani S.IP	P	empluk.najmudin@example.net	6	2021	56	161	2007-08-18	32.78
+2143	22	2122520023	Maya Pia Prastuti M.Ak	P	marpaung.eka@example.org	3	2021	59	164	2006-10-15	33.16
+2144	22	2122800024	Bagus Joko Rajata S.Pd	L	mala.prastuti@example.org	5	2021	77	145	2007-03-07	31.74
+2145	22	2122830025	Ana Juli Wahyuni S.Pt	P	maheswara.eka@example.org	1	2021	45	176	2007-05-05	18.04
+2146	22	2122570026	Adiarja Prasasta	L	andriani.citra@example.net	5	2021	74	159	2006-02-15	14.03
+2147	22	2122460027	Luthfi Makara Lazuardi	P	ousada@example.org	6	2021	82	174	2007-01-19	33.06
+2148	22	2122890028	Lidya Aryani	P	lintang.handayani@example.net	6	2021	92	178	2006-06-11	62.04
+2149	22	2122520029	Simon Virman Pradipta	P	utami.sari@example.net	6	2021	78	154	2006-02-13	31.74
+2150	22	2122200030	Mulya Siregar S.T.	L	waluyo.langgeng@example.net	6	2021	72	162	2006-04-19	33.26
+2151	22	2122950031	Adiarja Maras Rajasa M.M.	L	harto.maheswara@example.net	5	2021	65	147	2007-06-18	35.74
+2152	22	2122690032	Danu Cakrawangsa Januar	P	rachel95@example.net	1	2021	87	159	2006-09-27	35.15
+2153	22	2122110033	Almira Astuti	L	mulyani.karsa@example.org	5	2021	76	174	2007-08-20	32.01
+2154	22	2122400034	Lidya Dewi Nasyiah	L	baktiono.laksmiwati@example.com	2	2021	61	169	2006-06-21	31.01
+2155	22	2122600035	Bahuwirya Mursinin Pratama	P	hidayat.nugraha@example.com	2	2021	92	162	2006-09-21	35.16
+2156	22	2122300036	Wage Dabukke	P	ppermata@example.org	5	2021	63	161	2007-09-23	35.78
+2157	22	2122210037	Ika Kezia Hasanah S.Pt	L	patricia69@example.net	2	2021	61	157	2007-04-01	33.73
+2158	22	2122290038	Baktiono Saptono S.Kom	L	skurniawan@example.org	4	2021	74	151	2007-08-25	34.71
+2159	22	2122730039	Mutia Maryati S.Ked	P	owulandari@example.com	4	2021	46	179	2006-11-01	31.01
+2160	22	2122970040	Chelsea Diana Laksmiwati	L	baktiadi13@example.org	1	2021	78	163	2007-02-06	51.02
+2161	22	2122390041	Jail Wijaya	P	usamah.edison@example.org	6	2021	91	168	2006-10-10	33.01
+2162	22	2122570042	Clara Laras Yuniar	L	zprasetyo@example.org	5	2021	72	174	2007-06-11	35.06
+2163	22	2122510043	Dina Raisa Haryanti M.Pd	L	bandriani@example.org	1	2021	68	161	2007-09-27	32.77
+2164	22	2122730044	Luwes Halim	P	ssihombing@example.org	4	2021	70	169	2006-07-13	74.04
+2165	22	2122570045	Puput Maryati	P	hidayat.dwi@example.com	3	2021	69	167	2006-07-22	35.09
+2166	22	2122350046	Radika Habibi	P	twidodo@example.com	4	2021	58	165	2005-10-11	32.09
+2167	22	2122150047	Raina Tina Halimah M.Kom.	L	slaksita@example.org	3	2021	86	172	2007-08-14	73.07
+2168	22	2122480048	Muni Hidayat S.Pd	L	cahyono90@example.com	4	2021	82	167	2006-12-25	35.75
+2169	22	2122790049	Ridwan Mangunsong M.Ak	P	kamal02@example.net	4	2021	76	165	2006-10-29	35.74
+2170	22	2122810050	Puti Sari Mandasari	P	lsuryatmi@example.com	3	2021	83	177	2007-05-11	62.01
+2171	22	2122730051	Raina Qori Rahmawati	P	amahendra@example.org	4	2021	47	152	2006-04-08	31.71
+2172	22	2122370052	Ade Maria Usamah	P	qori99@example.com	6	2021	86	156	2006-05-10	61.04
+2173	22	2122240053	Irfan Maulana	P	suryatmi.wakiman@example.net	2	2021	46	150	2007-03-02	12.76
+2174	22	2122570054	Yulia Jamalia Mayasari	L	ysamosir@example.com	1	2021	66	178	2006-09-17	33.19
+2175	22	2122250055	Galih Pradana S.I.Kom	P	oni79@example.org	3	2021	49	157	2006-06-19	31.74
+2176	22	2122740056	Azalea Yulia Sudiati	L	tami.namaga@example.net	4	2021	57	157	2007-06-12	52.02
+2177	22	2122900057	Mulyanto Hakim	L	mansur.galur@example.com	5	2021	55	179	2007-05-05	31.75
+2178	22	2122780058	Elvina Maya Riyanti S.Sos	L	chandra36@example.org	3	2021	83	173	2007-05-08	35.15
+2179	22	2122120059	Raharja Marbun	P	yuniar.tasnim@example.net	6	2021	70	159	2006-09-14	35.21
+2180	22	2122790060	Hani Puti Permata S.IP	P	habibi.saka@example.org	5	2021	46	166	2006-01-25	18.04
+2181	22	2122430061	Rafi Tarihoran S.Ked	L	jumari.anggriawan@example.org	4	2021	63	152	2007-02-12	61.04
+2182	22	2122670062	Tina Purnawati S.Psi	L	saka76@example.net	4	2021	47	145	2006-12-21	35.76
+2183	22	2122830063	Sadina Puspasari	L	rirawan@example.com	2	2021	88	147	2006-02-19	33.20
+2184	22	2122110064	Hardi Santoso S.Pd	P	uyuliarti@example.net	3	2021	69	164	2007-07-11	18.05
+2185	22	2122520065	Wakiman Prasetya	L	cinthia.siregar@example.com	4	2021	88	161	2006-12-22	32.77
+2186	22	2122560066	Damar Saputra	P	uli.salahudin@example.org	4	2021	55	160	2006-09-07	32.73
+2187	22	2122270067	Yusuf Among Dabukke	P	ardianto.jasmin@example.org	5	2021	48	151	2006-12-07	72.02
+2188	22	2122360068	Alika Rahmawati	P	wani80@example.org	1	2021	58	149	2007-08-30	35.77
+2189	22	2122820069	Liman Prabu Sihombing M.Ak	P	novitasari.hari@example.com	6	2021	78	156	2007-07-14	35.72
+2190	22	2122980070	Widya Rahayu	P	elaksita@example.org	3	2021	94	178	2007-05-23	31.72
+2191	22	2122950071	Catur Ramadan	P	qori.sitompul@example.net	4	2021	57	151	2006-12-16	36.01
+2192	22	2122280072	Vanesa Nasyiah	L	dalima.maryadi@example.net	5	2021	81	166	2006-12-23	33.12
+2193	22	2122260073	Febi Sakura Wulandari M.M.	P	tsetiawan@example.net	2	2021	89	157	2006-07-01	33.15
+2194	22	2122880074	Najib Siregar	L	mahmud.widiastuti@example.org	2	2021	57	166	2006-11-26	71.02
+2195	22	2122480075	Eka Karna Manullang S.Pt	L	utami.cakrajiya@example.org	2	2021	95	172	2006-02-01	35.71
+2196	22	2122430076	Gilda Lidya Agustina	P	situmorang.hamzah@example.com	4	2021	67	158	2005-11-29	33.72
+2197	22	2122520077	Jane Novitasari S.Pd	P	sitorus.julia@example.org	2	2021	70	159	2007-01-04	12.78
+2198	22	2122650078	Salimah Winarsih	P	yuni.pertiwi@example.org	6	2021	73	177	2006-10-19	35.24
+2199	22	2122760079	Elma Widiastuti	P	lwidodo@example.com	4	2021	76	164	2006-09-04	31.71
+2200	22	2122990080	Atmaja Pangestu	P	kuswandari.novi@example.org	2	2021	84	146	2006-08-27	61.01
+2201	22	2122220081	Cager Satya Firgantoro	L	qwaskita@example.org	5	2021	69	154	2006-06-01	32.11
+2202	22	2122770082	Edward Hakim	L	wani.lailasari@example.com	2	2021	56	152	2006-07-30	32.18
+2203	22	2122190083	Karsa Kurniawan	P	upik38@example.org	6	2021	63	152	2007-04-28	32.08
+2204	22	2122240084	Gada Putra	L	hardiansyah.harsaya@example.com	5	2021	73	147	2007-05-05	32.13
+2205	22	2122780085	Luwes Tampubolon	L	vwastuti@example.com	5	2021	94	177	2006-02-07	32.76
+2206	22	2122290086	Ina Wahyuni	L	iriana.firmansyah@example.org	4	2021	90	150	2006-04-10	52.72
+2207	22	2122830087	Lili Riyanti	P	yulianti.rafid@example.net	6	2021	47	156	2005-09-30	35.11
+2208	22	2122480088	Nabila Wahyuni	L	nilam.tamba@example.net	6	2021	84	168	2006-12-28	14.03
+2209	22	2122400089	Mulya Eja Irawan S.Kom	L	jarwi75@example.org	6	2021	87	160	2005-10-29	33.01
+2210	22	2122730090	Unjani Mulyani S.E.	P	hendra.budiman@example.org	1	2021	62	171	2007-09-19	31.72
+2211	23	2123340001	Nasim Lazuardi M.Farm	P	bakti.hassanah@example.com	5	2021	77	155	2005-12-16	33.13
+2212	23	2123800002	Sabar Habibi	P	tpuspita@example.org	6	2021	86	164	2006-11-28	32.75
+2213	23	2123720003	Wage Garda Prasasta S.E.I	P	whassanah@example.org	6	2021	92	159	2007-02-04	61.04
+2214	23	2123270004	Mulya Nashiruddin	P	radit.kusmawati@example.org	3	2021	47	161	2007-01-14	32.04
+2215	23	2123430005	Aurora Elvina Pratiwi S.IP	L	iandriani@example.org	2	2021	64	165	2006-05-19	61.05
+2216	23	2123630006	Elvina Raina Puspasari S.Gz	P	lantar.pratiwi@example.org	6	2021	90	171	2006-08-07	32.79
+2217	23	2123460007	Rini Wastuti	L	imarpaung@example.com	1	2021	61	152	2006-02-05	11.71
+2218	23	2123660008	Balidin Saputra M.M.	P	najwa57@example.org	5	2021	69	167	2007-03-08	75.01
+2219	23	2123540009	Ajiman Tirta Anggriawan S.Farm	L	kartika.farida@example.org	2	2021	51	175	2006-04-08	31.75
+2220	23	2123430010	Aditya Cawisadi Irawan	L	satya72@example.com	4	2021	46	174	2006-11-21	35.05
+2221	23	2123170011	Ade Vanya Yulianti	L	gunarto.prasetya@example.net	6	2021	66	156	2007-06-16	33.27
+2222	23	2123630012	Ibrahim Wadi Setiawan S.IP	L	okto38@example.com	3	2021	45	163	2006-11-24	32.09
+2223	23	2123680013	Cemplunk Marpaung	P	cahyanto.mandasari@example.net	2	2021	73	160	2006-11-15	33.08
+2224	23	2123580014	Padmi Mulyani	L	asman21@example.net	1	2021	88	176	2006-07-08	33.12
+2225	23	2123360015	Mahmud Prabowo	P	daryani.fujiati@example.org	1	2021	92	178	2005-11-11	36.01
+2226	23	2123410016	Ulva Dinda Purwanti M.Farm	P	zelaya42@example.net	5	2021	51	163	2006-08-21	31.01
+2227	23	2123750017	Latif Hutasoit	L	danu61@example.net	6	2021	87	153	2007-01-22	34.02
+2228	23	2123750018	Candra Jagapati Marbun S.IP	P	nuraini.oliva@example.net	3	2021	63	158	2006-12-18	71.07
+2229	23	2123270019	Nilam Kuswandari M.Kom.	L	jhasanah@example.org	4	2021	77	178	2007-09-21	33.71
+2230	23	2123820020	Talia Hastuti	P	jamalia.hartati@example.org	6	2021	75	153	2006-12-02	35.76
+2231	23	2123400021	Calista Farida	L	eka85@example.net	5	2021	78	171	2006-05-07	33.04
+2232	23	2123260022	Waluyo Najib Winarno	P	psimbolon@example.net	6	2021	78	157	2007-01-09	75.03
+2233	23	2123610023	Ikin Januar	P	salsabila54@example.net	1	2021	58	165	2005-10-08	63.01
+2234	23	2123750024	Dasa Lazuardi	L	wahyudin.emin@example.com	4	2021	85	157	2007-05-20	32.15
+2235	23	2123490025	Kayun Latupono S.Psi	P	hidayanto.kacung@example.org	4	2021	82	147	2006-09-21	33.13
+2236	23	2123840026	Cakrajiya Bahuraksa Zulkarnain S.Gz	L	carla.palastri@example.org	2	2021	46	158	2007-01-11	32.71
+2237	23	2123450027	Dono Wijaya	L	kusmawati.dalima@example.com	2	2021	56	146	2006-03-28	33.18
+2238	23	2123800028	Taswir Ardianto	L	setya25@example.com	4	2021	76	150	2007-02-04	61.01
+2239	23	2123270029	Daniswara Gunarto	P	bwasita@example.net	3	2021	83	157	2006-12-17	32.06
+2240	23	2123670030	Suci Iriana Usada	P	xhandayani@example.com	6	2021	58	178	2007-02-06	36.03
+2241	23	2123900031	Harjaya Saputra S.Pd	L	hasanah.nalar@example.org	1	2021	45	176	2006-01-17	31.73
+2242	23	2123960032	Taswir Kuswoyo S.Psi	P	aprabowo@example.com	4	2021	59	148	2006-12-19	32.01
+2243	23	2123110033	Septi Laksita M.Kom.	L	nlatupono@example.net	6	2021	84	152	2005-11-11	12.77
+2244	23	2123190034	Kasiyah Fujiati	L	paramita18@example.org	2	2021	76	154	2007-08-04	31.01
+2245	23	2123500035	Bancar Pangestu	L	kusuma37@example.org	4	2021	48	166	2007-03-06	33.75
+2246	23	2123640036	Jarwa Respati Santoso	P	lutfan.suryono@example.com	2	2021	45	165	2007-04-10	34.02
+2247	23	2123180037	Chandra Hidayanto	L	cinthia50@example.net	3	2021	61	145	2007-02-24	32.02
+2248	23	2123760038	Mustofa Budiyanto	P	melani.rafi@example.org	5	2021	82	172	2006-10-28	32.09
+2249	23	2123340039	Wirda Wahyuni	P	hafshah14@example.com	1	2021	50	179	2005-10-17	32.02
+2250	23	2123210040	Aisyah Keisha Puspasari	L	ibrani.halimah@example.net	5	2021	95	148	2007-08-30	33.03
+2251	23	2123720041	Kania Tami Nasyidah S.Pd	L	gada.wastuti@example.org	4	2021	47	167	2007-07-18	33.01
+2252	23	2123330042	Natalia Palastri S.Sos	L	cemplunk.januar@example.net	6	2021	65	155	2007-04-21	33.26
+2253	23	2123850043	Gandi Luhung Wasita S.Psi	L	ifa55@example.net	4	2021	81	154	2007-09-15	63.03
+2254	23	2123690044	Bahuwarna Maheswara	P	nurdiyanti.bambang@example.com	5	2021	80	164	2005-11-30	33.05
+2255	23	2123870045	Jati Marpaung	P	emas.haryanti@example.net	4	2021	53	177	2007-06-28	31.74
+2256	23	2123760046	Dewi Tira Nuraini M.Farm	L	zharyanti@example.org	1	2021	90	173	2005-10-24	12.77
+2257	23	2123810047	Kani Haryanti	P	opan.suwarno@example.net	2	2021	53	166	2006-12-03	35.16
+2258	23	2123110048	Damar Tri Sirait	P	ooktaviani@example.net	1	2021	93	147	2007-06-21	72.02
+2259	23	2123320049	Radika Suwarno S.H.	L	simbolon.teguh@example.org	2	2021	80	149	2006-04-12	34.01
+2260	23	2123480050	Jaga Naradi Thamrin	L	sudiati.talia@example.net	2	2021	46	174	2007-04-01	33.27
+2261	23	2123360051	Ulya Puput Pudjiastuti	P	waluyo.julia@example.net	5	2021	53	177	2006-06-19	32.10
+2262	23	2123520052	Dian Palastri	P	adiarja30@example.org	6	2021	53	168	2005-11-02	18.03
+2263	23	2123170053	Kamaria Lestari S.Farm	P	maria.yuniar@example.net	3	2021	51	147	2006-04-30	31.71
+2264	23	2123240054	Irma Wulandari	L	llaksmiwati@example.net	2	2021	57	157	2006-08-12	31.71
+2265	23	2123370055	Ega Ramadan	L	genta78@example.com	4	2021	52	167	2006-05-26	33.75
+2266	23	2123170056	Xanana Hutasoit	L	purwa50@example.com	6	2021	59	170	2007-04-14	11.71
+2267	23	2123480057	Lala Nurul Purnawati	L	laksana24@example.com	2	2021	86	150	2007-05-31	32.76
+2268	23	2123180058	Lintang Suryatmi	P	kurniawan.cakrabirawa@example.net	2	2021	47	167	2006-07-10	31.73
+2269	23	2123500059	Radika Dalimin Megantara M.M.	L	adinata85@example.com	2	2021	53	156	2006-12-24	31.73
+2270	23	2123400060	Yono Kuswoyo	L	ulya55@example.org	1	2021	47	153	2006-06-22	33.72
+2271	23	2123180061	Queen Ani Winarsih S.IP	L	rahmi99@example.com	1	2021	46	166	2007-07-24	35.14
+2272	23	2123520062	Nasab Latupono M.Farm	P	setiawan.ratih@example.net	1	2021	63	145	2007-05-06	33.02
+2273	23	2123150063	Safina Yuniar	P	hasanah.maras@example.com	2	2021	46	149	2006-11-03	32.74
+2274	23	2123840064	Yuni Aisyah Kusmawati	L	rini.melani@example.net	6	2021	63	178	2006-09-22	35.10
+2275	23	2123440065	Victoria Wulandari	P	gyuniar@example.org	6	2021	59	167	2007-08-16	62.01
+2276	23	2123640066	Laras Mayasari	L	adinata20@example.com	4	2021	62	151	2007-02-28	33.72
+2277	23	2123650067	Irwan Nainggolan	L	rprastuti@example.net	5	2021	51	176	2007-08-25	32.79
+2278	23	2123600068	Eva Zulaikha Kusmawati	L	caraka.widiastuti@example.org	2	2021	81	162	2006-12-21	35.18
+2279	23	2123750069	Rahmi Fujiati	L	prabowo.hakim@example.com	1	2021	88	147	2007-02-03	34.04
+2280	23	2123210070	Ikin Hidayat	L	jelita.mustofa@example.net	1	2021	61	158	2007-03-02	74.04
+2281	23	2123440071	Vanya Talia Handayani M.TI.	P	yulianti.kayla@example.net	3	2021	66	168	2007-09-23	33.20
+2282	23	2123550072	Eva Puspasari	L	aryani.radika@example.com	3	2021	88	171	2007-03-01	33.16
+2283	23	2123470073	Reza Sirait	L	simanjuntak.lega@example.com	3	2021	63	156	2007-01-07	31.72
+2284	23	2123890074	Titi Zahra Wahyuni M.Ak	P	ellis12@example.com	5	2021	72	177	2007-09-05	32.72
+2285	23	2123220075	Kasiyah Yolanda	P	twulandari@example.org	3	2021	92	147	2006-08-11	73.13
+2286	23	2123580076	Tira Hamima Suryatmi	P	dimas87@example.org	3	2021	64	153	2006-05-02	32.14
+2287	23	2123300077	Mala Mandasari S.Psi	P	prasetyo.hastuti@example.com	4	2021	46	180	2006-04-29	18.04
+2288	23	2123260078	Yessi Kusmawati	L	onatsir@example.net	3	2021	94	177	2007-09-15	33.71
+2289	23	2123900079	Dipa Jindra Nugroho	L	carub48@example.com	4	2021	53	168	2007-08-17	33.72
+2290	23	2123640080	Cahyono Rizki Nababan	P	ahabibi@example.org	1	2021	77	150	2005-11-08	33.25
+2291	23	2123920081	Cinthia Nadia Rahmawati S.Farm	L	dwastuti@example.net	1	2021	70	164	2006-10-07	33.28
+2292	23	2123430082	Kania Aryani	P	devi66@example.com	5	2021	86	146	2006-06-18	32.73
+2293	23	2123990083	Salsabila Susanti	L	taswir.oktaviani@example.org	2	2021	95	156	2007-03-18	32.18
+2294	23	2123250084	Lurhur Sihotang S.T.	P	marsito23@example.org	3	2021	68	149	2007-08-06	31.71
+2295	23	2123950085	Clara Nasyidah S.I.Kom	P	kemal.nasyidah@example.org	5	2021	70	146	2005-11-21	32.75
+2296	23	2123110086	Danuja Winarno M.TI.	P	eka.padmasari@example.org	1	2021	87	176	2006-01-13	33.14
+2297	23	2123420087	Purwa Pangestu	P	marwata.marbun@example.net	5	2021	88	175	2006-04-14	33.17
+2298	23	2123310088	Vanya Shakila Yuniar	P	ismail.hariyah@example.net	4	2021	83	153	2007-09-12	33.24
+2299	23	2123650089	Okto Budiyanto	L	caturangga03@example.net	3	2021	75	148	2005-11-01	31.73
+2300	23	2123680090	Tomi Prasasta	P	zramadan@example.net	2	2021	90	155	2007-05-16	32.11
+2301	24	2124490001	Samiah Kusmawati	P	wijayanti.ida@example.net	5	2021	60	157	2007-05-24	31.75
+2302	24	2124840002	Jarwi Utama	P	melinda.pangestu@example.org	2	2021	68	167	2006-05-17	31.75
+2303	24	2124260003	Saiful Sihotang	L	pmangunsong@example.com	5	2021	67	168	2007-09-26	53.01
+2304	24	2124550004	Dartono Sihombing	L	hasanah.maimunah@example.com	3	2021	73	159	2006-04-25	31.73
+2305	24	2124340005	Kurnia Kuswoyo M.M.	L	kiandra40@example.net	3	2021	53	154	2006-01-31	35.04
+2306	24	2124470006	Darmana Tasnim Prasetyo	L	ulva.siregar@example.net	1	2021	57	167	2006-07-26	35.19
+2307	24	2124880007	Elma Zizi Nasyidah	P	firgantoro.latika@example.com	5	2021	89	154	2005-10-20	32.71
+2308	24	2124910008	Nova Wijayanti	P	pratiwi.dalima@example.com	2	2021	65	152	2007-09-15	75.03
+2309	24	2124930009	Wisnu Gunawan	P	cinthia16@example.net	2	2021	69	152	2006-05-16	62.04
+2310	24	2124380010	Wardaya Napitupulu	P	bakda.dabukke@example.org	2	2021	77	175	2007-05-28	33.06
+2311	24	2124370011	Asirwada Najmudin	P	mutia65@example.net	2	2021	94	147	2006-08-14	32.04
+2312	24	2124290012	Cahya Embuh Samosir	L	mahfud.maryati@example.com	1	2021	80	164	2006-01-01	61.04
+2313	24	2124120013	Lili Laksmiwati	P	sadina02@example.net	4	2021	77	164	2006-10-19	14.03
+2314	24	2124630014	Fitria Ulva Wastuti	P	kwinarno@example.net	1	2021	66	172	2007-07-26	35.21
+2315	24	2124950015	Jayadi Ardianto S.Psi	P	ana03@example.org	1	2021	67	162	2006-03-05	36.03
+2316	24	2124250016	Bajragin Simbolon S.H.	P	ouwais@example.net	3	2021	91	180	2005-12-28	31.74
+2317	24	2124700017	Eka Permata S.Pd	P	xmaryati@example.org	5	2021	66	170	2005-12-27	65.01
+2318	24	2124710018	Laswi Rudi Narpati S.Psi	P	dian.laksmiwati@example.org	5	2021	59	166	2006-01-15	13.04
+2319	24	2124860019	Hamima Hasna Yuliarti	P	rahayu.najmudin@example.com	1	2021	62	166	2007-03-07	32.74
+2320	24	2124770020	Waluyo Margana Prasetya	P	jelita92@example.net	5	2021	47	177	2006-07-03	63.03
+2321	24	2124130021	Putri Sadina Pudjiastuti S.Farm	L	tiara27@example.org	4	2021	84	152	2006-05-25	32.12
+2322	24	2124230022	Kusuma Utama	P	manullang.balapati@example.com	4	2021	70	162	2007-04-11	35.15
+2323	24	2124990023	Artawan Lazuardi	P	permata.michelle@example.com	6	2021	58	178	2006-10-16	33.03
+2324	24	2124820024	Wardaya Utama M.Ak	L	jane89@example.net	3	2021	87	180	2007-02-22	36.71
+2325	24	2124290025	Erik Ajimat Siregar S.Sos	L	usafitri@example.com	3	2021	58	147	2006-12-15	14.05
+2326	24	2124630026	Rina Vicky Agustina S.Ked	L	dian.palastri@example.org	6	2021	60	157	2007-08-09	33.15
+2327	24	2124350027	Sakura Pertiwi	P	paulin.halim@example.com	2	2021	95	163	2007-06-19	35.05
+2328	24	2124470028	Zelda Oktaviani S.IP	P	prabawa.dabukke@example.com	1	2021	66	155	2007-08-03	31.71
+2329	24	2124490029	Dacin Hutagalung	L	firgantoro.makara@example.org	6	2021	52	168	2007-05-15	31.71
+2330	24	2124910030	Hana Padmasari	P	siregar.eka@example.net	1	2021	94	170	2006-10-18	35.29
+2331	24	2124750031	Rendy Lutfan Januar S.I.Kom	L	ehandayani@example.com	2	2021	93	151	2007-05-26	33.12
+2332	24	2124130032	Jarwadi Haryanto S.E.I	P	gunarto.carub@example.com	5	2021	72	175	2006-11-02	33.76
+2333	24	2124560033	Dina Namaga	L	setiawan.hartana@example.org	6	2021	65	168	2006-12-10	31.75
+2334	24	2124420034	Damu Dabukke	L	gina50@example.org	3	2021	67	146	2005-11-02	64.07
+2335	24	2124400035	Iriana Wastuti M.Pd	L	rahman27@example.com	3	2021	70	168	2007-03-01	35.77
+2336	24	2124880036	Nasab Haryanto	L	amayasari@example.org	1	2021	75	147	2006-11-11	32.72
+2337	24	2124680037	Yusuf Januar M.Ak	P	umayasari@example.com	2	2021	45	179	2006-11-01	52.01
+2338	24	2124270038	Anita Diah Lestari S.E.	P	sfirmansyah@example.org	1	2021	85	161	2007-04-30	36.72
+2339	24	2124250039	Candrakanta Heryanto Maryadi	P	novitasari.unjani@example.com	3	2021	69	177	2007-09-01	34.03
+2340	24	2124470040	Yosef Mahfud Maulana M.Pd	P	whardiansyah@example.net	4	2021	49	174	2007-07-06	53.05
+2341	24	2124810041	Yono Adinata Sitorus	P	handayani.respati@example.org	4	2021	76	160	2005-10-28	31.73
+2342	24	2124990042	Aisyah Kani Usada	P	gatra.wahyuni@example.net	5	2021	71	149	2005-10-13	33.11
+2343	24	2124230043	Bancar Prasetya M.Ak	L	paramita.mardhiyah@example.net	1	2021	90	149	2006-06-20	64.03
+2344	24	2124710044	Latika Usamah	L	tyolanda@example.net	4	2021	88	163	2006-03-13	33.73
+2345	24	2124390045	Lasmono Pradana	L	cinthia54@example.net	3	2021	59	150	2006-08-03	12.76
+2346	24	2124930046	Shakila Pertiwi	P	ssihombing@example.org	1	2021	60	180	2006-11-08	35.12
+2347	24	2124110047	Jane Laksita	P	panca.habibi@example.net	1	2021	72	145	2006-08-12	33.76
+2348	24	2124970048	Nurul Hariyah	L	capa51@example.org	5	2021	56	167	2006-07-31	33.71
+2349	24	2124820049	Vanya Halimah S.E.I	L	dongoran.jane@example.net	6	2021	86	153	2007-06-15	18.04
+2350	24	2124830050	Mitra Prakasa	P	lukman52@example.net	5	2021	67	154	2006-12-11	75.03
+2351	24	2124970051	Dinda Laksita	L	nurdiyanti.embuh@example.com	1	2021	64	169	2007-03-24	35.09
+2352	24	2124620052	Betania Unjani Laksita	L	digdaya60@example.com	2	2021	92	173	2007-02-24	71.07
+2353	24	2124740053	Cakrawangsa Wahyudin	P	rahmi.yuniar@example.com	2	2021	51	151	2006-04-13	31.71
+2354	24	2124580054	Nrima Hidayat S.Pt	P	vsuartini@example.com	1	2021	46	173	2007-04-04	18.04
+2355	24	2124560055	Padmi Handayani	P	qzulkarnain@example.com	1	2021	56	158	2006-08-15	33.75
+2356	24	2124600056	Wirda Keisha Rahmawati	P	cakrajiya.nuraini@example.org	5	2021	46	152	2006-12-19	31.01
+2357	24	2124660057	Rachel Rahayu	L	fpurwanti@example.org	4	2021	71	178	2007-03-05	34.01
+2358	24	2124310058	Respati Marpaung	P	vyuliarti@example.net	5	2021	78	160	2005-12-07	71.02
+2359	24	2124690059	Ghani Estiono Firgantoro	L	vero34@example.org	4	2021	63	145	2005-12-08	33.75
+2360	24	2124640060	Zelaya Hassanah	P	yardianto@example.org	1	2021	51	151	2006-12-10	31.73
+2361	24	2124290061	Faizah Mayasari	L	damanik.raditya@example.net	2	2021	53	168	2006-01-20	35.72
+2362	24	2124380062	Dodo Koko Ramadan S.Sos	L	dfarida@example.org	1	2021	45	146	2007-03-14	52.02
+2363	24	2124120063	Paris Kusmawati S.T.	L	nasab95@example.net	4	2021	56	175	2007-02-20	31.72
+2364	24	2124230064	Maimunah Nova Puspasari M.TI.	L	fitria.dongoran@example.net	3	2021	51	149	2007-09-08	33.29
+2365	24	2124810065	Gamanto Halim	P	jsimbolon@example.com	6	2021	57	168	2006-04-05	53.01
+2366	24	2124810066	Hardi Hutagalung S.E.I	L	hsuartini@example.net	1	2021	70	149	2006-03-08	33.12
+2367	24	2124300067	Gina Mayasari	P	bkurniawan@example.net	3	2021	75	151	2006-12-27	35.18
+2368	24	2124960068	Maya Rahayu	P	xanana99@example.net	1	2021	95	173	2006-04-22	71.07
+2369	24	2124900069	Wakiman Cakrabuana Natsir M.Farm	P	dartono47@example.org	3	2021	67	164	2007-05-27	32.76
+2370	24	2124280070	Dewi Ulya Nurdiyanti M.Pd	L	rahmawati.tiara@example.net	2	2021	70	157	2006-07-07	32.05
+2371	24	2124240071	Citra Winarsih	L	suryatmi.maimunah@example.com	2	2021	91	148	2006-12-29	32.10
+2372	24	2124800072	Paris Septi Hastuti M.M.	L	xpratiwi@example.com	2	2021	73	163	2006-04-14	32.01
+2373	24	2124760073	Kiandra Laksmiwati	L	bdamanik@example.net	2	2021	54	149	2006-04-22	32.09
+2374	24	2124940074	Anom Jaswadi Damanik	L	jamalia19@example.net	6	2021	90	146	2006-07-15	35.79
+2375	24	2124900075	Tantri Hartati	P	yahya58@example.org	2	2021	58	171	2007-06-18	35.77
+2376	24	2124540076	Cagak Wacana	P	kamaria45@example.org	1	2021	59	168	2007-02-20	34.04
+2377	24	2124360077	Pia Andriani	L	pudjiastuti.jinawi@example.com	2	2021	71	146	2006-01-11	33.09
+2378	24	2124750078	Sabrina Fujiati M.M.	L	wwasita@example.net	5	2021	56	161	2007-01-12	35.14
+2379	24	2124630079	Vanya Widiastuti	L	irawan.jelita@example.org	1	2021	92	159	2006-08-25	33.17
+2380	24	2124160080	Aslijan Kusuma Samosir M.M.	P	rahmi.farida@example.net	2	2021	50	173	2006-02-10	35.09
+2381	24	2124110081	Carla Hariyah	L	aditya95@example.com	5	2021	86	165	2007-02-07	35.76
+2382	24	2124470082	Bakianto Mansur S.Psi	P	ella89@example.org	5	2021	80	174	2006-05-08	31.73
+2383	24	2124480083	Rina Laksita	P	eka.nasyidah@example.com	6	2021	83	179	2006-10-22	31.01
+2384	24	2124650084	Dalima Mulyani S.T.	P	hardana58@example.org	3	2021	57	175	2006-05-24	15.04
+2385	24	2124240085	Dariati Haryanto S.Psi	L	tnovitasari@example.org	6	2021	65	165	2007-02-14	33.05
+2386	24	2124720086	Hardi Marpaung S.IP	L	sudiati.faizah@example.net	6	2021	61	148	2007-06-03	73.07
+2387	24	2124340087	Lidya Aryani	P	firgantoro.carla@example.net	6	2021	88	165	2006-11-27	32.74
+2388	24	2124270088	Aisyah Hartati	L	prastuti.pranawa@example.net	2	2021	80	175	2007-09-04	33.03
+2389	24	2124640089	Jais Sitorus	P	tnurdiyanti@example.net	4	2021	82	150	2005-12-22	71.05
+2390	24	2124740090	Novi Halimah	P	balapati.tampubolon@example.com	2	2021	60	161	2006-01-14	32.72
+2391	24	2124380091	Luwes Upik Hutapea	P	ulya.yulianti@example.com	5	2021	82	168	2006-08-15	33.10
+2392	24	2124390092	Harja Marpaung	L	hidayat.gamanto@example.com	6	2021	46	160	2006-06-03	33.27
+2393	24	2124190093	Anastasia Haryanti S.Pd	P	rthamrin@example.org	1	2021	95	146	2007-04-07	31.75
+2394	24	2124330094	Hartana Daru Hakim S.Sos	P	salahudin.gasti@example.org	3	2021	58	153	2006-02-10	33.14
+2395	24	2124330095	Gangsa Galih Pangestu S.H.	L	tania21@example.org	4	2021	65	164	2005-11-09	31.73
+2396	24	2124270096	Jasmin Utami	P	legawa88@example.org	3	2021	46	176	2006-10-07	35.11
+2397	24	2124250097	Rahmat Damu Prasetya S.IP	P	wiswahyudi@example.com	1	2021	60	176	2007-08-07	31.74
+2398	24	2124500098	Cici Mardhiyah	L	zfirmansyah@example.com	4	2021	64	178	2006-03-21	33.16
+2399	24	2124760099	Clara Gabriella Lailasari S.Psi	P	ganep.sitompul@example.net	3	2021	65	145	2006-11-06	33.76
+2400	24	2124940100	Maida Hassanah	L	shania.agustina@example.com	5	2021	83	161	2007-03-30	31.01
+2401	24	2124700101	Heryanto Gandi Siregar	P	ghartati@example.org	6	2021	54	149	2007-04-12	33.73
+2402	24	2124670102	Hadi Prima Pranowo	L	febi.saputra@example.org	4	2021	62	159	2005-11-17	35.15
+2403	24	2124830103	Balijan Elon Mustofa S.Gz	P	damar79@example.net	5	2021	54	164	2007-09-05	33.07
+2404	24	2124490104	Zaenab Pratiwi	P	winarsih.gadang@example.net	5	2021	84	172	2007-01-20	74.04
+2405	24	2124670105	Septi Pratiwi	P	ayu.tarihoran@example.org	6	2021	50	173	2005-12-11	36.71
+2406	24	2124290106	Ika Zulaikha Yolanda M.M.	P	ratna.jailani@example.net	4	2021	63	149	2007-06-22	35.06
+2407	24	2124370107	Shania Agustina	P	thamrin.darimin@example.org	2	2021	62	176	2006-09-03	31.01
+2408	24	2124620108	Opung Permadi	P	vsuartini@example.com	1	2021	87	173	2006-07-24	15.04
+2409	24	2124280109	Ciaobella Widiastuti	L	agustina.bancar@example.org	6	2021	75	154	2006-08-06	35.75
+2410	24	2124960110	Surya Pradipta	P	xlailasari@example.org	2	2021	59	146	2005-11-20	33.01
+2411	24	2124870111	Daliman Marbun	P	wkusumo@example.org	2	2021	87	149	2007-07-22	63.03
+2412	24	2124740112	Olivia Zulaika	P	awastuti@example.com	4	2021	82	147	2007-04-11	35.28
+2413	24	2124910113	Cornelia Haryanti	P	zulaikha.prasasta@example.com	3	2021	78	171	2006-03-10	33.17
+2414	24	2124560114	Ganjaran Jagapati Maheswara	L	carla15@example.org	6	2021	94	167	2007-03-14	35.19
+2415	24	2124140115	Bakidin Utama S.Psi	P	mangunsong.bella@example.org	1	2021	71	147	2006-02-17	33.23
+2416	24	2124770116	Endah Olivia Rahmawati	P	belinda00@example.com	5	2021	85	145	2005-11-12	33.27
+2417	24	2124930117	Kiandra Wulan Pudjiastuti	L	hafshah.utama@example.com	6	2021	81	166	2006-10-01	13.05
+2418	24	2124280118	Genta Nasyidah	L	rosman.rahmawati@example.org	1	2021	73	147	2007-05-13	11.14
+2419	24	2124230119	Alambana Lukita Sinaga S.Farm	P	gnasyidah@example.net	4	2021	86	153	2006-06-17	32.73
+2420	24	2124870120	Hardi Siregar	P	alika.habibi@example.net	4	2021	86	172	2007-02-05	35.10
+2421	25	2125810001	Reksa Gunarto	P	vanya31@example.com	2	2021	54	151	2007-04-09	34.02
+2422	25	2125570002	Jaeman Widodo	P	zsaptono@example.org	5	2021	47	166	2006-04-15	33.12
+2423	25	2125660003	Johan Cawuk Wasita M.Kom.	P	tri.padmasari@example.net	1	2021	76	152	2007-03-23	31.01
+2424	25	2125920004	Bahuraksa Pradipta S.E.	L	marbun.balijan@example.org	2	2021	51	160	2007-09-08	52.01
+2425	25	2125590005	Salman Cemeti Zulkarnain S.Kom	L	jasmin.mulyani@example.org	4	2021	85	179	2006-11-30	75.01
+2426	25	2125760006	Hilda Tina Winarsih M.TI.	P	puspasari.fitriani@example.net	4	2021	86	169	2007-06-06	32.16
+2427	25	2125930007	Maria Rahayu S.H.	L	ulya.nuraini@example.net	3	2021	84	173	2006-06-23	65.02
+2428	25	2125920008	Simon Prayogo Ramadan	L	jail11@example.net	2	2021	67	159	2007-08-13	35.71
+2429	25	2125930009	Mahesa Maryadi	L	narji.habibi@example.com	6	2021	86	177	2007-07-14	52.72
+2430	25	2125470010	Nadine Safitri	L	latupono.raina@example.net	6	2021	88	157	2006-04-02	51.01
+2431	25	2125790011	Cawuk Sitompul	L	nugroho.nyoman@example.org	1	2021	87	172	2006-02-17	33.76
+2432	25	2125190012	Wulan Siska Melani M.Pd	P	hutasoit.ibun@example.org	3	2021	68	147	2007-01-30	34.71
+2433	25	2125380013	Caket Prabowo	P	enajmudin@example.net	6	2021	58	159	2007-09-09	15.01
+2434	25	2125800014	Lalita Nuraini M.Pd	P	mala71@example.com	6	2021	89	168	2006-09-07	32.74
+2435	25	2125180015	Dartono Pranowo S.Pt	L	sabrina74@example.com	4	2021	58	154	2006-12-26	72.02
+2436	25	2125290016	Rina Farida	P	kawaya65@example.org	6	2021	81	167	2006-02-06	63.03
+2437	25	2125960017	Eva Maya Purnawati	P	irnanto41@example.org	3	2021	82	159	2006-05-26	33.13
+2438	25	2125380018	Gandi Prayitna Dongoran S.Gz	L	rahimah.fitriani@example.net	3	2021	94	173	2006-07-10	33.75
+2439	25	2125990019	Ajiono Mulya Hidayanto M.Ak	L	jessica.nababan@example.com	2	2021	58	158	2006-11-05	35.20
+2440	25	2125450020	Ida Tira Hariyah S.Kom	L	zalindra19@example.com	5	2021	57	161	2007-08-14	34.71
+2441	25	2125460021	Vicky Hastuti	L	gawati93@example.com	2	2021	59	177	2007-01-19	34.01
+2442	25	2125440022	Zulfa Pudjiastuti S.I.Kom	L	sinaga.talia@example.org	2	2021	47	173	2006-01-15	33.16
+2443	25	2125280023	Safina Melani	P	isusanti@example.com	4	2021	90	158	2005-12-23	35.79
+2444	25	2125160024	Hasim Latupono	P	kbudiyanto@example.com	4	2021	51	178	2005-11-08	33.15
+2445	25	2125340025	Sarah Safitri	P	kayun20@example.net	3	2021	63	173	2007-01-04	33.16
+2446	25	2125870026	Widya Rahmawati	P	puspasari.irwan@example.com	5	2021	79	154	2006-02-03	33.08
+2447	25	2125750027	Indra Capa Pradana S.Psi	P	qmanullang@example.org	6	2021	83	164	2007-06-06	36.71
+2448	25	2125890028	Hairyanto Rajasa	P	nababan.rahmi@example.net	4	2021	47	152	2006-12-11	31.71
+2449	25	2125530029	Ika Juli Wijayanti	P	dodo.simbolon@example.com	3	2021	56	174	2005-10-26	33.01
+2450	25	2125660030	Wage Maryadi Latupono	L	handayani.samiah@example.net	4	2021	92	147	2006-10-20	35.06
+2451	25	2125560031	Tomi Hutagalung	P	shakila32@example.org	1	2021	54	163	2005-10-24	74.04
+2452	25	2125730032	Uli Lailasari	L	bsuryono@example.net	5	2021	92	180	2006-05-02	32.02
+2453	25	2125110033	Ikhsan Emin Ardianto S.Psi	L	mansur.cakrabuana@example.com	1	2021	45	159	2007-09-12	52.72
+2454	25	2125830034	Calista Rahmawati	P	inashiruddin@example.com	1	2021	69	177	2007-07-10	31.74
+2455	25	2125890035	Maimunah Tania Hasanah S.IP	L	ade.situmorang@example.net	4	2021	46	161	2006-09-23	33.27
+2456	25	2125860036	Karimah Novitasari	L	gpuspasari@example.net	6	2021	64	150	2005-10-23	73.07
+2457	25	2125470037	Nasim Usman Najmudin S.IP	L	mandasari.galuh@example.net	3	2021	68	168	2006-01-26	33.25
+2458	25	2125680038	Kala Mansur	L	diana14@example.net	4	2021	52	177	2005-09-28	35.71
+2459	25	2125180039	Ellis Nurdiyanti	P	lpermata@example.org	1	2021	79	152	2007-09-20	71.02
+2460	25	2125280040	Dalima Lailasari	L	elma25@example.com	6	2021	63	171	2007-02-11	35.04
+2461	25	2125180041	Kardi Mandala	P	eva30@example.org	5	2021	46	179	2007-04-28	35.09
+2462	25	2125330042	Banawa Sihotang	P	novitasari.galur@example.net	6	2021	46	172	2007-03-06	31.71
+2463	25	2125890043	Waluyo Eman Pratama S.H.	L	dian97@example.com	1	2021	73	152	2007-04-29	35.24
+2464	25	2125220044	Kiandra Fujiati	L	betania.suryatmi@example.org	5	2021	89	152	2007-04-19	35.06
+2465	25	2125600045	Febi Yuliarti	P	narji.suryatmi@example.net	4	2021	51	180	2005-10-28	34.71
+2466	25	2125940046	Karya Raden Santoso S.Farm	P	jaya55@example.com	3	2021	62	148	2006-04-04	32.12
+2467	25	2125500047	Rendy Setiawan	P	darijan67@example.com	3	2021	81	155	2007-01-19	32.05
+2468	25	2125610048	Pia Halimah	P	ksafitri@example.org	1	2021	68	161	2007-05-19	31.72
+2469	25	2125240049	Bancar Akarsana Hutasoit	L	jessica.nababan@example.com	5	2021	75	180	2006-05-16	31.72
+2470	25	2125460050	Uchita Ika Pertiwi M.TI.	P	agnes.permata@example.org	4	2021	83	151	2006-11-06	51.03
+2471	25	2125400051	Emil Jayadi Wacana	P	widya18@example.org	2	2021	73	172	2005-11-29	52.72
+2472	25	2125870052	Rina Rahayu Nuraini	P	kasiyah98@example.net	4	2021	83	171	2007-04-08	32.11
+2473	25	2125520053	Luis Zulkarnain	L	aisyah.kusmawati@example.org	4	2021	82	166	2006-10-09	33.01
+2474	25	2125360054	Juli Kartika Hassanah	P	laila.mulyani@example.net	1	2021	75	166	2006-03-30	74.04
+2475	25	2125110055	Dian Yulianti S.Kom	P	rpermata@example.net	1	2021	59	152	2006-04-13	36.03
+2476	25	2125170056	Lili Puspasari	L	safina78@example.org	4	2021	59	168	2007-02-26	31.75
+2477	25	2125470057	Bambang Karman Jailani	P	prasetyo.bakiman@example.org	4	2021	81	175	2007-04-22	53.05
+2478	25	2125350058	Azalea Pudjiastuti	P	mardhiyah.rahmi@example.com	1	2021	92	168	2006-06-14	33.20
+2479	25	2125480059	Cengkir Ajimin Firmansyah S.Gz	L	gunawan.limar@example.org	1	2021	93	146	2007-07-26	35.27
+2480	25	2125770060	Ganjaran Mursinin Megantara	L	cinta25@example.com	2	2021	67	154	2006-07-06	35.27
+2481	25	2125460061	Ajeng Rahmawati S.Kom	L	bpermadi@example.net	6	2021	60	178	2007-02-23	17.05
+2482	25	2125950062	Margana Nyana Latupono	P	andriani.oliva@example.net	2	2021	82	158	2007-02-17	31.73
+2483	25	2125930063	Amelia Kusmawati S.E.	P	xpermata@example.com	5	2021	53	147	2006-01-20	31.74
+2484	25	2125240064	Balijan Mahendra	L	vnasyidah@example.org	6	2021	78	165	2006-10-24	31.71
+2485	25	2125370065	Jayadi Pratama	L	ina.purnawati@example.com	4	2021	92	170	2007-06-28	35.78
+2486	25	2125140066	Omar Winarno	L	laksita.gina@example.org	6	2021	93	159	2006-06-24	35.06
+2487	25	2125580067	Mutia Titi Nuraini S.Psi	L	natsir.ira@example.org	3	2021	69	164	2007-08-31	35.72
+2488	25	2125690068	Asmadi Mansur M.M.	L	darijan54@example.com	6	2021	53	162	2006-06-05	35.11
+2489	25	2125160069	Vanya Aryani S.E.I	L	jwinarno@example.org	6	2021	86	159	2007-02-11	32.17
+2490	25	2125200070	Daruna Lazuardi	L	cemani.budiyanto@example.net	5	2021	81	149	2007-08-16	73.07
+2491	25	2125540071	Zulfa Zulaika S.Gz	L	hardiansyah.putri@example.net	3	2021	78	151	2005-12-15	33.23
+2492	25	2125130072	Martani Pratama S.Psi	L	humaira38@example.org	4	2021	89	164	2006-11-22	73.13
+2493	25	2125940073	Cahyanto Wibisono	P	belinda.iswahyudi@example.net	2	2021	89	160	2006-12-11	33.08
+2494	25	2125700074	Gilda Anastasia Yuliarti	L	diah40@example.com	6	2021	83	172	2007-05-23	32.18
+2495	25	2125970075	Mursinin Pradipta M.Ak	L	cahya.permata@example.org	2	2021	88	156	2006-06-26	64.03
+2496	25	2125360076	Juli Wastuti	L	daru.pertiwi@example.net	4	2021	51	168	2006-12-27	31.74
+2497	25	2125360077	Eka Suwarno	L	oskar.maryadi@example.net	1	2021	50	178	2007-03-28	64.07
+2498	25	2125190078	Alika Hassanah S.E.I	P	wharyanti@example.net	1	2021	85	161	2005-11-28	33.09
+2499	25	2125550079	Panca Hutapea	L	gsitompul@example.org	6	2021	50	172	2006-04-21	61.01
+2500	25	2125980080	Rahmi Ratih Astuti S.T.	P	gsaragih@example.org	3	2021	50	166	2005-11-22	12.78
+2501	25	2125780081	Lala Purnawati M.Ak	L	awidodo@example.net	1	2021	81	174	2006-02-21	32.01
+2502	25	2125530082	Kanda Danuja Dongoran S.Psi	L	rahmi62@example.net	4	2021	89	172	2006-09-22	12.77
+2503	25	2125340083	Dimas Setiawan	P	michelle76@example.net	1	2021	92	157	2007-04-01	31.74
+2504	25	2125520084	Rudi Latif Mansur	L	purnawati.bagiya@example.org	3	2021	81	179	2006-04-28	31.73
+2505	25	2125660085	Prabu Iswahyudi	P	kuswoyo.samiah@example.com	2	2021	92	157	2006-07-26	32.04
+2506	25	2125880086	Caket Mangunsong	P	imelani@example.com	6	2021	49	178	2006-08-05	74.04
+2507	25	2125330087	Hafshah Yuniar	P	nuraini.umi@example.net	6	2021	45	174	2006-08-14	32.16
+2508	25	2125120088	Puti Maryati	P	szulaika@example.com	6	2021	52	167	2006-06-27	32.11
+2509	25	2125730089	Laksana Harsaya Latupono	L	raina.sihombing@example.com	6	2021	51	173	2007-09-02	34.03
+2510	25	2125880090	Intan Padmasari	P	amelia18@example.net	1	2021	94	158	2007-09-05	33.04
+2511	25	2125300091	Ifa Novitasari	L	xprasetyo@example.org	1	2021	86	171	2005-11-08	33.22
+2512	25	2125250092	Jessica Victoria Rahayu S.H.	P	siska.sitorus@example.org	2	2021	75	180	2007-01-21	72.02
+2513	25	2125610093	Mahesa Hutapea	L	oyulianti@example.com	5	2021	93	152	2007-03-26	32.04
+2514	25	2125300094	Ratna Oktaviani	P	lailasari.zizi@example.com	1	2021	82	179	2007-08-17	18.05
+2515	25	2125780095	Mustofa Megantara S.Kom	P	lazuardi.nadia@example.net	5	2021	46	158	2007-01-17	35.14
+2516	25	2125660096	Oni Jamalia Rahmawati	P	tantri59@example.org	1	2021	59	155	2007-08-03	32.18
+2517	25	2125920097	Respati Hakim	P	suci.riyanti@example.org	4	2021	73	177	2006-09-02	35.09
+2518	25	2125220098	Nyoman Simanjuntak S.H.	L	malika64@example.net	5	2021	76	176	2005-12-03	32.18
+2519	25	2125720099	Ozy Wijaya S.E.	L	harsaya.sinaga@example.net	5	2021	47	163	2005-11-04	35.09
+2520	25	2125200100	Yuliana Kuswandari	L	saptono.zaenab@example.com	3	2021	69	147	2006-08-27	32.75
+2521	25	2125540101	Tira Mardhiyah S.I.Kom	P	joko.halimah@example.com	3	2021	68	146	2007-09-25	53.01
+2522	25	2125820102	Julia Nadia Rahimah M.Pd	L	nsusanti@example.com	3	2021	92	145	2006-06-16	31.75
+2523	25	2125650103	Hendra Kenari Kurniawan S.Ked	P	pandu.rahimah@example.net	2	2021	93	166	2006-06-13	32.71
+2524	25	2125110104	Usyi Namaga M.M.	P	sakura.nasyidah@example.net	4	2021	95	164	2007-07-03	33.14
+2525	25	2125700105	Cemani Jayeng Suwarno S.H.	P	hasanah.kambali@example.org	3	2021	82	163	2006-05-07	35.22
+2526	25	2125680106	Salsabila Yulia Namaga	P	padmasari.mahfud@example.org	1	2021	75	175	2006-04-04	32.12
+2527	25	2125650107	Anita Zulaikha Purwanti	P	talia.oktaviani@example.net	4	2021	85	171	2007-05-22	31.72
+2528	25	2125640108	Ira Oktaviani	P	pratiwi.zelaya@example.com	2	2021	91	151	2006-02-26	15.01
+2529	25	2125340109	Damu Budiyanto	P	saadat.wasita@example.org	6	2021	46	153	2006-06-25	32.15
+2530	25	2125420110	Estiawan Hidayat S.Gz	L	liman.nainggolan@example.org	2	2021	62	156	2006-02-28	35.05
+2531	25	2125180111	Karya Wahyudin M.TI.	P	yastuti@example.net	4	2021	68	151	2006-04-06	31.73
+2532	25	2125770112	Digdaya Maulana S.E.I	L	asaragih@example.org	6	2021	83	178	2006-01-13	33.09
+2533	25	2125440113	Tami Uyainah S.E.	P	zaenab.mustofa@example.org	1	2021	72	145	2007-04-07	35.27
+2534	25	2125820114	Praba Prabowo	L	latupono.maria@example.org	6	2021	64	155	2006-03-19	33.13
+2535	25	2125380115	Nardi Uwais	L	mulya41@example.org	3	2021	49	156	2007-02-24	35.11
+2536	25	2125550116	Unjani Jane Hastuti	L	rajasa.tiara@example.org	1	2021	70	150	2007-06-04	35.29
+2537	25	2125180117	Sari Belinda Rahimah	P	halima.winarno@example.org	2	2021	83	177	2005-10-25	35.10
+2538	25	2125740118	Ilsa Lailasari	P	hasanah.cakrabuana@example.net	1	2021	91	146	2005-12-07	75.03
+2539	25	2125520119	Liman Galang Irawan	P	raina48@example.org	5	2021	92	173	2007-05-02	31.74
+2540	25	2125670120	Banawi Kusumo	P	ghutapea@example.net	4	2021	50	161	2007-02-19	62.04
+2541	26	2126750001	Sakura Yuliarti	L	puspa.susanti@example.com	6	2021	88	174	2005-11-07	31.73
+2542	26	2126950002	Caket Nababan S.I.Kom	P	genta34@example.com	4	2021	80	154	2007-05-16	33.20
+2543	26	2126890003	Ulya Halimah	P	dongoran.nabila@example.org	6	2021	85	172	2007-08-26	31.71
+2544	26	2126190004	Amalia Anastasia Agustina	P	laksita.lega@example.com	5	2021	68	173	2005-10-21	74.04
+2545	26	2126680005	Hadi Wahyudin S.H.	L	ymardhiyah@example.org	6	2021	92	156	2007-02-02	33.18
+2546	26	2126700006	Clara Puspasari	L	yuniar.prima@example.com	4	2021	50	168	2006-01-27	33.02
+2547	26	2126160007	Darmana Pradana	P	kambali59@example.com	4	2021	70	150	2007-09-13	18.03
+2548	26	2126400008	Daryani Jailani	L	eka.gunawan@example.org	4	2021	65	163	2006-05-07	14.06
+2549	26	2126280009	Latika Michelle Purnawati	P	najam.prasasta@example.net	2	2021	47	167	2006-03-21	33.29
+2550	26	2126770010	Usyi Uyainah	P	virman.uwais@example.net	4	2021	61	170	2005-10-16	11.14
+2551	26	2126690011	Asman Hutapea M.Kom.	P	edi01@example.com	5	2021	89	145	2005-10-06	35.24
+2552	26	2126890012	Baktiono Saefullah	L	eadriansyah@example.com	1	2021	68	157	2006-07-30	35.07
+2553	26	2126680013	Syahrini Susanti S.E.I	P	anggriawan.raisa@example.org	2	2021	76	163	2006-05-15	32.72
+2554	26	2126810014	Jane Pratiwi	P	qmayasari@example.org	5	2021	61	167	2005-12-21	73.04
+2555	26	2126470015	Cakrabirawa Januar	P	ajimin.usada@example.net	1	2021	56	178	2006-08-19	33.13
+2556	26	2126580016	Sari Laksita	P	agus.hutapea@example.net	3	2021	73	174	2006-05-27	72.02
+2557	26	2126870017	Hafshah Paris Widiastuti	P	hardi63@example.net	3	2021	81	162	2006-04-18	31.75
+2558	26	2126430018	Paiman Lazuardi	P	uchita16@example.org	5	2021	65	152	2007-01-08	15.04
+2559	26	2126590019	Rina Silvia Yulianti S.Gz	P	ohardiansyah@example.com	1	2021	70	175	2007-01-22	35.21
+2560	26	2126600020	Ophelia Suryatmi	L	urajasa@example.net	4	2021	79	162	2007-04-27	34.02
+2561	26	2126510021	Banara Hidayanto	L	thalimah@example.net	4	2021	46	147	2006-06-04	12.78
+2562	26	2126300022	Usyi Salsabila Purnawati M.Farm	L	rusman.kurniawan@example.com	4	2021	77	172	2006-10-15	62.02
+2563	26	2126100023	Aswani Pangestu	P	okto11@example.com	4	2021	66	158	2006-05-30	32.76
+2564	26	2126380024	Elon Wasita	L	ajanuar@example.net	4	2021	60	154	2006-04-10	33.02
+2565	26	2126610025	Karna Mansur S.Pt	L	amelia47@example.org	6	2021	88	159	2007-07-07	17.01
+2566	26	2126770026	Heru Simanjuntak	P	nusamah@example.org	3	2021	73	179	2006-03-30	17.05
+2567	26	2126580027	Raden Cakrajiya Rajata	P	qori77@example.com	5	2021	53	150	2006-04-13	63.01
+2568	26	2126580028	Catur Gandewa Sirait	P	salimah.jailani@example.org	3	2021	77	146	2007-08-25	65.02
+2569	26	2126350029	Lurhur Halim	P	legawa.yuniar@example.org	5	2021	60	146	2007-03-20	32.77
+2570	26	2126270030	Emong Najmudin	P	afujiati@example.com	4	2021	48	155	2007-09-05	35.71
+2571	27	2127740001	Marsito Permadi S.Psi	P	dwi97@example.org	5	2021	87	178	2006-09-30	35.20
+2572	27	2127300002	Mursita Rajasa	L	swulandari@example.org	5	2021	66	164	2006-05-06	14.05
+2573	27	2127530003	Salimah Hartati S.Ked	L	jayeng05@example.org	1	2021	51	157	2007-08-16	14.03
+2574	27	2127860004	Ida Susanti	L	ajiono.novitasari@example.com	2	2021	76	173	2007-02-21	73.04
+2575	27	2127800005	Nyoman Dongoran M.Ak	L	hendra.winarno@example.org	5	2021	82	167	2007-09-24	18.04
+2576	27	2127310006	Janet Laksita M.Kom.	P	kuswandari.asmuni@example.net	6	2021	76	159	2006-11-17	35.25
+2577	27	2127750007	Garan Hardiansyah	P	smansur@example.org	5	2021	57	174	2007-02-01	31.75
+2578	27	2127250008	Alika Sarah Widiastuti	L	karna22@example.com	1	2021	77	155	2006-01-09	62.04
+2579	27	2127580009	Zizi Purnawati	L	natsir.wardi@example.net	4	2021	77	170	2006-08-27	33.06
+2580	27	2127840010	Rosman Budiyanto S.E.	L	lalita.utami@example.org	4	2021	75	170	2006-05-12	33.17
+2581	27	2127330011	Kuncara Dirja Jailani	P	ani.wulandari@example.org	1	2021	79	170	2006-08-26	17.05
+2582	27	2127160012	Elisa Unjani Kuswandari	L	violet88@example.org	6	2021	75	177	2006-05-09	33.24
+2583	27	2127660013	Cakrabuana Hartana Kuswoyo S.Sos	L	jwidiastuti@example.org	2	2021	50	173	2006-10-24	32.13
+2584	27	2127720014	Dewi Hasna Mayasari S.Ked	P	wpadmasari@example.net	2	2021	77	179	2007-01-24	36.01
+2585	27	2127460015	Ghani Gaiman Wasita	P	utami.intan@example.org	4	2021	83	174	2006-05-26	52.02
+2586	27	2127370016	Violet Michelle Nurdiyanti M.M.	P	suryatmi.syahrini@example.com	4	2021	58	149	2006-11-08	51.01
+2587	27	2127840017	Hani Mala Hasanah S.E.I	P	asirwada36@example.org	4	2021	83	147	2006-10-22	32.15
+2588	27	2127900018	Nyoman Mulya Pradana S.E.	P	nainggolan.dariati@example.org	2	2021	74	157	2007-07-19	35.05
+2589	27	2127390019	Zelaya Cinthia Kuswandari	P	tpermadi@example.org	5	2021	64	146	2005-12-28	62.02
+2590	27	2127870020	Maryadi Cakrawala Pranowo S.T.	P	purwanti.dewi@example.net	4	2021	82	176	2005-10-05	31.75
+2591	27	2127850021	Asmuni Habibi	L	jagaraga79@example.org	6	2021	77	152	2007-08-13	61.04
+2592	27	2127710022	Amalia Ciaobella Sudiati	L	anita02@example.org	4	2021	90	158	2007-05-09	35.77
+2593	27	2127190023	Damu Pranawa Dabukke	P	saputra.gading@example.net	5	2021	78	154	2007-08-19	36.01
+2594	27	2127150024	Darimin Sinaga	L	warji.sinaga@example.org	3	2021	49	145	2007-04-20	35.11
+2595	27	2127820025	Wani Karimah Widiastuti S.I.Kom	L	wadi36@example.com	6	2021	86	156	2006-10-10	33.21
+2596	27	2127350026	Dadap Gandi Wasita S.E.	P	wastuti.laksana@example.com	3	2021	45	159	2006-05-13	32.04
+2597	27	2127230027	Xanana Saefullah	P	marsudi02@example.net	1	2021	70	176	2006-02-10	32.73
+2598	27	2127190028	Calista Padmasari	L	ega.nasyiah@example.com	3	2021	78	167	2007-06-03	31.72
+2599	27	2127850029	Titin Halimah	P	enarpati@example.com	2	2021	73	174	2006-05-09	31.72
+2600	27	2127260030	Gara Hardiansyah	P	pertiwi.puti@example.org	1	2021	60	156	2006-01-23	35.09
+2601	27	2127100031	Shania Nasyiah S.E.I	P	lkusmawati@example.net	5	2021	80	175	2006-06-01	36.01
+2602	27	2127330032	Harsaya Wasita	L	paramita.widiastuti@example.org	6	2021	86	166	2007-07-22	35.16
+2603	27	2127340033	Ozy Tasnim Gunarto	L	natalia86@example.net	4	2021	79	159	2006-05-23	72.02
+2604	27	2127110034	Laila Suryatmi M.TI.	L	skusmawati@example.com	6	2021	85	152	2007-02-10	32.08
+2605	27	2127350035	Kenzie Suwarno	P	maryati.kurnia@example.net	4	2021	86	155	2006-08-02	31.01
+2606	27	2127460036	Mahesa Endra Hidayanto	P	nova.setiawan@example.com	5	2021	86	157	2006-03-16	35.71
+2607	27	2127520037	Lega Imam Ardianto S.IP	L	rafid15@example.org	4	2021	88	151	2006-06-15	32.71
+2608	27	2127640038	Pia Nasyiah S.E.I	L	krahayu@example.net	2	2021	50	155	2006-09-11	33.19
+2609	27	2127820039	Nyoman Irawan	P	ezulaika@example.org	1	2021	95	170	2006-04-18	63.03
+2610	27	2127310040	Suci Padmasari	L	bagus93@example.net	6	2021	86	153	2006-11-28	14.03
+2611	27	2127640041	Gandewa Iswahyudi	P	hamima02@example.org	3	2021	93	177	2007-04-05	15.04
+2612	27	2127710042	Bakiadi Prasasta M.Ak	P	cakrajiya70@example.net	5	2021	73	161	2006-02-07	14.06
+2613	27	2127870043	Syahrini Ghaliyati Wulandari S.I.Kom	P	cici.wahyuni@example.org	6	2021	66	149	2006-01-27	33.05
+2614	27	2127250044	Padma Pertiwi S.E.I	L	marpaung.agnes@example.com	2	2021	55	175	2006-06-18	35.14
+2615	27	2127580045	Kasiran Wibisono	P	lhastuti@example.com	4	2021	67	168	2007-05-26	33.08
+2616	27	2127930046	Laswi Lazuardi	L	permadi.zulaikha@example.net	1	2021	66	151	2006-10-26	33.25
+2617	27	2127690047	Makara Bala Hakim	P	narpati.cecep@example.com	6	2021	86	175	2007-09-14	71.05
+2618	27	2127480048	Lukita Siregar	L	icha86@example.org	6	2021	74	174	2006-09-19	17.01
+2619	27	2127560049	Caket Mahendra	L	kusmawati.lulut@example.com	2	2021	51	173	2005-12-13	31.74
+2620	27	2127310050	Diana Hariyah	P	lasmono01@example.net	2	2021	61	175	2007-02-24	32.17
+2621	27	2127340051	Raden Utama	P	rosman69@example.org	2	2021	66	173	2006-02-27	35.21
+2622	27	2127530052	Gandi Setiawan	P	agustina.raihan@example.net	2	2021	70	160	2006-01-10	52.01
+2623	27	2127410053	Kamidin Hakim	P	respati53@example.com	2	2021	90	158	2006-12-30	31.72
+2624	27	2127430054	Cager Siregar	L	asmuni.wulandari@example.com	5	2021	67	161	2007-04-06	15.04
+2625	27	2127510055	Balapati Kadir Prasetyo	L	fmaryati@example.com	3	2021	67	167	2007-04-15	18.05
+2626	27	2127660056	Soleh Manullang S.Pd	L	budiman.dalimin@example.net	6	2021	69	177	2007-01-23	31.74
+2627	27	2127460057	Wira Pangestu Marbun	L	tuyainah@example.org	6	2021	56	179	2005-10-08	35.29
+2628	27	2127980058	Tami Agustina	P	nurul46@example.org	5	2021	89	147	2007-09-26	17.04
+2629	27	2127630059	Laila Oni Wijayanti S.Kom	L	hairyanto55@example.com	6	2021	73	153	2006-08-15	32.77
+2630	27	2127740060	Ifa Usamah	P	belinda.yuliarti@example.net	6	2021	89	163	2007-05-05	35.04
+2631	27	2127560061	Purwadi Uwais	P	nuraini.michelle@example.net	4	2021	77	153	2005-12-02	64.07
+2632	27	2127830062	Kasusra Balidin Prasasta	P	mahfud20@example.com	6	2021	78	175	2006-10-26	31.01
+2633	27	2127930063	Raditya Saputra	P	pudjiastuti.rusman@example.org	2	2021	60	154	2007-03-23	33.02
+2634	27	2127140064	Suci Wahyuni	L	gambira16@example.org	4	2021	61	157	2007-07-14	33.20
+2635	27	2127190065	Gatra Anggriawan	L	firmansyah.perkasa@example.net	3	2021	86	174	2007-03-23	13.07
+2636	27	2127130066	Puti Rahayu	P	lalita.wahyuni@example.net	1	2021	48	165	2006-01-04	35.27
+2637	27	2127780067	Cengkal Ramadan	P	vanya.natsir@example.com	5	2021	81	173	2007-02-04	31.71
+2638	27	2127430068	Jayadi Irawan	L	umi.wulandari@example.net	1	2021	70	145	2005-12-16	33.75
+2639	27	2127810069	Anita Padmasari S.T.	P	elisa.thamrin@example.org	2	2021	50	173	2006-04-01	35.76
+2640	27	2127920070	Yessi Padmasari	P	fujiati.tantri@example.org	2	2021	55	146	2007-05-05	13.05
+2641	27	2127220071	Aditya Kenzie Santoso M.Pd	L	victoria.sihombing@example.com	5	2021	92	174	2007-08-05	33.26
+2642	27	2127660072	Lili Wani Haryanti	P	tiara.damanik@example.com	4	2021	68	155	2006-06-04	35.24
+2643	27	2127120073	Bala Waskita	P	narpati.ibun@example.com	2	2021	74	156	2006-10-12	35.74
+2644	27	2127790074	Vinsen Samosir	P	nasyidah.kiandra@example.com	3	2021	57	152	2006-08-06	31.74
+2645	27	2127220075	Mariadi Prabowo	P	haryanti.koko@example.net	3	2021	48	178	2006-06-19	33.75
+2646	27	2127510076	Gadang Simanjuntak	L	tmahendra@example.net	3	2021	58	171	2006-10-25	13.05
+2647	27	2127110077	Safina Usada	L	hmaryati@example.org	5	2021	52	170	2007-04-20	31.01
+2648	27	2127350078	Carla Najwa Nasyiah	P	ositumorang@example.com	2	2021	95	170	2007-04-07	75.03
+2649	27	2127670079	Bakianto Halim S.Gz	P	fujiati.oliva@example.org	6	2021	49	151	2007-04-02	32.74
+2650	27	2127900080	Timbul Heru Gunarto M.Ak	P	hesti25@example.com	3	2021	87	176	2006-09-17	32.12
+2651	27	2127280081	Maras Prasetya S.T.	L	zulkarnain.galuh@example.com	6	2021	80	149	2007-02-12	72.03
+2652	27	2127930082	Mariadi Suwarno	P	adika10@example.net	6	2021	57	177	2006-01-24	13.04
+2653	27	2127540083	Karen Permata S.Pt	P	fujiati.rahmi@example.com	6	2021	67	169	2006-04-04	33.03
+2654	27	2127580084	Carla Agustina	L	ksimanjuntak@example.com	1	2021	76	151	2007-09-05	35.07
+2655	27	2127590085	Jaga Ramadan	P	sthamrin@example.net	6	2021	70	171	2007-01-04	32.12
+2656	27	2127620086	Intan Mandasari	P	anita84@example.com	1	2021	50	170	2006-08-21	31.71
+2657	27	2127180087	Leo Rendy Sitorus	P	nasyiah.galak@example.net	2	2021	93	178	2006-12-15	32.10
+2658	27	2127180088	Kamidin Cengkal Winarno	L	daniswara.rahimah@example.org	1	2021	62	154	2007-04-10	35.14
+2659	27	2127920089	Darman Permadi	L	umansur@example.com	2	2021	68	156	2006-05-19	32.10
+2660	27	2127800090	Nugraha Irawan	P	padmasari.karen@example.com	1	2021	81	169	2006-04-02	71.07
+2661	28	2128370001	Kusuma Lazuardi S.Kom	L	gnugroho@example.com	2	2021	95	167	2006-01-17	31.72
+2662	28	2128170002	Wisnu Sinaga M.M.	L	ardianto.dacin@example.org	1	2021	77	146	2006-05-05	31.74
+2663	28	2128830003	Mahfud Ramadan	P	sinaga.wani@example.org	2	2021	72	172	2006-01-24	33.22
+2664	28	2128940004	Banara Reksa Budiyanto M.Ak	L	zulkarnain.okto@example.org	1	2021	66	158	2006-05-02	62.01
+2665	28	2128220005	Tari Puspa Pratiwi	P	fitriani.puspita@example.net	3	2021	59	149	2007-03-29	34.04
+2666	28	2128720006	Tami Melani	P	belinda.marbun@example.net	2	2021	68	165	2006-02-20	13.05
+2667	28	2128600007	Kemba Atma Haryanto	L	ganep.nuraini@example.com	5	2021	60	164	2006-12-20	52.72
+2668	28	2128720008	Rahmi Hastuti S.Kom	L	rhalim@example.com	5	2021	53	146	2007-09-24	33.06
+2669	28	2128730009	Asmianto Prakasa	P	radika.maryati@example.com	5	2021	95	168	2006-06-09	31.01
+2670	28	2128970010	Asmadi Ganda Mangunsong	L	flestari@example.org	6	2021	73	159	2006-04-10	31.73
+2671	28	2128810011	Atmaja Okto Wacana	L	apertiwi@example.org	4	2021	82	160	2007-01-26	31.01
+2672	28	2128590012	Kamila Tami Fujiati	L	agnes.prakasa@example.net	3	2021	65	174	2006-09-19	32.10
+2673	28	2128810013	Novi Sudiati S.H.	P	tari.suryatmi@example.org	6	2021	54	171	2005-12-12	52.72
+2674	28	2128290014	Aswani Muni Marpaung	L	cahyadi82@example.net	4	2021	60	177	2006-02-02	31.73
+2675	28	2128420015	Eka Usamah	L	jhasanah@example.org	6	2021	52	147	2007-05-17	35.20
+2676	28	2128410016	Unjani Handayani	P	rrajasa@example.com	1	2021	56	175	2006-12-11	31.74
+2677	28	2128840017	Tedi Tarihoran M.Kom.	L	simon.saptono@example.net	5	2021	75	164	2007-02-22	35.24
+2678	28	2128530018	Usyi Yolanda	P	garan.wastuti@example.org	6	2021	57	148	2007-09-06	35.24
+2679	28	2128640019	Bagas Rajata	L	hastuti.ajimat@example.org	2	2021	85	167	2006-08-05	35.14
+2680	28	2128220020	Lukman Ardianto	P	wani83@example.org	1	2021	55	171	2005-11-20	32.02
+2681	28	2128220021	Sarah Usamah	L	lhidayanto@example.net	3	2021	71	168	2006-09-19	73.07
+2682	28	2128150022	Panca Hidayat	L	ranggriawan@example.net	6	2021	75	157	2005-11-27	33.75
+2683	28	2128350023	Ulya Hastuti	P	andriani.harjo@example.net	5	2021	84	159	2007-02-24	34.04
+2684	28	2128580024	Fitria Mandasari	L	indah.wijayanti@example.net	1	2021	89	162	2006-05-07	32.16
+2685	28	2128110025	Uda Firmansyah M.Farm	P	halim.xanana@example.org	2	2021	56	166	2006-12-25	31.73
+2686	28	2128590026	Mumpuni Raditya Kuswoyo	L	cemani.permata@example.org	4	2021	87	150	2006-11-12	63.03
+2687	28	2128470027	Humaira Haryanti	L	wardaya.tampubolon@example.org	3	2021	51	150	2007-04-16	32.06
+2688	28	2128500028	Nasrullah Megantara	P	wnasyiah@example.com	6	2021	87	175	2005-12-10	11.14
+2689	28	2128360029	Paiman Jailani	L	maulana.kairav@example.org	6	2021	76	159	2007-02-01	32.17
+2690	28	2128130030	Yani Hartati	P	nasyiah.garda@example.org	3	2021	75	148	2005-12-04	31.01
+2691	28	2128220031	Ismail Nugroho	L	asmadi.waluyo@example.com	2	2021	94	173	2005-11-09	31.75
+2692	28	2128180032	Abyasa Vega Marbun S.Farm	P	tarihoran.karta@example.net	6	2021	65	172	2005-12-22	73.04
+2693	28	2128810033	Fitriani Hariyah	L	suartini.cakrajiya@example.org	3	2021	51	145	2005-10-27	32.13
+2694	28	2128510034	Opan Bambang Firgantoro	P	jnapitupulu@example.org	5	2021	61	176	2006-03-31	35.22
+2695	28	2128870035	Unjani Riyanti	L	cagak65@example.org	5	2021	86	171	2007-06-19	36.01
+2696	28	2128860036	Bahuwirya Mangunsong	L	jprastuti@example.net	2	2021	72	176	2007-08-08	33.16
+2697	28	2128110037	Kanda Sinaga	L	wadi34@example.com	3	2021	85	176	2006-06-14	33.13
+2698	28	2128790038	Dagel Rajasa	P	dmarpaung@example.com	1	2021	47	166	2006-01-21	32.16
+2699	28	2128110039	Betania Padmi Rahimah	P	cornelia.purnawati@example.com	3	2021	76	170	2006-11-28	35.09
+2700	28	2128500040	Martaka Siregar	L	suryatmi.okta@example.net	2	2021	53	158	2006-03-26	31.72
+2701	28	2128200041	Agus Halim	P	prabowo44@example.net	1	2021	87	154	2006-07-26	61.01
+2702	28	2128520042	Febi Widiastuti	P	cornelia.halimah@example.net	1	2021	69	145	2007-04-22	34.02
+2703	28	2128970043	Rika Suartini	L	eva14@example.org	3	2021	60	146	2007-08-06	32.02
+2704	28	2128950044	Cahyadi Eko Mandala	L	phariyah@example.com	4	2021	71	168	2006-04-06	35.78
+2705	28	2128570045	Malika Pia Widiastuti S.E.	P	kurniawan.winda@example.org	6	2021	64	157	2007-01-05	31.72
+2706	28	2128150046	Cahyono Jarwi Damanik	L	ysiregar@example.net	3	2021	75	151	2006-08-17	35.28
+2707	28	2128760047	Diana Raina Andriani	P	susanti.safina@example.net	4	2021	88	170	2007-06-14	53.01
+2708	28	2128850048	Daru Sitorus M.M.	L	lailasari.akarsana@example.net	4	2021	73	156	2006-10-20	33.19
+2709	28	2128150049	Leo Galiono Dabukke S.T.	L	wsaragih@example.com	5	2021	70	165	2006-07-26	31.74
+2710	28	2128260050	Johan Najmudin S.E.I	P	wisnu.situmorang@example.com	2	2021	55	146	2006-06-12	35.20
+2711	28	2128530051	Parman Wibowo M.M.	P	phariyah@example.org	4	2021	46	162	2005-11-11	14.05
+2712	28	2128980052	Jail Siregar	P	lestari.agnes@example.org	6	2021	79	157	2006-11-27	74.04
+2713	28	2128600053	Aditya Anggriawan	P	ghabibi@example.com	1	2021	69	159	2006-08-23	35.21
+2714	28	2128280054	Ratih Eli Safitri	P	prasasta.luthfi@example.net	2	2021	48	179	2006-08-30	35.15
+2715	28	2128420055	Oliva Wani Laksita S.Pt	L	hasna83@example.com	3	2021	78	147	2006-01-14	72.02
+2716	28	2128500056	Bakiadi Galak Hutagalung S.Sos	P	zizi35@example.com	2	2021	59	168	2007-04-19	34.04
+2717	28	2128130057	Ikhsan Habibi	P	labuh40@example.org	2	2021	49	147	2006-11-01	32.09
+2718	28	2128350058	Sarah Nuraini	L	fmayasari@example.net	5	2021	53	178	2007-08-05	74.04
+2719	28	2128430059	Syahrini Namaga S.I.Kom	P	galang.wahyudin@example.org	4	2021	45	169	2007-07-08	35.16
+2720	28	2128820060	Titi Nurdiyanti	P	mahmud44@example.net	6	2021	57	170	2006-06-17	35.28
+2721	28	2128300061	Agnes Astuti	L	yulianti.maryadi@example.org	1	2021	86	153	2007-05-07	33.02
+2722	28	2128720062	Budi Ajimin Damanik	P	gilang.namaga@example.org	2	2021	56	163	2006-04-18	31.73
+2723	28	2128850063	Rika Halimah	P	yance.wulandari@example.org	1	2021	91	159	2006-09-05	31.74
+2724	28	2128780064	Unjani Chelsea Andriani	L	fsuwarno@example.org	2	2021	73	165	2007-05-12	32.12
+2725	28	2128510065	Ciaobella Laila Agustina S.E.	L	julia.wibowo@example.com	2	2021	81	165	2006-02-08	32.04
+2726	28	2128320066	Ajiman Natsir	P	yessi57@example.org	1	2021	63	162	2007-07-14	52.71
+2727	28	2128580067	Mutia Agustina	L	prastuti.tiara@example.org	2	2021	69	177	2007-07-03	75.03
+2728	28	2128920068	Kamaria Winarsih M.Ak	L	naradi.melani@example.com	4	2021	90	171	2006-01-05	13.07
+2729	28	2128370069	Radit Jumari Hutasoit	L	permadi.nurul@example.com	4	2021	56	163	2007-09-09	33.16
+2730	28	2128660070	Bakijan Narpati	L	indah59@example.com	6	2021	95	146	2006-03-25	74.02
+2731	28	2128980071	Kacung Dongoran	L	eva.zulaika@example.net	6	2021	87	156	2006-07-12	34.02
+2732	28	2128590072	Cecep Rajata S.T.	P	pangestu.yani@example.net	2	2021	89	175	2007-06-27	31.72
+2733	28	2128180073	Luwar Opan Maheswara	L	cornelia.pertiwi@example.com	3	2021	90	163	2006-09-21	35.24
+2734	28	2128610074	Kartika Nuraini S.E.	P	dnarpati@example.org	3	2021	47	155	2007-04-20	32.09
+2735	28	2128360075	Abyasa Gunawan	L	pratama.hardi@example.org	4	2021	63	175	2006-09-08	35.76
+2736	28	2128560076	Enteng Cawuk Megantara M.Kom.	L	silvia99@example.net	5	2021	89	154	2007-04-03	31.01
+2737	28	2128870077	Syahrini Hasanah	P	kanda09@example.net	6	2021	48	176	2005-10-19	75.03
+2738	28	2128840078	Alika Kuswandari	L	tari.suryatmi@example.net	1	2021	94	178	2006-06-25	51.02
+2739	28	2128670079	Panca Aswani Latupono S.E.I	P	edison50@example.net	3	2021	95	164	2005-10-06	62.04
+2740	28	2128980080	Ina Maryati	L	jefri.permata@example.org	1	2021	93	164	2007-06-13	31.73
+2741	28	2128320081	Teguh Hutapea	L	winda21@example.org	2	2021	92	165	2006-02-03	34.04
+2742	28	2128500082	Yunita Sudiati M.Kom.	L	rhabibi@example.com	5	2021	87	158	2006-05-21	35.11
+2743	28	2128730083	Karsana Sihombing S.Kom	P	mahdi77@example.net	1	2021	81	177	2006-11-07	31.72
+2744	28	2128320084	Calista Suartini S.Sos	L	kunthara30@example.net	6	2021	52	158	2006-09-11	31.74
+2745	28	2128780085	Patricia Utami	P	fujiati.cici@example.net	6	2021	54	150	2006-12-01	32.03
+2746	28	2128830086	Maman Eka Pradana	L	gawati33@example.com	4	2021	74	177	2005-11-05	18.04
+2747	28	2128660087	Talia Dinda Maryati	L	sarah.nainggolan@example.org	5	2021	67	171	2005-11-16	64.07
+2748	28	2128250088	Kamidin Damu Budiyanto S.I.Kom	P	purwadi88@example.com	4	2021	79	158	2007-07-12	31.71
+2749	28	2128900089	Satya Lurhur Gunawan M.Kom.	L	zizi.yuniar@example.net	2	2021	49	154	2007-04-19	33.75
+2750	28	2128160090	Johan Lega Maryadi M.M.	L	smandasari@example.com	6	2021	50	180	2007-07-31	72.03
+2751	28	2128160091	Jamalia Hamima Halimah	P	irawan.ade@example.org	5	2021	67	159	2007-09-23	35.04
+2752	28	2128290092	Anom Rudi Hutagalung	L	digdaya26@example.net	5	2021	62	147	2006-09-24	15.01
+2753	28	2128640093	Devi Palastri	P	sakura.budiyanto@example.com	1	2021	67	147	2006-07-25	34.03
+2754	28	2128160094	Galiono Prayoga	L	citra64@example.org	2	2021	83	158	2006-09-13	12.77
+2755	28	2128840095	Zaenab Pertiwi S.Ked	P	vpurnawati@example.net	3	2021	78	177	2007-04-17	14.03
+2756	28	2128550096	Nadine Susanti	P	raina94@example.net	5	2021	62	176	2006-05-11	14.05
+2757	28	2128250097	Karimah Laksmiwati	P	gharyanto@example.org	3	2021	69	156	2006-08-24	33.19
+2758	28	2128450098	Raditya Saragih	L	mustofa.cornelia@example.org	1	2021	84	151	2006-12-28	51.02
+2759	28	2128420099	Narji Setiawan	P	dartono.tarihoran@example.net	5	2021	85	148	2006-05-27	18.04
+2760	28	2128840100	Artanto Damanik	P	capa92@example.net	6	2021	47	148	2005-12-01	31.01
+2761	28	2128700101	Jelita Yuniar S.Sos	P	mutia12@example.net	1	2021	80	161	2006-05-16	35.25
+2762	28	2128680102	Mursita Eko Saptono	L	omanullang@example.com	6	2021	72	145	2006-08-15	14.03
+2763	28	2128240103	Dimas Hardiansyah S.Psi	L	yolanda.dariati@example.org	6	2021	47	176	2006-12-06	52.01
+2764	28	2128950104	Cindy Novitasari S.Ked	L	eyolanda@example.org	6	2021	82	171	2005-10-10	32.01
+2765	28	2128400105	Timbul Kurniawan	L	rangga65@example.org	2	2021	88	152	2007-02-01	32.03
+2766	28	2128240106	Erik Bagas Ramadan	P	elvina99@example.org	5	2021	72	157	2006-12-31	63.01
+2767	28	2128970107	Teguh Hidayanto	P	ihsan71@example.com	4	2021	94	147	2006-05-23	31.75
+2768	28	2128780108	Laras Syahrini Fujiati	L	kusuma.hasanah@example.net	4	2021	78	154	2007-09-12	15.04
+2769	28	2128400109	Samsul Saptono	P	lhastuti@example.org	1	2021	76	176	2006-03-14	33.01
+2770	28	2128340110	Okta Wasita S.I.Kom	L	labuh57@example.org	6	2021	52	156	2007-07-01	35.06
+2771	28	2128220111	Paiman Hidayat	L	bsimbolon@example.org	4	2021	53	168	2007-09-07	33.05
+2772	28	2128630112	Dalimin Sihotang	P	prayogo.hutasoit@example.com	6	2021	64	161	2006-09-02	64.07
+2773	28	2128170113	Purwa Bagya Saefullah	L	epermadi@example.com	4	2021	66	170	2005-11-14	33.13
+2774	28	2128830114	Putri Mayasari	P	yulia.hidayat@example.com	5	2021	73	170	2006-01-01	33.19
+2775	28	2128750115	Dadap Nardi Hidayanto	P	sihombing.dwi@example.com	3	2021	72	170	2005-12-17	32.14
+2776	28	2128920116	Abyasa Agus Anggriawan M.Pd	L	wfujiati@example.com	1	2021	69	168	2006-08-19	35.29
+2777	28	2128260117	Gasti Kusmawati	L	warsa.puspasari@example.com	2	2021	82	151	2006-10-21	11.14
+2778	28	2128520118	Jinawi Nainggolan M.Ak	P	hakim.yessi@example.net	2	2021	87	147	2007-04-11	33.23
+2779	28	2128710119	Widya Yuliarti	L	puspa29@example.com	3	2021	55	155	2007-03-06	75.03
+2780	28	2128520120	Kiandra Hartati	P	ramadan.darmanto@example.org	3	2021	58	167	2007-05-08	35.77
+2781	29	2129870001	Ade Gantar Wijaya	P	ajimat.prabowo@example.com	3	2021	68	173	2007-01-27	33.76
+2782	29	2129260002	Siska Maria Anggraini	P	pratiwi.kartika@example.net	2	2021	94	145	2006-11-12	71.02
+2783	29	2129240003	Ira Oktaviani	P	afarida@example.net	5	2021	77	154	2006-01-25	31.71
+2784	29	2129730004	Jati Banara Sihotang	L	damanik.ida@example.org	1	2021	84	176	2007-08-24	32.79
+2785	29	2129120005	Okto Cakrawangsa Rajasa S.Farm	L	elon35@example.net	3	2021	70	180	2006-03-31	34.01
+2786	29	2129840006	Tiara Laksmiwati	L	zhariyah@example.org	3	2021	53	147	2005-12-12	52.01
+2787	29	2129470007	Virman Pangestu M.M.	P	nasyidah.zelda@example.org	5	2021	69	167	2007-05-10	32.71
+2788	29	2129940008	Balijan Januar	L	paiman.palastri@example.net	2	2021	64	165	2007-08-12	35.24
+2789	29	2129510009	Cahyono Manullang	P	putri01@example.net	2	2021	70	165	2006-11-12	13.07
+2790	29	2129270010	Chandra Mandala	P	iastuti@example.com	6	2021	56	156	2006-09-29	33.27
+2791	29	2129660011	Farah Purnawati	P	puspasari.najib@example.net	6	2021	62	149	2005-11-18	33.08
+2792	29	2129190012	Maya Maida Melani	P	maria21@example.net	2	2021	93	157	2006-03-09	31.73
+2793	29	2129730013	Silvia Sudiati	P	wyuniar@example.net	1	2021	55	163	2007-03-24	53.01
+2794	29	2129930014	Tantri Mulyani	P	jais.simbolon@example.org	3	2021	88	173	2006-04-06	35.22
+2795	29	2129470015	Wisnu Ramadan	P	ira54@example.net	4	2021	94	157	2007-03-18	32.10
+2796	29	2129110016	Bakda Wacana S.T.	P	eli07@example.net	5	2021	68	165	2006-07-12	32.08
+2797	29	2129310017	Uchita Wahyuni	L	cengkir97@example.com	5	2021	49	167	2007-03-07	33.27
+2798	29	2129250018	Devi Usada M.Ak	P	lanjar93@example.org	2	2021	58	168	2006-03-19	32.06
+2799	29	2129650019	Gandi Lazuardi	P	suartini.aurora@example.com	6	2021	88	155	2006-03-11	35.09
+2800	29	2129620020	Wasis Jaka Habibi S.Farm	L	panji.jailani@example.com	3	2021	83	151	2006-06-03	62.01
+2801	29	2129160021	Endah Handayani	L	agnes.prastuti@example.com	5	2021	90	170	2007-07-25	53.05
+2802	29	2129990022	Kamaria Purwanti	P	simon84@example.com	2	2021	83	179	2006-10-06	35.77
+2803	29	2129930023	Mumpuni Kuswoyo S.E.I	P	gunawan.harsaya@example.org	2	2021	52	172	2006-01-01	33.13
+2804	29	2129670024	Abyasa Raden Waskita S.Pt	P	saputra.niyaga@example.net	3	2021	92	180	2007-09-28	35.19
+2805	29	2129350025	Gada Capa Wibowo	P	prabowo.olivia@example.net	4	2021	56	180	2005-10-26	63.03
+2806	29	2129380026	Adiarja Waluyo	P	jessica.pangestu@example.com	1	2021	84	171	2006-11-04	33.05
+2807	29	2129690027	Ophelia Hesti Usada S.Psi	P	bagya.megantara@example.org	4	2021	63	163	2006-06-30	31.75
+2808	29	2129480028	Daryani Surya Saputra	L	jhartati@example.com	1	2021	84	158	2007-03-13	31.01
+2809	29	2129280029	Carla Zulaika	P	dalimin.setiawan@example.net	3	2021	81	151	2006-09-23	71.05
+2810	29	2129280030	Kusuma Endra Mandala S.Pd	L	cnamaga@example.net	2	2021	66	177	2007-04-25	35.72
+2811	29	2129810031	Mulyono Anggriawan	P	eiswahyudi@example.org	5	2021	95	147	2005-10-16	32.08
+2812	29	2129150032	Laila Prastuti	P	kpangestu@example.com	3	2021	79	167	2007-02-15	32.09
+2813	29	2129710033	Gina Vanesa Winarsih	L	eli.wibowo@example.net	4	2021	93	173	2006-06-09	35.14
+2814	29	2129890034	Natalia Anggraini M.Kom.	P	lestari.salsabila@example.org	3	2021	56	149	2007-05-17	71.07
+2815	29	2129820035	Bagus Megantara S.E.I	P	wastuti.kardi@example.org	4	2021	66	156	2005-10-19	33.29
+2816	29	2129170036	Maimunah Hartati	L	ratna34@example.org	4	2021	72	156	2006-12-15	14.06
+2817	29	2129490037	Alika Iriana Pudjiastuti	P	queen73@example.org	1	2021	86	165	2007-03-18	33.76
+2818	29	2129310038	Karman Nasab Nababan M.Farm	P	argono85@example.org	3	2021	88	177	2006-08-21	33.73
+2819	29	2129980039	Nasab Purwa Prasasta	L	ida18@example.org	2	2021	71	156	2006-04-03	33.09
+2820	29	2129260040	Karen Farida	L	zalindra96@example.net	4	2021	64	149	2005-10-04	31.73
+2821	29	2129690041	Asirwanda Waskita	P	empluk12@example.org	5	2021	75	176	2005-11-21	14.05
+2822	29	2129590042	Rusman Hakim	L	cici37@example.com	4	2021	73	171	2006-01-17	33.13
+2823	29	2129760043	Ciaobella Safitri	P	ira.winarno@example.com	2	2021	74	163	2006-11-16	11.71
+2824	29	2129430044	Hafshah Tari Lailasari S.E.	L	gabriella.hastuti@example.org	5	2021	72	168	2006-08-16	33.29
+2825	29	2129470045	Elma Melani	P	koko15@example.net	5	2021	84	168	2007-01-16	34.71
+2826	29	2129540046	Indra Dabukke	L	agustina.putri@example.com	6	2021	71	149	2006-03-01	51.01
+2827	29	2129240047	Cakrabuana Rahman Saragih M.TI.	P	maras15@example.org	5	2021	51	149	2006-01-26	32.11
+2828	29	2129720048	Lukman Garang Kuswoyo	P	opung.mustofa@example.net	1	2021	89	158	2007-05-13	31.74
+2829	29	2129190049	Catur Garda Mansur M.Ak	P	saputra.sadina@example.com	1	2021	51	159	2006-07-09	35.05
+2830	29	2129930050	Belinda Clara Hasanah S.Psi	L	nmulyani@example.net	6	2021	73	154	2006-05-12	32.17
+2831	29	2129570051	Ian Nainggolan	P	kayla04@example.com	5	2021	72	170	2006-06-21	31.72
+2832	29	2129270052	Ifa Novitasari	L	widya21@example.net	1	2021	47	147	2006-05-10	31.75
+2833	29	2129550053	Tina Rahmawati	L	nainggolan.upik@example.com	3	2021	57	162	2006-08-27	32.04
+2834	29	2129780054	Diah Nasyiah	L	adriansyah.rini@example.net	1	2021	59	145	2006-12-13	35.75
+2835	29	2129410055	Indah Rahimah	L	rahmi.handayani@example.net	5	2021	74	161	2006-11-15	31.73
+2836	29	2129440056	Vivi Suartini	L	phakim@example.com	5	2021	59	166	2006-09-22	32.14
+2837	29	2129240057	Ira Laksmiwati	P	saptono.suci@example.com	5	2021	77	162	2007-05-15	35.75
+2838	29	2129560058	Rahmi Kusmawati	L	ghaliyati.pradana@example.net	2	2021	80	156	2006-05-16	33.07
+2839	29	2129270059	Nrima Mustofa S.Farm	L	akusmawati@example.org	1	2021	55	146	2006-01-13	65.02
+2840	29	2129200060	Irsad Cawisadi Zulkarnain	L	hutapea.kasim@example.org	6	2021	51	162	2006-03-15	72.03
+2841	29	2129550061	Narji Irawan S.Kom	L	praba24@example.com	1	2021	56	165	2006-10-22	31.72
+2842	29	2129470062	Jessica Susanti	P	diah.ardianto@example.net	5	2021	48	162	2007-03-22	74.02
+2843	29	2129780063	Kawaca Caraka Napitupulu M.TI.	P	zmelani@example.com	1	2021	89	161	2007-05-11	35.76
+2844	29	2129270064	Elisa Mayasari	L	aryani.suci@example.net	5	2021	94	162	2006-08-01	33.08
+2845	29	2129260065	Raina Chelsea Widiastuti	P	bsudiati@example.com	5	2021	80	167	2007-05-08	31.74
+2846	29	2129860066	Cemani Marbun	L	suwarno.yunita@example.com	6	2021	72	160	2006-11-19	33.17
+2847	29	2129760067	Karja Balangga Pranowo	P	novitasari.kani@example.org	1	2021	67	177	2007-07-19	32.06
+2848	29	2129710068	Aditya Hidayanto	L	ghani.pertiwi@example.com	5	2021	72	146	2007-03-28	32.11
+2849	29	2129950069	Tiara Kamaria Anggraini S.Psi	L	puspa57@example.net	2	2021	63	147	2006-03-27	32.01
+2850	29	2129830070	Hani Suryatmi	L	dadap38@example.net	1	2021	62	162	2007-08-31	14.05
+2851	29	2129660071	Purwanto Lazuardi	P	hesti85@example.org	4	2021	52	155	2007-06-22	13.05
+2852	29	2129960072	Edward Karman Budiyanto	L	rahimah.wadi@example.net	1	2021	51	164	2007-04-07	32.16
+2853	29	2129660073	Elma Purwanti S.Psi	P	fujiati.upik@example.com	5	2021	78	149	2006-04-01	33.04
+2854	29	2129210074	Jabal Marwata Tarihoran S.I.Kom	P	rina86@example.org	4	2021	88	180	2006-04-21	33.26
+2855	29	2129230075	Galih Hakim	P	mala61@example.com	5	2021	50	164	2007-06-15	14.06
+2856	29	2129410076	Agnes Yulianti	P	uchita88@example.net	6	2021	73	177	2007-02-20	73.13
+2857	29	2129860077	Kalim Rajasa	L	cinthia.siregar@example.com	1	2021	63	156	2006-07-07	32.16
+2858	29	2129790078	Ika Palastri	P	jmanullang@example.net	1	2021	89	169	2007-07-25	31.01
+2859	29	2129320079	Hani Prastuti	L	tari34@example.net	1	2021	73	173	2007-06-23	32.16
+2860	29	2129160080	Tirta Kasiran Maryadi S.Kom	P	lala58@example.net	5	2021	83	173	2006-01-24	31.01
+2861	29	2129670081	Dinda Susanti	P	drahmawati@example.net	6	2021	52	164	2005-10-17	32.02
+2862	29	2129740082	Nalar Wijaya	L	suryatmi.kania@example.org	2	2021	81	173	2006-03-08	32.08
+2863	29	2129190083	Eko Sitompul	P	ehartati@example.net	5	2021	50	168	2006-09-21	35.79
+2864	29	2129990084	Tomi Narpati	P	najwa01@example.org	2	2021	79	158	2007-02-02	32.17
+2865	29	2129820085	Teddy Jamal Wibowo	P	simbolon.darmaji@example.com	4	2021	56	175	2005-10-17	34.02
+2866	29	2129560086	Puti Lestari	L	enuraini@example.net	3	2021	73	159	2006-12-01	32.04
+2867	29	2129580087	Jumadi Mandala	L	calista.suryatmi@example.org	2	2021	91	151	2005-10-25	74.02
+2868	29	2129250088	Leo Danu Saptono S.Gz	L	jindra00@example.org	3	2021	80	159	2006-11-14	35.22
+2869	29	2129350089	Luhung Marpaung	L	ajimin.pradipta@example.com	2	2021	50	151	2007-04-18	35.16
+2870	29	2129790090	Ratih Purwanti	P	kamaria.kurniawan@example.com	4	2021	55	147	2007-06-02	33.75
+2871	30	2130140001	Himawan Kurniawan	L	nyuliarti@example.com	5	2021	52	172	2006-11-05	33.16
+2872	30	2130500002	Ika Zaenab Prastuti M.Farm	L	osamosir@example.net	1	2021	56	166	2005-11-28	71.07
+2873	30	2130700003	Viman Maryadi	L	hardiansyah.mursinin@example.net	5	2021	88	149	2007-05-06	33.20
+2874	30	2130220004	Edison Hutapea S.Sos	P	agnes97@example.org	6	2021	50	164	2006-11-11	32.73
+2875	30	2130350005	Hafshah Aisyah Riyanti	P	putra.belinda@example.com	1	2021	72	153	2005-10-02	35.06
+2876	30	2130370006	Rachel Kusmawati S.Gz	L	kariman.kuswandari@example.net	1	2021	67	147	2006-12-18	33.19
+2877	30	2130720007	Cornelia Utami	P	nova86@example.net	1	2021	56	153	2007-07-06	15.04
+2878	30	2130650008	Rahmi Uyainah S.T.	P	vkusumo@example.org	4	2021	73	158	2007-03-03	33.06
+2879	30	2130610009	Hasan Maulana	P	cager87@example.com	6	2021	76	165	2007-01-20	32.11
+2880	30	2130650010	Nalar Haryanto	P	suartini.praba@example.com	3	2021	75	156	2005-10-28	32.72
+2881	30	2130190011	Zulfa Fujiati M.Farm	L	bella.wahyuni@example.com	6	2021	51	169	2006-09-06	31.01
+2882	30	2130410012	Legawa Waluyo	L	humaira24@example.net	3	2021	79	164	2007-03-21	71.05
+2883	30	2130970013	Ajeng Andriani	P	puput06@example.org	6	2021	52	177	2005-11-01	36.03
+2884	30	2130560014	Pranawa Hardiansyah M.TI.	L	natalia.oktaviani@example.com	5	2021	72	151	2005-11-01	34.71
+2885	30	2130460015	Indra Sihombing S.E.I	L	fsaptono@example.net	6	2021	46	156	2007-06-02	63.03
+2886	30	2130860016	Gangsar Kurniawan	L	baktianto29@example.net	5	2021	92	158	2007-04-24	11.14
+2887	30	2130660017	Nadine Jelita Pratiwi	L	agustina.jasmin@example.net	5	2021	68	161	2005-12-06	63.02
+2888	30	2130710018	Tedi Hakim S.E.I	P	puput20@example.net	1	2021	46	171	2007-08-04	61.05
+2889	30	2130540019	Wulan Aryani	P	pwahyuni@example.com	4	2021	61	156	2006-01-14	32.75
+2890	30	2130140020	Vivi Mayasari	P	kania90@example.com	6	2021	68	160	2007-03-03	31.73
+2891	30	2130870021	Luthfi Sihombing	P	faizah.prastuti@example.org	5	2021	83	161	2005-10-04	31.01
+2892	30	2130850022	Mahfud Ade Iswahyudi	P	zwaskita@example.com	5	2021	94	171	2006-04-05	33.12
+2893	30	2130370023	Tiara Mandasari	P	wulandari.ganda@example.com	1	2021	49	156	2007-09-07	31.01
+2894	30	2130860024	Rahmat Mahesa Thamrin M.TI.	L	diah.sihotang@example.net	3	2021	61	163	2006-09-06	13.07
+2895	30	2130340025	Wage Thamrin	L	eiswahyudi@example.com	4	2021	69	160	2006-12-28	61.04
+2896	30	2130580026	Maras Saputra M.Kom.	L	anita.andriani@example.com	6	2021	79	154	2007-09-05	31.74
+2897	30	2130480027	Gasti Puti Lailasari	L	vivi93@example.net	2	2021	67	148	2006-06-09	17.04
+2898	30	2130920028	Febi Usada	P	prabowo.agnes@example.net	3	2021	91	151	2006-08-10	33.27
+2899	30	2130950029	Teddy Sihotang	P	abyasa81@example.org	1	2021	67	162	2007-04-12	35.76
+2900	30	2130810030	Yunita Andriani M.Pd	P	malika65@example.net	2	2021	81	145	2007-05-05	15.04
+2901	31	2131470001	Mila Agnes Permata	L	cici51@example.net	5	2021	92	148	2007-08-30	74.02
+2902	31	2131840002	Sadina Rahimah	L	wibisono.rahmi@example.net	3	2021	95	151	2007-02-05	35.10
+2903	31	2131630003	Ajimat Sihotang S.H.	L	rmahendra@example.org	5	2021	93	172	2007-05-26	33.28
+2904	31	2131770004	Faizah Padmasari	P	natalia.pangestu@example.net	5	2021	79	173	2006-11-09	33.04
+2905	31	2131980005	Bella Widiastuti	P	suryatmi.kanda@example.com	1	2021	48	174	2006-07-19	36.01
+2906	31	2131240006	Tri Pangestu	P	uhidayanto@example.net	3	2021	71	172	2006-01-16	71.05
+2907	31	2131250007	Puti Puspasari	P	rmahendra@example.org	2	2021	46	150	2007-06-24	35.75
+2908	31	2131480008	Eka Najwa Wastuti	L	praba.pudjiastuti@example.org	4	2021	78	179	2006-12-02	35.09
+2909	31	2131750009	Simon Saefullah	P	lailasari.yoga@example.net	6	2021	79	167	2007-03-29	32.04
+2910	31	2131490010	Zelda Cornelia Hastuti	L	gunarto.titin@example.com	2	2021	67	147	2007-01-11	32.10
+2911	31	2131460011	Shania Hassanah M.Pd	L	jelita.maheswara@example.org	6	2021	79	164	2007-05-20	32.76
+2912	31	2131970012	Radika Iswahyudi S.Psi	P	balangga92@example.net	3	2021	65	150	2007-05-07	31.74
+2913	31	2131110013	Citra Mardhiyah	P	iriana82@example.net	4	2021	86	155	2006-07-17	32.78
+2914	31	2131640014	Rini Sarah Purwanti	L	usada.putri@example.net	1	2021	92	165	2006-03-01	32.73
+2915	31	2131260015	Victoria Yance Farida S.Farm	L	dabukke.ega@example.net	6	2021	51	172	2005-11-23	35.71
+2916	31	2131500016	Bahuraksa Marbun	L	tomi.salahudin@example.org	4	2021	53	158	2006-03-10	35.77
+2917	31	2131190017	Jamalia Halimah S.E.	L	pangestu.gawati@example.com	5	2021	76	180	2005-12-24	15.01
+2918	31	2131280018	Kanda Prasetya	L	paris00@example.org	6	2021	91	161	2007-08-08	34.03
+2919	31	2131350019	Winda Yuniar	L	marbun.gasti@example.com	2	2021	66	145	2006-07-11	31.75
+2920	31	2131750020	Nilam Ghaliyati Aryani S.Gz	L	siregar.luis@example.org	5	2021	73	160	2007-01-30	33.19
+2921	31	2131580021	Prayitna Hutagalung S.Farm	L	tania69@example.org	4	2021	55	177	2007-05-23	33.22
+2922	31	2131420022	Naradi Prayoga	L	agnes.pradana@example.net	6	2021	49	161	2005-10-12	35.15
+2923	31	2131220023	Salimah Usamah	L	zalindra14@example.org	4	2021	74	161	2006-10-20	14.06
+2924	31	2131550024	Janet Padma Hassanah M.TI.	L	bnababan@example.org	6	2021	71	149	2006-03-26	33.75
+2925	31	2131740025	Edi Wibisono	L	snasyidah@example.org	5	2021	83	151	2007-03-03	32.09
+2926	31	2131930026	Putri Maryati	L	haryanto.kamila@example.com	2	2021	88	177	2007-03-18	33.24
+2927	31	2131260027	Oni Permata	L	gading47@example.org	4	2021	88	156	2006-01-23	33.06
+2928	31	2131500028	Zulfa Permata	P	ckuswandari@example.net	2	2021	95	145	2006-10-30	32.78
+2929	31	2131630029	Harsaya Putra	L	salimah21@example.com	6	2021	47	172	2007-03-28	32.79
+2930	31	2131640030	Zelda Oktaviani	L	pkusumo@example.org	4	2021	77	157	2006-12-21	53.05
+2931	31	2131990031	Cagak Gadang Prasasta S.E.	P	gsiregar@example.org	4	2021	53	163	2006-06-09	32.15
+2932	31	2131680032	Chandra Maryadi Prasetyo	P	salman31@example.org	5	2021	55	156	2006-07-23	13.04
+2933	31	2131640033	Prasetya Sihotang	P	saputra.lukita@example.net	5	2021	49	174	2007-01-27	33.18
+2934	31	2131880034	Tomi Kacung Wacana	L	apranowo@example.net	6	2021	95	148	2005-12-06	35.16
+2935	31	2131310035	Eka Pradana	L	ipratama@example.com	5	2021	71	176	2005-11-24	31.73
+2936	31	2131790036	Tami Hastuti	L	hartati.maida@example.net	1	2021	54	153	2007-05-04	12.76
+2937	31	2131520037	Sadina Yuliarti	L	kwahyuni@example.net	2	2021	57	160	2007-05-29	33.75
+2938	31	2131830038	Malik Sihombing M.Kom.	L	ajiman14@example.org	2	2021	56	176	2006-08-05	73.07
+2939	31	2131300039	Widya Riyanti S.H.	L	usada.gaduh@example.net	4	2021	50	158	2007-05-18	33.09
+2940	31	2131760040	Okto Sitompul	P	zelaya34@example.com	1	2021	82	158	2005-11-21	65.02
+2941	31	2131240041	Sakura Lintang Pertiwi	P	riyanti.patricia@example.com	4	2021	70	151	2007-02-23	31.01
+2942	31	2131110042	Hadi Haryanto	P	ciswahyudi@example.org	2	2021	58	146	2006-09-02	32.74
+2943	31	2131910043	Titin Lailasari	P	samiah61@example.com	3	2021	60	169	2006-02-16	52.01
+2944	31	2131230044	Anastasia Hartati	L	karta.andriani@example.net	2	2021	89	147	2007-08-15	31.01
+2945	31	2131240045	Garda Anggriawan	P	hana.tampubolon@example.org	1	2021	51	156	2006-07-19	31.75
+2946	31	2131480046	Gasti Chelsea Haryanti	P	enteng.prabowo@example.net	5	2021	70	151	2007-04-01	32.17
+2947	31	2131270047	Mustofa Kurniawan	L	sari.ardianto@example.com	4	2021	90	163	2006-01-17	53.01
+2948	31	2131960048	Uchita Halimah	P	bakiono25@example.net	4	2021	51	160	2005-10-17	36.01
+2949	31	2131170049	Cahya Prayoga M.Ak	P	salsabila.hardiansyah@example.com	2	2021	95	167	2006-07-14	33.27
+2950	31	2131160050	Wasis Mursita Rajata	L	damanik.raina@example.net	2	2021	79	155	2007-09-22	33.20
+2951	31	2131560051	Pardi Saefullah S.E.	P	xanana66@example.com	3	2021	48	165	2006-04-21	32.16
+2952	31	2131700052	Rudi Luwar Pradipta	P	nababan.malik@example.org	2	2021	49	179	2007-08-27	33.04
+2953	31	2131470053	Rina Puspita	P	ibrani54@example.com	3	2021	81	165	2006-10-10	33.18
+2954	31	2131850054	Novi Prastuti	L	tamba.jagaraga@example.com	6	2021	51	158	2005-10-25	52.03
+2955	31	2131120055	Kacung Purwa Firmansyah S.Farm	L	fkusmawati@example.com	4	2021	75	178	2006-09-26	51.01
+2956	31	2131980056	Wani Rahayu	L	jailani.wardi@example.com	1	2021	69	167	2005-11-27	12.76
+2957	31	2131330057	Bagya Harja Gunarto M.Pd	L	titin77@example.net	5	2021	57	158	2006-06-20	35.24
+2958	31	2131990058	Nova Ade Yolanda	P	edi.widodo@example.org	5	2021	64	180	2005-11-10	32.13
+2959	31	2131980059	Mariadi Siregar	L	kasim63@example.net	2	2021	89	170	2006-06-21	13.05
+2960	31	2131340060	Titi Hartati	L	wastuti.puput@example.com	3	2021	95	172	2006-12-31	33.03
+2961	32	2132570001	Kenes Maryadi S.Farm	L	saptono.farah@example.com	5	2021	65	174	2006-12-19	33.22
+2962	32	2132430002	Purwa Dimas Putra M.Pd	L	dadap12@example.com	4	2021	87	149	2005-10-15	35.15
+2963	32	2132680003	Humaira Hastuti S.E.I	P	hastuti.calista@example.org	1	2021	53	179	2006-07-23	35.76
+2964	32	2132940004	Gamani Utama	L	usamah.iriana@example.com	6	2021	79	158	2006-09-10	33.17
+2965	32	2132990005	Aisyah Hamima Zulaika	L	citra87@example.net	3	2021	81	170	2005-12-04	33.13
+2966	32	2132350006	Tania Anggraini M.TI.	L	wasita.elon@example.net	3	2021	94	164	2005-10-08	33.25
+2967	32	2132110007	Raharja Embuh Winarno S.Kom	P	sabar71@example.org	5	2021	82	177	2006-01-28	32.71
+2968	32	2132380008	Putri Yolanda	P	reza.situmorang@example.com	1	2021	86	174	2005-12-24	62.01
+2969	32	2132910009	Ophelia Purwanti	P	hilda12@example.com	4	2021	76	154	2006-05-24	36.72
+2970	32	2132380010	Oni Rahayu	L	dasa.sitorus@example.com	4	2021	83	145	2006-12-03	63.03
+2971	32	2132860011	Jamil Jailani S.IP	P	ivan40@example.net	6	2021	76	179	2005-10-03	33.06
+2972	32	2132650012	Prayitna Cager Sitompul S.Farm	P	qlaksita@example.com	2	2021	48	162	2006-08-06	35.11
+2973	32	2132630013	Bagiya Irawan	P	samosir.hasna@example.net	6	2021	88	153	2007-07-23	35.72
+2974	32	2132620014	Teguh Megantara	L	lala50@example.net	2	2021	74	178	2006-10-02	31.74
+2975	32	2132370015	Cindy Carla Rahayu S.I.Kom	L	devi.mandasari@example.net	2	2021	53	156	2006-05-01	33.07
+2976	32	2132180016	Hani Suartini S.Kom	L	euwais@example.net	2	2021	64	157	2007-05-06	63.03
+2977	32	2132160017	Julia Zaenab Suryatmi S.E.I	P	hidayanto.asmianto@example.net	1	2021	86	168	2006-03-14	35.10
+2978	32	2132190018	Dimas Ian Putra S.H.	P	budiyanto.titin@example.net	2	2021	67	159	2006-05-06	31.73
+2979	32	2132490019	Ophelia Fujiati	L	halima42@example.net	6	2021	55	171	2005-10-12	35.05
+2980	32	2132580020	Rahayu Agustina S.T.	P	latupono.zulfa@example.org	3	2021	72	161	2006-02-10	33.22
+2981	32	2132270021	Sadina Suryatmi	P	luwar.padmasari@example.com	5	2021	73	162	2006-03-09	35.06
+2982	32	2132360022	Ciaobella Mayasari	L	niyaga31@example.com	1	2021	84	155	2006-06-02	33.04
+2983	32	2132740023	Hesti Rini Maryati S.IP	P	wnurdiyanti@example.net	3	2021	77	159	2006-09-14	64.03
+2984	32	2132200024	Galur Luluh Sitompul M.M.	P	wibisono.salman@example.com	5	2021	49	145	2007-05-24	12.78
+2985	32	2132380025	Nabila Rahmawati	P	vivi.usamah@example.org	2	2021	47	153	2006-08-23	35.07
+2986	32	2132110026	Zulfa Ellis Aryani	P	manah73@example.org	3	2021	55	161	2007-05-31	15.04
+2987	32	2132660027	Kadir Mandala M.M.	P	habibi.cahyono@example.com	3	2021	48	162	2006-02-02	73.07
+2988	32	2132380028	Ifa Dinda Padmasari S.Pd	L	latika89@example.org	2	2021	93	148	2007-05-01	35.19
+2989	32	2132650029	Ajimin Sihombing M.TI.	P	vharyanti@example.com	6	2021	65	155	2005-11-17	32.08
+2990	32	2132810030	Almira Laksmiwati	P	hnababan@example.com	6	2021	71	170	2007-01-22	31.01
+2991	32	2132610031	Galang Wijaya S.Farm	P	sadina45@example.net	6	2021	72	150	2006-02-01	33.75
+2992	32	2132390032	Jasmin Winarsih	L	iharyanto@example.net	1	2021	63	164	2007-08-17	33.75
+2993	32	2132180033	Nabila Usada	L	juli.samosir@example.net	2	2021	71	173	2005-11-21	35.10
+2994	32	2132550034	Anastasia Pratiwi	L	ulva25@example.org	3	2021	80	161	2006-08-09	63.03
+2995	32	2132680035	Janet Talia Yolanda	P	paris.kuswandari@example.net	5	2021	90	157	2007-04-04	52.72
+2996	32	2132540036	Tirtayasa Enteng Wacana S.Sos	L	mastuti@example.net	5	2021	49	162	2007-09-10	33.05
+2997	32	2132340037	Puspa Natalia Utami	P	samiah98@example.org	5	2021	47	155	2006-01-24	33.09
+2998	32	2132440038	Lanang Sihotang S.T.	L	gunawan.gada@example.org	1	2021	85	169	2005-10-06	32.08
+2999	32	2132230039	Najwa Kusmawati	L	kani39@example.org	6	2021	56	153	2006-02-05	31.75
+3000	32	2132890040	Empluk Nugroho S.Kom	P	ratna70@example.net	3	2021	78	159	2005-10-28	75.01
+3001	32	2132540041	Upik Prayoga	L	samosir.karen@example.org	3	2021	55	151	2007-01-29	31.75
+3002	32	2132800042	Cager Jagapati Manullang S.Pt	L	wsaragih@example.net	5	2021	79	153	2006-04-05	35.15
+3003	32	2132720043	Bella Nuraini	L	fagustina@example.net	6	2021	89	170	2006-12-08	18.04
+3004	32	2132690044	Pangestu Budiman	L	lamar.oktaviani@example.org	1	2021	80	175	2006-10-07	32.11
+3005	32	2132920045	Garda Sirait S.H.	P	enababan@example.com	3	2021	53	180	2005-11-28	73.07
+3006	32	2132800046	Kamal Budiman S.Farm	L	lega87@example.org	1	2021	85	148	2006-04-17	35.16
+3007	32	2132400047	Ophelia Suryatmi S.Pt	L	anggabaya06@example.net	2	2021	56	147	2006-03-09	33.17
+3008	32	2132960048	Aisyah Pudjiastuti	L	rahimah.febi@example.org	2	2021	62	176	2006-10-14	32.06
+3009	32	2132880049	Karna Kurnia Prasasta	P	yono19@example.org	3	2021	63	151	2007-05-31	31.73
+3010	32	2132410050	Asirwanda Ramadan	L	azalea11@example.org	3	2021	55	159	2006-01-08	71.05
+3011	32	2132110051	Bala Sihombing	L	cakrabuana.saragih@example.org	1	2021	81	163	2006-05-23	31.74
+3012	32	2132760052	Ika Nurdiyanti M.Pd	P	jinawi56@example.net	3	2021	95	145	2006-05-15	31.75
+3013	32	2132330053	Carub Firgantoro	L	mandasari.ajiono@example.net	4	2021	47	160	2006-03-18	35.78
+3014	32	2132990054	Cemplunk Adriansyah	L	queen.zulkarnain@example.net	4	2021	56	173	2006-01-31	33.27
+3015	32	2132830055	Unjani Aryani	P	febi21@example.net	3	2021	80	169	2006-11-05	32.01
+3016	32	2132470056	Harimurti Galar Samosir	P	paulin66@example.net	1	2021	89	161	2006-01-11	35.71
+3017	32	2132810057	Usyi Hariyah	L	oni.puspita@example.net	2	2021	46	153	2007-05-11	52.72
+3018	32	2132780058	Puti Mulyani	L	kurnia.kuswoyo@example.org	1	2021	93	163	2007-03-12	32.72
+3019	32	2132830059	Victoria Mandasari S.E.	P	diah34@example.com	5	2021	45	160	2007-08-05	35.22
+3020	32	2132290060	Cahyadi Hidayanto	P	rhutapea@example.org	2	2021	51	158	2006-05-16	33.11
+3021	33	2133490001	Salwa Wastuti	L	garang.kuswoyo@example.org	6	2021	59	158	2006-01-05	74.04
+3022	33	2133190002	Nadia Utami	L	salimah95@example.com	2	2021	91	145	2007-08-10	32.09
+3023	33	2133280003	Samiah Usada	P	lili47@example.net	2	2021	57	149	2006-08-31	35.27
+3024	33	2133660004	Budi Jagaraga Mahendra	L	qpalastri@example.net	1	2021	74	148	2006-03-07	52.02
+3025	33	2133400005	Ikhsan Saefullah	L	suartini.sabrina@example.org	3	2021	71	169	2006-06-25	32.71
+3026	33	2133280006	Lala Namaga M.TI.	P	daryani.pangestu@example.com	5	2021	83	174	2007-06-10	52.01
+3027	33	2133570007	Ana Ulva Suartini S.Pt	P	cornelia78@example.net	2	2021	73	150	2006-06-17	33.76
+3028	33	2133690008	Laras Purnawati	L	lalita96@example.org	2	2021	81	177	2006-09-05	35.79
+3029	33	2133740009	Heryanto Thamrin	P	mhutapea@example.com	6	2021	78	145	2006-07-18	36.72
+3030	33	2133630010	Sabrina Handayani S.Gz	L	putri52@example.com	5	2021	54	174	2006-10-11	74.02
+3031	33	2133150011	Kani Rahayu	L	thartati@example.org	4	2021	75	176	2006-05-03	33.05
+3032	33	2133520012	Puji Nasyiah M.M.	L	pudjiastuti.lasmanto@example.com	5	2021	66	147	2007-01-23	35.77
+3033	33	2133690013	Olivia Ilsa Yulianti	P	jhabibi@example.org	6	2021	60	171	2005-11-02	33.18
+3034	33	2133340014	Yosef Najmudin	P	rprasetya@example.net	6	2021	71	167	2006-11-26	65.02
+3035	33	2133510015	Yessi Nasyidah	P	halima.mahendra@example.net	4	2021	75	161	2005-10-08	13.05
+3036	33	2133860016	Langgeng Uwais S.IP	L	yolanda.jane@example.net	2	2021	89	149	2005-10-27	31.71
+3037	33	2133170017	Luluh Napitupulu	L	jhassanah@example.org	2	2021	57	157	2006-12-29	31.71
+3038	33	2133940018	Widya Utami	L	jnasyiah@example.com	5	2021	61	161	2006-10-26	36.03
+3039	33	2133360019	Wawan Dwi Simanjuntak S.H.	P	chandra25@example.com	4	2021	88	163	2007-08-25	32.77
+3040	33	2133340020	Ina Talia Riyanti	L	aastuti@example.org	5	2021	65	151	2007-03-28	62.04
+3041	33	2133130021	Cagak Pranawa Siregar	P	aurora83@example.net	1	2021	57	170	2006-12-10	36.03
+3042	33	2133620022	Pranata Ibrahim Sihotang	L	lyolanda@example.org	2	2021	88	168	2007-06-05	35.19
+3043	33	2133170023	Wawan Halim Halim S.E.I	P	salwa10@example.org	4	2021	87	155	2007-03-19	32.13
+3044	33	2133370024	Mulya Emong Prakasa S.Kom	L	abyasa.siregar@example.org	6	2021	51	157	2007-04-16	74.02
+3045	33	2133520025	Danang Setiawan	L	efujiati@example.net	3	2021	62	176	2007-03-02	35.20
+3046	33	2133610026	Parman Cakrawala Narpati	P	kusmawati.keisha@example.org	4	2021	57	171	2006-12-29	35.28
+3047	33	2133260027	Siti Yulianti	L	wharyanto@example.org	1	2021	83	170	2006-04-03	35.76
+3048	33	2133600028	Elvina Purwanti	P	siska70@example.com	2	2021	53	161	2006-05-28	33.29
+3049	33	2133720029	Zahra Mardhiyah M.Kom.	L	puspita.darmanto@example.net	1	2021	59	163	2006-08-28	34.04
+3050	33	2133350030	Dinda Usada	P	xhandayani@example.com	5	2021	92	172	2006-09-01	33.71
+3051	33	2133730031	Mala Hastuti	L	cwibisono@example.net	4	2021	85	172	2007-06-01	14.05
+3052	33	2133140032	Zelda Nilam Hartati	P	harjasa.nasyidah@example.com	4	2021	55	158	2006-03-12	35.10
+3053	33	2133130033	Sabrina Wulan Anggraini	L	bjailani@example.org	6	2021	57	180	2006-01-12	33.06
+3054	33	2133700034	Dewi Rahmi Yulianti S.H.	P	puspasari.laila@example.com	5	2021	86	170	2005-12-01	35.04
+3055	33	2133860035	Mulya Maulana	L	reza.usada@example.org	3	2021	67	174	2006-10-31	33.17
+3056	33	2133190036	Mustofa Uwais	P	mangunsong.fitria@example.net	4	2021	90	172	2007-03-25	17.04
+3057	33	2133190037	Argono Hakim	L	qutama@example.org	5	2021	80	145	2007-07-19	52.01
+3058	33	2133390038	Shakila Kuswandari	L	isinaga@example.com	2	2021	56	162	2007-04-17	17.04
+3059	33	2133290039	Dina Lailasari	L	fathonah64@example.org	4	2021	72	167	2005-10-24	32.15
+3060	33	2133320040	Olga Hardiansyah	P	samosir.cager@example.org	2	2021	76	169	2005-10-06	33.07
+3061	33	2133620041	Kamila Yuniar	P	zelaya78@example.org	1	2021	64	159	2006-06-24	36.03
+3062	33	2133540042	Warsita Ikin Hidayat S.Psi	L	tomi.nababan@example.com	4	2021	95	167	2007-09-12	35.06
+3063	33	2133750043	Kasiyah Yuliarti S.E.	L	mkuswandari@example.org	5	2021	56	149	2005-12-17	34.04
+3064	33	2133170044	Harsaya Oman Tampubolon	L	vanya89@example.com	2	2021	62	153	2007-07-23	35.05
+3065	33	2133100045	Cornelia Karimah Suryatmi	L	damu70@example.net	5	2021	69	169	2007-06-03	32.01
+3066	33	2133620046	Ayu Yolanda	P	praba.lailasari@example.com	3	2021	73	168	2007-01-09	32.78
+3067	33	2133360047	Bakianto Sirait	L	surya68@example.net	2	2021	65	171	2007-05-19	33.15
+3068	33	2133920048	Alika Pudjiastuti	L	widya80@example.com	6	2021	84	167	2007-09-05	31.01
+3069	33	2133330049	Septi Aryani	L	prakosa51@example.org	4	2021	76	178	2006-08-13	35.75
+3070	33	2133620050	Bala Budiyanto M.M.	P	rsusanti@example.com	2	2021	71	149	2007-04-22	33.16
+3071	33	2133770051	Queen Gasti Pudjiastuti	L	rajata.jaeman@example.net	1	2021	57	154	2005-10-28	65.01
+3072	33	2133720052	Rahayu Maryati S.E.I	L	puput14@example.net	3	2021	60	179	2007-06-28	35.25
+3073	33	2133960053	Fitriani Wulan Yuliarti	L	irwan20@example.net	6	2021	64	156	2005-12-14	34.71
+3074	33	2133960054	Clara Lestari	P	wwacana@example.org	6	2021	88	173	2006-02-06	33.72
+3075	33	2133530055	Harja Siregar	L	qrahayu@example.net	1	2021	94	146	2006-06-15	31.71
+3076	33	2133930056	Lembah Suwarno	P	mumpuni.budiman@example.com	3	2021	74	180	2007-09-22	31.75
+3077	33	2133450057	Raina Mandasari	L	farhunnisa01@example.net	6	2021	83	180	2006-06-21	35.24
+3078	33	2133400058	Padma Fujiati M.TI.	P	narji59@example.org	2	2021	46	160	2006-10-21	75.01
+3079	33	2133310059	Lintang Putri Kuswandari	P	cengkal.hartati@example.com	4	2021	47	171	2007-02-04	35.18
+3080	33	2133920060	Sarah Hariyah	L	mandasari.fitriani@example.com	3	2021	60	159	2006-08-05	11.14
+3081	33	2133530061	Julia Novitasari	P	ulya.pertiwi@example.com	5	2021	61	164	2007-06-24	13.07
+3082	33	2133840062	Kayla Ulva Agustina M.Kom.	P	ega03@example.org	2	2021	48	178	2007-04-04	53.01
+3083	33	2133870063	Cinthia Hariyah	P	natsir.intan@example.net	6	2021	61	145	2007-03-26	65.01
+3084	33	2133750064	Zizi Zelda Pratiwi	P	anastasia.pudjiastuti@example.net	2	2021	67	157	2006-02-20	33.04
+3085	33	2133730065	Jono Putra	P	purwanto.wibowo@example.org	5	2021	57	176	2006-05-14	31.72
+3086	33	2133960066	Zulfa Paris Yulianti	L	natsir.raihan@example.net	1	2021	93	170	2007-09-27	35.06
+3087	33	2133690067	Ami Tari Pudjiastuti M.Pd	P	hadi88@example.org	4	2021	69	175	2007-08-07	33.20
+3088	33	2133470068	Lukman Unggul Putra	L	clara.waluyo@example.net	6	2021	69	159	2006-03-01	33.08
+3089	33	2133140069	Danang Jati Mansur	P	gmaryati@example.com	3	2021	82	178	2007-05-15	36.71
+3090	33	2133130070	Jefri Firmansyah S.T.	L	maras.kusmawati@example.org	2	2021	69	159	2007-08-23	31.72
+3091	33	2133750071	Fitriani Rahayu	L	mthamrin@example.net	4	2021	75	153	2005-12-09	63.01
+3092	33	2133590072	Legawa Lazuardi S.Ked	L	napitupulu.samiah@example.com	4	2021	93	160	2006-11-25	33.72
+3093	33	2133110073	Ganjaran Gunarto	P	yani.prakasa@example.com	5	2021	78	170	2005-10-30	35.75
+3094	33	2133220074	Nilam Yolanda S.Ked	L	rajasa.mujur@example.com	2	2021	62	178	2007-04-16	64.07
+3095	33	2133260075	Farah Fujiati	P	silvia32@example.org	3	2021	81	155	2006-12-25	33.02
+3096	33	2133460076	Amalia Lestari	L	mala57@example.org	1	2021	89	164	2006-11-08	32.17
+3097	33	2133100077	Umaya Siregar	L	aprakasa@example.net	2	2021	86	170	2006-12-26	71.05
+3098	33	2133550078	Dian Susanti	P	csalahudin@example.com	2	2021	88	165	2007-01-16	35.77
+3099	33	2133990079	Hilda Hilda Rahmawati M.Ak	P	wulandari.cengkal@example.com	2	2021	67	150	2006-11-30	33.11
+3100	33	2133540080	Jabal Latupono	L	lalita.simbolon@example.com	3	2021	66	146	2006-07-19	33.28
+3101	33	2133940081	Edi Nugroho M.Farm	P	indah.natsir@example.net	6	2021	79	148	2007-04-24	62.02
+3102	33	2133620082	Teddy Anom Maheswara	L	xwaskita@example.org	3	2021	58	174	2007-08-25	73.13
+3103	33	2133280083	Oni Hartati	P	bagiya11@example.org	4	2021	75	145	2005-10-04	35.21
+3104	33	2133160084	Taswir Prasetyo	P	halimah.lili@example.net	2	2021	84	177	2006-07-06	62.01
+3105	33	2133360085	Darman Hardiansyah	P	fnasyiah@example.org	5	2021	51	178	2006-05-24	33.23
+3106	33	2133160086	Wadi Cecep Maheswara	P	kwahyuni@example.org	1	2021	72	149	2006-06-13	65.01
+3107	33	2133240087	Gangsa Darsirah Saefullah S.Sos	P	dpratiwi@example.net	4	2021	74	148	2006-07-11	35.06
+3108	33	2133540088	Puti Elma Purnawati	P	wisnu.pudjiastuti@example.net	1	2021	60	154	2006-04-17	33.09
+3109	33	2133890089	Puti Handayani	P	rahimah.ega@example.com	6	2021	62	175	2007-09-20	61.05
+3110	33	2133840090	Novi Wulandari	P	jefri.sihombing@example.net	6	2021	63	174	2007-02-24	51.02
+3111	33	2133130091	Latika Wijayanti S.Sos	P	snamaga@example.org	2	2021	45	169	2006-07-10	74.02
+3112	33	2133850092	Rangga Dimas Pangestu S.T.	P	banara.samosir@example.com	6	2021	66	158	2006-12-23	13.05
+3113	33	2133680093	Putri Wulandari	L	salsabila.adriansyah@example.net	4	2021	58	176	2005-10-17	51.03
+3114	33	2133690094	Ciaobella Anggraini	L	ida.haryanti@example.org	2	2021	71	145	2006-09-28	33.09
+3115	33	2133980095	Unjani Restu Pratiwi	P	pthamrin@example.org	4	2021	61	164	2006-12-15	73.13
+3116	33	2133490096	Ayu Mayasari	P	cinthia39@example.org	4	2021	48	169	2006-08-25	31.74
+3117	33	2133590097	Sarah Puspita	P	fitriani90@example.net	5	2021	74	165	2007-05-07	33.06
+3118	33	2133850098	Widya Bella Fujiati	L	jabal59@example.com	1	2021	92	170	2006-06-07	35.21
+3119	33	2133220099	Heryanto Wibowo	L	farida.paramita@example.net	2	2021	78	149	2006-12-13	33.26
+3120	33	2133700100	Olga Mansur	P	ywaluyo@example.org	3	2021	62	152	2006-06-14	17.04
+3121	33	2133130101	Galih Simanjuntak	L	tmahendra@example.net	3	2021	64	172	2006-12-14	31.01
+3122	33	2133520102	Cakrabirawa Suwarno	P	yuliarti.novi@example.net	2	2021	94	168	2007-03-09	31.74
+3123	33	2133670103	Ami Cindy Novitasari S.Farm	P	esinaga@example.net	1	2021	94	171	2006-08-14	35.25
+3124	33	2133250104	Yance Rina Prastuti	P	zulkarnain.ina@example.net	3	2021	84	166	2006-01-19	33.23
+3125	33	2133160105	Mutia Rahimah S.Pd	L	rahimah.tami@example.com	3	2021	92	170	2007-06-23	33.23
+3126	33	2133960106	Dartono Gunarto	P	gunawan.kani@example.org	6	2021	57	169	2006-04-05	33.16
+3127	33	2133240107	Banawi Thamrin	P	hastuti.omar@example.org	3	2021	46	156	2006-05-13	32.09
+3128	33	2133160108	Agnes Ratih Yolanda M.Pd	L	zulaika.dadap@example.net	6	2021	65	170	2006-01-30	14.05
+3129	33	2133410109	Eka Rajasa	P	mulyani.gaman@example.net	6	2021	93	145	2007-01-26	35.71
+3130	33	2133540110	Balidin Budiyanto S.T.	P	dsuwarno@example.net	1	2021	86	172	2006-08-21	13.05
+3131	33	2133530111	Patricia Safitri	L	sabrina36@example.com	6	2021	57	155	2007-08-04	74.02
+3132	33	2133710112	Karen Rachel Palastri S.Kom	P	fprasetya@example.org	1	2021	47	178	2006-09-27	35.16
+3133	33	2133920113	Jati Widodo	L	htamba@example.org	4	2021	73	157	2006-04-22	32.17
+3134	33	2133720114	Aisyah Hariyah	P	esudiati@example.net	1	2021	94	173	2005-10-04	31.74
+3135	33	2133520115	Jelita Melani	L	damanik.raihan@example.com	4	2021	82	164	2006-06-24	32.73
+3136	33	2133200116	Siska Yuniar	L	haryanti.tasnim@example.org	5	2021	76	156	2007-01-10	33.04
+3137	33	2133770117	Karma Halim	P	kala.megantara@example.net	4	2021	70	169	2006-03-21	63.02
+3138	33	2133130118	Tira Uyainah S.I.Kom	L	raditya73@example.net	4	2021	53	168	2006-11-24	74.04
+3139	33	2133660119	Mustofa Manullang	P	zamira58@example.com	1	2021	92	149	2007-01-19	31.72
+3140	33	2133920120	Tira Pudjiastuti	P	jamil.wibowo@example.org	5	2021	75	159	2007-05-21	53.01
+3141	34	2134550001	Lanjar Iswahyudi	L	lwijayanti@example.org	3	2021	87	151	2006-03-30	53.01
+3142	34	2134640002	Virman Pratama	L	yuliarti.karsa@example.org	4	2021	84	147	2007-06-25	53.01
+3143	34	2134930003	Darmana Najmudin	P	widiastuti.maya@example.com	6	2021	93	166	2005-10-29	33.05
+3144	34	2134390004	Sabrina Permata	P	ivan61@example.org	3	2021	48	164	2005-11-05	51.03
+3145	34	2134110005	Lidya Agustina M.Farm	P	wdongoran@example.org	5	2021	56	153	2006-12-31	32.04
+3146	34	2134830006	Amalia Usamah	L	lailasari.kartika@example.org	1	2021	81	173	2006-12-24	18.04
+3147	34	2134760007	Kemba Thamrin	L	suci44@example.com	4	2021	87	165	2006-04-05	13.05
+3148	34	2134280008	Usyi Violet Safitri	L	pmulyani@example.com	2	2021	68	157	2006-02-16	32.09
+3149	34	2134410009	Melinda Pudjiastuti	P	suwarno.radit@example.net	1	2021	86	164	2007-05-24	31.72
+3150	34	2134740010	Nurul Nurdiyanti	P	diah.uyainah@example.org	1	2021	92	146	2007-05-03	35.07
+3151	34	2134650011	Cengkal Maryadi Lazuardi S.IP	P	kuswandari.lidya@example.org	6	2021	91	152	2006-01-28	71.05
+3152	34	2134100012	Kardi Pangestu	L	jasmin16@example.com	5	2021	93	178	2007-02-16	31.75
+3153	34	2134580013	Salman Pranowo	P	budiman.simon@example.net	4	2021	46	163	2007-01-01	62.02
+3154	34	2134950014	Ghaliyati Hasanah	L	devi.wastuti@example.org	5	2021	53	147	2006-06-27	31.72
+3155	34	2134930015	Nova Fujiati M.Farm	P	tarihoran.rahmi@example.com	4	2021	71	146	2005-12-26	35.16
+3156	34	2134930016	Prayogo Pardi Habibi	L	tiara91@example.com	6	2021	59	175	2006-08-28	31.75
+3157	34	2134350017	Prasetyo Gading Hidayat S.Ked	L	yprasetyo@example.com	5	2021	73	145	2007-06-05	34.03
+3158	34	2134600018	Hardana Marpaung S.Psi	P	cahyanto15@example.net	2	2021	81	148	2006-09-29	32.10
+3159	34	2134490019	Zaenab Yance Laksita S.T.	P	prasetyo.ina@example.net	3	2021	56	172	2006-10-20	61.04
+3160	34	2134750020	Respati Asmuni Najmudin M.Farm	L	ibrahim68@example.org	3	2021	59	147	2007-06-26	33.76
+3161	34	2134810021	Gaduh Cakrawala Nugroho	P	zalindra.haryanti@example.org	2	2021	92	151	2006-02-18	33.08
+3162	34	2134990022	Kania Olivia Yuliarti S.I.Kom	L	thamrin.pardi@example.org	4	2021	54	148	2007-09-07	32.13
+3163	34	2134290023	Wahyu Nainggolan	P	catur.mayasari@example.org	4	2021	78	164	2006-02-02	31.01
+3164	34	2134670024	Dewi Yani Widiastuti S.Farm	L	irwan00@example.com	1	2021	91	164	2005-11-29	32.13
+3165	34	2134510025	Samiah Fujiati	L	flestari@example.org	1	2021	52	152	2005-11-23	36.72
+3166	34	2134310026	Kamila Yuliarti M.TI.	L	samosir.karta@example.net	6	2021	90	164	2007-06-25	18.05
+3167	34	2134110027	Prayoga Wahyudin	P	azalea.budiyanto@example.net	2	2021	72	157	2007-08-08	32.02
+3168	34	2134270028	Jelita Purnawati	L	paiman53@example.net	6	2021	65	154	2006-09-19	33.22
+3169	34	2134180029	Yuliana Novitasari M.Ak	L	tantri08@example.net	5	2021	92	177	2006-12-20	14.05
+3170	34	2134230030	Latika Yulianti	P	ilestari@example.net	4	2021	82	145	2006-04-23	33.71
+3171	34	2134870031	Saka Umar Saptono	L	hasta66@example.com	4	2021	51	162	2006-06-10	35.25
+3172	34	2134920032	Mulyono Hutapea	P	rahayu89@example.org	2	2021	95	174	2006-06-02	73.04
+3173	34	2134150033	Zalindra Melani M.M.	L	dadap57@example.org	3	2021	87	149	2005-11-14	32.16
+3174	34	2134260034	Widya Maryati	L	hastuti.mulyono@example.net	3	2021	78	150	2006-11-15	14.03
+3175	34	2134190035	Cayadi Hutagalung S.Pd	P	nusada@example.org	3	2021	58	165	2007-01-16	35.16
+3176	34	2134540036	Balapati Gangsar Waskita	L	pia.wijaya@example.com	2	2021	80	156	2007-01-21	31.74
+3177	34	2134410037	Yulia Maimunah Rahimah M.M.	P	shakim@example.org	1	2021	64	149	2005-11-16	36.71
+3178	34	2134290038	Lega Opan Siregar	L	budiyanto.mulya@example.net	5	2021	77	174	2005-10-02	52.71
+3179	34	2134670039	Erik Megantara M.Pd	P	prayoga.handayani@example.org	5	2021	49	177	2005-11-24	33.01
+3180	34	2134290040	Gaduh Perkasa Halim	L	gatot.wahyuni@example.net	2	2021	83	145	2007-02-17	35.76
+3181	34	2134230041	Hafshah Rahimah	L	putri03@example.net	1	2021	48	165	2005-10-08	33.26
+3182	34	2134770042	Hafshah Novi Suryatmi	L	amelia69@example.org	4	2021	57	166	2007-05-03	13.05
+3183	34	2134480043	Laila Sudiati	L	lintang71@example.com	3	2021	80	158	2005-10-10	14.03
+3184	34	2134100044	Raina Maryati S.H.	P	nashiruddin.maya@example.org	1	2021	79	180	2005-10-23	35.78
+3185	34	2134590045	Victoria Hastuti S.H.	L	kpuspasari@example.com	4	2021	48	161	2006-01-05	32.04
+3186	34	2134890046	Pranata Hutasoit	L	ella.yolanda@example.com	2	2021	91	150	2006-10-30	31.71
+3187	34	2134330047	Fitria Malika Puspasari	L	lailasari.hana@example.net	1	2021	81	172	2006-02-06	71.05
+3188	34	2134500048	Bakidin Hidayat	L	novitasari.endah@example.net	3	2021	61	163	2006-05-07	32.74
+3189	34	2134590049	Setya Natsir S.E.	L	perkasa02@example.org	2	2021	92	164	2007-04-30	63.02
+3190	34	2134940050	Tugiman Simbolon	L	kjailani@example.org	5	2021	51	171	2006-09-03	75.01
+3191	34	2134890051	Jayadi Hutapea	P	msihombing@example.com	2	2021	71	171	2006-11-27	33.02
+3192	34	2134830052	Uda Samosir S.Psi	P	zulaikha80@example.net	6	2021	62	171	2006-04-06	65.01
+3193	34	2134490053	Kajen Hardiansyah	P	wulan52@example.net	2	2021	54	146	2006-06-28	33.23
+3194	34	2134540054	Gandewa Firgantoro	L	amelia.susanti@example.com	5	2021	80	151	2005-10-01	33.27
+3195	34	2134410055	Ika Mulyani	P	indah.astuti@example.org	6	2021	87	155	2006-10-24	36.72
+3196	34	2134590056	Limar Gambira Najmudin	P	laila23@example.org	3	2021	87	169	2006-10-27	51.01
+3197	34	2134330057	Ulya Laras Aryani S.E.I	L	hasanah.baktianto@example.net	5	2021	88	161	2005-12-24	31.71
+3198	34	2134830058	Alambana Anggriawan M.Pd	L	luhung93@example.net	2	2021	78	159	2007-06-28	35.12
+3199	34	2134680059	Kasiyah Zelaya Laksita	L	yunita.budiyanto@example.net	4	2021	83	168	2007-01-28	63.01
+3200	34	2134270060	Ani Shania Palastri	L	bakiadi.nashiruddin@example.com	1	2021	72	168	2006-04-24	35.24
+3201	34	2134240061	Zahra Laksita M.Farm	L	febi.widodo@example.org	4	2021	67	161	2006-01-23	73.04
+3202	34	2134170062	Dadi Pradana S.I.Kom	L	prasetyo41@example.org	6	2021	94	160	2006-04-26	34.71
+3203	34	2134790063	Ade Salimah Prastuti	P	zizi43@example.org	5	2021	93	146	2005-11-24	33.23
+3204	34	2134690064	Fathonah Puspasari S.E.	L	nasim.hastuti@example.org	5	2021	72	158	2006-11-24	32.05
+3205	34	2134400065	Melinda Zulaika	L	jono76@example.com	6	2021	91	145	2007-06-19	51.03
+3206	34	2134470066	Usyi Wahyuni S.E.I	P	yuliarti.wirda@example.org	5	2021	51	166	2006-06-06	73.04
+3207	34	2134620067	Cindy Kusmawati S.H.	L	prasetya.nadia@example.org	1	2021	79	146	2005-11-29	31.73
+3208	34	2134810068	Lamar Winarno S.IP	P	gunarto.anom@example.net	5	2021	92	153	2007-04-30	33.21
+3209	34	2134320069	Farah Siska Hartati S.IP	L	ilsa43@example.com	3	2021	53	170	2007-09-18	61.01
+3210	34	2134470070	Kamidin Legawa Kurniawan	P	wulandari.cakrajiya@example.com	2	2021	52	174	2007-07-28	31.73
+3211	34	2134320071	Julia Wijayanti M.M.	L	viman54@example.net	3	2021	84	167	2006-06-12	33.28
+3212	34	2134820072	Sadina Permata	L	maryati.victoria@example.net	4	2021	54	174	2006-03-25	18.03
+3213	34	2134550073	Kajen Mahmud Sihombing M.Farm	P	permata.sidiq@example.org	6	2021	88	172	2007-06-28	32.71
+3214	34	2134630074	Olga Saputra	L	yuliarti.harjo@example.net	4	2021	87	148	2006-06-28	72.03
+3215	34	2134570075	Maryadi Mustofa	P	nova07@example.org	1	2021	48	168	2006-12-05	32.05
+3216	34	2134340076	Karja Maryadi	L	vivi33@example.com	3	2021	92	149	2007-04-30	31.71
+3217	34	2134310077	Tina Lailasari	L	namaga.danuja@example.org	3	2021	80	155	2006-07-02	35.72
+3218	34	2134650078	Galih Megantara	P	yuni.wijaya@example.com	4	2021	93	158	2007-05-17	35.74
+3219	34	2134830079	Langgeng Widodo	P	suci70@example.com	5	2021	66	158	2005-11-16	61.01
+3220	34	2134260080	Hardana Hidayanto	L	rahman37@example.org	2	2021	61	146	2007-08-10	33.21
+3221	34	2134870081	Amelia Puspita	P	jayeng02@example.org	3	2021	58	180	2006-02-13	17.04
+3222	34	2134620082	Gambira Martaka Manullang S.I.Kom	L	oliva29@example.com	3	2021	55	164	2007-03-15	34.71
+3223	34	2134700083	Nugraha Dongoran S.Farm	L	whabibi@example.com	4	2021	73	148	2007-08-27	61.04
+3224	34	2134200084	Adhiarja Zulkarnain	P	uthamrin@example.org	3	2021	59	171	2007-01-23	62.04
+3225	34	2134540085	Paulin Dewi Anggraini M.Pd	L	patricia.waskita@example.net	6	2021	76	155	2007-09-25	32.06
+3226	34	2134470086	Melinda Suartini	L	nasyidah.qori@example.com	1	2021	47	166	2007-09-07	17.04
+3227	34	2134960087	Eluh Saputra	L	asitumorang@example.net	6	2021	71	154	2006-03-05	35.76
+3228	34	2134270088	Himawan Hidayat	P	lanang58@example.net	1	2021	79	177	2007-04-25	32.02
+3229	34	2134830089	Eluh Yusuf Maulana M.TI.	P	shasanah@example.com	4	2021	88	159	2007-07-07	15.04
+3230	34	2134430090	Oliva Najwa Usamah	P	hassanah.talia@example.org	3	2021	79	162	2007-06-24	13.07
+3231	35	2135280001	Makuta Iswahyudi	P	damanik.fitria@example.com	5	2021	60	149	2007-05-23	12.78
+3232	35	2135180002	Kayla Melani	P	hariyah.raden@example.com	4	2021	61	152	2007-06-15	31.72
+3233	35	2135380003	Dagel Tamba	L	luis.suwarno@example.com	3	2021	86	150	2006-09-24	33.71
+3234	35	2135880004	Vivi Padmasari	P	lestari.wadi@example.org	6	2021	72	170	2005-11-24	74.04
+3235	35	2135880005	Jelita Aryani	P	uhandayani@example.com	1	2021	82	161	2007-03-05	31.71
+3236	35	2135260006	Tasnim Habibi	L	eja.wijayanti@example.net	3	2021	69	179	2007-03-06	13.05
+3237	35	2135820007	Viman Agus Hutasoit S.IP	P	dnasyidah@example.com	4	2021	66	174	2006-05-07	17.01
+3238	35	2135570008	Yulia Utami	L	darmaji66@example.com	3	2021	80	159	2007-08-13	31.01
+3239	35	2135480009	Dipa Jailani	L	hardi.andriani@example.com	5	2021	90	162	2006-11-01	33.08
+3240	35	2135960010	Lidya Yolanda	L	adiarja.rahayu@example.net	1	2021	62	172	2006-06-05	62.04
+3241	35	2135550011	Emong Irsad Pradipta S.Pt	P	ipertiwi@example.net	4	2021	94	170	2007-01-19	31.72
+3242	35	2135750012	Hamima Agustina	P	zutami@example.com	4	2021	47	169	2006-02-05	35.15
+3243	35	2135370013	Mursinin Prabawa Wacana	P	jayadi.siregar@example.org	6	2021	47	157	2006-02-01	64.07
+3244	35	2135440014	Michelle Lalita Riyanti	P	pradipta.iriana@example.net	2	2021	61	177	2006-11-29	33.14
+3245	35	2135620015	Makuta Utama S.Pt	L	bakiman73@example.net	5	2021	50	165	2007-09-23	31.71
+3246	35	2135440016	Febi Nasyidah	L	jasmin09@example.org	5	2021	52	180	2006-10-09	32.71
+3247	35	2135640017	Harimurti Simanjuntak	P	najwa.hutagalung@example.net	3	2021	77	156	2007-08-03	31.71
+3248	35	2135770018	Lamar Salahudin	P	uyainah.unjani@example.org	1	2021	55	164	2006-10-31	64.07
+3249	35	2135300019	Halima Mulyani	L	darmaji.astuti@example.com	6	2021	89	174	2006-10-14	35.16
+3250	35	2135690020	Darmana Sitompul	P	tirtayasa.hartati@example.org	1	2021	52	164	2007-06-05	33.29
+3251	35	2135840021	Jarwadi Najmudin	P	wijayanti.elvin@example.com	4	2021	87	164	2005-11-30	33.20
+3252	35	2135910022	Eka Pertiwi M.Ak	L	iriana.hastuti@example.org	4	2021	67	148	2006-02-12	52.71
+3253	35	2135580023	Malika Elvina Haryanti	P	rsusanti@example.org	3	2021	91	149	2007-06-22	32.72
+3254	35	2135180024	Natalia Vivi Aryani S.E.	P	aoktaviani@example.org	3	2021	75	152	2007-06-28	35.78
+3255	35	2135320025	Usyi Halimah	L	xmaryati@example.com	1	2021	64	160	2006-09-04	12.78
+3256	35	2135820026	Uli Riyanti	P	fpermata@example.com	1	2021	55	152	2007-08-15	31.01
+3257	35	2135470027	Ophelia Namaga	P	hastuti.bala@example.com	6	2021	75	176	2006-12-18	65.01
+3258	35	2135960028	Betania Vanesa Purnawati S.E.	L	garan76@example.net	4	2021	56	166	2006-11-09	31.72
+3259	35	2135260029	Dodo Najam Gunarto	L	puspita.mahmud@example.org	4	2021	83	172	2006-05-22	51.01
+3260	35	2135970030	Wardi Cager Setiawan S.Kom	L	najam.rajasa@example.net	5	2021	59	161	2006-07-22	35.09
+3261	35	2135720031	Dipa Suryono	P	jasmin.farida@example.org	2	2021	80	174	2006-06-18	31.74
+3262	35	2135920032	Salsabila Uyainah	P	natalia95@example.net	1	2021	45	175	2005-10-10	32.15
+3263	35	2135150033	Fathonah Yuliarti	L	gaman.marpaung@example.com	4	2021	77	156	2007-09-06	12.77
+3264	35	2135530034	Samiah Pertiwi	P	namaga.jefri@example.com	3	2021	65	165	2005-12-21	32.17
+3265	35	2135900035	Soleh Daliono Suryono S.T.	L	nugroho.cawisadi@example.com	5	2021	82	172	2007-01-17	32.05
+3266	35	2135960036	Alika Haryanti	P	eva45@example.net	6	2021	88	172	2006-10-11	33.29
+3267	35	2135670037	Amelia Dewi Wastuti M.Pd	P	hprasetyo@example.net	5	2021	73	158	2007-09-16	52.03
+3268	35	2135530038	Genta Anggraini M.Kom.	P	novitasari.kajen@example.net	5	2021	78	156	2006-01-19	35.76
+3269	35	2135300039	Febi Puput Aryani S.Kom	L	hidayanto.bakiman@example.com	3	2021	87	174	2007-04-08	31.75
+3270	35	2135710040	Enteng Hasta Irawan S.Sos	P	maheswara.omar@example.org	3	2021	78	157	2006-07-04	32.76
+3271	35	2135160041	Ina Padmasari	P	sarah.hasanah@example.com	2	2021	48	169	2006-02-21	33.26
+3272	35	2135850042	Cagak Wasita	L	iwahyuni@example.net	2	2021	66	159	2007-08-16	51.02
+3273	35	2135530043	Ifa Halimah	L	kenari.laksita@example.net	2	2021	82	164	2006-08-26	33.19
+3274	35	2135180044	Puti Riyanti	L	cpudjiastuti@example.net	2	2021	46	180	2006-06-04	35.74
+3275	35	2135660045	Agus Bakda Maheswara	P	anggraini.sarah@example.com	1	2021	85	168	2005-11-05	12.77
+3276	35	2135300046	Salsabila Safitri	P	galih85@example.org	3	2021	61	156	2006-07-21	35.18
+3277	35	2135700047	Padma Melani	L	ayu.waluyo@example.org	2	2021	91	146	2006-08-11	31.74
+3278	35	2135180048	Dwi Mangunsong	P	prayitna09@example.org	1	2021	52	148	2006-09-19	32.02
+3279	35	2135600049	Hana Victoria Halimah	P	susanti.darmanto@example.net	5	2021	58	175	2007-08-02	65.02
+3280	35	2135500050	Budi Jaka Mustofa S.Gz	P	farida.maras@example.com	4	2021	61	160	2007-06-09	33.19
+3281	35	2135690051	Gatot Uwais	L	danuja55@example.org	1	2021	71	166	2006-01-13	31.75
+3282	35	2135300052	Luthfi Dabukke	P	indah.ardianto@example.com	5	2021	87	167	2006-02-01	31.74
+3283	35	2135730053	Prabawa Karsana Wasita	L	vfirgantoro@example.org	2	2021	70	151	2005-12-19	35.19
+3284	35	2135470054	Jessica Michelle Mardhiyah S.Pt	L	ana.permata@example.com	2	2021	71	169	2006-01-09	64.03
+3285	35	2135170055	Luwes Dabukke	P	melani.ivan@example.net	6	2021	77	148	2007-09-01	33.76
+3286	35	2135840056	Jagapati Galur Firgantoro S.E.	P	lsaragih@example.org	5	2021	60	166	2006-04-12	33.26
+3287	35	2135440057	Okta Situmorang	P	icha40@example.net	3	2021	69	147	2006-11-23	34.71
+3288	35	2135220058	Olivia Namaga S.Pd	P	bmaryati@example.org	1	2021	82	179	2007-05-19	35.16
+3289	35	2135210059	Malika Wahyuni S.T.	L	citra.nasyidah@example.org	1	2021	70	171	2006-06-17	52.71
+3290	35	2135830060	Tirta Firmansyah	P	farida.dadap@example.com	3	2021	46	146	2007-09-18	31.74
+3291	35	2135770061	Tania Namaga	P	waluyo.mutia@example.net	3	2021	63	162	2005-10-29	12.78
+3292	35	2135550062	Ayu Aryani	L	darmaji.wastuti@example.com	2	2021	66	166	2006-05-06	65.01
+3293	35	2135680063	Ajeng Anggraini S.Ked	P	purnawati.wahyu@example.com	5	2021	83	155	2005-11-23	18.04
+3294	35	2135570064	Maya Diah Handayani	L	ani36@example.com	3	2021	50	168	2007-02-22	31.75
+3295	35	2135600065	Patricia Jessica Maryati	L	ciaobella.najmudin@example.com	2	2021	68	146	2006-03-11	32.18
+3296	35	2135630066	Warsita Simbolon S.Sos	P	saragih.danang@example.org	6	2021	59	178	2006-01-25	35.78
+3297	35	2135680067	Cayadi Raditya Ardianto S.Sos	L	fitria.haryanti@example.com	4	2021	59	145	2006-07-03	36.03
+3298	35	2135660068	Prasetyo Lukita Samosir	P	among.lailasari@example.org	6	2021	51	145	2006-02-06	32.13
+3299	35	2135770069	Cici Michelle Hastuti M.Kom.	P	virman.suartini@example.net	3	2021	74	148	2005-12-21	14.05
+3300	35	2135670070	Hasta Maheswara	P	martani69@example.net	1	2021	74	171	2006-11-18	33.28
+3301	35	2135410071	Gabriella Uli Hastuti S.Kom	P	zahra99@example.net	1	2021	71	149	2006-02-04	63.03
+3302	35	2135580072	Purwadi Cager Prasetya	P	hnababan@example.org	1	2021	85	145	2007-04-09	65.01
+3303	35	2135100073	Ikin Ozy Tarihoran	P	ulva.tarihoran@example.org	2	2021	56	168	2006-08-23	36.71
+3304	35	2135550074	Gawati Padma Permata S.Pd	P	andriani.keisha@example.com	6	2021	47	163	2006-09-09	35.22
+3305	35	2135320075	Yosef Mustofa	L	diana61@example.net	1	2021	59	152	2006-04-29	35.09
+3306	35	2135480076	Ina Melani S.Pd	P	ayu35@example.net	1	2021	87	166	2007-01-22	31.71
+3307	35	2135340077	Icha Puti Winarsih	L	qyuniar@example.org	2	2021	91	158	2006-09-21	35.75
+3308	35	2135410078	Bakiman Nugroho	P	laksmiwati.karta@example.net	2	2021	74	156	2005-10-02	33.19
+3309	35	2135620079	Anom Prasetya	L	bancar.iswahyudi@example.net	2	2021	83	178	2007-06-06	51.03
+3310	35	2135250080	Winda Lailasari S.Pd	P	sitompul.wasis@example.com	1	2021	48	166	2007-08-09	32.18
+3311	35	2135400081	Lega Setiawan M.Kom.	P	ilyas71@example.org	6	2021	70	157	2007-08-23	35.24
+3312	35	2135640082	Opan Mustika Hardiansyah S.T.	P	nurul.hidayat@example.org	3	2021	92	148	2006-08-28	32.79
+3313	35	2135630083	Usyi Fujiati	L	salman65@example.org	5	2021	85	162	2007-09-02	52.01
+3314	35	2135710084	Latika Amalia Agustina	P	riyanti.salwa@example.com	4	2021	71	164	2006-11-10	33.22
+3315	35	2135870085	Galih Asmadi Saptono	P	ana.usada@example.com	2	2021	74	169	2006-08-17	32.14
+3316	35	2135210086	Daliman Marsito Manullang S.E.I	L	ysimanjuntak@example.net	5	2021	55	160	2006-05-01	35.24
+3317	35	2135290087	Among Sihombing	L	wulandari.lamar@example.net	2	2021	59	179	2006-02-15	32.06
+3318	35	2135960088	Fitriani Farida M.Farm	L	mutia75@example.com	5	2021	81	170	2005-10-02	35.24
+3319	35	2135250089	Jatmiko Cakrawangsa Mansur	P	irsad45@example.org	1	2021	58	151	2007-07-16	33.11
+3320	35	2135950090	Utama Mustofa	L	zulkarnain.dewi@example.com	1	2021	48	173	2006-02-09	32.17
+3321	35	2135100091	Yunita Yulianti S.Gz	P	laila91@example.com	4	2021	91	176	2007-08-25	32.05
+3322	35	2135870092	Alika Salsabila Wastuti	P	onashiruddin@example.net	2	2021	76	152	2005-10-14	32.74
+3323	35	2135140093	Balamantri Maulana	P	laksmiwati.nasab@example.com	1	2021	88	163	2007-08-25	32.08
+3324	35	2135610094	Cici Zalindra Wahyuni	L	qnamaga@example.org	2	2021	53	180	2006-01-14	32.05
+3325	35	2135560095	Dina Yuniar S.IP	P	uli52@example.net	1	2021	75	162	2006-03-05	52.03
+3326	35	2135110096	Rini Astuti	L	hutasoit.darman@example.org	2	2021	88	180	2006-12-03	31.74
+3327	35	2135930097	Elma Wijayanti	P	cengkir.aryani@example.com	4	2021	94	157	2006-08-27	32.11
+3328	35	2135350098	Cakrabuana Zulkarnain	P	asaefullah@example.org	6	2021	85	157	2007-02-26	33.76
+3329	35	2135920099	Martani Nashiruddin S.I.Kom	L	titi.aryani@example.com	2	2021	51	149	2005-11-06	32.02
+3330	35	2135400100	Elma Pratiwi	L	oskar.januar@example.net	1	2021	91	147	2006-06-21	32.76
+3331	35	2135790101	Dimas Jarwa Situmorang	P	wijaya.belinda@example.org	2	2021	61	177	2006-04-28	34.01
+3332	35	2135470102	Taswir Nainggolan	L	oman38@example.com	2	2021	89	172	2005-11-25	33.24
+3333	35	2135640103	Rama Putra S.Sos	P	tnasyidah@example.net	2	2021	87	173	2006-10-07	35.74
+3334	35	2135560104	Gilang Simbolon	P	sakura.salahudin@example.net	5	2021	79	168	2007-09-04	36.01
+3335	35	2135810105	Eluh Hidayat	P	puspasari.uchita@example.org	3	2021	59	179	2005-10-09	14.03
+3336	35	2135950106	Jayadi Firgantoro	P	lanjar69@example.org	6	2021	86	152	2006-10-25	13.07
+3337	35	2135500107	Budi Putra	L	lnatsir@example.com	3	2021	75	157	2007-01-14	34.03
+3338	35	2135930108	Natalia Mayasari	P	lhakim@example.com	4	2021	70	164	2006-03-19	35.74
+3339	35	2135630109	Iriana Safina Astuti	P	jasmin49@example.org	3	2021	90	176	2006-03-09	18.04
+3340	35	2135850110	Zalindra Laksmiwati	L	edison46@example.net	4	2021	49	166	2006-11-07	31.75
+3341	35	2135530111	Ira Mandasari	L	pratama.anggabaya@example.com	2	2021	74	173	2006-11-22	71.02
+3342	35	2135920112	Oni Namaga S.Psi	L	adika.najmudin@example.net	3	2021	69	161	2005-11-29	63.02
+3343	35	2135960113	Adiarja Ghani Hutapea	L	haryanti.olga@example.net	5	2021	45	149	2007-01-12	12.76
+3344	35	2135670114	Purwadi Eka Nugroho	L	wuyainah@example.com	5	2021	56	175	2006-05-14	35.06
+3345	35	2135730115	Wisnu Ghani Nashiruddin	L	enapitupulu@example.com	3	2021	50	148	2006-07-03	71.02
+3346	35	2135270116	Karimah Usada S.E.	P	hidayanto.vera@example.org	5	2021	67	153	2005-12-19	31.72
+3347	35	2135320117	Lembah Warsa Uwais	L	sakura11@example.org	5	2021	51	164	2007-09-15	36.72
+3348	35	2135850118	Dimas Permadi	L	busada@example.com	4	2021	52	177	2005-11-11	32.04
+3349	35	2135770119	Prabowo Tarihoran M.Pd	P	ptarihoran@example.com	1	2021	65	162	2006-01-13	73.04
+3350	35	2135780120	Galih Garda Napitupulu S.Sos	L	hutasoit.ajiono@example.org	2	2021	85	177	2005-10-15	75.01
+3351	36	2136110001	Widya Rahayu	P	sabrina.novitasari@example.org	5	2021	56	175	2007-04-01	34.01
+3352	36	2136230002	Kenes Simanjuntak	P	mulyono.mayasari@example.com	5	2021	76	180	2006-04-17	33.01
+3353	36	2136200003	Sari Anggraini	L	aisyah31@example.org	3	2021	49	155	2006-10-14	31.72
+3354	36	2136730004	Gilda Uyainah	P	gamblang44@example.com	3	2021	82	170	2005-12-10	65.01
+3355	36	2136880005	Tania Safitri	P	nsetiawan@example.org	5	2021	63	148	2007-07-25	72.03
+3356	36	2136720006	Unjani Puspita	L	kamidin24@example.com	2	2021	69	175	2006-11-22	31.01
+3357	36	2136610007	Okta Rafi Lazuardi M.Kom.	L	chandra.pratama@example.com	1	2021	79	152	2007-05-26	35.20
+3358	36	2136600008	Maria Yolanda	P	lyolanda@example.org	6	2021	77	159	2006-07-16	32.10
+3359	36	2136130009	Laras Susanti	P	pia65@example.net	1	2021	72	148	2007-03-10	32.11
+3360	36	2136200010	Anom Sitorus S.IP	L	uyainah.jais@example.org	6	2021	67	156	2007-07-15	33.15
+3361	36	2136980011	Vanya Lala Hassanah M.Farm	P	prasasta.nadine@example.com	5	2021	63	159	2006-09-19	35.27
+3362	36	2136590012	Heru Situmorang	P	sitompul.ika@example.org	2	2021	70	176	2006-02-09	33.75
+3363	36	2136570013	Nadia Titi Mulyani S.I.Kom	L	waluyo.prayoga@example.net	1	2021	73	174	2007-03-16	62.04
+3364	36	2136850014	Irma Susanti	L	elma44@example.net	5	2021	80	145	2006-09-23	33.19
+3365	36	2136520015	Enteng Mangunsong	L	bahuwarna.pertiwi@example.org	2	2021	64	153	2006-05-27	33.03
+3366	36	2136820016	Juli Febi Widiastuti	P	pratama.caket@example.net	1	2021	84	160	2007-07-26	33.13
+3367	36	2136450017	Intan Novitasari	P	oliva.mandala@example.net	3	2021	74	160	2006-09-16	11.14
+3368	36	2136160018	Zaenab Usamah	P	artawan.rajata@example.net	5	2021	47	169	2007-05-17	32.06
+3369	36	2136140019	Garang Situmorang	L	vmegantara@example.com	1	2021	77	175	2006-07-16	32.04
+3370	36	2136900020	Prayitna Pradana S.Pt	L	puspita.dimaz@example.org	6	2021	60	171	2006-03-11	33.19
+3371	36	2136790021	Febi Ami Halimah	P	haryanto.danang@example.org	3	2021	46	156	2007-06-12	35.79
+3372	36	2136150022	Rini Ilsa Fujiati S.I.Kom	P	zalindra.farida@example.net	2	2021	92	153	2005-10-31	12.78
+3373	36	2136630023	Olga Kurniawan	P	galih.safitri@example.com	5	2021	49	154	2006-11-21	31.01
+3374	36	2136630024	Kunthara Ismail Irawan M.Pd	L	gangsar.prakasa@example.com	5	2021	91	163	2007-08-15	33.19
+3375	36	2136160025	Balidin Tampubolon	L	ira.zulaika@example.com	3	2021	46	156	2007-09-13	35.28
+3376	36	2136290026	Juli Kamila Rahmawati	P	yosef.yuniar@example.org	2	2021	54	158	2006-06-09	35.05
+3377	36	2136670027	Septi Pertiwi	P	prasetya.kacung@example.net	4	2021	66	153	2007-08-09	35.19
+3378	36	2136110028	Olga Pradana	P	fprasasta@example.com	2	2021	60	173	2007-07-20	31.75
+3379	36	2136410029	Lidya Fitria Lestari	L	oktaviani.maya@example.net	3	2021	94	153	2006-02-01	33.72
+3380	36	2136170030	Atma Adinata Sitorus M.Kom.	P	anggraini.ratna@example.com	2	2021	65	145	2006-08-07	52.01
+3381	36	2136880031	Alambana Nashiruddin S.Kom	P	prayitna43@example.com	5	2021	69	172	2006-11-11	32.05
+3382	36	2136310032	Rina Pia Anggraini	P	agnes.rahmawati@example.net	4	2021	58	172	2007-03-06	35.76
+3383	36	2136510033	Ivan Budiyanto	L	hasanah.galak@example.net	5	2021	48	169	2007-02-12	12.76
+3384	36	2136830034	Saadat Damanik	L	jagaraga.wacana@example.com	4	2021	92	161	2006-10-05	32.75
+3385	36	2136740035	Emas Utama	L	harto.widiastuti@example.org	4	2021	60	172	2006-10-04	74.04
+3386	36	2136660036	Hartana Hardi Narpati	P	hamima47@example.com	5	2021	78	163	2007-01-10	17.04
+3387	36	2136800037	Kariman Garda Marpaung S.Pd	L	ira.oktaviani@example.org	5	2021	48	159	2006-08-16	32.77
+3388	36	2136280038	Salwa Mayasari	P	suryono.nyoman@example.org	6	2021	63	156	2006-09-08	35.11
+3389	36	2136360039	Iriana Rahimah	P	maryadi.janet@example.net	3	2021	59	153	2006-12-08	33.28
+3390	36	2136630040	Calista Kani Novitasari S.IP	P	pradana.viman@example.com	3	2021	67	155	2006-01-15	35.75
+3391	36	2136650041	Cinthia Mulyani S.E.I	L	owibowo@example.net	4	2021	85	167	2006-04-30	52.71
+3392	36	2136380042	Cakrabuana Hardi Pradipta S.I.Kom	P	putri.aryani@example.org	5	2021	83	174	2006-11-25	31.74
+3393	36	2136760043	Yono Salman Prasasta S.Gz	P	yuniar.karma@example.net	6	2021	48	154	2005-10-14	31.72
+3394	36	2136430044	Warta Dwi Habibi S.H.	L	pradana.dacin@example.com	2	2021	54	152	2005-12-17	32.78
+3395	36	2136230045	Abyasa Prakasa	L	catur.wacana@example.net	5	2021	84	180	2007-04-26	33.06
+3396	36	2136300046	Shania Yolanda	L	arta.hutapea@example.net	2	2021	92	150	2006-07-04	61.04
+3397	36	2136490047	Rahayu Rini Rahayu S.I.Kom	P	xadriansyah@example.net	5	2021	70	159	2006-03-02	32.06
+3398	36	2136180048	Estiono Warta Lazuardi	L	sinaga.limar@example.org	4	2021	75	167	2006-02-22	35.77
+3399	36	2136950049	Slamet Manullang	P	gsihotang@example.net	2	2021	51	161	2006-12-29	52.72
+3400	36	2136210050	Genta Ilsa Palastri M.M.	L	ypermadi@example.net	6	2021	57	160	2007-03-08	32.76
+3401	36	2136460051	Carla Namaga S.Gz	P	cemeti81@example.net	4	2021	50	161	2007-05-12	17.05
+3402	36	2136630052	Rafi Jayeng Pradana S.E.	P	prabawa.zulaika@example.org	1	2021	53	148	2006-05-21	33.09
+3403	36	2136410053	Ajeng Maryati S.H.	P	ipangestu@example.net	1	2021	54	164	2007-06-23	36.72
+3404	36	2136250054	Violet Prastuti	P	krajasa@example.net	3	2021	88	145	2005-11-01	71.02
+3405	36	2136320055	Ida Citra Riyanti	P	purwanti.jaya@example.com	5	2021	73	175	2007-06-04	31.75
+3406	36	2136760056	Joko Jindra Siregar	P	hesti69@example.com	6	2021	90	162	2005-10-13	33.17
+3407	36	2136820057	Gangsar Tamba	P	irnanto85@example.com	5	2021	85	173	2007-07-30	11.14
+3408	36	2136670058	Zalindra Vicky Laksita M.Farm	P	sabrina20@example.com	6	2021	87	165	2006-03-30	31.75
+3409	36	2136980059	Agnes Rahimah	L	kawaya.yulianti@example.com	2	2021	59	179	2006-12-26	35.20
+3410	36	2136140060	Mila Purnawati M.Pd	P	tsihombing@example.org	6	2021	70	166	2006-09-20	33.02
+3411	37	2137180001	Kunthara Cawisadi Wibisono	L	wastuti.edward@example.net	4	2021	82	167	2006-02-22	35.24
+3412	37	2137880002	Artanto Wijaya	P	puspa22@example.org	2	2021	75	164	2007-07-11	33.24
+3413	37	2137870003	Julia Yuliarti S.E.	L	vega.narpati@example.net	3	2021	57	158	2007-04-06	12.78
+3414	37	2137390004	Ika Ani Yuniar M.Pd	P	inasyiah@example.net	1	2021	52	145	2007-03-28	33.02
+3415	37	2137310005	Asman Prayoga S.Kom	L	sihombing.widya@example.net	4	2021	53	176	2007-01-17	32.01
+3416	37	2137880006	Kayun Prabowo	L	nasyidah.makara@example.org	3	2021	89	155	2006-03-07	33.19
+3417	37	2137650007	Karsana Dabukke	L	zaenab.nainggolan@example.net	1	2021	50	153	2005-12-13	36.71
+3418	37	2137350008	Diah Paulin Rahimah S.Sos	L	kezia57@example.net	1	2021	49	148	2006-10-03	31.72
+3419	37	2137970009	Slamet Kardi Tarihoran	L	humaira.widodo@example.com	1	2021	86	177	2005-10-16	33.20
+3420	37	2137890010	Iriana Wahyuni	L	novitasari.balangga@example.org	3	2021	74	162	2006-10-20	31.74
+3421	37	2137320011	Hendri Adriansyah S.T.	L	syuliarti@example.net	2	2021	51	149	2006-01-21	52.01
+3422	37	2137430012	Mariadi Labuh Manullang S.Sos	L	ivan.pratiwi@example.net	4	2021	59	180	2007-05-09	34.03
+3423	37	2137200013	Kurnia Putra M.Kom.	P	uyulianti@example.com	1	2021	59	178	2006-03-26	35.22
+3424	37	2137620014	Natalia Handayani	L	aditya.tampubolon@example.com	6	2021	81	173	2007-08-28	31.01
+3425	37	2137650015	Martana Permadi	P	nprasetya@example.net	2	2021	68	174	2006-06-20	36.72
+3426	37	2137330016	Wulan Handayani	L	oliva.winarsih@example.net	6	2021	79	180	2007-06-25	14.03
+3427	37	2137970017	Budi Kuswoyo	P	paris05@example.net	3	2021	89	165	2007-06-30	31.75
+3428	37	2137920018	Paris Pratiwi	L	cengkir.hasanah@example.net	5	2021	94	171	2006-01-20	73.07
+3429	37	2137300019	Dinda Siti Halimah	L	swasita@example.com	1	2021	73	146	2006-08-27	31.01
+3430	37	2137950020	Umaya Mustofa	P	tampubolon.kania@example.net	3	2021	74	170	2007-08-19	18.03
+3431	37	2137500021	Daruna Budiyanto S.E.	L	ulya91@example.com	2	2021	64	176	2006-11-19	14.05
+3432	37	2137380022	Ajeng Mulyani	P	qyolanda@example.com	3	2021	58	178	2006-04-24	53.01
+3433	37	2137310023	Radit Hidayat	L	betania95@example.org	2	2021	56	172	2007-09-01	32.03
+3434	37	2137500024	Nabila Laksita	P	jailani.muni@example.com	5	2021	78	175	2006-08-17	35.28
+3435	37	2137740025	Wani Astuti	L	busamah@example.org	2	2021	54	160	2005-11-05	31.72
+3436	37	2137680026	Kurnia Dabukke S.Ked	L	hastuti.ida@example.org	5	2021	50	172	2007-02-13	32.72
+3437	37	2137670027	Tira Usada	L	winarno.titi@example.com	5	2021	56	180	2006-10-18	32.71
+3438	37	2137170028	Baktianto Sitompul	P	pradana.lamar@example.net	4	2021	93	146	2006-11-26	35.76
+3439	37	2137120029	Amelia Julia Yolanda S.H.	P	dtarihoran@example.net	5	2021	50	148	2005-11-04	14.05
+3440	37	2137170030	Wasis Irwan Mangunsong M.Pd	P	caryani@example.com	6	2021	71	180	2007-01-30	33.76
+3441	37	2137880031	Tasnim Utama	L	eja95@example.org	5	2021	57	179	2006-09-13	71.02
+3442	37	2137560032	Raisa Aryani	P	oirawan@example.net	4	2021	84	158	2006-07-19	33.02
+3443	37	2137440033	Victoria Rahmawati S.Gz	L	melani.ami@example.net	6	2021	82	175	2007-04-24	35.21
+3444	37	2137690034	Intan Ophelia Yulianti M.Pd	L	umi.zulaika@example.net	2	2021	45	179	2007-09-17	31.01
+3445	37	2137750035	Ida Hartati M.M.	L	hkusmawati@example.com	4	2021	69	172	2007-09-17	35.09
+3446	37	2137300036	Putri Ghaliyati Halimah	P	umaheswara@example.net	3	2021	84	156	2005-12-09	36.72
+3447	37	2137650037	Ratna Kusmawati	L	hidayat.zelaya@example.net	1	2021	48	148	2006-06-04	32.12
+3448	37	2137950038	Puput Hassanah M.Farm	P	lpadmasari@example.net	1	2021	82	162	2006-11-11	32.75
+3449	37	2137440039	Belinda Haryanti	P	setiawan.muni@example.com	1	2021	73	163	2006-02-09	17.04
+3450	37	2137940040	Adikara Jono Sirait M.Ak	P	hutasoit.natalia@example.com	2	2021	55	156	2007-08-03	33.14
+3451	37	2137860041	Nadia Raisa Widiastuti S.Pt	L	vkuswandari@example.org	6	2021	80	173	2006-05-08	35.05
+3452	37	2137980042	Zelaya Rahimah	P	ajeng.nasyiah@example.com	6	2021	80	175	2006-02-09	35.21
+3453	37	2137460043	Cindy Yuliarti S.I.Kom	L	halima79@example.org	5	2021	51	158	2006-02-23	31.75
+3454	37	2137420044	Pia Gasti Padmasari	L	hwidiastuti@example.com	3	2021	90	148	2006-07-12	31.72
+3455	37	2137810045	Mahesa Irawan	P	parman07@example.org	2	2021	86	159	2006-05-12	31.71
+3456	37	2137170046	Harjo Uwais	L	elailasari@example.com	2	2021	47	179	2006-02-25	14.06
+3457	37	2137690047	Kiandra Lestari M.Farm	L	kayla.halimah@example.com	3	2021	91	166	2006-10-27	53.05
+3458	37	2137280048	Aslijan Endra Maulana S.Sos	P	grahayu@example.net	2	2021	89	149	2007-06-23	33.24
+3459	37	2137870049	Liman Daliono Prakasa S.T.	P	prasetyo.agustina@example.net	6	2021	86	171	2007-04-15	61.01
+3460	37	2137390050	Amalia Zelaya Rahmawati S.IP	P	marsito.permadi@example.net	6	2021	74	158	2006-01-14	52.01
+3461	37	2137620051	Karna Iswahyudi S.Psi	P	purwanti.karen@example.net	4	2021	51	172	2006-07-02	52.02
+3462	37	2137190052	Yusuf Karta Samosir	L	teguh.thamrin@example.org	3	2021	95	154	2006-09-04	35.10
+3463	37	2137350053	Cinthia Carla Suartini S.Kom	L	rahayu.jelita@example.net	4	2021	86	159	2007-02-21	33.27
+3464	37	2137390054	Sari Pratiwi	L	bsantoso@example.com	3	2021	46	159	2007-08-29	31.01
+3465	37	2137820055	Fathonah Winarsih S.Sos	L	prabowo40@example.net	3	2021	57	165	2006-11-07	36.01
+3466	37	2137800056	Daliono Sirait	P	bakidin56@example.net	5	2021	72	149	2006-08-26	32.12
+3467	37	2137590057	Rahmat Ozy Anggriawan	L	umay.samosir@example.com	2	2021	63	165	2006-04-30	72.02
+3468	37	2137140058	Ellis Cindy Aryani S.Pt	L	gunarto.rahmi@example.org	5	2021	91	164	2007-07-19	32.73
+3469	37	2137800059	Cahyo Adhiarja Mandala	P	krahayu@example.org	2	2021	76	178	2007-03-05	18.03
+3470	37	2137940060	Prima Martani Budiyanto	P	pangestu.tami@example.org	1	2021	82	175	2006-09-19	32.76
+\.
+
+
+--
+-- TOC entry 3467 (class 0 OID 18265)
+-- Dependencies: 226
+-- Data for Name: m_matakuliah; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.m_matakuliah (matakuliah_id, prodi_id, matakuliah_kode, matakuliah_nama, matakuliah_semester) FROM stdin;
+9	2	SIB203	Sistem Pendukung Keputusan	1
+10	2	SIB204	Analisis & Desain Sistem	2
+11	2	SIB205	Manajemen Proyek TI	1
+12	2	SIB206	Analisis Data Bisnis	2
+13	3	TI301	Pemrograman Dasar	1
+14	3	TI302	Struktur Data & Algoritma	2
+15	3	TI303	Jaringan Komputer	1
+16	3	TI304	Sistem Operasi	2
+17	3	TI305	Kecerdasan Buatan	1
+18	3	TI306	Pemrograman Mobile	2
+19	4	PLS401	Pemrograman Web Dasar	1
+20	4	PLS402	Front-End Development	2
+21	4	PLS403	Back-End Development	1
+22	4	PLS404	Basis Data Web	2
+23	4	PLS405	Pengembangan Aplikasi Mobile	1
+24	4	PLS406	UI/UX Design Web	2
+25	5	RTI501	Advanced Database Systems	1
+26	5	RTI502	Big Data Analytics	2
+27	5	RTI503	Cloud Computing & Virtualisasi	1
+28	5	RTI504	Keamanan Sistem Informasi	2
+29	5	RTI505	IoT dan Sistem Cerdas	1
+30	5	RTI506	Advanced Network Security	2
+31	6	TT101	Dasar Telekomunikasi	1
+32	6	TT102	Sistem Transmisi	2
+33	6	TT103	Jaringan Telekomunikasi	1
+34	6	TT104	Elektronika Dasar	2
+35	6	TT105	Antena dan Propagasi	1
+36	6	TT106	Komunikasi Optik	2
+37	7	TL101	Dasar Listrik dan Elektronika	1
+38	7	TL102	Mesin Listrik	2
+39	7	TL103	Sistem Tenaga Listrik	1
+40	7	TL104	Instrumentasi Listrik	2
+41	7	TL105	Instalasi Listrik Industri	1
+42	7	TL106	Energi Terbarukan	2
+43	8	TE101	Dasar Elektronika	1
+44	8	TE102	Rangkaian Analog	2
+45	8	TE103	Rangkaian Digital	1
+46	8	TE104	Sistem Embedded	2
+47	8	TE105	Mikrokontroler	1
+48	8	TE106	Sensor dan Aktuator	2
+49	9	DE201	Elektronika Lanjut	1
+50	9	DE202	Sistem Komunikasi	2
+51	9	DE203	Rangkaian Analog & Digital	1
+52	9	DE204	Sistem Kendali	2
+53	9	DE205	Pengolahan Sinyal	1
+54	9	DE206	Sistem Kendali Lanjut	2
+55	10	SK203	Instalasi Listrik Industri	1
+56	10	SK201	Sistem Tenaga Listrik	2
+57	10	SK202	Proteksi & Distribusi	1
+58	10	SK204	Smart Grid	2
+59	10	SK205	Analisis Sistem Tenaga	1
+60	10	SK206	Energi Surya dan Sistem Grid	2
+61	11	JTD202	Switching & Routing	1
+62	11	JTD203	Protokol Jaringan	2
+63	11	JTD201	Jaringan Telekomunikasi Digital	1
+64	11	JTD204	Keamanan Jaringan	2
+65	11	JTD205	Manajemen Jaringan	1
+66	11	JTD206	IoT Networking	2
+67	12	TE501	Teori Listrik Lanjut	1
+68	12	TE502	Sistem Tenaga Listrik Lanjut	2
+69	12	TE503	Kontrol Otomatis	1
+70	12	TE504	Sistem Energi Terbarukan	2
+71	12	TE505	Instrumentasi & Sensor	1
+72	12	TE506	Smart Grid dan Automasi	2
+73	13	TP101	Dasar Aeronautika	1
+74	13	TP102	Struktur Pesawat	2
+75	13	TP103	Mesin Pesawat Terbang	1
+76	13	TP104	Elektronika Avionik	2
+77	13	TP105	Pemeliharaan Pesawat	1
+78	13	TP111	Pemeliharaan Sistem Avionik	2
+79	14	TM101	Dasar Mekanika	1
+80	14	TM102	Gambar Teknik	2
+81	14	TM103	Material & Proses Manufaktur	1
+82	14	TM104	Termodinamika	2
+83	14	TM105	Mesin Fluida	1
+84	14	TM106	Mekanika Material	2
+85	15	TOE203	Mekanika Kendaraan	1
+86	15	TOE201	Elektronika Otomotif	2
+87	15	TOE202	Sistem Kontrol Kendaraan	1
+88	15	TOE204	Diagnostik Kendaraan	2
+89	15	TOE205	Pengendalian Motor	1
+90	15	TOE206	Kendali Elektronik Kendaraan	2
+91	16	TMP201	Manufaktur Lanjut	1
+92	16	TMP202	Perawatan Mesin Industri	2
+93	16	TMP203	CAD/CAM	1
+94	16	TMP204	Mekanika Fluida Lanjut	2
+95	16	TMP205	Material Teknik	1
+96	16	TMP206	Metrologi & Kualitas Produk	2
+97	17	RTM502	Six Sigma dan Manajemen Kualitas	1
+98	17	RTM501	Lean Manufacturing	2
+99	17	RTM505	Manajemen Rantai Pasok	1
+100	17	RTM504	Sistem Produksi Modern	2
+101	17	RTM503	Otomasi & Robotik Industri	1
+102	17	RTM506	Advanced Manufacturing Systems	2
+103	18	ODM605	Simulasi & Analisis Mekanik	1
+104	18	ODM601	Advanced Mechanical Design	2
+105	18	ODM602	Optimasi Struktur & Analisis	1
+106	18	ODM603	Material & Fatigue Engineering	2
+107	18	ODM604	Computational Mechanics	1
+108	18	ODM606	Finite Element Analysis	2
+109	19	TKJ101	Dasar Teknik Sipil	1
+110	19	TKJ102	Gambar Teknik Sipil	2
+111	19	TKJ103	Material Konstruksi	1
+112	19	TKJ104	Mekanika Tanah	2
+113	19	TKJ105	Konstruksi Jalan & Jembatan	1
+114	19	TKJ106	Perancangan Jembatan Beton	2
+115	20	TS103	Material Konstruksi	1
+116	20	TS101	Struktur Bangunan	2
+117	20	TS102	Mekanika Teknik	1
+118	20	TS104	Gambar Teknik Sipil	2
+119	20	TS105	Perencanaan Tapak & Infrastruktur	1
+120	20	TS106	Hidrologi Terapan	2
+121	21	TPB102	Eksplorasi Mineral	1
+122	21	TPB103	Teknik Penambangan	2
+123	21	TPB101	Dasar Pertambangan	1
+124	21	TPB104	Keselamatan Pertambangan	2
+125	21	TPB105	Lingkungan Pertambangan	1
+126	21	TPB106	Teknik Eksplorasi Lanjut	2
+127	22	TRK205	Manajemen Proyek Konstruksi	1
+128	22	TRK204	Perencanaan Infrastruktur	2
+129	22	TRK201	Konstruksi Jalan Raya	1
+130	22	TRK203	Beton & Aspal	2
+131	22	TRK202	Konstruksi Jembatan	1
+132	22	TRK206	Konstruksi Jalan Aspal	2
+133	23	MRK205	Quality Control & Safety	1
+134	23	MRK204	Kontrak & Hukum Konstruksi	2
+135	23	MRK203	Estimasi Biaya & Anggaran	1
+136	23	MRK202	Perencanaan Konstruksi	2
+137	23	MRK201	Manajemen Proyek	1
+138	23	MRK206	Risk Management Konstruksi	2
+139	24	TKH103	Proses & Peralatan Kimia	1
+140	24	TKH101	Dasar Kimia Teknik	2
+141	24	TKH102	Termodinamika Kimia	1
+142	24	TKH104	Transport Fenomena	2
+143	24	TKH105	Material Kimia	1
+144	24	TKH106	Reaksi Kimia Lanjut	2
+145	25	TKI205	Pengendalian Proses	1
+146	25	TKI204	Proses Kimia Organik	2
+147	25	TKI203	Termokimia & Energi	1
+148	25	TKI202	Rekayasa Reaktor	2
+149	25	TKI201	Proses Kimia Lanjut	1
+150	25	TKI206	Proses Kimia Hijau	2
+151	26	ORK505	Manajemen Proses Industri	1
+152	26	ORK501	Optimasi Proses Kimia	2
+153	26	ORK502	Rekayasa Reaktor Kimia	1
+154	26	ORK503	Simulasi & Modeling Proses	2
+155	26	ORK504	Transport Fenomena Lanjut	1
+156	26	ORK511	Process Simulation & Optimization	2
+157	27	AK105	Sistem Informasi Akuntansi	1
+158	27	AK101	Dasar Akuntansi	2
+159	27	AK102	Akuntansi Keuangan I	1
+160	27	AK103	Akuntansi Manajemen	2
+161	27	AK104	Perpajakan Dasar	1
+162	27	AK106	Akuntansi Biaya	2
+163	28	KF201	Manajemen Keuangan	1
+164	28	KF202	Investasi & Pasar Modal	2
+165	28	KF203	Akuntansi Keuangan Lanjut	1
+166	28	KF204	Analisis Laporan Keuangan	2
+167	28	KF205	Perpajakan Lanjutan	1
+168	28	KF206	Analisis Investasi Lanjut	2
+169	29	AM201	Akuntansi Manajemen Lanjut	1
+170	29	AM202	Analisis Biaya	2
+171	29	AM203	Sistem Informasi Akuntansi	1
+172	29	AM204	Audit Internal	2
+173	29	AM205	Perpajakan Perusahaan	1
+174	29	AM206	Akuntansi Strategis	2
+175	30	SIA505	Audit Teknologi Informasi	1
+176	30	SIA501	Data Analytics for Accounting	2
+177	30	SIA502	Enterprise Accounting Systems	1
+178	30	SIA503	Risk Management & Compliance	2
+179	30	SIA504	Financial Reporting & Analysis	1
+180	30	SIA511	ERP Accounting Systems	2
+181	31	BI103	Reading & Writing	1
+182	31	BI101	Bahasa Inggris Dasar	2
+183	31	BI102	Listening & Speaking	1
+184	31	BI104	Grammar & Vocabulary	2
+185	31	BI105	English for Academic Purposes	1
+186	31	BI106	English for Science and Technology	2
+187	32	AB105	Perpajakan Dasar	1
+188	32	AB101	Pengantar Administrasi Bisnis	2
+189	32	AB102	Manajemen Organisasi	1
+190	32	AB103	Korespondensi Bisnis	2
+191	32	AB104	Akuntansi Dasar	1
+192	32	AB106	Entrepreneurship Basics	2
+193	33	UPW201	Manajemen Pariwisata	1
+194	33	UPW202	Travel Agency Management	2
+195	33	UPW203	Tour Planning & Guiding	1
+196	33	UPW204	Perhotelan Dasar	2
+197	33	UPW205	Bahasa Inggris untuk Pariwisata	1
+198	33	UPW206	Digital Marketing Pariwisata	2
+199	34	PAR201	Manajemen Arsip	1
+200	34	PAR202	Teknologi Informasi Arsip	2
+1	1	MI105	Audit Sistem Informasi	1
+2	1	MI104	Pengantar E-Business	2
+3	1	MI102	Analisis Sistem Informasi	1
+4	1	MI101	Manajemen Basis Data	2
+5	1	MI103	Manajemen Proyek TI	1
+6	1	MI106	Sistem Informasi Enterprise	2
+7	2	SIB201	Pemodelan Proses Bisnis	1
+8	2	SIB202	Enterprise Resource Planning	2
+201	34	PAR203	Sistem Informasi Dokumen	1
+202	34	PAR204	Digital Records Management	2
+203	34	PAR205	Audit & Keamanan Arsip	1
+204	34	PAR206	Digital Archiving	2
+205	35	MP201	Prinsip Pemasaran	1
+206	35	MP202	Strategi Pemasaran	2
+207	35	MP205	Perilaku Konsumen	1
+208	35	MP203	Riset Pemasaran	2
+209	35	MP204	Pemasaran Digital	1
+210	35	MP206	Marketing Analytics	2
+211	36	BE203	Presentation Skills	1
+212	36	BE205	English for Business	2
+213	36	BE204	Negotiation & Meeting	1
+214	36	BE202	Professional Writing	2
+215	36	BE201	Business Communication	1
+216	36	BE211	English Negotiation Skills	2
+217	37	BIP201	English for Tourism	1
+218	37	BIP205	Conversation for Tourism	2
+219	37	BIP204	Travel Agency English	1
+220	37	BIP203	Tour Guiding English	2
+221	37	BIP202	Hospitality English	1
+222	37	BIP211	Hospitality English Communication	2
+\.
+
+
+--
+-- TOC entry 3460 (class 0 OID 18190)
+-- Dependencies: 219
+-- Data for Name: m_prodi; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.m_prodi (prodi_id, jurusan_id, jenjang_id, prodi_kode, prodi_nama) FROM stdin;
+1	1	3	D3-MI	D3 - Manajemen Informasi
+2	1	4	D4-SIB	D4 - Sistem Informasi Bisnis
+3	1	4	D4-TI	D4 - Teknik Informatika
+4	1	2	D2-PPLS	D2 - Pengembangan Piranti Lunak Situs
+6	2	3	D3-TT	D3 - Teknik Telekomunikasi
+7	2	3	D3-TL	D3 - Teknik Listrik
+8	2	3	D3-TE	D3 - Teknik Elektronika
+9	2	4	D4-TE	D4 - Teknik Elektronika
+10	2	4	D4-SK	D4 - Sistem Kelistrikan
+11	2	4	D4-JTD	D4 - Jaringan Telekomunikasi Digital
+5	1	6	S2-RTI	S2 - Rekayasa Teknologi Informasi
+13	3	3	D3-TPPU	D3 - Teknologi Pemeliharaan Pesawat Udara
+14	3	3	D3-TM	D3 - Teknik Mesin
+15	3	4	D4-TOE	D4 - Teknik Otomotif Elektronik
+16	3	4	D4-TMPP	D4 - Teknik Mesin Produksi dan Perawatan
+12	2	6	S2-TE	S2 - Teknik Elektro
+17	3	6	S2-RTM	S2 - Rekayasa Teknologi Manufaktur 
+18	3	7	S3-ODM	S3 - Optimasi Desain Mekanik
+19	4	3	D3-TKJJBA	D3 - Teknologi Konstruksi Jalan, Jembatan, dan Bangunan Air
+20	4	3	D3-TS	D3 - Teknik Sipil
+21	4	3	D3-TP	D3 - Teknologi Pertambangan
+22	4	4	D4-TRKJJ	D4 - Teknologi Rekayasa Konstruksi Jalan dan Jembatan
+23	4	4	D4-MRK	D4 - Manajemen Rekayasa Konstruksi
+24	5	3	D3-TK	D3 - Teknik Kimia
+25	5	4	D4-TKI	D4 - Teknologi Kimia Industri
+26	5	6	S2-ORK	S2 - Optimasi Rekayasa Kimia
+28	6	4	D4-Keu	D4 - Keuangan
+27	6	3	D3-Ak	D3 - Akuntansi
+29	6	4	D4-AM	D4 - Akuntansi Manajemen
+30	6	6	S2-SIA	S2 - Sistem Informasi Akuntansi
+31	7	3	D3-BI	D3 - Bahasa Inggris
+32	7	3	D3-AB	D3 - Administrasi Bisnis
+33	7	4	D4-UPW	D4 - Usaha Perjalanan Wisata
+34	7	4	D4-PARI	D4 - Pengelolaan Arsip dan Rekaman Informasi
+35	7	4	D4-MP	D4 - Manajemen Pemasaran
+36	7	4	D4-BIKBP	D4 - Bahasa Inggris untuk Komunikasi Bisnis dan Profesional
+37	7	4	D4-BIIP	D4 - Bahasa Inggris untuk Industri Pariwisata
+\.
+
+
+--
+-- TOC entry 3465 (class 0 OID 18238)
+-- Dependencies: 224
+-- Data for Name: r_agama; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.r_agama (agama_id, agama_nama) FROM stdin;
+1	Islam
+2	Kristen Protestan
+3	Katolik
+4	Hindu
+5	Budha
+6	Konghucu
+\.
+
+
+--
+-- TOC entry 3458 (class 0 OID 18183)
+-- Dependencies: 217
+-- Data for Name: r_jenjang; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.r_jenjang (jenjang_id, jenjang_kode, jenjang_nama, jenjang_level) FROM stdin;
+1	D1	Diploma 1	3
+2	D2	Diploma 2	4
+3	D3	Diploma 3	5
+4	D4	Diploma 4	6
+5	S1	Sarjana	6
+6	S2	Magister	8
+7	S3	Doktor	9
+\.
+
+
+--
+-- TOC entry 3463 (class 0 OID 18233)
+-- Dependencies: 222
+-- Data for Name: r_wilayah; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.r_wilayah (wilayah_id, wilayah_nama, wilayah_level) FROM stdin;
+11	ACEH	1
+11.01.01	Bakongan	3
+11.01.09	Trumon	3
+11.01.10	Pasi Raja	3
+11.02.12	Ketambe	3
+11.03.17	Peureulak Timur	3
+11.04.03	Bebesen	3
+11.04.12	Kute Panang	3
+11.05.12	Panton Reu	3
+11.07	KAB. PIDIE	2
+11.06.18	Simpang Tiga	3
+11.07.22	Keumala	3
+11.08.25	Geuredong Pase	3
+11.09.08	Alafan	3
+11.09.10	Simeulue Cut	3
+11.10.13	Singkohor	3
+11.11.16	Peusangan Selatan	3
+11.12.04	Susoh	3
+11.13.03	Rikit Gaib	3
+11.15.01	Kuala	3
+11.15.06	Suka Makmue	3
+11.16.09	Banda Mulia	3
+11.17.10	Gajah Putih	3
+11.18.05	Meurah Dua	3
+11.71.04	Syiah Kuala	3
+11.71.05	Lueng Bata	3
+11.74.01	Langsa Timur	3
+11.74.02	Langsa Barat	3
+12.01	KAB. TAPANULI TENGAH	2
+11.75.05	Longkib	3
+12.02	KAB. TAPANULI UTARA	2
+12.01.08	Sibabangun	3
+12.02.03	Adian Koting	3
+12.02.10	Pagaran	3
+12.04.06	Gido	3
+12.04.11	Bawolato	3
+12.06	KAB. KARO	2
+12.07.03	Sibolangit	3
+12.08	KAB. SIMALUNGUN	2
+12.09.08	Meranti	3
+12.10.07	Bilah Barat	3
+12.11.04	Siempat Nempu	3
+12.12.08	Ajibata	3
+12.12.09	Lumban Julu	3
+12.13.06	Siabu	3
+12.13.16	Natal	3
+12.14.20	Huruna	3
+12.14.32	Luahagundre Maniamolo	3
+12.14.33	Onolalu	3
+12.17.01	Simanindo	3
+12.18.01	Pantai Cermin	3
+12.18.10	Kotarih	3
+12.19.02	Sei Suka	3
+12.20.01	Dolok Sigompulon	3
+12.20.07	Batang Onang	3
+12.21.16	Barumun Barat	3
+12.21.17	Sosa Timur	3
+12.24	KAB. NIAS UTARA	2
+12.23.06	Na IX - X	3
+12.25	KAB. NIAS BARAT	2
+12.24.11	Lahewa Timur	3
+12.71.19	Medan Petisah	3
+12.71.20	Medan Timur	3
+12.71.21	Medan Selayang	3
+12.74.06	Datuk Bandar Timur	3
+12.75.01	Binjai Utara	3
+12.75.02	Binjai Kota	3
+12.77.05	Padangsidimpuan Tenggara	3
+13.01	KAB. PESISIR SELATAN	2
+13.01.01	Pancung Soal	3
+13.01.10	Lunang	3
+13.02.13	Junjung Sirih	3
+13.04.09	Pariangan	3
+13.04.10	Salimpaung	3
+13.05.13	Batang Gasan	3
+13.06.08	Baso	3
+13.07.02	Guguak	3
+13.09	KAB. KEPULAUAN MENTAWAI	2
+13.08.16	Simpang Alahan Mati	3
+13.08.17	Padang Gelugur	3
+13.11.02	Sungai Pagu	3
+13.12.11	Sasak Ranah Pesisir	3
+13.71.01	Padang Selatan	3
+13.73	KOTA SAWAHLUNTO	2
+13.73.01	Lembah Segar	3
+13.73.02	Barangin	3
+13.73.03	Silungkang	3
+14	RIAU	1
+13.76.05	Payakumbuh Selatan	3
+13.77.01	Pariaman Tengah	3
+14.01.13	Salo	3
+14.02.14	Batang Peranap	3
+14.03.13	Pinggir	3
+14.05.01	Ukui	3
+14.06.01	Ujung Batu	3
+14.06.12	Kabun	3
+14.07.10	Bangko Pusako	3
+14.08.05	Sungai Mandau	3
+14.09.12	Hulu Kuantan	3
+14.71	KOTA PEKANBARU	2
+14.10.07	Tebing Tinggi Timur	3
+15	JAMBI	1
+14.72.03	Bukit Kapur	3
+15.01.20	Bukitkerman	3
+15.02.22	Tabir Lintas	3
+15.03.08	Bathin VIII	3
+15.04.06	Maro Sebo Ulu	3
+15.05.07	Sungai Bahar	3
+15.06.07	Batang Asam	3
+15.07.07	Muara Sabak Barat	3
+15.09.06	VII Koto	3
+15.72	KOTA SUNGAI PENUH	2
+15.71.10	Danau Sipin	3
+15.71.11	Paal Merah	3
+16.01.14	Baturaja Timur	3
+16.02.22	Lempuing Jaya	3
+16.03.25	Lubai Ulu	3
+16.04.12	Pajar Bulan	3
+16.04.30	Mulak Sebingkai	3
+16.05.13	Purwodadi	3
+16.06.02	Lais	3
+16.06.12	Tungkal Jaya	3
+16.07.14	Air Salek	3
+16.07.15	Tungkal Ilir	3
+16.08.19	Belitang Mulya	3
+16.09.17	Buana Pemaca	3
+16.11.01	Muara Pinang	3
+16.11.08	Sikap Dalam	3
+16.11.09	Saling	3
+16.12.04	Abab	3
+16.13.03	Nibung	3
+16.71.12	Gandus	3
+16.71.13	Kertapati	3
+16.74	KOTA PRABUMULIH	2
+16.73.07	Lubuk Linggau Selatan II	3
+16.74.03	Cambai	3
+17.01.04	Manna	3
+17.03.01	Enggano	3
+17.03.16	Air Napal	3
+17.04.14	Padang Guci Hilir	3
+17.05.07	Lubuk Sandi	3
+17.06.05	Ipuh	3
+17.07.02	Lebong Atas	3
+17.08.03	Tebat Karai	3
+17.09.05	Pagar Jati	3
+17.71.05	Kampung Melayu	3
+18.01.21	Bakauheni	3
+18.02.09	Rumbia	3
+18.02.20	Selagai Lingga	3
+18.03.16	Bunga Mayang	3
+18.04.11	Sukau	3
+18.05.13	Penawar Tama	3
+18.07.01	Sukadana	3
+18.08	KAB. WAY KANAN	2
+18.07.23	Way Bungur	3
+18.08.08	Way Tuba	3
+18.09.02	Negeri Katon	3
+18.11.02	Mesuji Timur	3
+18.12.05	Gunung Agung	3
+18.13.06	Pulaupisang	3
+18.72	KOTA METRO	2
+18.71.11	Tanjung Senang	3
+19.02	KAB. BELITUNG	2
+19.01.04	Mendo Barat	3
+19.01.05	Pemali	3
+19.03.06	Tukak Sadai	3
+19.03.07	Pulaubesar	3
+19.05.06	Parittiga	3
+19.06.01	Manggar	3
+19.06.02	Gantung	3
+19.06.03	Dendang	3
+21.01.10	Telok Sebong	3
+21.01.12	Toapaya	3
+21.03.09	Subi	3
+21.03.10	Pulau Laut	3
+21.04.12	Temiang Pesisir	3
+21.04.13	Bakung Serumpun	3
+21.71.11	Sagulung	3
+21.71.12	Batu Aji	3
+21.72.01	Tanjung Pinang Barat	3
+21.72.02	Tanjung Pinang Timur	3
+21.72.03	Tanjung Pinang Kota	3
+31.71.01	Gambir	3
+31.73.02	Grogol Petamburan	3
+31.73.03	Taman Sari	3
+32.01	KAB. BOGOR	2
+31.75.02	Pulogadung	3
+32.01.31	Tamansari	3
+32.02.38	Purabaya	3
+32.03.30	Leles	3
+32.04.25	Cicalengka	3
+32.04.38	Pasirjambu	3
+32.05.08	Pasirwangi	3
+32.05.34	Pamulihan	3
+32.05.35	Cisewu	3
+32.06.37	Kadipaten	3
+32.07.34	Lumbung	3
+32.08.20	Nusaherang	3
+32.09.14	Talun	3
+32.10.06	Maja	3
+32.10.19	Palasah	3
+32.11.18	Sumedang Utara	3
+32.13.01	Sagalaherang	3
+32.13.16	Patokbeusi	3
+32.14.13	Bungursari	3
+32.15.22	Jayakerta	3
+32.16.22	Cibarusah	3
+32.17.12	Cipongkor	3
+32.18.10	Sidamulih	3
+32.71.01	Bogor Selatan	3
+32.71.02	Bogor Timur	3
+32.73.28	Panyileukan	3
+32.73.29	Cinambo	3
+32.73.30	Mandalajati	3
+32.76.06	Beji	3
+32.76.07	Cipayung	3
+32.76.08	Cilodong	3
+33.01	KAB. CILACAP	2
+32.79.02	Pataruman	3
+33.01.20	Bantarsari	3
+33.02.20	Kembaran	3
+33.03.14	Bojongsari	3
+33.04.17	Wanayasa	3
+33.05.01	Ayah	3
+33.05.19	Gombong	3
+33.07.01	Wadaslintang	3
+33.07.08	Kertek	3
+33.08.19	Tegalrejo	3
+33.09.17	Kemusu	3
+33.11.01	Weru	3
+33.11.09	Grogol	3
+33.13.07	Ngargoyoso	3
+33.14.18	Gesi	3
+33.15.18	Tegowanu	3
+33.17.02	Bulu	3
+33.18	KAB. PATI	2
+33.18.20	Dukuhseti	3
+33.19.08	Gebog	3
+33.20.09	Keling	3
+33.21.12	Bonang	3
+33.22.20	Bandungan	3
+33.23.20	Gemawang	3
+33.24.10	Pegandon	3
+33.24.19	Ngampel	3
+33.26.11	Bojong	3
+33.27.01	Moga	3
+33.27.02	Pulosari	3
+33.27.10	Petarukan	3
+33.28.14	Tarub	3
+33.29.13	Tanjung	3
+33.29.14	Bulakamba	3
+33.72.03	Pasar Kliwon	3
+33.72.04	Jebres	3
+33.74.07	Semarang Selatan	3
+33.76	KOTA TEGAL	2
+33.76.01	Tegal Barat	3
+33.76.02	Tegal Timur	3
+33.76.03	Tegal Selatan	3
+34.02.03	Kretek	3
+34.03.08	Semanu	3
+34.71	KOTA YOGYAKARTA	2
+34.04.11	Ngemplak	3
+34.04.12	Ngaglik	3
+35.01.04	Pacitan	3
+35.02.21	Pudak	3
+35.03.13	Durenan	3
+35.04.19	Tanggunggunung	3
+35.05.11	Garum	3
+35.06.23	Ringinrejo	3
+35.08.13	Gucialit	3
+35.09.24	Pakusari	3
+35.10.23	Tegalsari	3
+35.11.12	Wringin	3
+35.12.04	Mlandingan	3
+35.13.22	Wonomerto	3
+35.14.17	Pohjentrek	3
+35.15.10	Wonoayu	3
+35.15.16	Gedangan	3
+35.16.15	Kemlagi	3
+35.17.14	Ploso	3
+35.18.14	Bagor	3
+35.19.14	Sawahan	3
+35.20.09	Sukomoro	3
+35.21.13	Mantingan	3
+35.22.22	Margomulyo	3
+35.23.14	Rengel	3
+35.24.27	Sarirejo	3
+35.25.14	Kebomas	3
+35.26.14	Tragah	3
+35.27.14	Karangpenang	3
+35.28.09	Pakong	3
+35.29.22	Raas	3
+35.71.03	Pesantren	3
+35.72.01	Kepanjenkidul	3
+35.72.02	Sukorejo	3
+35.75.01	Gadingrejo	3
+35.75.02	Purworejo	3
+35.75.03	Bugul Kidul	3
+36.01	KAB. PANDEGLANG	2
+35.79.03	Junrejo	3
+36.01.27	Cibitung	3
+36.02.27	Cirinten	3
+36.03.31	Solear	3
+36.04.25	Kopo	3
+36.04.29	Padarincang	3
+36.71.08	Periuk	3
+36.71.09	Cibodas	3
+36.73.04	Curug	3
+36.73.05	Cipocok Jaya	3
+36.74.07	Setu	3
+51.01.05	Jembrana	3
+51.03.01	Kuta	3
+51.03.02	Mengwi	3
+51.05.01	Nusa Penida	3
+51.05.02	Banjarangkan	3
+51.05.03	Klungkung	3
+51.07.03	Manggis	3
+51.07.08	Kubu	3
+51.71	KOTA DENPASAR	2
+51.08.05	Sukasada	3
+51.08.06	Buleleng	3
+52.01.02	Kediri	3
+52.02.03	Batukliang	3
+52.03.13	Suralaga	3
+52.04.27	Lenangguar	3
+52.04.28	Orong Telu	3
+52.07.01	Jereweh	3
+52.07.02	Taliwang	3
+52.07.03	Seteluk	3
+52.71.03	Cakranegara	3
+52.71.04	Sekarbela	3
+53.01.11	Takari	3
+53.02.10	KI'E	3
+53.02.17	Nunkolo	3
+53.03.20	Insana Barat	3
+53.03.21	Insana Tengah	3
+53.05.18	Abad Selatan	3
+53.06.11	Kelubagolit	3
+53.07.01	Paga	3
+53.07.15	Alok Timur	3
+53.09	KAB. NGADA	2
+53.08.16	Ndona Timur	3
+53.09.12	Jerebuu	3
+53.11.03	Lewa	3
+53.11.17	Kambata Mapambuhang	3
+53.11.18	Lewa Tidahu	3
+53.13.03	Ile Ape	3
+53.14.02	Rote Barat Laut	3
+53.15.04	Sano Nggoang	3
+53.16.02	Nangaroro	3
+53.17.04	Umbu Ratu Nggay	3
+53.18.08	Kodi Utara	3
+53.19.05	Elar	3
+53.20.02	Sabu Tengah	3
+53.71	KOTA KUPANG	2
+53.21.08	Laenmanen	3
+53.71.01	Alak	3
+61.01.18	Salatiga	3
+61.02.06	Toho	3
+61.03.05	Bonti	3
+61.04.03	Manis Mata	3
+61.05	KAB. SINTANG	2
+61.04.14	Jelai Hulu	3
+61.05.15	Ambalau	3
+61.06.13	Empanang	3
+61.07.01	Sungai Raya	3
+61.07.02	Samalantan	3
+61.08.03	Menjalin	3
+61.08.12	Banyuke Hulu	3
+61.08.13	Sompak	3
+61.10.11	Tanah Pinoh Barat	3
+61.11.01	Sukadana	3
+61.71	KOTA PONTIANAK	2
+61.12.07	Rasau Jaya	3
+61.12.08	Teluk Pakedai	3
+61.12.09	Sungai Kakap	3
+62.01.02	Arut Selatan	3
+62.03.01	Selat	3
+62.03.10	Timpah	3
+62.04.05	Gn. Bintang Awai	3
+62.06	KAB. KATINGAN	2
+62.05.07	Teweh Baru	3
+62.06.09	Mendawai	3
+62.07.06	Seruyan Hilir Timur	3
+62.09.07	Belantikan Raya	3
+62.10.11	Manuhing Raya	3
+62.12.02	Tanah Siang	3
+62.71	KOTA PALANGKARAYA	2
+62.13.02	Banua Lima	3
+62.13.03	Patangkep Tutui	3
+63.02	KAB. KOTABARU	2
+63.02.15	Sungai Durian	3
+63.03.13	Beruntung Baru	3
+63.04.14	Barambai	3
+63.05.08	Piani	3
+63.06.07	Daha Selatan	3
+63.07.06	Barabai	3
+63.08.08	Haur Gading	3
+63.09.08	Muara Harus	3
+63.10.08	Mantewe	3
+63.11.04	Batu Mandi	3
+63.72.02	Landasan Ulin	3
+63.72.03	Cempaka	3
+64.01.08	Long Kali	3
+64.03.01	Kelay	3
+64.07.05	Long Iram	3
+64.07.17	Siluq Ngurai	3
+64.08.10	Kaliorang	3
+64.08.11	Sandaran	3
+64.09.02	Waru	3
+64.11.02	Long Hubung	3
+64.11.03	Laham	3
+65	KALIMANTAN UTARA	1
+64.72.07	Sambutan	3
+64.72.08	Sungai Pinang	3
+64.72.09	Samarinda Kota	3
+65.71	KOTA TARAKAN	2
+65.03.17	Krayan Tengah	3
+71	SULAWESI UTARA	1
+71.01.05	Sang Tombolang	3
+71.01.22	Passi Timur	3
+71.02.20	Kakas Barat	3
+71.03.13	Manganitu	3
+71.04.02	Beo	3
+71.04.05	Nanusa	3
+71.05.21	Motoling Barat	3
+71.06.09	Talawaan	3
+71.07.10	Tombatu Utara	3
+71.09.01	Siau Timur	3
+71.09.02	Siau Barat	3
+71.10.04	Modayag	3
+71.10.05	Modayag Barat	3
+71.71.02	Tuminting	3
+71.73	KOTA TOMOHON	2
+71.72.06	Girian	3
+71.72.07	Maesa	3
+72.01.21	Luwuk Utara	3
+72.02.20	Pamona Barat	3
+72.03.12	Balaesang	3
+72.04.04	Basidondo	3
+72.05.08	Bukal	3
+72.06.12	Wita Ponda	3
+72.07.16	Peling Tengah	3
+72.08.20	Parigi Tengah	3
+72.09.08	Tojo	3
+72.10.08	Gumbasa	3
+72.10.12	Dolo	3
+72.11.06	Banggai Selatan	3
+72.71	KOTA PALU	2
+72.71.01	Palu Timur	3
+72.71.02	Palu Barat	3
+73.01.11	Buki	3
+73.02.10	Rilauale	3
+73.03.01	Bissappu	3
+73.04.06	Bangkala Barat	3
+73.05.08	Sanrobone	3
+73.07.07	Sinjai Borong	3
+73.08.18	Ajangale	3
+73.09.03	Bantimurung	3
+73.10.06	Bungoro	3
+73.10.07	Labakkang	3
+73.12.02	Liliraja	3
+73.13.07	Belawa	3
+73.14.04	Baranti	3
+73.15.07	Lembang	3
+73.16.08	Curio	3
+73.18.01	Saluputi	3
+73.18.37	Rano	3
+73.22.11	Baebunta	3
+73.24.07	Burau	3
+73.26.11	Tallunglipu	3
+73.71.06	Bontoala	3
+73.71.07	Tallo	3
+74.01	KAB. KOLAKA	2
+73.73.03	Wara Selatan	3
+74.01.24	Toari	3
+74.02.32	Konawe	3
+74.03.26	Bone	3
+74.04.22	Kapontori	3
+74.05.24	Sabulakoa	3
+74.06.18	Rumbia Tengah	3
+74.06.19	Poleang Tengah	3
+74.08.02	Pakue	3
+74.08.07	Wawo	3
+74.09.02	Wiwirano	3
+74.09.12	Lasolo Kepulauan	3
+74.11.02	Loea	3
+74.11.03	Ladongi	3
+74.12.03	Wawonii Timur Laut	3
+74.13.10	Kusambi	3
+74.14.01	Lakudo	3
+74.15.05	Siompu Barat	3
+74.15.06	Siompu	3
+75.01	KAB. GORONTALO	2
+74.72.07	Lea-Lea	3
+75.01.17	Limboto Barat	3
+75.02.06	Botumoito	3
+75.03.14	Bulango Ulu	3
+75.04.11	Wanggarasi	3
+75.71	KOTA GORONTALO	2
+75.05.11	Sumalata Timur	3
+75.71.01	Kota Barat	3
+76.02.01	Mamuju	3
+76.03.04	Pana	3
+76.03.17	Mehalaan	3
+76.04.12	Balanipa	3
+76.04.13	Anreapi	3
+81.01	KAB. MALUKU TENGAH	2
+76.06.03	Budong-Budong	3
+81.01.14	Salahutu	3
+81.03.01	Tanimbar Selatan	3
+81.03.02	Selaru	3
+81.04.12	Waelata	3
+81.05.08	Kilmury	3
+81.06.05	Amalatu	3
+81.07.08	Aru Tengah Selatan	3
+81.08.15	Wetar Timur	3
+81.08.17	Kisar Utara	3
+81.72	KOTA TUAL	2
+81.71.05	Leitimur Selatan	3
+82.01.03	Ibu	3
+82.01.07	Ibu Utara	3
+82.03.04	Galela	3
+82.03.19	Loloda Kepulauan	3
+82.04.09	Bacan Barat	3
+82.04.26	Gane Timur Selatan	3
+82.04.27	Gane Timur Tengah	3
+82.06.04	Wasile Selatan	3
+82.07.05	Morotai Timur	3
+82.07.06	Pulau Rao	3
+82.72	KOTA TIDORE KEPULAUAN	2
+82.71.04	Moti	3
+82.71.05	Pulau Batang Dua	3
+91.03.18	Gresi Selatan	3
+91.05.13	Pulau Kurudu	3
+91.06.21	Bondifuar	3
+91.10.01	Sarmi	3
+91.11.04	Web	3
+91.11.07	Towe	3
+91.15.13	Demba	3
+91.15.14	Wonti	3
+91.15.15	Soyoi Mambai	3
+92.01	KAB. SORONG	2
+91.71.02	Jayapura Selatan	3
+92.01.55	Sayosa Timur	3
+92.02.17	Tanah Rubuh	3
+92.03.12	Fakfak Timur Tengah	3
+92.04.21	Kokoda Utara	3
+92.05.20	Batanta Utara	3
+92.06.20	Kamundan	3
+92.06.21	Weriagar	3
+92.08.04	Teluk Etna	3
+92.09.13	Bikar	3
+92.10.13	Aifat Timur Jauh	3
+92.11.04	Dataran Isim	3
+92.71	KOTA SORONG	2
+92.12.10	Hingk	3
+92.71.01	Sorong	3
+93.01.21	Padua	3
+93.01.22	Kontuar	3
+93.03.15	Ti Zain	3
+94.01	KAB. NABIRE	2
+93.04.14	Der Koumur	3
+94.01.09	Teluk Kimi	3
+94.02.15	Lumo	3
+94.02.22	Nioga	3
+94.03.24	Fajar Timur	3
+94.04.16	Wania	3
+94.06.01	Kamu	3
+94.06.07	Kamu Selatan	3
+94.06.08	Kamu Timur	3
+95.01	KAB. JAYAWIJAYA	2
+94.08.02	Tigi Timur	3
+95.01.26	Koragi	3
+95.02.04	Iwur	3
+95.02.21	Oksamol	3
+95.03.16	Soba	3
+95.03.45	Kwelamdua	3
+95.04.44	Li Anogomma	3
+95.04.45	Biuk	3
+95.06.04	Benawa	3
+95.08.03	Yigi	3
+12	SUMATERA UTARA	1
+13	SUMATERA BARAT	1
+16	SUMATERA SELATAN	1
+17	BENGKULU	1
+18	LAMPUNG	1
+19	KEPULAUAN BANGKA BELITUNG	1
+21	KEPULAUAN RIAU	1
+31	DKI JAKARTA	1
+32	JAWA BARAT	1
+33	JAWA TENGAH	1
+34	DAERAH ISTIMEWA YOGYAKARTA	1
+35	JAWA TIMUR	1
+36	BANTEN	1
+51	BALI	1
+52	NUSA TENGGARA BARAT	1
+53	NUSA TENGGARA TIMUR	1
+61	KALIMANTAN BARAT	1
+62	KALIMANTAN TENGAH	1
+63	KALIMANTAN SELATAN	1
+64	KALIMANTAN TIMUR	1
+72	SULAWESI TENGAH	1
+73	SULAWESI SELATAN	1
+74	SULAWESI TENGGARA	1
+75	GORONTALO	1
+76	SULAWESI BARAT	1
+81	MALUKU	1
+82	MALUKU UTARA	1
+91	PAPUA	1
+92	PAPUA BARAT	1
+93	PAPUA SELATAN	1
+94	PAPUA TENGAH	1
+95	PAPUA PEGUNUNGAN	1
+11.01	KAB. ACEH SELATAN	2
+11.02	KAB. ACEH TENGGARA	2
+11.03	KAB. ACEH TIMUR	2
+11.04	KAB. ACEH TENGAH	2
+11.05	KAB. ACEH BARAT	2
+11.06	KAB. ACEH BESAR	2
+11.08	KAB. ACEH UTARA	2
+11.09	KAB. SIMEULUE	2
+11.10	KAB. ACEH SINGKIL	2
+11.11	KAB. BIREUEN	2
+11.12	KAB. ACEH BARAT DAYA	2
+11.13	KAB. GAYO LUES	2
+11.14	KAB. ACEH JAYA	2
+11.15	KAB. NAGAN RAYA	2
+11.16	KAB. ACEH TAMIANG	2
+11.17	KAB. BENER MERIAH	2
+11.18	KAB. PIDIE JAYA	2
+11.71	KOTA BANDA ACEH	2
+11.72	KOTA SABANG	2
+11.73	KOTA LHOKSEUMAWE	2
+11.74	KOTA LANGSA	2
+11.75	KOTA SUBULUSSALAM	2
+12.03	KAB. TAPANULI SELATAN	2
+12.04	KAB. NIAS	2
+12.05	KAB. LANGKAT	2
+12.07	KAB. DELI SERDANG	2
+12.09	KAB. ASAHAN	2
+12.10	KAB. LABUHANBATU	2
+12.11	KAB. DAIRI	2
+12.12	KAB. TOBA	2
+12.13	KAB. MANDAILING NATAL	2
+12.14	KAB. NIAS SELATAN	2
+12.15	KAB. PAKPAK BHARAT	2
+12.16	KAB. HUMBANG HASUNDUTAN	2
+12.17	KAB. SAMOSIR	2
+12.18	KAB. SERDANG BEDAGAI	2
+12.19	KAB. BATU BARA	2
+12.20	KAB. PADANG LAWAS UTARA	2
+12.21	KAB. PADANG LAWAS	2
+12.22	KAB. LABUHANBATU SELATAN	2
+12.23	KAB. LABUHANBATU UTARA	2
+12.71	KOTA MEDAN	2
+12.72	KOTA PEMATANGSIANTAR	2
+12.73	KOTA SIBOLGA	2
+12.74	KOTA TANJUNG BALAI	2
+12.75	KOTA BINJAI	2
+12.76	KOTA TEBING TINGGI	2
+12.77	KOTA PADANGSIDIMPUAN	2
+12.78	KOTA GUNUNGSITOLI	2
+13.02	KAB. SOLOK	2
+13.03	KAB. SIJUNJUNG	2
+13.04	KAB. TANAH DATAR	2
+13.05	KAB. PADANG PARIAMAN	2
+13.06	KAB. AGAM	2
+13.07	KAB. LIMA PULUH KOTA	2
+13.08	KAB. PASAMAN	2
+13.10	KAB. DHARMASRAYA	2
+13.11	KAB. SOLOK SELATAN	2
+13.12	KAB. PASAMAN BARAT	2
+13.71	KOTA PADANG	2
+13.72	KOTA SOLOK	2
+13.74	KOTA PADANG PANJANG	2
+13.75	KOTA BUKITTINGGI	2
+13.76	KOTA PAYAKUMBUH	2
+13.77	KOTA PARIAMAN	2
+14.01	KAB. KAMPAR	2
+14.02	KAB. INDRAGIRI HULU	2
+14.03	KAB. BENGKALIS	2
+14.04	KAB. INDRAGIRI HILIR	2
+14.05	KAB. PELALAWAN	2
+14.06	KAB. ROKAN HULU	2
+14.07	KAB. ROKAN HILIR	2
+14.08	KAB. SIAK	2
+14.09	KAB. KUANTAN SINGINGI	2
+14.10	KAB. KEPULAUAN MERANTI	2
+14.72	KOTA DUMAI	2
+15.01	KAB. KERINCI	2
+15.02	KAB. MERANGIN	2
+15.03	KAB. SAROLANGUN	2
+15.04	KAB. BATANGHARI	2
+15.05	KAB. MUARO JAMBI	2
+15.06	KAB. TANJUNG JABUNG BARAT	2
+15.07	KAB. TANJUNG JABUNG TIMUR	2
+15.08	KAB. BUNGO	2
+15.09	KAB. TEBO	2
+15.71	KOTA JAMBI	2
+16.01	KAB. OGAN KOMERING ULU	2
+16.02	KAB. OGAN KOMERING ILIR	2
+16.03	KAB. MUARA ENIM	2
+16.04	KAB. LAHAT	2
+16.05	KAB. MUSI RAWAS	2
+16.06	KAB. MUSI BANYUASIN	2
+16.07	KAB. BANYUASIN	2
+16.08	KAB. OGAN KOMERING ULU TIMUR	2
+16.09	KAB. OGAN KOMERING ULU SELATAN	2
+16.10	KAB. OGAN ILIR	2
+16.11	KAB. EMPAT LAWANG	2
+16.12	KAB. PENUKAL ABAB LEMATANG ILIR	2
+16.13	KAB. MUSI RAWAS UTARA	2
+16.71	KOTA PALEMBANG	2
+16.72	KOTA PAGAR ALAM	2
+16.73	KOTA LUBUK LINGGAU	2
+17.01	KAB. BENGKULU SELATAN	2
+17.02	KAB. REJANG LEBONG	2
+17.03	KAB. BENGKULU UTARA	2
+17.04	KAB. KAUR	2
+17.05	KAB. SELUMA	2
+17.06	KAB. MUKO MUKO	2
+17.07	KAB. LEBONG	2
+17.08	KAB. KEPAHIANG	2
+17.09	KAB. BENGKULU TENGAH	2
+17.71	KOTA BENGKULU	2
+18.01	KAB. LAMPUNG SELATAN	2
+18.02	KAB. LAMPUNG TENGAH	2
+18.03	KAB. LAMPUNG UTARA	2
+18.04	KAB. LAMPUNG BARAT	2
+18.05	KAB. TULANG BAWANG	2
+18.06	KAB. TANGGAMUS	2
+18.07	KAB. LAMPUNG TIMUR	2
+18.09	KAB. PESAWARAN	2
+18.10	KAB. PRINGSEWU	2
+18.11	KAB. MESUJI	2
+18.12	KAB. TULANG BAWANG BARAT	2
+18.13	KAB. PESISIR BARAT	2
+18.71	KOTA BANDAR LAMPUNG	2
+19.01	KAB. BANGKA	2
+19.03	KAB. BANGKA SELATAN	2
+19.04	KAB. BANGKA TENGAH	2
+19.05	KAB. BANGKA BARAT	2
+19.06	KAB. BELITUNG TIMUR	2
+19.71	KOTA PANGKAL PINANG	2
+21.01	KAB. BINTAN	2
+21.02	KAB. KARIMUN	2
+21.03	KAB. NATUNA	2
+21.04	KAB. LINGGA	2
+21.05	KAB. KEPULAUAN ANAMBAS	2
+21.71	KOTA BATAM	2
+21.72	KOTA TANJUNG PINANG	2
+31.01	KAB. ADM. KEP. SERIBU	2
+31.71	KOTA ADM. JAKARTA PUSAT	2
+31.72	KOTA ADM. JAKARTA UTARA	2
+31.73	KOTA ADM. JAKARTA BARAT	2
+31.74	KOTA ADM. JAKARTA SELATAN	2
+31.75	KOTA ADM. JAKARTA TIMUR	2
+32.02	KAB. SUKABUMI	2
+32.03	KAB. CIANJUR	2
+32.04	KAB. BANDUNG	2
+32.05	KAB. GARUT	2
+32.06	KAB. TASIKMALAYA	2
+32.07	KAB. CIAMIS	2
+32.08	KAB. KUNINGAN	2
+32.09	KAB. CIREBON	2
+32.10	KAB. MAJALENGKA	2
+32.11	KAB. SUMEDANG	2
+32.12	KAB. INDRAMAYU	2
+32.13	KAB. SUBANG	2
+32.14	KAB. PURWAKARTA	2
+32.15	KAB. KARAWANG	2
+32.16	KAB. BEKASI	2
+32.17	KAB. BANDUNG BARAT	2
+32.18	KAB. PANGANDARAN	2
+32.71	KOTA BOGOR	2
+32.72	KOTA SUKABUMI	2
+32.73	KOTA BANDUNG	2
+32.74	KOTA CIREBON	2
+32.75	KOTA BEKASI	2
+32.76	KOTA DEPOK	2
+32.77	KOTA CIMAHI	2
+32.78	KOTA TASIKMALAYA	2
+32.79	KOTA BANJAR	2
+33.02	KAB. BANYUMAS	2
+33.03	KAB. PURBALINGGA	2
+33.04	KAB. BANJARNEGARA	2
+33.05	KAB. KEBUMEN	2
+33.06	KAB. PURWOREJO	2
+33.07	KAB. WONOSOBO	2
+33.08	KAB. MAGELANG	2
+33.09	KAB. BOYOLALI	2
+33.10	KAB. KLATEN	2
+33.11	KAB. SUKOHARJO	2
+33.12	KAB. WONOGIRI	2
+33.13	KAB. KARANGANYAR	2
+33.14	KAB. SRAGEN	2
+33.15	KAB. GROBOGAN	2
+33.16	KAB. BLORA	2
+33.17	KAB. REMBANG	2
+33.19	KAB. KUDUS	2
+33.20	KAB. JEPARA	2
+33.21	KAB. DEMAK	2
+33.22	KAB. SEMARANG	2
+33.23	KAB. TEMANGGUNG	2
+33.24	KAB. KENDAL	2
+33.25	KAB. BATANG	2
+33.26	KAB. PEKALONGAN	2
+33.27	KAB. PEMALANG	2
+33.28	KAB. TEGAL	2
+33.29	KAB. BREBES	2
+33.71	KOTA MAGELANG	2
+33.72	KOTA SURAKARTA	2
+33.73	KOTA SALATIGA	2
+33.74	KOTA SEMARANG	2
+33.75	KOTA PEKALONGAN	2
+34.01	KAB. KULON PROGO	2
+34.02	KAB. BANTUL	2
+34.03	KAB. GUNUNGKIDUL	2
+34.04	KAB. SLEMAN	2
+35.01	KAB. PACITAN	2
+35.02	KAB. PONOROGO	2
+35.03	KAB. TRENGGALEK	2
+35.04	KAB. TULUNGAGUNG	2
+35.05	KAB. BLITAR	2
+35.06	KAB. KEDIRI	2
+35.07	KAB. MALANG	2
+35.08	KAB. LUMAJANG	2
+35.09	KAB. JEMBER	2
+35.10	KAB. BANYUWANGI	2
+35.11	KAB. BONDOWOSO	2
+35.12	KAB. SITUBONDO	2
+35.13	KAB. PROBOLINGGO	2
+35.14	KAB. PASURUAN	2
+35.15	KAB. SIDOARJO	2
+35.16	KAB. MOJOKERTO	2
+35.17	KAB. JOMBANG	2
+35.18	KAB. NGANJUK	2
+35.19	KAB. MADIUN	2
+35.20	KAB. MAGETAN	2
+35.21	KAB. NGAWI	2
+35.22	KAB. BOJONEGORO	2
+35.23	KAB. TUBAN	2
+35.24	KAB. LAMONGAN	2
+35.25	KAB. GRESIK	2
+35.26	KAB. BANGKALAN	2
+35.27	KAB. SAMPANG	2
+35.28	KAB. PAMEKASAN	2
+35.29	KAB. SUMENEP	2
+35.71	KOTA KEDIRI	2
+35.72	KOTA BLITAR	2
+35.73	KOTA MALANG	2
+35.74	KOTA PROBOLINGGO	2
+35.75	KOTA PASURUAN	2
+35.76	KOTA MOJOKERTO	2
+35.77	KOTA MADIUN	2
+35.78	KOTA SURABAYA	2
+35.79	KOTA BATU	2
+36.02	KAB. LEBAK	2
+36.03	KAB. TANGERANG	2
+36.04	KAB. SERANG	2
+36.71	KOTA TANGERANG	2
+36.72	KOTA CILEGON	2
+36.73	KOTA SERANG	2
+36.74	KOTA TANGERANG SELATAN	2
+51.01	KAB. JEMBRANA	2
+51.02	KAB. TABANAN	2
+51.03	KAB. BADUNG	2
+51.04	KAB. GIANYAR	2
+51.05	KAB. KLUNGKUNG	2
+51.06	KAB. BANGLI	2
+51.07	KAB. KARANGASEM	2
+51.08	KAB. BULELENG	2
+52.01	KAB. LOMBOK BARAT	2
+52.02	KAB. LOMBOK TENGAH	2
+52.03	KAB. LOMBOK TIMUR	2
+52.04	KAB. SUMBAWA	2
+52.05	KAB. DOMPU	2
+52.06	KAB. BIMA	2
+52.07	KAB. SUMBAWA BARAT	2
+52.08	KAB. LOMBOK UTARA	2
+52.71	KOTA MATARAM	2
+52.72	KOTA BIMA	2
+53.01	KAB. KUPANG	2
+53.02	KAB. TIMOR TENGAH SELATAN	2
+53.03	KAB. TIMOR TENGAH UTARA	2
+53.04	KAB. BELU	2
+53.05	KAB. ALOR	2
+53.06	KAB. FLORES TIMUR	2
+53.07	KAB. SIKKA	2
+53.08	KAB. ENDE	2
+53.10	KAB. MANGGARAI	2
+53.11	KAB. SUMBA TIMUR	2
+53.12	KAB. SUMBA BARAT	2
+53.13	KAB. LEMBATA	2
+53.14	KAB. ROTE NDAO	2
+53.15	KAB. MANGGARAI BARAT	2
+53.16	KAB. NAGEKEO	2
+53.17	KAB. SUMBA TENGAH	2
+53.18	KAB. SUMBA BARAT DAYA	2
+53.19	KAB. MANGGARAI TIMUR	2
+53.20	KAB. SABU RAIJUA	2
+53.21	KAB. MALAKA	2
+61.01	KAB. SAMBAS	2
+61.02	KAB. MEMPAWAH	2
+61.03	KAB. SANGGAU	2
+61.04	KAB. KETAPANG	2
+61.06	KAB. KAPUAS HULU	2
+61.07	KAB. BENGKAYANG	2
+61.08	KAB. LANDAK	2
+61.09	KAB. SEKADAU	2
+61.10	KAB. MELAWI	2
+61.11	KAB. KAYONG UTARA	2
+61.12	KAB. KUBU RAYA	2
+61.72	KOTA SINGKAWANG	2
+62.01	KAB. KOTAWARINGIN BARAT	2
+62.02	KAB. KOTAWARINGIN TIMUR	2
+62.03	KAB. KAPUAS	2
+62.04	KAB. BARITO SELATAN	2
+62.05	KAB. BARITO UTARA	2
+62.07	KAB. SERUYAN	2
+62.08	KAB. SUKAMARA	2
+62.09	KAB. LAMANDAU	2
+62.10	KAB. GUNUNG MAS	2
+62.11	KAB. PULANG PISAU	2
+62.12	KAB. MURUNG RAYA	2
+62.13	KAB. BARITO TIMUR	2
+63.01	KAB. TANAH LAUT	2
+63.03	KAB. BANJAR	2
+63.04	KAB. BARITO KUALA	2
+63.05	KAB. TAPIN	2
+63.06	KAB. HULU SUNGAI SELATAN	2
+63.07	KAB. HULU SUNGAI TENGAH	2
+63.08	KAB. HULU SUNGAI UTARA	2
+63.09	KAB. TABALONG	2
+63.10	KAB. TANAH BUMBU	2
+63.11	KAB. BALANGAN	2
+63.71	KOTA BANJARMASIN	2
+63.72	KOTA BANJARBARU	2
+64.01	KAB. PASER	2
+64.02	KAB. KUTAI KARTANEGARA	2
+64.03	KAB. BERAU	2
+64.07	KAB. KUTAI BARAT	2
+64.08	KAB. KUTAI TIMUR	2
+64.09	KAB. PENAJAM PASER UTARA	2
+64.11	KAB. MAHAKAM ULU	2
+64.71	KOTA BALIKPAPAN	2
+64.72	KOTA SAMARINDA	2
+64.74	KOTA BONTANG	2
+65.01	KAB. BULUNGAN	2
+65.02	KAB. MALINAU	2
+65.03	KAB. NUNUKAN	2
+65.04	KAB. TANA TIDUNG	2
+71.01	KAB. BOLAANG MONGONDOW	2
+71.02	KAB. MINAHASA	2
+71.03	KAB. KEPULAUAN SANGIHE	2
+71.04	KAB. KEPULAUAN TALAUD	2
+71.05	KAB. MINAHASA SELATAN	2
+71.06	KAB. MINAHASA UTARA	2
+71.07	KAB. MINAHASA TENGGARA	2
+71.08	KAB. BOLAANG MONGONDOW UTARA	2
+71.09	KAB. KEP. SIAU TAGULANDANG BIARO	2
+71.10	KAB. BOLAANG MONGONDOW TIMUR	2
+71.11	KAB. BOLAANG MONGONDOW SELATAN	2
+71.71	KOTA MANADO	2
+71.72	KOTA BITUNG	2
+71.74	KOTA KOTAMOBAGU	2
+72.01	KAB. BANGGAI	2
+72.02	KAB. POSO	2
+72.03	KAB. DONGGALA	2
+72.04	KAB. TOLI TOLI	2
+72.05	KAB. BUOL	2
+72.06	KAB. MOROWALI	2
+72.07	KAB. BANGGAI KEPULAUAN	2
+72.08	KAB. PARIGI MOUTONG	2
+72.09	KAB. TOJO UNA UNA	2
+72.10	KAB. SIGI	2
+72.11	KAB. BANGGAI LAUT	2
+72.12	KAB. MOROWALI UTARA	2
+73.01	KAB. KEPULAUAN SELAYAR	2
+73.02	KAB. BULUKUMBA	2
+73.03	KAB. BANTAENG	2
+73.04	KAB. JENEPONTO	2
+73.05	KAB. TAKALAR	2
+73.06	KAB. GOWA	2
+73.07	KAB. SINJAI	2
+73.08	KAB. BONE	2
+73.09	KAB. MAROS	2
+73.10	KAB. PANGKAJENE KEPULAUAN	2
+73.11	KAB. BARRU	2
+73.12	KAB. SOPPENG	2
+73.13	KAB. WAJO	2
+73.14	KAB. SIDENRENG RAPPANG	2
+73.15	KAB. PINRANG	2
+73.16	KAB. ENREKANG	2
+73.17	KAB. LUWU	2
+73.18	KAB. TANA TORAJA	2
+73.22	KAB. LUWU UTARA	2
+73.24	KAB. LUWU TIMUR	2
+73.26	KAB. TORAJA UTARA	2
+73.71	KOTA MAKASSAR	2
+73.72	KOTA PARE PARE	2
+73.73	KOTA PALOPO	2
+74.02	KAB. KONAWE	2
+74.03	KAB. MUNA	2
+74.04	KAB. BUTON	2
+74.05	KAB. KONAWE SELATAN	2
+74.06	KAB. BOMBANA	2
+74.07	KAB. WAKATOBI	2
+74.08	KAB. KOLAKA UTARA	2
+74.09	KAB. KONAWE UTARA	2
+74.10	KAB. BUTON UTARA	2
+74.11	KAB. KOLAKA TIMUR	2
+74.12	KAB. KONAWE KEPULAUAN	2
+74.13	KAB. MUNA BARAT	2
+74.14	KAB. BUTON TENGAH	2
+74.15	KAB. BUTON SELATAN	2
+74.71	KOTA KENDARI	2
+74.72	KOTA BAU BAU	2
+75.02	KAB. BOALEMO	2
+75.03	KAB. BONE BOLANGO	2
+75.04	KAB. POHUWATO	2
+75.05	KAB. GORONTALO UTARA	2
+76.01	KAB. PASANGKAYU	2
+76.02	KAB. MAMUJU	2
+76.03	KAB. MAMASA	2
+76.04	KAB. POLEWALI MANDAR	2
+76.05	KAB. MAJENE	2
+76.06	KAB. MAMUJU TENGAH	2
+81.02	KAB. MALUKU TENGGARA	2
+81.03	KAB. KEPULAUAN TANIMBAR	2
+81.04	KAB. BURU	2
+81.05	KAB. SERAM BAGIAN TIMUR	2
+81.06	KAB. SERAM BAGIAN BARAT	2
+81.07	KAB. KEPULAUAN ARU	2
+81.08	KAB. MALUKU BARAT DAYA	2
+81.09	KAB. BURU SELATAN	2
+81.71	KOTA AMBON	2
+82.01	KAB. HALMAHERA BARAT	2
+82.02	KAB. HALMAHERA TENGAH	2
+82.03	KAB. HALMAHERA UTARA	2
+82.04	KAB. HALMAHERA SELATAN	2
+82.05	KAB. KEPULAUAN SULA	2
+82.06	KAB. HALMAHERA TIMUR	2
+82.07	KAB. PULAU MOROTAI	2
+82.08	KAB. PULAU TALIABU	2
+82.71	KOTA TERNATE	2
+91.03	KAB. JAYAPURA	2
+91.05	KAB. KEPULAUAN YAPEN	2
+91.06	KAB. BIAK NUMFOR	2
+91.10	KAB. SARMI	2
+91.11	KAB. KEEROM	2
+91.15	KAB. WAROPEN	2
+91.19	KAB. SUPIORI	2
+91.20	KAB. MAMBERAMO RAYA	2
+91.71	KOTA JAYAPURA	2
+92.02	KAB. MANOKWARI	2
+92.03	KAB. FAK FAK	2
+92.04	KAB. SORONG SELATAN	2
+92.05	KAB. RAJA AMPAT	2
+92.06	KAB. TELUK BINTUNI	2
+92.07	KAB. TELUK WONDAMA	2
+92.08	KAB. KAIMANA	2
+92.09	KAB. TAMBRAUW	2
+92.10	KAB. MAYBRAT	2
+92.11	KAB. MANOKWARI SELATAN	2
+92.12	KAB. PEGUNUNGAN ARFAK	2
+93.01	KAB. MERAUKE	2
+93.02	KAB. BOVEN DIGOEL	2
+93.03	KAB. MAPPI	2
+93.04	KAB. ASMAT	2
+94.02	KAB. PUNCAK JAYA	2
+94.03	KAB. PANIAI	2
+94.04	KAB. MIMIKA	2
+94.05	KAB. PUNCAK	2
+94.06	KAB. DOGIYAI	2
+94.07	KAB. INTAN JAYA	2
+94.08	KAB. DEIYAI	2
+95.02	KAB. PEGUNUNGAN BINTANG	2
+95.03	KAB. YAHUKIMO	2
+95.04	KAB. TOLIKARA	2
+95.05	KAB. MAMBERAMO TENGAH	2
+95.06	KAB. YALIMO	2
+95.07	KAB. LANNY JAYA	2
+95.08	KAB. NDUGA	2
+11.01.02	Kluet Utara	3
+11.01.03	Kluet Selatan	3
+11.01.04	Labuhanhaji	3
+11.01.05	Meukek	3
+11.01.06	Samadua	3
+11.01.07	Sawang	3
+11.01.08	Tapaktuan	3
+11.01.11	Labuhan Haji Timur	3
+11.01.12	Labuhan Haji Barat	3
+11.01.13	Kluet Tengah	3
+11.01.14	Kluet Timur	3
+11.01.15	Bakongan Timur	3
+11.01.16	Trumon Timur	3
+11.01.17	Kota Bahagia	3
+11.01.18	Trumon Tengah	3
+11.02.01	Lawe Alas	3
+11.02.02	Lawe Sigala-Gala	3
+11.02.03	Bambel	3
+11.02.04	Babussalam	3
+11.02.05	Badar	3
+11.02.06	Babul Makmur	3
+11.02.07	Darul Hasanah	3
+11.02.08	Lawe Bulan	3
+11.02.09	Bukit Tusam	3
+11.02.10	Semadam	3
+11.02.11	Babul Rahmah	3
+11.02.13	Deleng Pokhkisen	3
+11.02.14	Lawe Sumur	3
+11.02.15	Tanoh Alas	3
+11.02.16	Leuser	3
+11.03.01	Darul Aman	3
+11.03.02	Julok	3
+11.03.03	Idi Rayeuk	3
+11.03.04	Birem Bayeun	3
+11.03.05	Serbajadi	3
+11.03.06	Nurussalam	3
+11.03.07	Peureulak	3
+11.03.08	Rantau Selamat	3
+11.03.09	Simpang Ulim	3
+11.03.10	Ranto Peureulak	3
+11.03.11	Pante Bidari	3
+11.03.12	Madat	3
+11.03.13	Indra Makmu	3
+11.03.14	Idi Tunong	3
+11.03.15	Banda Alam	3
+11.03.16	Peudawa	3
+11.03.18	Peureulak Barat	3
+11.03.19	Sungai Raya	3
+11.03.20	Simpang Jernih	3
+11.03.21	Darul Ihsan	3
+11.03.22	Darul Falah	3
+11.03.23	Idi Timur	3
+11.03.24	Peunaron	3
+11.04.01	Linge	3
+11.04.02	Silih Nara	3
+11.04.07	Pegasing	3
+11.04.08	Bintang	3
+11.04.10	Ketol	3
+11.04.11	Kebayakan	3
+11.04.13	Celala	3
+11.04.17	Laut Tawar	3
+11.04.18	Atu Lintang	3
+11.04.19	Jagong Jeget	3
+11.04.20	Bies	3
+11.04.21	Rusip Antara	3
+11.05.01	Johan Pahlawan	3
+11.05.02	Kaway XVI	3
+11.05.03	Sungai Mas	3
+11.05.04	Woyla	3
+11.05.05	Samatiga	3
+11.05.06	Bubon	3
+11.05.07	Arongan Lambalek	3
+11.05.08	Pante Ceureumen	3
+11.05.09	Meureubo	3
+11.05.10	Woyla Barat	3
+11.05.11	Woyla Timur	3
+11.06.01	Lhoong	3
+11.06.02	Lhoknga	3
+11.06.03	Indrapuri	3
+11.06.04	Seulimeum	3
+11.06.05	Montasik	3
+11.06.06	Sukamakmur	3
+11.06.07	Darul Imarah	3
+11.06.08	Peukan Bada	3
+11.06.09	Mesjid Raya	3
+11.06.10	Ingin Jaya	3
+11.06.11	Kuta Baro	3
+11.06.12	Darussalam	3
+11.06.13	Pulo Aceh	3
+11.06.14	Lembah Seulawah	3
+11.06.15	Kota Jantho	3
+11.06.16	Kuta Cot Glie	3
+11.06.17	Kuta Malaka	3
+11.06.19	Darul Kamal	3
+11.06.20	Baitussalam	3
+11.06.21	Krueng Barona Jaya	3
+11.06.22	Leupung	3
+11.06.23	Blang Bintang	3
+11.07.03	Batee	3
+11.07.04	Delima	3
+11.07.05	Geumpang	3
+11.07.06	Glumpang Tiga	3
+11.07.07	Indrajaya	3
+11.07.08	Kembang Tanjong	3
+11.07.09	Kota Sigli	3
+11.07.11	Mila	3
+11.07.12	Muara Tiga	3
+11.07.13	Mutiara	3
+11.07.14	Padang Tiji	3
+11.07.15	Peukan Baro	3
+11.07.16	Pidie	3
+11.07.17	Sakti	3
+11.07.18	Simpang Tiga	3
+11.07.19	Tangse	3
+11.07.21	Tiro/Truseb	3
+11.07.24	Mutiara Timur	3
+11.07.25	Grong-grong	3
+11.07.27	Mane	3
+11.07.29	Glumpang Baro	3
+11.07.31	Titeue	3
+11.08.01	Baktiya	3
+11.08.02	Dewantara	3
+11.08.03	Kuta Makmur	3
+11.08.04	Lhoksukon	3
+11.08.05	Matangkuli	3
+11.08.06	Muara Batu	3
+11.08.07	Meurah Mulia	3
+11.08.08	Samudera	3
+11.08.09	Seunuddon	3
+11.08.10	Syamtalira Aron	3
+11.08.11	Syamtalira Bayu	3
+11.08.12	Tanah Luas	3
+11.08.13	Tanah Pasir	3
+11.08.14	T. Jambo Aye	3
+11.08.15	Sawang	3
+11.08.16	Nisam	3
+11.08.17	Cot Girek	3
+11.08.18	Langkahan	3
+11.08.19	Baktiya Barat	3
+11.08.20	Paya Bakong	3
+11.08.21	Nibong	3
+11.08.22	Simpang Kramat	3
+11.08.23	Lapang	3
+11.08.24	Pirak Timur	3
+11.08.26	Banda Baro	3
+11.08.27	Nisam Antara	3
+11.09.01	Simeulue Tengah	3
+11.09.02	Salang	3
+11.09.03	Teupah Barat	3
+11.09.04	Simeulue Timur	3
+11.09.05	Teluk Dalam	3
+11.09.06	Simeulue Barat	3
+11.09.07	Teupah Selatan	3
+11.09.09	Teupah Tengah	3
+11.10.01	Pulau Banyak	3
+11.10.02	Simpang Kanan	3
+11.10.04	Singkil	3
+11.10.06	Gunung Meriah	3
+11.10.09	Kota Baharu	3
+11.10.10	Singkil Utara	3
+11.10.11	Danau Paris	3
+11.10.12	Suro Makmur	3
+11.10.14	Kuala Baru	3
+11.10.16	Pulau Banyak Barat	3
+11.11.01	Samalanga	3
+11.11.02	Jeunieb	3
+11.11.03	Peudada	3
+11.11.04	Jeumpa	3
+11.11.05	Peusangan	3
+11.11.06	Makmur	3
+11.11.07	Gandapura	3
+11.11.08	Pandrah	3
+11.11.09	Juli	3
+11.11.10	Jangka	3
+11.11.11	Simpang Mamplam	3
+11.11.12	Peulimbang	3
+11.11.13	Kota Juang	3
+11.11.14	Kuala	3
+11.11.15	Peusangan Siblah Krueng	3
+11.11.17	Kuta Blang	3
+11.12.01	Blangpidie	3
+11.12.02	Tangan-Tangan	3
+11.12.03	Manggeng	3
+11.12.05	Kuala Batee	3
+11.12.06	Babah Rot	3
+11.12.07	Setia	3
+11.12.08	Jeumpa	3
+11.12.09	Lembah Sabil	3
+11.13.01	Blangkejeren	3
+11.13.02	Kutapanjang	3
+11.13.04	Terangun	3
+11.13.05	Pining	3
+11.13.06	Blangpegayon	3
+11.13.07	Puteri Betung	3
+11.13.08	Dabun Gelang	3
+11.13.09	Blangjerango	3
+11.13.10	Teripe Jaya	3
+11.13.11	Pantan Cuaca	3
+11.14.01	Teunom	3
+11.14.02	Krueng Sabee	3
+11.14.03	Setia Bakti	3
+11.14.04	Sampoi Niet	3
+11.14.05	Jaya	3
+11.14.06	Panga	3
+11.14.07	Indra Jaya	3
+11.14.08	Darul Hikmah	3
+11.14.09	Pasie Raya	3
+11.15.02	Seunagan	3
+11.15.03	Seunagan Timur	3
+11.15.04	Beutong	3
+11.15.05	Darul Makmur	3
+11.15.07	Kuala Pesisir	3
+11.15.08	Tadu Raya	3
+11.15.09	Tripa Makmur	3
+11.15.10	Beutong Ateuh Banggalang	3
+11.16.01	Manyak Payed	3
+11.16.02	Bendahara	3
+11.16.03	Karang Baru	3
+11.16.04	Seruway	3
+11.16.05	Kota Kualasinpang	3
+11.16.06	Kejuruan Muda	3
+11.16.07	Tamiang Hulu	3
+11.16.08	Rantau	3
+11.16.10	Bandar Pusaka	3
+11.16.11	Tenggulun	3
+11.16.12	Sekerak	3
+11.17.01	Pintu Rime Gayo	3
+11.17.02	Permata	3
+11.17.03	Syiah Utama	3
+11.17.04	Bandar	3
+11.17.05	Bukit	3
+11.17.06	Wih Pesam	3
+11.17.07	Timang gajah	3
+11.17.08	Bener Kelipah	3
+11.17.09	Mesidah	3
+11.18.01	Meureudu	3
+11.18.02	Ulim	3
+11.18.03	Jangka Buaya	3
+11.18.04	Bandar Dua	3
+11.18.06	Bandar Baru	3
+11.18.07	Panteraja	3
+11.18.08	Trienggadeng	3
+11.71.01	Baiturrahman	3
+11.71.02	Kuta Alam	3
+11.71.03	Meuraxa	3
+11.71.06	Kuta Raja	3
+11.71.07	Banda Raya	3
+11.71.08	Jaya Baru	3
+11.71.09	Ulee Kareng	3
+11.72.01	Sukakarya	3
+11.72.02	Sukajaya	3
+11.72.03	Sukamakmue	3
+11.73.01	Muara Dua	3
+11.73.02	Banda Sakti	3
+11.73.03	Blang Mangat	3
+11.73.04	Muara Satu	3
+11.74.03	Langsa Kota	3
+11.74.04	Langsa Lama	3
+11.74.05	Langsa Baro	3
+11.75.01	Simpang Kiri	3
+11.75.02	Penanggalan	3
+11.75.03	Rundeng	3
+11.75.04	Sultan Daulat	3
+12.01.01	Barus	3
+12.01.02	Sorkam	3
+12.01.03	Pandan	3
+12.01.04	Pinangsori	3
+12.01.05	Manduamas	3
+12.01.06	Kolang	3
+12.01.07	Tapian Nauli	3
+12.01.09	Sosorgadong	3
+12.01.10	Sorkam Barat	3
+12.01.11	Sirandorung	3
+12.01.12	Andam Dewi	3
+12.01.13	Sitahuis	3
+12.01.14	Tukka	3
+12.01.15	Badiri	3
+12.01.16	Pasaribu Tobing	3
+12.01.17	Barus Utara	3
+12.01.18	Suka Bangun	3
+12.01.19	Lumut	3
+12.01.20	Sarudik	3
+12.02.01	Tarutung	3
+12.02.02	Siatas Barita	3
+12.02.04	Sipoholon	3
+12.02.05	Pahae Julu	3
+12.02.06	Pahae Jae	3
+12.02.07	Simangumban	3
+12.02.08	Purba Tua	3
+12.02.09	Siborong-Borong	3
+12.02.11	Parmonangan	3
+12.02.12	Sipahutar	3
+12.02.13	Pangaribuan	3
+12.02.14	Garoga	3
+12.02.15	Muara	3
+12.03.01	Angkola Barat	3
+12.03.02	Batang Toru	3
+12.03.03	Angkola Timur	3
+12.03.04	Sipirok	3
+12.03.05	Saipar Dolok Hole	3
+12.03.06	Angkola Selatan	3
+12.03.07	Batang Angkola	3
+12.03.14	Arse	3
+12.03.20	Marancar	3
+12.03.21	Sayur Matinggi	3
+12.03.22	Aek Bilah	3
+12.03.29	Muara Batang Toru	3
+12.03.30	Tano Tombangan Angkola	3
+12.03.31	Angkola Sangkunur	3
+12.03.32	Angkola Muara Tais	3
+12.04.05	Hiliduho	3
+12.04.10	Idanogawo	3
+12.04.20	Hiliserangkai	3
+12.04.21	Botomuzoi	3
+12.04.27	Ulugawo	3
+12.04.28	Ma'u	3
+12.04.29	Somolo-molo	3
+12.04.35	Sogae'adu	3
+12.05.01	Bahorok	3
+12.05.02	Salapian	3
+12.05.03	Kuala	3
+12.05.04	Sei Bingai	3
+12.05.05	Binjai	3
+12.05.06	Selesai	3
+12.05.07	Stabat	3
+12.05.08	Wampu	3
+12.05.09	Secanggang	3
+12.05.10	Hinai	3
+12.05.11	Tanjung Pura	3
+12.05.12	Padang Tualang	3
+12.05.13	Gebang	3
+12.05.14	Babalan	3
+12.05.15	Pangkalan Susu	3
+12.05.16	Besitang	3
+12.05.17	Sei Lepan	3
+12.05.18	Berandan Barat	3
+12.05.19	Batang Serangan	3
+12.05.20	Sawit Seberang	3
+12.05.21	Sirapit	3
+12.05.22	Kutambaru	3
+12.05.23	Pematang Jaya	3
+12.06.01	Kabanjahe	3
+12.06.02	Berastagi	3
+12.06.03	Barusjahe	3
+12.06.04	Tigapanah	3
+12.06.05	Merek	3
+12.06.06	Munte	3
+12.06.07	Juhar	3
+12.06.08	Tigabinanga	3
+12.06.09	Laubaleng	3
+12.06.10	Mardingding	3
+12.06.11	Payung	3
+12.06.12	Simpang Empat	3
+12.06.13	Kutabuluh	3
+12.06.14	Dolat Rayat	3
+12.06.15	Merdeka	3
+12.06.16	Naman Teran	3
+12.06.17	Tiganderket	3
+12.07.01	Gunung Meriah	3
+12.07.02	Tanjung Morawa	3
+12.07.04	Kutalimbaru	3
+12.07.05	Pancur Batu	3
+12.07.06	Namo Rambe	3
+12.07.07	Biru-Biru	3
+12.07.08	STM Hilir	3
+12.07.09	Bangun Purba	3
+12.07.19	Galang	3
+12.07.20	STM Hulu	3
+12.07.21	Patumbak	3
+12.07.22	Deli Tua	3
+12.07.23	Sunggal	3
+12.07.24	Hamparan Perak	3
+12.07.25	Labuhan Deli	3
+12.07.26	Percut Sei Tuan	3
+12.07.27	Batang Kuis	3
+12.07.28	Lubuk Pakam	3
+12.07.31	Pagar Merbau	3
+12.07.32	Pantai Labu	3
+12.07.33	Beringin	3
+12.08.01	Siantar	3
+12.08.02	Gunung Malela	3
+12.08.03	Gunung Maligas	3
+12.08.04	Panei	3
+12.08.05	Panombeian Panei	3
+12.08.06	Jorlang Hataran	3
+12.08.07	Raya Kahean	3
+12.08.08	Bosar Maligas	3
+12.08.09	Sidamanik	3
+12.08.10	Pamatang Sidamanik	3
+12.08.11	Tanah Jawa	3
+12.08.12	Hatonduhan	3
+12.08.13	Dolok Panribuan	3
+12.08.14	Purba	3
+12.08.15	Haranggaol Horisan	3
+12.08.16	Girsang Sipangan Bolon	3
+12.08.17	Dolok Batu Nanggar	3
+12.08.18	Huta Bayu Raja	3
+12.08.19	Jawa Maraja Bah Jambi	3
+12.08.20	Dolok Pardamean	3
+12.08.21	Pematang Bandar	3
+12.08.22	Bandar Huluan	3
+12.08.23	Bandar	3
+12.08.24	Bandar Masilam	3
+12.08.25	Silimakuta	3
+12.08.26	Dolok Silou	3
+12.08.27	Silou Kahean	3
+12.08.28	Tapian Dolok	3
+12.08.29	Raya	3
+12.08.30	Ujung Padang	3
+12.08.31	Pamatang Silima Huta	3
+12.08.32	Dolog Masagal	3
+12.09.09	Air Joman	3
+12.09.10	Tanjung Balai	3
+12.09.11	Sei Kepayang	3
+12.09.12	Simpang Empat	3
+12.09.13	Air Batu	3
+12.09.14	Pulau Rakyat	3
+12.09.15	Bandar Pulau	3
+12.09.16	Buntu Pane	3
+12.09.17	Bandar Pasir Mandoge	3
+12.09.18	Aek Kuasan	3
+12.09.19	Kota Kisaran Barat	3
+12.09.20	Kota Kisaran Timur	3
+12.09.21	Aek Songsongan	3
+12.09.22	Rahunig	3
+12.09.23	Sei Dadap	3
+12.09.24	Sei Kepayang Barat	3
+12.09.25	Sei Kepayang Timur	3
+12.09.26	Tinggi Raja	3
+12.09.27	Setia Janji	3
+12.09.28	Silau Laut	3
+12.09.29	Rawang Panca Arga	3
+12.09.30	Pulo Bandring	3
+12.09.31	Teluk Dalam	3
+12.09.32	Aek Ledong	3
+12.10.01	Rantau Utara	3
+12.10.02	Rantau Selatan	3
+12.10.08	Bilah Hilir	3
+12.10.09	Bilah Hulu	3
+12.10.14	Pangkatan	3
+12.10.18	Panai Tengah	3
+12.10.19	Panai Hilir	3
+12.10.20	Panai Hulu	3
+12.11.01	Sidikalang	3
+12.11.02	Sumbul	3
+12.11.03	Tigalingga	3
+12.11.05	Silima Pungga Pungga	3
+12.11.06	Tanah Pinem	3
+12.11.07	Siempat Nempu Hulu	3
+12.11.08	Siempat Nempu Hilir	3
+12.11.09	Pegagan Hilir	3
+12.11.10	Parbuluan	3
+12.11.11	Lae Parira	3
+12.11.12	Gunung Sitember	3
+12.11.13	Berampu	3
+12.11.14	Silahisabungan	3
+12.11.15	Sitinjo	3
+12.12.01	Balige	3
+12.12.02	Laguboti	3
+12.12.03	Silaen	3
+12.12.04	Habinsaran	3
+12.12.05	Pintu Pohan Meranti	3
+12.12.06	Borbor	3
+12.12.07	Porsea	3
+12.12.10	Uluan	3
+12.12.19	Sigumpar	3
+12.12.20	Siantar Narumonda	3
+12.12.21	Nassau	3
+12.12.22	Tampahan	3
+12.12.23	Bonatua Lunasi	3
+12.12.24	Parmaksian	3
+12.13.01	Panyabungan	3
+12.13.02	Panyabungan Utara	3
+12.13.03	Panyabungan Timur	3
+12.13.04	Panyabungan Selatan	3
+12.13.05	Panyabungan Barat	3
+12.13.07	Bukit Malintang	3
+12.13.08	Kotanopan	3
+12.13.09	Lembah Sorik Marapi	3
+12.13.10	Tambangan	3
+12.13.11	Ulu Pungkut	3
+12.13.12	Muara Sipongi	3
+12.13.13	Batang Natal	3
+12.13.14	Lingga Bayu	3
+12.13.15	Batahan	3
+12.13.17	Muara Batang Gadis	3
+12.13.18	Ranto Baek	3
+12.13.19	Huta Bargot	3
+12.13.20	Puncak Sorik Marapi	3
+12.13.21	Pakantan	3
+12.13.22	Sinunukan	3
+12.13.23	Naga Juang	3
+12.14.01	Lolomatua	3
+12.14.02	Gomo	3
+12.14.03	Lahusa	3
+12.14.04	Hibala	3
+12.14.05	Pulau-Pulau Batu	3
+12.14.06	Teluk Dalam	3
+12.14.07	Amandraya	3
+12.14.08	Lolowau	3
+12.14.09	Susua	3
+12.14.10	Maniamolo	3
+12.14.11	Hilimegai	3
+12.14.12	Toma	3
+12.14.13	Mazino	3
+12.14.14	Umbunasi	3
+12.14.15	Aramo	3
+12.14.16	Pulau-Pulau Batu Timur	3
+12.14.17	Mazo	3
+12.14.18	Fanayama	3
+12.14.19	Ulunoyo	3
+12.14.21	O'o'u	3
+12.14.22	Onohazumba	3
+12.14.23	Hilisalawa'ahe	3
+12.14.24	Ulususua	3
+12.14.25	Sidua'ori	3
+12.14.26	Somambawa	3
+12.14.27	Boronadu	3
+12.14.28	Simuk	3
+12.14.29	Pulau-Pulau Batu Barat	3
+12.14.30	Pulau-Pulau Batu Utara	3
+12.14.31	Tanah Masa	3
+12.14.34	Ulu Idanotae	3
+12.14.35	Idanotae	3
+12.15.01	Sitelu Tali Urang Jehe	3
+12.15.02	Kerajaan	3
+12.15.03	Salak	3
+12.15.04	Sitelu Tali Urang Julu	3
+12.15.05	Pergetteng Getteng Sengkut	3
+12.15.06	Pagindar	3
+12.15.07	Tinada	3
+12.15.08	Siempat Rube	3
+12.16.01	Parlilitan	3
+12.16.02	Pollung	3
+12.16.03	Baktiraja	3
+12.16.04	Paranginan	3
+12.16.05	Lintong Nihuta	3
+12.16.06	Dolok Sanggul	3
+12.16.07	Sijamapolang	3
+12.16.08	Onan Ganjang	3
+12.16.09	Pakkat	3
+12.16.10	Tarabintang	3
+12.17.02	Onan Runggu	3
+12.17.03	Nainggolan	3
+12.17.04	Palipi	3
+12.17.05	Harian	3
+12.17.06	Sianjar Mula Mula	3
+12.17.07	Ronggur Nihuta	3
+12.17.08	Pangururan	3
+12.17.09	Sitio-tio	3
+12.18.02	Perbaungan	3
+12.18.03	Teluk Mengkudu	3
+12.18.04	Sei Rampah	3
+12.18.05	Tanjung Beringin	3
+12.18.06	Bandar Khalipah	3
+12.18.07	Dolok Merawan	3
+12.18.08	Sipispis	3
+12.18.09	Dolok Masihul	3
+12.18.11	Silinda	3
+12.18.12	Serba Jadi	3
+12.18.13	Tebing Tinggi	3
+12.18.14	Pegajahan	3
+12.18.15	Sei Bamban	3
+12.18.16	Tebing Syahbandar	3
+12.18.17	Bintang Bayu	3
+12.19.01	Medang Deras	3
+12.19.03	Air Putih	3
+12.19.04	Lima Puluh	3
+12.19.05	Talawi	3
+12.19.06	Tanjung Tiram	3
+12.19.07	Sei Balai	3
+12.19.08	Laut Tador	3
+12.19.09	Lima Puluh Pesisir	3
+12.19.10	Datuk Lima Puluh	3
+12.19.11	Datuk Tanah Datar	3
+12.19.12	Nibung Hangus	3
+12.20.02	Dolok	3
+12.20.03	Halongonan	3
+12.20.04	Padang Bolak	3
+12.20.05	Padang Bolak Julu	3
+12.20.06	Portibi	3
+12.20.08	Simangambat	3
+12.20.09	Hulu Sihapas	3
+12.20.10	Padang Bolak Tenggara	3
+12.20.11	Halongonan Timur	3
+12.20.12	Ujung Batu	3
+12.21.01	Sosopan	3
+12.21.02	Barumun Tengah	3
+12.21.03	Huristak	3
+12.21.04	Lubuk Barumun	3
+12.21.05	Huta Raja Tinggi	3
+12.21.06	Ulu Barumun	3
+12.21.07	Barumun	3
+12.21.08	Sosa	3
+12.21.09	Batang Lubu Sutam	3
+12.21.10	Barumun Selatan	3
+12.21.11	Aek Nabara Barumun	3
+12.21.12	Sihapas Barumun	3
+12.21.13	Barumun Baru	3
+12.21.14	Ulu Sosa	3
+12.21.15	Sosa Julu	3
+12.22.01	Kotapinang	3
+12.22.02	Kampung Rakyat	3
+12.22.03	Torgamba	3
+12.22.04	Sungai Kanan	3
+12.22.05	Silangkitang	3
+12.23.01	Kualuh Hulu	3
+12.23.02	Kualuh Leidong	3
+12.23.03	Kualuh Hilir	3
+12.23.04	Aek Kuo	3
+12.23.05	Marbau	3
+12.23.07	Aek Natas	3
+12.23.08	Kualuh Selatan	3
+12.24.01	Lotu	3
+12.24.02	Sawo	3
+12.24.03	Tuhemberua	3
+12.24.04	Sitolu Ori	3
+12.24.05	Namohalu Esiwa	3
+12.24.06	Alasa Talumuzoi	3
+12.24.07	Alasa	3
+12.24.08	Tugala Oyo	3
+12.24.09	Afulu	3
+12.24.10	Lahewa	3
+12.25.01	Lahomi	3
+12.25.02	Sirombu	3
+12.25.03	Mandrehe Barat	3
+12.25.04	Moro'o	3
+12.25.05	Mandrehe	3
+12.25.06	Mandrehe Utara	3
+12.25.07	Lolofitu Moi	3
+12.25.08	Ulu Moro'o	3
+12.71.01	Medan Kota	3
+12.71.02	Medan Sunggal	3
+12.71.03	Medan Helvetia	3
+12.71.04	Medan Denai	3
+12.71.05	Medan Barat	3
+12.71.06	Medan Deli	3
+12.71.07	Medan Tuntungan	3
+12.71.08	Medan Belawan	3
+12.71.09	Medan Amplas	3
+12.71.10	Medan Area	3
+12.71.11	Medan Johor	3
+12.71.12	Medan Marelan	3
+12.71.13	Medan Labuhan	3
+12.71.14	Medan Tembung	3
+12.71.15	Medan Maimun	3
+12.71.16	Medan Polonia	3
+12.71.17	Medan Baru	3
+12.71.18	Medan Perjuangan	3
+12.72.01	Siantar Timur	3
+12.72.02	Siantar Barat	3
+12.72.03	Siantar Utara	3
+12.72.04	Siantar Selatan	3
+12.72.05	Siantar Marihat	3
+12.72.06	Siantar Martoba	3
+12.72.07	Siantar Sitalasari	3
+12.72.08	Siantar Marimbun	3
+12.73.01	Sibolga Utara	3
+12.73.02	Sibolga Kota	3
+12.73.03	Sibolga Selatan	3
+12.73.04	Sibolga Sambas	3
+12.74.01	Tanjungbalai Selatan	3
+12.74.02	Tanjungbalai Utara	3
+12.74.03	Sei Tualang Raso	3
+12.74.04	Teluk Nibung	3
+12.74.05	Datuk Bandar	3
+12.75.03	Binjai Barat	3
+12.75.04	Binjai Timur	3
+12.75.05	Binjai Selatan	3
+12.76.01	Padang Hulu	3
+12.76.02	Rambutan	3
+12.76.03	Padang Hilir	3
+12.76.04	Bajenis	3
+12.76.05	Tebing Tinggi Kota	3
+12.77.01	Padangsidimpuan Utara	3
+12.77.02	Padangsidimpuan Selatan	3
+12.77.03	Padangsidimpuan Batunadua	3
+12.77.04	Padangsidimpuan Hutaimbaru	3
+12.77.06	Padangsidimpuan Angkola Julu	3
+12.78.01	Gunungsitoli	3
+12.78.02	Gunungsitoli Selatan	3
+12.78.03	Gunungsitoli Utara	3
+12.78.04	Gunungsitoli Idanoi	3
+12.78.05	Gunungsitoli Alo'oa	3
+12.78.06	Gunungsitoli Barat	3
+13.01.02	Ranah Pesisir	3
+13.01.03	Lengayang	3
+13.01.04	Batang Kapas	3
+13.01.05	IV Jurai	3
+13.01.06	Bayang	3
+13.01.07	Koto XI Tarusan	3
+13.01.08	Sutera	3
+13.01.09	Linggo Sari Baganti	3
+13.01.11	Basa Ampek Balai Tapan	3
+13.01.12	IV Nagari Bayang Utara	3
+13.01.13	Airpura	3
+13.01.14	Ranah Ampek Hulu Tapan	3
+13.01.15	Silaut	3
+13.02.03	Pantai Cermin	3
+13.02.04	Lembah Gumanti	3
+13.02.05	Payung Sekaki	3
+13.02.06	Lembang Jaya	3
+13.02.07	Gunung Talang	3
+13.02.08	Bukit Sundi	3
+13.02.09	IX Koto Sungai Lasi	3
+13.02.10	Kubung	3
+13.02.11	X Koto Singkarak	3
+13.02.12	X Koto Diatas	3
+13.02.17	Hiliran Gumanti	3
+13.02.18	Tigo Lurah	3
+13.02.19	Danau Kembar	3
+13.03.03	Tanjung Gadang	3
+13.03.04	Sijunjung	3
+13.03.05	IV Nagari	3
+13.03.06	Kamang Baru	3
+13.03.07	Lubuak Tarok	3
+13.03.08	Koto VII	3
+13.03.09	Sumpur Kudus	3
+13.03.10	Kupitan	3
+13.04.01	X Koto	3
+13.04.02	Batipuh	3
+13.04.03	Rambatan	3
+13.04.04	Lima Kaum	3
+13.04.05	Tanjung Emas	3
+13.04.06	Lintau Buo	3
+13.04.07	Sungayang	3
+13.04.08	Sungai Tarab	3
+13.04.11	Padang Ganting	3
+13.04.12	Tanjuang Baru	3
+13.04.13	Lintau Buo Utara	3
+13.04.14	Batipuah Selatan	3
+13.05.01	Lubuk Alung	3
+13.05.02	Batang Anai	3
+13.05.03	Nan Sabaris	3
+13.05.04	2 x 11 Enam Lingkuang	3
+13.05.05	VII Koto Sungai Sarik	3
+13.05.06	V Koto Kampung Dalam	3
+13.05.07	Sungai Garingging	3
+13.05.08	Sungai Limau	3
+13.05.09	IV Koto Aur Malintang	3
+13.05.10	Ulakan Tapakih	3
+13.05.11	Sintuak Toboh Gadang	3
+13.05.12	Padang Sago	3
+13.05.14	V Koto Timur	3
+13.05.15	2 x 11 Kayu Tanam	3
+13.05.16	Patamuan	3
+13.05.17	Enam Lingkung	3
+13.06.01	Tanjung Mutiara	3
+13.06.02	Lubuk Basung	3
+13.06.03	Tanjung Raya	3
+13.06.04	Matur	3
+13.06.05	IV Koto	3
+13.06.06	Banuhampu	3
+13.06.07	Ampek Angkek	3
+13.06.09	Tilatang Kamang	3
+13.06.10	Palupuh	3
+13.06.11	Palembayan	3
+13.06.12	Sungai Pua	3
+13.06.13	Ampek Nagari	3
+13.06.14	Candung	3
+13.06.15	Kamang Magek	3
+13.06.16	Malalak	3
+13.07.01	Suliki	3
+13.07.03	Payakumbuh	3
+13.07.04	Luak	3
+13.07.05	Harau	3
+13.07.06	Pangkalan Koto Baru	3
+13.07.07	Kapur IX	3
+13.07.08	Gunuang Omeh	3
+13.07.09	Lareh Sago Halaban	3
+13.07.10	Situjuah Limo Nagari	3
+13.07.11	Mungka	3
+13.07.12	Bukik Barisan	3
+13.07.13	Akabiluru	3
+13.08.04	Bonjol	3
+13.08.05	Lubuk Sikaping	3
+13.08.07	Panti	3
+13.08.08	Mapat Tunggul	3
+13.08.12	Duo Koto	3
+13.08.13	Tigo Nagari	3
+13.08.14	Rao	3
+13.08.15	Mapat Tunggul Selatan	3
+13.08.18	Rao Utara	3
+13.08.19	Rao Selatan	3
+13.09.01	Pagai Utara	3
+13.09.02	Sipora Selatan	3
+13.09.03	Siberut Selatan	3
+13.09.04	Siberut Utara	3
+13.09.05	Siberut Barat	3
+13.09.06	Siberut Barat Daya	3
+13.09.07	Siberut Tengah	3
+13.09.08	Sipora Utara	3
+13.09.09	Sikakap	3
+13.09.10	Pagai Selatan	3
+13.10.01	Koto Baru	3
+13.10.02	Pulau Punjung	3
+13.10.03	Sungai Rumbai	3
+13.10.04	Sitiung	3
+13.10.05	Sembilan Koto	3
+13.10.06	Timpeh	3
+13.10.07	Koto Salak	3
+13.10.08	Tiumang	3
+13.10.09	Padang Laweh	3
+13.10.10	Asam Jujuhan	3
+13.10.11	Koto Besar	3
+13.11.01	Sangir	3
+13.11.03	Koto Parik Gadang Diateh	3
+13.11.04	Sangir Jujuan	3
+13.11.05	Sangir Batang Hari	3
+13.11.06	Pauh Duo	3
+13.11.07	Sangir Balai Janggo	3
+13.12.01	Sungaiberemas	3
+13.12.02	Lembah Melintang	3
+13.12.03	Pasaman	3
+13.12.04	Talamau	3
+13.12.05	Kinali	3
+13.12.06	Gunungtuleh	3
+13.12.07	Ranah Batahan	3
+13.12.08	Koto Balingka	3
+13.12.09	Sungaiaur	3
+13.12.10	Luhak Nan Duo	3
+13.71.02	Padang Timur	3
+13.71.03	Padang Barat	3
+13.71.04	Padang Utara	3
+13.71.05	Bungus Teluk Kabung	3
+13.71.06	Lubuk Begalung	3
+13.71.07	Lubuk Kilangan	3
+13.71.08	Pauh	3
+13.71.09	Kuranji	3
+13.71.10	Nanggalo	3
+13.71.11	Koto Tangah	3
+13.72.01	Lubuk Sikarah	3
+13.72.02	Tanjung Harapan	3
+13.73.04	Talawi	3
+13.74.01	Padang Panjang Timur	3
+13.74.02	Padang Panjang Barat	3
+13.75.01	Guguak Panjang	3
+13.75.02	Mandiangin Koto Selayan	3
+13.75.03	Aur Birugo Tigo Baleh	3
+13.76.01	Payakumbuh Barat	3
+13.76.02	Payakumbuh Utara	3
+13.76.03	Payakumbuh Timur	3
+13.76.04	Lamposi Tigo Nagori	3
+13.77.02	Pariaman Utara	3
+13.77.03	Pariaman Selatan	3
+13.77.04	Pariaman Timur	3
+14.01.01	Bangkinang Kota	3
+14.01.02	Kampar	3
+14.01.03	Tambang	3
+14.01.04	XIII Koto Kampar	3
+14.01.05	Kuok	3
+14.01.06	Siak Hulu	3
+14.01.07	Kampar Kiri	3
+14.01.08	Kampar Kiri Hilir	3
+14.01.09	Kampar Kiri Hulu	3
+14.01.10	Tapung	3
+14.01.11	Tapung Hilir	3
+14.01.12	Tapung Hulu	3
+14.01.14	Rumbio Jaya	3
+14.01.15	Bangkinang	3
+14.01.16	Perhentian Raja	3
+14.01.17	Kampa	3
+14.01.18	Kampar Utara	3
+14.01.19	Kampar Kiri Tengah	3
+14.01.20	Gunung Sahilan	3
+14.01.21	Koto Kampar Hulu	3
+14.02.01	Rengat	3
+14.02.02	Rengat Barat	3
+14.02.03	Kelayang	3
+14.02.04	Pasir Penyu	3
+14.02.05	Peranap	3
+14.02.06	Siberida	3
+14.02.07	Batang Cenaku	3
+14.02.08	Batang Gangsal	3
+14.02.09	Lirik	3
+14.02.10	Kuala Cenaku	3
+14.02.11	Sungai Lala	3
+14.02.12	Lubuk Batu Jaya	3
+14.02.13	Rakit Kulim	3
+14.03.01	Bengkalis	3
+14.03.02	Bantan	3
+14.03.03	Bukit Batu	3
+14.03.09	Mandau	3
+14.03.10	Rupat	3
+14.03.11	Rupat Utara	3
+14.03.12	Siak Kecil	3
+14.03.14	Bandar Laksamana	3
+14.03.15	Talang Muandau	3
+14.03.16	Bathin Solapan	3
+14.04.01	Reteh	3
+14.04.02	Enok	3
+14.04.03	Kuala Indragiri	3
+14.04.04	Tembilahan	3
+14.04.05	Tempuling	3
+14.04.06	Gaung Anak Serka	3
+14.04.07	Mandah	3
+14.04.08	Kateman	3
+14.04.09	Keritang	3
+14.04.10	Tanah Merah	3
+14.04.11	Batang Tuaka	3
+14.04.12	Gaung	3
+14.04.13	Tembilahan Hulu	3
+14.04.14	Kemuning	3
+14.04.15	Pelangiran	3
+14.04.16	Teluk Belengkong	3
+14.04.17	Pulau Burung	3
+14.04.18	Concong	3
+14.04.19	Kempas	3
+14.04.20	Sungai Batang	3
+14.05.02	Pangkalan Kerinci	3
+14.05.03	Pangkalan Kuras	3
+14.05.04	Pangkalan Lesung	3
+14.05.05	Langgam	3
+14.05.06	Pelalawan	3
+14.05.07	Kerumutan	3
+14.05.08	Bunut	3
+14.05.09	Teluk Meranti	3
+14.05.10	Kuala Kampar	3
+14.05.11	Bandar Sei Kijang	3
+14.05.12	Bandar Petalangan	3
+14.06.02	Rokan IV Koto	3
+14.06.03	Rambah	3
+14.06.04	Tambusai	3
+14.06.05	Kepenuhan	3
+14.06.06	Kunto Darussalam	3
+14.06.07	Rambah Samo	3
+14.06.08	Rambah Hilir	3
+14.06.09	Tambusai Utara	3
+14.06.10	Bangun Purba	3
+14.06.11	Tandun	3
+14.06.13	Bonai Darussalam	3
+14.06.14	Pagaran Tapah Darussalam	3
+14.06.15	Kepenuhan Hulu	3
+14.06.16	Pendalian IV Koto	3
+14.07.01	Kubu	3
+14.07.02	Bangko	3
+14.07.03	Tanah Putih	3
+14.07.04	Rimba Melintang	3
+14.07.05	Bagan Sinembah	3
+14.07.06	Pasir Limau Kapas	3
+14.07.07	Sinaboi	3
+14.07.08	Pujud	3
+14.07.09	Tanah Putih Tanjung Melawan	3
+14.07.11	Simpang Kanan	3
+14.07.12	Batu Hampar	3
+14.07.13	Rantau Kopar	3
+14.07.14	Pekaitan	3
+14.07.15	Kubu Babussalam	3
+14.07.16	Tanjung Medan	3
+14.07.17	Bagan Sinembah Raya	3
+14.07.18	Balai Jaya	3
+14.08.01	Siak	3
+14.08.02	Sungai Apit	3
+14.08.03	Minas	3
+14.08.04	Tualang	3
+14.08.06	Dayun	3
+14.08.07	Kerinci Kanan	3
+14.08.08	Bunga Raya	3
+14.08.09	Koto Gasib	3
+14.08.10	Kandis	3
+14.08.11	Lubuk Dalam	3
+14.08.12	Sabak Auh	3
+14.08.13	Mempura	3
+14.08.14	Pusako	3
+14.09.01	Kuantan Mudik	3
+14.09.02	Kuantan Tengah	3
+14.09.03	Singingi	3
+14.09.04	Kuantan Hilir	3
+14.09.05	Cerenti	3
+14.09.06	Benai	3
+14.09.07	Gunungtoar	3
+14.09.08	Singingi Hilir	3
+14.09.09	Pangean	3
+14.09.10	Logas Tanah Darat	3
+14.09.11	Inuman	3
+14.09.13	Kuantan Hilir Seberang	3
+14.09.14	Sentajo Raya	3
+14.09.15	Pucuk Rantau	3
+14.10.01	Tebing Tinggi	3
+14.10.02	Rangsang Barat	3
+14.10.03	Rangsang	3
+14.10.04	Tebing Tinggi Barat	3
+14.10.05	Merbau	3
+14.10.06	Pulaumerbau	3
+14.10.08	Tasik Putri Puyu	3
+14.10.09	Rangsang Pesisir	3
+14.71.01	Sukajadi	3
+14.71.02	Pekanbaru Kota	3
+14.71.03	Sail	3
+14.71.04	Lima Puluh	3
+14.71.05	Senapelan	3
+14.71.06	Rumbai Barat	3
+14.71.07	Bukit Raya	3
+14.71.08	Binawidya	3
+14.71.09	Marpoyan Damai	3
+14.71.10	Tenayan Raya	3
+14.71.11	Payung Sekaki	3
+14.71.12	Rumbai	3
+14.71.13	Tuahmadani	3
+14.71.14	Kulim	3
+14.71.15	Rumbai Timur	3
+14.72.01	Dumai Barat	3
+14.72.02	Dumai Timur	3
+14.72.04	Sungai Sembilan	3
+14.72.05	Medang Kampai	3
+14.72.06	Dumai Kota	3
+14.72.07	Dumai Selatan	3
+15.01.01	Gunung Raya	3
+15.01.02	Danau Kerinci	3
+15.01.04	Sitinjau Laut	3
+15.01.05	Air Hangat	3
+15.01.06	Gunung Kerinci	3
+15.01.07	Batang Merangin	3
+15.01.08	Keliling Danau	3
+15.01.09	Kayu Aro	3
+15.01.11	Air Hangat Timur	3
+15.01.15	Gunung Tujuh	3
+15.01.16	Siulak	3
+15.01.17	Depati Tujuh	3
+15.01.18	Siulak Mukai	3
+15.01.19	Kayu Aro Barat	3
+15.01.21	Air Hangat Barat	3
+15.01.22	Tanah Cogok	3
+15.01.23	Danau Kerinci Barat	3
+15.02.01	Jangkat	3
+15.02.02	Bangko	3
+15.02.03	Muara Siau	3
+15.02.04	Sungai Manau	3
+15.02.05	Tabir	3
+15.02.06	Pamenang	3
+15.02.07	Tabir Ulu	3
+15.02.08	Tabir Selatan	3
+15.02.09	Lembah Masurai	3
+15.02.10	Bangko Barat	3
+15.02.11	Nalo Tantan	3
+15.02.12	Batang Masumai	3
+15.02.13	Pamenang Barat	3
+15.02.14	Tabir Ilir	3
+15.02.15	Tabir Timur	3
+15.02.16	Renah Pembarap	3
+15.02.17	Pangkalan Jambu	3
+15.02.18	Jangkat Timur	3
+15.02.19	Renah Pamenang	3
+15.02.20	Pamenang Selatan	3
+15.02.21	Margo Tabir	3
+15.02.23	Tabir Barat	3
+15.02.24	Tiang Pumpung	3
+15.03.01	Batang Asai	3
+15.03.02	Limun	3
+15.03.03	Sarolangun	3
+15.03.04	Pauh	3
+15.03.05	Pelawan	3
+15.03.06	Mandiangin	3
+15.03.07	Air Hitam	3
+15.03.09	Singkut	3
+15.03.10	Cermin Nan Gedang	3
+15.03.11	Mandiangin Timur	3
+15.04.01	Mersam	3
+15.04.02	Muara Tembesi	3
+15.04.03	Muara Bulian	3
+15.04.04	Batin XXIV	3
+15.04.05	Pemayung	3
+15.04.07	Bajubang	3
+15.04.08	Maro Sebo Ilir	3
+15.05.01	Jambi Luar Kota	3
+15.05.02	Sekernan	3
+15.05.03	Kumpeh	3
+15.05.04	Maro Sebo	3
+15.05.05	Mestong	3
+15.05.06	Kumpeh Ulu	3
+15.05.08	Sungai Gelam	3
+15.05.09	Bahar Utara	3
+15.05.10	Bahar Selatan	3
+15.05.11	Taman Rajo	3
+15.06.01	Tungkal Ulu	3
+15.06.02	Tungkal Ilir	3
+15.06.03	Pengabuan	3
+15.06.04	Betara	3
+15.06.05	Merlung	3
+15.06.06	Tebing Tinggi	3
+15.06.08	Renah Mendaluh	3
+15.06.09	Muara Papalik	3
+15.06.10	Seberang Kota	3
+15.06.11	Bram Itam	3
+15.06.12	Kuala Betara	3
+15.06.13	Senyerang	3
+15.07.01	Muara Sabak Timur	3
+15.07.02	Nipah Panjang	3
+15.07.03	Mendahara	3
+15.07.04	Rantau Rasau	3
+15.07.05	S a d u	3
+15.07.06	Dendang	3
+15.07.08	Kuala Jambi	3
+15.07.09	Mendahara Ulu	3
+15.07.10	Geragai	3
+15.07.11	Berbak	3
+15.08.01	Tanah Tumbuh	3
+15.08.02	Rantau Pandan	3
+15.08.03	Pasar Muaro Bungo	3
+15.08.04	Jujuhan	3
+15.08.05	Tanah Sepenggal	3
+15.08.06	Pelepat	3
+15.08.07	Limbur Lubuk Mengkuang	3
+15.08.08	Muko-muko Bathin VII	3
+15.08.09	Pelepat Ilir	3
+15.08.10	Batin II Babeko	3
+15.08.11	Bathin III	3
+15.08.12	Bungo Dani	3
+15.08.13	Rimbo Tengah	3
+15.08.14	Bathin III Ulu	3
+15.08.15	Bathin II Pelayang	3
+15.08.16	Jujuhan Ilir	3
+15.08.17	Tanah Sepenggal Lintas	3
+15.09.01	Tebo Tengah	3
+15.09.02	Tebo Ilir	3
+15.09.03	Tebo Ulu	3
+15.09.04	Rimbo Bujang	3
+15.09.05	Sumay	3
+15.09.07	Rimbo Ulu	3
+15.09.08	Rimbo Ilir	3
+15.09.09	Tengah Ilir	3
+15.09.10	Serai Serumpun	3
+15.09.11	VII Koto Ilir	3
+15.09.12	Muara Tabir	3
+15.71.01	Telanaipura	3
+15.71.02	Jambi Selatan	3
+15.71.03	Jambi Timur	3
+15.71.04	Pasar Jambi	3
+15.71.05	Pelayangan	3
+15.71.06	Danau Teluk	3
+15.71.07	Kota Baru	3
+15.71.08	Jelutung	3
+15.71.09	Alam Barajo	3
+15.72.01	Sungai Penuh	3
+15.72.02	Pesisir Bukit	3
+15.72.03	Hamparan Rawang	3
+15.72.04	Tanah Kampung	3
+15.72.05	Kumun Debai	3
+15.72.06	Pondok Tinggi	3
+15.72.07	Koto Baru	3
+15.72.08	Sungai Bungkal	3
+16.01.07	Sosoh Buay Rayap	3
+16.01.08	Pengandonan	3
+16.01.09	Peninjauan	3
+16.01.13	Baturaja Barat	3
+16.01.20	Ulu Ogan	3
+16.01.21	Semidang Aji	3
+16.01.22	Lubuk Batang	3
+16.01.28	Lengkiti	3
+16.01.29	Sinar Peninjauan	3
+16.01.30	Lubuk Raja	3
+16.01.31	Muara Jaya	3
+16.01.32	Kedaton Peninjauan Raya	3
+16.02.02	Tanjung Lubuk	3
+16.02.03	Pedamaran	3
+16.02.04	Mesuji	3
+16.02.05	Kayu Agung	3
+16.02.08	Sirah Pulau Padang	3
+16.02.11	Tulung Selapan	3
+16.02.12	Pampangan	3
+16.02.13	Lempuing	3
+16.02.14	Air Sugihan	3
+16.02.15	Sungai Menang	3
+16.02.17	Jejawi	3
+16.02.18	Cengal	3
+16.02.19	Pangkalan Lampam	3
+16.02.20	Mesuji Makmur	3
+16.02.21	Mesuji Raya	3
+16.02.23	Teluk Gelam	3
+16.02.24	Pedamaran Timur	3
+16.03.01	Tanjung Agung	3
+16.03.02	Muara Enim	3
+16.03.03	Rambang Niru	3
+16.03.04	Gunung Megang	3
+16.03.06	Gelumbang	3
+16.03.07	Lawang Kidul	3
+16.03.08	Semende Darat Laut	3
+16.03.09	Semende Darat Tengah	3
+16.03.10	Semende Darat Ulu	3
+16.03.11	Ujan Mas	3
+16.03.14	Lubai	3
+16.03.15	Rambang	3
+16.03.16	Sungai Rotan	3
+16.03.17	Lembak	3
+16.03.19	Benakat	3
+16.03.21	Kelekar	3
+16.03.22	Muara Belida	3
+16.03.23	Belimbing	3
+16.03.24	Belida Darat	3
+16.03.26	Empat Petulai Dangku	3
+16.03.27	Panang Enim	3
+16.04.01	Tanjungsakti Pumu	3
+16.04.06	Jarai	3
+16.04.07	Kota Agung	3
+16.04.08	Pulaupinang	3
+16.04.09	Merapi Barat	3
+16.04.10	Lahat	3
+16.04.15	Mulak Ulu	3
+16.04.16	Kikim Selatan	3
+16.04.17	Kikim Timur	3
+16.04.18	Kikim Tengah	3
+16.04.19	Kikim Barat	3
+16.04.20	Pseksu	3
+16.04.21	Gumay Talang	3
+16.04.22	Pagar Gunung	3
+16.04.23	Merapi Timur	3
+16.04.24	Tanjung Sakti Pumi	3
+16.04.25	Gumay Ulu	3
+16.04.26	Merapi Selatan	3
+16.04.27	Tanjungtebat	3
+16.04.28	Muarapayang	3
+16.04.29	Sukamerindu	3
+16.04.31	Lahat Selatan	3
+16.05.01	Tugumulyo	3
+16.05.02	Muara Lakitan	3
+16.05.03	Muara Kelingi	3
+16.05.08	Jayaloka	3
+16.05.09	Muara Beliti	3
+16.05.10	STL Ulu Terawas	3
+16.05.11	Selangit	3
+16.05.12	Megang Sakti	3
+16.05.14	BTS. Ulu	3
+16.05.18	Tiang Pumpung Kepungut	3
+16.05.19	Sumber Harta	3
+16.05.20	Tuah Negeri	3
+16.05.21	Suka Karya	3
+16.06.01	Sekayu	3
+16.06.03	Sungai Keruh	3
+16.06.04	Batang Hari Leko	3
+16.06.05	Sanga Desa	3
+16.06.06	Babat Toman	3
+16.06.07	Sungai Lilin	3
+16.06.08	Keluang	3
+16.06.09	Bayung Lencir	3
+16.06.10	Plakat Tinggi	3
+16.06.11	Lalan	3
+16.06.13	Lawang Wetan	3
+16.06.14	Babat Supat	3
+16.06.15	Jirak Jaya	3
+16.07.01	Banyuasin I	3
+16.07.02	Banyuasin II	3
+16.07.03	Banyuasin III	3
+16.07.04	Pulau Rimau	3
+16.07.05	Betung	3
+16.07.06	Rambutan	3
+16.07.07	Muara Padang	3
+16.07.08	Muara Telang	3
+16.07.09	Makarti Jaya	3
+16.07.10	Talang Kelapa	3
+16.07.11	Rantau Bayur	3
+16.07.12	Tanjung Lago	3
+16.07.13	Muara Sugihan	3
+16.07.16	Suak Tapeh	3
+16.07.17	Sembawa	3
+16.07.18	Sumber Marga Telang	3
+16.07.19	Air Kumbang	3
+16.07.20	Karangagung Ilir	3
+16.07.21	Selat Panuguan	3
+16.08.01	Martapura	3
+16.08.02	Buay Madang	3
+16.08.03	Belitang	3
+16.08.04	Cempaka	3
+16.08.05	Buay Pemuka Peliung	3
+16.08.06	Madang Suku II	3
+16.08.07	Madang Suku I	3
+16.08.08	Semendawai Suku III	3
+16.08.09	Belitang II	3
+16.08.10	Belitang III	3
+16.08.11	Bunga Mayang	3
+16.08.12	Buay Madang Timur	3
+16.08.13	Madang Suku III	3
+16.08.14	Semendawai Barat	3
+16.08.15	Semendawai Timur	3
+16.08.16	Jayapura	3
+16.08.17	Belitang Jaya	3
+16.08.18	Belitang Madang Raya	3
+16.08.20	Buay Pemuka Bangsa Raja	3
+16.09.01	Muara Dua	3
+16.09.02	Pulau Beringin	3
+16.09.03	Banding Agung	3
+16.09.04	Muara Dua Kisam	3
+16.09.05	Simpang	3
+16.09.06	Buay Sandang Aji	3
+16.09.07	Buay Runjung	3
+16.09.08	Mekakau Ilir	3
+16.09.09	Buay Pemaca	3
+16.09.10	Kisam Tinggi	3
+16.09.11	Kisam Ilir	3
+16.09.12	Buay Pematang Ribu Ranau Tengah	3
+16.09.13	Warkuk Ranau Selatan	3
+16.09.14	Runjung Agung	3
+16.09.15	Sungai Are	3
+16.09.16	Sindang Danau	3
+16.09.18	Tiga Dihaji	3
+16.09.19	Buay Rawan	3
+16.10.01	Muara Kuang	3
+16.10.02	Tanjung Batu	3
+16.10.03	Tanjung Raja	3
+16.10.04	Indralaya	3
+16.10.05	Pemulutan	3
+16.10.06	Rantau Alai	3
+16.10.07	Indralaya Utara	3
+16.10.08	Indralaya Selatan	3
+16.10.09	Pemulutan Selatan	3
+16.10.10	Pemulutan Barat	3
+16.10.11	Rantau Panjang	3
+16.10.12	Sungai Pinang	3
+16.10.13	Kandis	3
+16.10.14	Rambang Kuang	3
+16.10.15	Lubuk Keliat	3
+16.10.16	Payaraman	3
+16.11.02	Pendopo	3
+16.11.03	Ulu Musi	3
+16.11.04	Tebing Tinggi	3
+16.11.05	Lintang Kanan	3
+16.11.06	Talang Padang	3
+16.11.07	Pasemah Air Keruh	3
+16.11.10	Pendopo Barat	3
+16.12.01	Talang Ubi	3
+16.12.02	Penukal Utara	3
+16.12.03	Penukal	3
+16.12.05	Tanah Abang	3
+16.13.01	Rupit	3
+16.13.02	Rawas Ulu	3
+16.13.04	Rawas Ilir	3
+16.13.05	Karang Dapo	3
+16.13.06	Karang Jaya	3
+16.13.07	Ulu Rawas	3
+16.71.01	Ilir Barat II	3
+16.71.02	Seberang Ulu I	3
+16.71.03	Seberang Ulu II	3
+16.71.04	Ilir Barat I	3
+16.71.05	Ilir Timur I	3
+16.71.06	Ilir Timur II	3
+16.71.07	Sukarami	3
+16.71.08	Sako	3
+16.71.09	Kemuning	3
+16.71.10	Kalidoni	3
+16.71.11	Bukit Kecil	3
+16.71.14	Plaju	3
+16.71.15	Alang-alang Lebar	3
+16.71.16	Sematang Borang	3
+16.71.17	Jakabaring	3
+16.71.18	Ilir Timur Tiga	3
+16.72.01	Pagar Alam Utara	3
+16.72.02	Pagar Alam Selatan	3
+16.72.03	Dempo Utara	3
+16.72.04	Dempo Selatan	3
+16.72.05	Dempo Tengah	3
+16.73.01	Lubuk Linggau Timur I	3
+16.73.02	Lubuk Linggau Barat I	3
+16.73.03	Lubuk Linggau Selatan I	3
+16.73.04	Lubuk Linggau Utara I	3
+16.73.05	Lubuk Linggau Timur II	3
+16.73.06	Lubuk Linggau Barat II	3
+16.73.08	Lubuk Linggau Utara II	3
+16.74.01	Prabumulih Barat	3
+16.74.02	Prabumulih Timur	3
+16.74.04	Rambang Kapak Tengah	3
+16.74.05	Prabumulih Utara	3
+16.74.06	Prabumulih Selatan	3
+17.01.01	Kedurang	3
+17.01.02	Seginim	3
+17.01.03	Pino	3
+17.01.05	Kota Manna	3
+17.01.06	Pino Raya	3
+17.01.07	Kedurang Ilir	3
+17.01.08	Air Nipis	3
+17.01.09	Ulu Manna	3
+17.01.10	Bunga Mas	3
+17.01.11	Pasar Manna	3
+17.02.06	Kota Padang	3
+17.02.07	Padang Ulak Tanding	3
+17.02.08	Sindang Kelingi	3
+17.02.09	Curup	3
+17.02.10	Bermani Ulu	3
+17.02.11	Selupu Rejang	3
+17.02.16	Curup Utara	3
+17.02.17	Curup Timur	3
+17.02.18	Curup Selatan	3
+17.02.19	Curup Tengah	3
+17.02.20	Binduriang	3
+17.02.21	Sindang Beliti Ulu	3
+17.02.22	Sindang Dataran	3
+17.02.23	Sindang Beliti Ilir	3
+17.02.24	Bermani Ulu Raya	3
+17.03.06	Kerkap	3
+17.03.07	Kota Arga Makmur	3
+17.03.08	Giri Mulya	3
+17.03.09	Padang Jaya	3
+17.03.10	Lais	3
+17.03.11	Batik Nau	3
+17.03.12	Ketahun	3
+17.03.13	Napal Putih	3
+17.03.14	Putri Hijau	3
+17.03.15	Air Besi	3
+17.03.19	Hulu Palik	3
+17.03.20	Air Padang	3
+17.03.21	Arma Jaya	3
+17.03.22	Tanjung Agung Palik	3
+17.03.23	Ulok Kupai	3
+17.03.24	Pinang Raya	3
+17.03.25	Marga Sakti Sebelat	3
+17.04.01	Kinal	3
+17.04.02	Tanjung Kemuning	3
+17.04.03	Kaur Utara	3
+17.04.04	Kaur Tengah	3
+17.04.05	Kaur Selatan	3
+17.04.06	Maje	3
+17.04.07	Nasal	3
+17.04.08	Semidang Gumay	3
+17.04.09	Kelam Tengah	3
+17.04.10	Luas	3
+17.04.11	Muara Sahung	3
+17.04.12	Tetap	3
+17.04.13	Lungkang Kule	3
+17.04.15	Padang Guci Hulu	3
+17.05.01	Sukaraja	3
+17.05.02	Seluma	3
+17.05.03	Talo	3
+17.05.04	Semidang Alas	3
+17.05.05	Semidang Alas Maras	3
+17.05.06	Air Periukan	3
+17.05.08	Seluma Barat	3
+17.05.09	Seluma Timur	3
+17.05.10	Seluma Utara	3
+17.05.11	Seluma Selatan	3
+17.05.12	Talo Kecil	3
+17.05.13	Ulu Talo	3
+17.05.14	Ilir Talo	3
+17.06.01	Lubuk Pinang	3
+17.06.02	Kota Mukomuko	3
+17.06.03	Teras Terunjam	3
+17.06.04	Pondok Suguh	3
+17.06.06	Malin Deman	3
+17.06.07	Air Rami	3
+17.06.08	Teramang Jaya	3
+17.06.09	Selagan Raya	3
+17.06.10	Penarik	3
+17.06.11	XIV Koto	3
+17.06.12	V Koto	3
+17.06.13	Air Majunto	3
+17.06.14	Air Dikit	3
+17.06.15	Sungai Rumbai	3
+17.07.01	Lebong Utara	3
+17.07.03	Lebong Tengah	3
+17.07.04	Lebong Selatan	3
+17.07.05	Rimbo Pengadang	3
+17.07.06	Topos	3
+17.07.07	Bingin Kuning	3
+17.07.08	Lebong Sakti	3
+17.07.09	Pelabai	3
+17.07.10	Amen	3
+17.07.11	Uram Jaya	3
+17.07.12	Pinang Belapis	3
+17.08.01	Bermani Ilir	3
+17.08.02	Ujan Mas	3
+17.08.04	Kepahiang	3
+17.08.05	Merigi	3
+17.08.06	Kebawetan	3
+17.08.07	Seberang Musi	3
+17.08.08	Muara Kemumu	3
+17.09.01	Karang Tinggi	3
+17.09.02	Talang Empat	3
+17.09.03	Pondok Kelapa	3
+17.09.04	Pematang Tiga	3
+17.09.06	Taba Penanjung	3
+17.09.07	Merigi Kelindang	3
+17.09.08	Merigi Sakti	3
+17.09.09	Pondok Kubang	3
+17.09.10	Bang Haji	3
+17.09.11	Semidang Lagan	3
+17.71.01	Selebar	3
+17.71.02	Gading Cempaka	3
+17.71.03	Teluk Segara	3
+17.71.04	Muara Bangka Hulu	3
+17.71.06	Ratu Agung	3
+17.71.07	Ratu Samban	3
+17.71.08	Sungai Serut	3
+17.71.09	Singaran Pati	3
+18.01.04	Natar	3
+18.01.05	Tanjung Bintang	3
+18.01.06	Kalianda	3
+18.01.07	Sidomulyo	3
+18.01.08	Katibung	3
+18.01.09	Penengahan	3
+18.01.10	Palas	3
+18.01.13	Jati Agung	3
+18.01.14	Ketapang	3
+18.01.15	Sragi	3
+18.01.16	Raja Basa	3
+18.01.17	Candipuro	3
+18.01.18	Merbau Mataram	3
+18.01.22	Tanjung Sari	3
+18.01.23	Way Sulan	3
+18.01.24	Way Panji	3
+18.02.01	Kalirejo	3
+18.02.02	Bangun Rejo	3
+18.02.03	Padang Ratu	3
+18.02.04	Gunung Sugih	3
+18.02.05	Trimurjo	3
+18.02.06	Punggur	3
+18.02.07	Terbanggi Besar	3
+18.02.08	Seputih Raman	3
+18.02.10	Seputih Banyak	3
+18.02.11	Seputih Mataram	3
+18.02.12	Seputih Surabaya	3
+18.02.13	Terusan Nunyai	3
+18.02.14	Bumi Ratu Nuban	3
+18.02.15	Bekri	3
+18.02.16	Seputih Agung	3
+18.02.17	Way Pangubuan	3
+18.02.18	Bandar Mataram	3
+18.02.19	Pubian	3
+18.02.21	Anak Tuha	3
+18.02.22	Sendang Agung	3
+18.02.23	Kota Gajah	3
+18.02.24	Bumi Nabung	3
+18.02.25	Way Seputih	3
+18.02.26	Bandar Surabaya	3
+18.02.27	Anak Ratu Aji	3
+18.02.28	Putra Rumbia	3
+18.03.01	Bukit Kemuning	3
+18.03.02	Kotabumi	3
+18.03.03	Sungkai Selatan	3
+18.03.04	Tanjung Raja	3
+18.03.05	Abung Timur	3
+18.03.06	Abung Barat	3
+18.03.07	Abung Selatan	3
+18.03.08	Sungkai Utara	3
+18.03.09	Kotabumi Utara	3
+18.03.10	Kotabumi Selatan	3
+18.03.11	Abung Tengah	3
+18.03.12	Abung Tinggi	3
+18.03.13	Abung Semuli	3
+18.03.14	Abung Surakarta	3
+18.03.15	Muara Sungkai	3
+18.03.17	Hulu Sungkai	3
+18.03.18	Sungkai Tengah	3
+18.03.19	Abung Pekurun	3
+18.03.20	Sungkai Jaya	3
+18.03.21	Sungkai Barat	3
+18.03.22	Abung Kunang	3
+18.03.23	Blambangan Pagar	3
+18.04.04	Balik Bukit	3
+18.04.05	Sumber Jaya	3
+18.04.06	Belalau	3
+18.04.07	Way Tenong	3
+18.04.08	Sekincau	3
+18.04.09	Suoh	3
+18.04.10	Batu Brak	3
+18.04.15	Gedung Surian	3
+18.04.18	Kebun Tebu	3
+18.04.19	Air Hitam	3
+18.04.20	Pagar Dewa	3
+18.04.21	Batu Ketulis	3
+18.04.22	Lumbok Seminung	3
+18.04.23	Bandar Negeri Suoh	3
+18.05.02	Menggala	3
+18.05.06	Gedung Aji	3
+18.05.08	Banjar Agung	3
+18.05.11	Gedung Meneng	3
+18.05.12	Rawa Jitu Selatan	3
+18.05.18	Rawa Jitu Timur	3
+18.05.20	Banjar Margo	3
+18.05.22	Rawa Pitu	3
+18.05.23	Penawar Aji	3
+18.05.25	Dente Teladas	3
+18.05.26	Meraksa Aji	3
+18.05.27	Gedung Aji Baru	3
+18.05.29	Banjar Baru	3
+18.05.30	Menggala Timur	3
+18.06.01	Kota Agung	3
+18.06.02	Talang Padang	3
+18.06.03	Wonosobo	3
+18.06.04	Pulau Panggung	3
+18.06.09	Cukuh Balak	3
+18.06.11	Pugung	3
+18.06.12	Semaka	3
+18.06.13	Sumberejo	3
+18.06.15	Ulu Belu	3
+18.06.16	Pematang Sawa	3
+18.06.17	Kelumbayan	3
+18.06.18	Kota Agung Barat	3
+18.06.19	Kota Agung Timur	3
+18.06.20	Gisting	3
+18.06.21	Gunung Alip	3
+18.06.24	Limau	3
+18.06.25	Bandar Negeri Semuong	3
+18.06.26	Air Naningan	3
+18.06.27	Bulok	3
+18.06.28	Klumbayan Barat	3
+18.07.02	Labuhan Maringgai	3
+18.07.03	Jabung	3
+18.07.04	Pekalongan	3
+18.07.05	Sekampung	3
+18.07.06	Batanghari	3
+18.07.07	Way Jepara	3
+18.07.08	Purbolinggo	3
+18.07.09	Raman Utara	3
+18.07.10	Metro Kibang	3
+18.07.11	Marga Tiga	3
+18.07.12	Sekampung Udik	3
+18.07.13	Batanghari Nuban	3
+18.07.14	Bumi Agung	3
+18.07.15	Bandar Sribhawono	3
+18.07.16	Mataram Baru	3
+18.07.17	Melinting	3
+18.07.18	Gunung Pelindung	3
+18.07.19	Pasir Sakti	3
+18.07.20	Waway Karya	3
+18.07.21	Labuhan Ratu	3
+18.07.22	Braja Selebah	3
+18.07.24	Marga Sekampung	3
+18.08.01	Blambangan Umpu	3
+18.08.02	Kasui	3
+18.08.03	Banjit	3
+18.08.04	Baradatu	3
+18.08.05	Bahuga	3
+18.08.06	Pakuan Ratu	3
+18.08.07	Negeri Agung	3
+18.08.09	Rebang Tangkas	3
+18.08.10	Gunung Labuhan	3
+18.08.11	Negara Batin	3
+18.08.12	Negeri Besar	3
+18.08.13	Buay Bahuga	3
+18.08.14	Bumi Agung	3
+18.08.15	Umpu Semenguk	3
+18.09.01	Gedong Tataan	3
+18.09.03	Tegineneng	3
+18.09.04	Way Lima	3
+18.09.05	Padang Cermin	3
+18.09.06	Punduh Pidada	3
+18.09.07	Kedondong	3
+18.09.08	Marga Punduh	3
+18.09.09	Way Khilau	3
+18.09.10	Teluk Pandan	3
+18.09.11	Way Ratai	3
+18.10.01	Pringsewu	3
+18.10.02	Gading Rejo	3
+18.10.03	Ambarawa	3
+18.10.04	Pardasuka	3
+18.10.05	Pagelaran	3
+18.10.06	Banyumas	3
+18.10.07	Adiluwih	3
+18.10.08	Sukoharjo	3
+18.10.09	Pagelaran Utara	3
+18.11.01	Mesuji	3
+18.11.03	Rawa Jitu Utara	3
+18.11.04	Way Serdang	3
+18.11.05	Simpang Pematang	3
+18.11.06	Panca Jaya	3
+18.11.07	Tanjung Raya	3
+18.12.01	Tulang Bawang Tengah	3
+18.12.02	Tumijajar	3
+18.12.03	Tulang Bawang Udik	3
+18.12.04	Gunung Terang	3
+18.12.06	Way Kenanga	3
+18.12.07	Lambu Kibang	3
+18.12.08	Pagar Dewa	3
+18.12.09	Batu Putih	3
+18.13.01	Pesisir Tengah	3
+18.13.02	Pesisir Selatan	3
+18.13.03	Lemong	3
+18.13.04	Pesisir Utara	3
+18.13.05	Karya Penggawa	3
+18.13.07	Way Krui	3
+18.13.08	Krui Selatan	3
+18.13.09	Ngambur	3
+18.13.10	Ngaras	3
+18.13.11	Bangkunat	3
+18.71.01	Kedaton	3
+18.71.02	Sukarame	3
+18.71.03	Tanjungkarang Barat	3
+18.71.04	Panjang	3
+18.71.05	Tanjungkarang Timur	3
+18.71.06	Tanjungkarang Pusat	3
+18.71.07	Telukbetung Selatan	3
+18.71.08	Telukbetung Barat	3
+18.71.09	Telukbetung Utara	3
+18.71.10	Rajabasa	3
+18.71.12	Sukabumi	3
+18.71.13	Kemiling	3
+18.71.14	Labuhan Ratu	3
+18.71.15	Way Halim	3
+18.71.16	Langkapura	3
+18.71.17	Enggal	3
+18.71.18	Kedamaian	3
+18.71.19	Telukbetung Timur	3
+18.71.20	Bumi Waras	3
+18.72.01	Metro Pusat	3
+18.72.02	Metro Utara	3
+18.72.03	Metro Barat	3
+18.72.04	Metro Timur	3
+18.72.05	Metro Selatan	3
+19.01.01	Sungailiat	3
+19.01.02	Belinyu	3
+19.01.03	Merawang	3
+19.01.06	Bakam	3
+19.01.07	Riau Silip	3
+19.01.08	Puding Besar	3
+19.02.01	Tanjung Pandan	3
+19.02.02	Membalong	3
+19.02.03	Selat Nasik	3
+19.02.04	Sijuk	3
+19.02.05	Badau	3
+19.03.01	Toboali	3
+19.03.02	Lepar	3
+19.03.03	Airgegas	3
+19.03.04	Simpang Rimba	3
+19.03.05	Payung	3
+19.03.08	Kepulauan Pongok	3
+19.04.01	Koba	3
+19.04.02	Pangkalan Baru	3
+19.04.03	Sungai Selan	3
+19.04.04	Simpang Katis	3
+19.04.05	Namang	3
+19.04.06	Lubuk Besar	3
+19.05.01	Mentok	3
+19.05.02	Simpang Teritip	3
+19.05.03	Jebus	3
+19.05.04	Kelapa	3
+19.05.05	Tempilang	3
+19.06.04	Kelapa Kampit	3
+19.06.05	Damar	3
+19.06.06	Simpang Renggiang	3
+19.06.07	Simpang Pesak	3
+19.71.01	Bukit Intan	3
+19.71.02	Taman Sari	3
+19.71.03	Pangkal Balam	3
+19.71.04	Rangkui	3
+19.71.05	Gerunggang	3
+19.71.06	Gabek	3
+19.71.07	Girimaya	3
+21.01.04	Gunung Kijang	3
+21.01.06	Bintan Timur	3
+21.01.07	Bintan Utara	3
+21.01.08	Teluk Bintan	3
+21.01.09	Tambelan	3
+21.01.13	Mantang	3
+21.01.14	Bintan Pesisir	3
+21.01.15	Seri Kuala Lobam	3
+21.02.01	Moro	3
+21.02.02	Kundur	3
+21.02.03	Karimun	3
+21.02.04	Meral	3
+21.02.05	Tebing	3
+21.02.06	Buru	3
+21.02.07	Kundur Utara	3
+21.02.08	Kundur Barat	3
+21.02.09	Durai	3
+21.02.10	Meral Barat	3
+21.02.11	Ungar	3
+21.02.12	Belat	3
+21.02.13	Selat Gelam	3
+21.02.14	Sugie Besar	3
+21.03.04	Midai	3
+21.03.05	Bunguran Barat	3
+21.03.06	Serasan	3
+21.03.07	Bunguran Timur	3
+21.03.08	Bunguran Utara	3
+21.03.11	Pulau Tiga	3
+21.03.15	Bunguran Timur Laut	3
+21.03.16	Bunguran Tengah	3
+21.03.18	Bunguran Selatan	3
+21.03.19	Serasan Timur	3
+21.03.20	Bunguran Batubi	3
+21.03.21	Pulau Tiga Barat	3
+21.03.22	Suak Midai	3
+21.03.23	Pulau Panjang	3
+21.03.24	Pulau Seluan	3
+21.04.01	Singkep	3
+21.04.02	Lingga	3
+21.04.03	Senayang	3
+21.04.04	Singkep Barat	3
+21.04.05	Lingga Utara	3
+21.04.06	Singkep Pesisir	3
+21.04.07	Lingga Timur	3
+21.04.08	Selayar	3
+21.04.09	Singkep Selatan	3
+21.04.10	Kepulauan Posek	3
+21.04.11	Katang Bidare	3
+21.05.01	Siantan	3
+21.05.02	Palmatak	3
+21.05.03	Siantan Timur	3
+21.05.04	Siantan Selatan	3
+21.05.05	Jemaja Timur	3
+21.05.06	Jemaja	3
+21.05.07	Siantan Tengah	3
+21.05.08	Siantan Utara	3
+21.05.09	Jemaja Barat	3
+21.05.10	Kute Siantan	3
+21.71.01	Belakang Padang	3
+21.71.02	Batu Ampar	3
+21.71.03	Sekupang	3
+21.71.04	Nongsa	3
+21.71.05	Bulang	3
+21.71.06	Lubuk Baja	3
+21.71.07	Sei Beduk	3
+21.71.08	Galang	3
+21.71.09	Bengkong	3
+21.71.10	Batam Kota	3
+21.72.04	Bukit Bestari	3
+31.01.01	Kepulauan Seribu Utara	3
+31.01.02	Kepulauan Seribu Selatan.	3
+31.71.02	Sawah Besar	3
+31.71.03	Kemayoran	3
+31.71.04	Senen	3
+31.71.05	Cempaka Putih	3
+31.71.06	Menteng	3
+31.71.07	Tanah Abang	3
+31.71.08	Johar Baru	3
+31.72.01	Penjaringan	3
+31.72.02	Tanjung Priok	3
+31.72.03	Koja	3
+31.72.04	Cilincing	3
+31.72.05	Pademangan	3
+31.72.06	Kelapa Gading	3
+31.73.01	Cengkareng	3
+31.73.04	Tambora	3
+31.73.05	Kebon Jeruk	3
+31.73.06	Kalideres	3
+31.73.07	Pal Merah	3
+31.73.08	Kembangan	3
+31.74.01	Tebet	3
+31.74.02	Setiabudi	3
+31.74.03	Mampang Prapatan	3
+31.74.04	Pasar Minggu	3
+31.74.05	Kebayoran Lama	3
+31.74.06	Cilandak	3
+31.74.07	Kebayoran Baru	3
+31.74.08	Pancoran	3
+31.74.09	Jagakarsa	3
+31.74.10	Pesanggrahan	3
+31.75.01	Matraman	3
+31.75.03	Jatinegara	3
+31.75.04	Kramatjati	3
+31.75.05	Pasar Rebo	3
+31.75.06	Cakung	3
+31.75.07	Duren Sawit	3
+31.75.08	Makasar	3
+31.75.09	Ciracas	3
+31.75.10	Cipayung	3
+32.01.01	Cibinong	3
+32.01.02	Gunung Putri	3
+32.01.03	Citeureup	3
+32.01.04	Sukaraja	3
+32.01.05	Babakan Madang	3
+32.01.06	Jonggol	3
+32.01.07	Cileungsi	3
+32.01.08	Cariu	3
+32.01.09	Sukamakmur	3
+32.01.10	Parung	3
+32.01.11	Gunung Sindur	3
+32.01.12	Kemang	3
+32.01.13	Bojong Gede	3
+32.01.14	Leuwiliang	3
+32.01.15	Ciampea	3
+32.01.16	Cibungbulang	3
+32.01.17	Pamijahan	3
+32.01.18	Rumpin	3
+32.01.19	Jasinga	3
+32.01.20	Parung Panjang	3
+32.01.21	Nanggung	3
+32.01.22	Cigudeg	3
+32.01.23	Tenjo	3
+32.01.24	Ciawi	3
+32.01.25	Cisarua	3
+32.01.26	Megamendung	3
+32.01.27	Caringin	3
+32.01.28	Cijeruk	3
+32.01.29	Ciomas	3
+32.01.30	Dramaga	3
+32.01.32	Klapanunggal	3
+32.01.33	Ciseeng	3
+32.01.34	Ranca Bungur	3
+32.01.35	Sukajaya	3
+32.01.36	Tanjungsari	3
+32.01.37	Tajurhalang	3
+32.01.38	Cigombong	3
+32.01.39	Leuwisadeng	3
+32.01.40	Tenjolaya	3
+32.02.01	Palabuhanratu	3
+32.02.02	Simpenan	3
+32.02.03	Cikakak	3
+32.02.04	Bantargadung	3
+32.02.05	Cisolok	3
+32.02.06	Cikidang	3
+32.02.07	Lengkong	3
+32.02.08	Jampangtengah	3
+32.02.09	Warungkiara	3
+32.02.10	Cikembar	3
+32.02.11	Cibadak	3
+32.02.12	Nagrak	3
+32.02.13	Parungkuda	3
+32.02.14	Bojonggenteng	3
+32.02.15	Parakansalak	3
+32.02.16	Cicurug	3
+32.02.17	Cidahu	3
+32.02.18	Kalapanunggal	3
+32.02.19	Kabandungan	3
+32.02.20	Waluran	3
+32.02.21	Jampangkulon	3
+32.02.22	Ciemas	3
+32.02.23	Kalibunder	3
+32.02.24	Surade	3
+32.02.25	Cibitung	3
+32.02.26	Ciracap	3
+32.02.27	Gunungguruh	3
+32.02.28	Cicantayan	3
+32.02.29	Cisaat	3
+32.02.30	Kadudampit	3
+32.02.31	Caringin	3
+32.02.32	Sukabumi	3
+32.02.33	Sukaraja	3
+32.02.34	Kebonpedes	3
+32.02.35	Cireunghas	3
+32.02.36	Sukalarang	3
+32.02.37	Pabuaran	3
+32.02.39	Nyalindung	3
+32.02.40	Gegerbitung	3
+32.02.41	Sagaranten	3
+32.02.42	Curugkembar	3
+32.02.43	Cidolog	3
+32.02.44	Cidadap	3
+32.02.45	Tegalbuleud	3
+32.02.46	Cimanggu	3
+32.02.47	Ciambar	3
+32.03.01	Cianjur	3
+32.03.02	Warungkondang	3
+32.03.03	Cibeber	3
+32.03.04	Cilaku	3
+32.03.05	Ciranjang	3
+32.03.06	Bojongpicung	3
+32.03.07	Karangtengah	3
+32.03.08	Mande	3
+32.03.09	Sukaluyu	3
+32.03.10	Pacet	3
+32.03.11	Cugenang	3
+32.03.12	Cikalongkulon	3
+32.03.13	Sukaresmi	3
+32.03.14	Sukanagara	3
+32.03.15	Campaka	3
+32.03.16	Takokak	3
+32.03.17	Kadupandak	3
+32.03.18	Pagelaran	3
+32.03.19	Tanggeung	3
+32.03.20	Cibinong	3
+32.03.21	Sindangbarang	3
+32.03.22	Agrabinta	3
+32.03.23	Cidaun	3
+32.03.24	Naringgul	3
+32.03.25	Campakamulya	3
+32.03.26	Cikadu	3
+32.03.27	Gekbrong	3
+32.03.28	Cipanas	3
+32.03.29	Cijati	3
+32.03.31	Haurwangi	3
+32.03.32	Pasirkuda	3
+32.04.05	Cileunyi	3
+32.04.06	Cimenyan	3
+32.04.07	Cilengkrang	3
+32.04.08	Bojongsoang	3
+32.04.09	Margahayu	3
+32.04.10	Margaasih	3
+32.04.11	Katapang	3
+32.04.12	Dayeuhkolot	3
+32.04.13	Banjaran	3
+32.04.14	Pameungpeuk	3
+32.04.15	Pangalengan	3
+32.04.16	Arjasari	3
+32.04.17	Cimaung	3
+32.04.26	Nagreg	3
+32.04.27	Cikancung	3
+32.04.28	Rancaekek	3
+32.04.29	Ciparay	3
+32.04.30	Pacet	3
+32.04.31	Kertasari	3
+32.04.32	Baleendah	3
+32.04.33	Majalaya	3
+32.04.34	Solokanjeruk	3
+32.04.35	Paseh	3
+32.04.36	Ibun	3
+32.04.37	Soreang	3
+32.04.39	Ciwidey	3
+32.04.40	Rancabali	3
+32.04.44	Cangkuang	3
+32.04.46	Kutawaringin	3
+32.05.01	Garut Kota	3
+32.05.02	Karangpawitan	3
+32.05.03	Wanaraja	3
+32.05.04	Tarogong Kaler	3
+32.05.05	Tarogong Kidul	3
+32.05.06	Banyuresmi	3
+32.05.07	Samarang	3
+32.05.09	Leles	3
+32.05.10	Kadungora	3
+32.05.11	Leuwigoong	3
+32.05.12	Cibatu	3
+32.05.13	Kersamanah	3
+32.05.14	Malangbong	3
+32.05.15	Sukawening	3
+32.05.16	Karangtengah	3
+32.05.17	Bayongbong	3
+32.05.18	Cigedug	3
+32.05.19	Cilawu	3
+32.05.20	Cisurupan	3
+32.05.21	Sukaresmi	3
+32.05.22	Cikajang	3
+32.05.23	Banjarwangi	3
+32.05.24	Singajaya	3
+32.05.25	Cihurip	3
+32.05.26	Peundeuy	3
+32.05.27	Pameungpeuk	3
+32.05.28	Cisompet	3
+32.05.29	Cibalong	3
+32.05.30	Cikelet	3
+32.05.31	Bungbulang	3
+32.05.32	Mekarmukti	3
+32.05.33	Pakenjeng	3
+32.05.36	Caringin	3
+32.05.37	Talegong	3
+32.05.38	Limbangan	3
+32.05.39	Selaawi	3
+32.05.40	Cibiuk	3
+32.05.41	Pangatikan	3
+32.05.42	Sucinaraja	3
+32.06.01	Cipatujah	3
+32.06.02	Karangnunggal	3
+32.06.03	Cikalong	3
+32.06.04	Pancatengah	3
+32.06.05	Cikatomas	3
+32.06.06	Cibalong	3
+32.06.07	Parungponteng	3
+32.06.08	Bantarkalong	3
+32.06.09	Bojongasih	3
+32.06.10	Culamega	3
+32.06.11	Bojonggambir	3
+32.06.12	Sodonghilir	3
+32.06.13	Taraju	3
+32.06.14	Salawu	3
+32.06.15	Puspahiang	3
+32.06.16	Tanjungjaya	3
+32.06.17	Sukaraja	3
+32.06.18	Salopa	3
+32.06.19	Jatiwaras	3
+32.06.20	Cineam	3
+32.06.21	Karangjaya	3
+32.06.22	Manonjaya	3
+32.06.23	Gunungtanjung	3
+32.06.24	Singaparna	3
+32.06.25	Mangunreja	3
+32.06.26	Sukarame	3
+32.06.27	Cigalontang	3
+32.06.28	Leuwisari	3
+32.06.29	Padakembang	3
+32.06.30	Sariwangi	3
+32.06.31	Sukaratu	3
+32.06.32	Cisayong	3
+32.06.33	Sukahening	3
+32.06.34	Rajapolah	3
+32.06.35	Jamanis	3
+32.06.36	Ciawi	3
+32.06.38	Pagerageung	3
+32.06.39	Sukaresik	3
+32.07.01	Ciamis	3
+32.07.02	Cikoneng	3
+32.07.03	Cijeungjing	3
+32.07.04	Sadananya	3
+32.07.05	Cidolog	3
+32.07.06	Cihaurbeuti	3
+32.07.07	Panumbangan	3
+32.07.08	Panjalu	3
+32.07.09	Kawali	3
+32.07.10	Panawangan	3
+32.07.11	Cipaku	3
+32.07.12	Jatinagara	3
+32.07.13	Rajadesa	3
+32.07.14	Sukadana	3
+32.07.15	Rancah	3
+32.07.16	Tambaksari	3
+32.07.17	Lakbok	3
+32.07.18	Banjarsari	3
+32.07.19	Pamarican	3
+32.07.29	Cimaragas	3
+32.07.30	Cisaga	3
+32.07.31	Sindangkasih	3
+32.07.32	Baregbeg	3
+32.07.33	Sukamantri	3
+32.07.35	Purwadadi	3
+32.07.37	Banjaranyar	3
+32.08.01	Kadugede	3
+32.08.02	Ciniru	3
+32.08.03	Subang	3
+32.08.04	Ciwaru	3
+32.08.05	Cibingbin	3
+32.08.06	Luragung	3
+32.08.07	Lebakwangi	3
+32.08.08	Garawangi	3
+32.08.09	Kuningan	3
+32.08.10	Ciawigebang	3
+32.08.11	Cidahu	3
+32.08.12	Jalaksana	3
+32.08.13	Cilimus	3
+32.08.14	Mandirancan	3
+32.08.15	Selajambe	3
+32.08.16	Kramatmulya	3
+32.08.17	Darma	3
+32.08.18	Cigugur	3
+32.08.19	Pasawahan	3
+32.08.21	Cipicung	3
+32.08.22	Pancalang	3
+32.08.23	Japara	3
+32.08.24	Cimahi	3
+32.08.25	Cilebak	3
+32.08.26	Hantara	3
+32.08.27	Kalimanggis	3
+32.08.28	Cibeureum	3
+32.08.29	Karang Kancana	3
+32.08.30	Maleber	3
+32.08.31	Sindang Agung	3
+32.08.32	Cigandamekar	3
+32.09.01	Waled	3
+32.09.02	Ciledug	3
+32.09.03	Losari	3
+32.09.04	Pabedilan	3
+32.09.05	Babakan	3
+32.09.06	Karangsembung	3
+32.09.07	Lemahabang	3
+32.09.08	Susukan Lebak	3
+32.09.09	Sedong	3
+32.09.10	Astanajapura	3
+32.09.11	Pangenan	3
+32.09.12	Mundu	3
+32.09.13	Beber	3
+32.09.15	Sumber	3
+32.09.16	Dukupuntang	3
+32.09.17	Palimanan	3
+32.09.18	Plumbon	3
+32.09.19	Weru	3
+32.09.20	Kedawung	3
+32.09.21	Gunung Jati	3
+32.09.22	Kapetakan	3
+32.09.23	Klangenan	3
+32.09.24	Arjawinangun	3
+32.09.25	Panguragan	3
+32.09.26	Ciwaringin	3
+32.09.27	Susukan	3
+32.09.28	Gegesik	3
+32.09.29	Kaliwedi	3
+32.09.30	Gebang	3
+32.09.31	Depok	3
+32.09.32	Pasaleman	3
+32.09.33	Pabuaran	3
+32.09.34	Karangwareng	3
+32.09.35	Tengah Tani	3
+32.09.36	Plered	3
+32.09.37	Gempol	3
+32.09.38	Greged	3
+32.09.39	Suranenggala	3
+32.09.40	Jamblang	3
+32.10.01	Lemahsugih	3
+32.10.02	Bantarujeg	3
+32.10.03	Cikijing	3
+32.10.04	Talaga	3
+32.10.05	Argapura	3
+32.10.07	Majalengka	3
+32.10.08	Sukahaji	3
+32.10.09	Rajagaluh	3
+32.10.10	Leuwimunding	3
+32.10.11	Jatiwangi	3
+32.10.12	Dawuan	3
+32.10.13	Kadipaten	3
+32.10.14	Kertajati	3
+32.10.15	Jatitujuh	3
+32.10.16	Ligung	3
+32.10.17	Sumberjaya	3
+32.10.18	Panyingkiran	3
+32.10.20	Cigasong	3
+32.10.21	Sindangwangi	3
+32.10.22	Banjaran	3
+32.10.23	Cingambul	3
+32.10.24	Kasokandel	3
+32.10.25	Sindang	3
+32.10.26	Malausma	3
+32.11.01	Wado	3
+32.11.02	Jatinunggal	3
+32.11.03	Darmaraja	3
+32.11.04	Cibugel	3
+32.11.05	Cisitu	3
+32.11.06	Situraja	3
+32.11.07	Conggeang	3
+32.11.08	Paseh	3
+32.11.09	Surian	3
+32.11.10	Buahdua	3
+32.11.11	Tanjungsari	3
+32.11.12	Sukasari	3
+32.11.13	Pamulihan	3
+32.11.14	Cimanggung	3
+32.11.15	Jatinangor	3
+32.11.16	Rancakalong	3
+32.11.17	Sumedang Selatan	3
+32.11.19	Ganeas	3
+32.11.20	Tanjungkerta	3
+32.11.21	Tanjungmedar	3
+32.11.22	Cimalaka	3
+32.11.23	Cisarua	3
+32.11.24	Tomo	3
+32.11.25	Ujungjaya	3
+32.11.26	Jatigede	3
+32.12.01	Haurgeulis	3
+32.12.02	Kroya	3
+32.12.03	Gabuswetan	3
+32.12.04	Cikedung	3
+32.12.05	Lelea	3
+32.12.06	Bangodua	3
+32.12.07	Widasari	3
+32.12.08	Kertasemaya	3
+32.12.09	Krangkeng	3
+32.12.10	Karangampel	3
+32.12.11	Juntinyuat	3
+32.12.12	Sliyeg	3
+32.12.13	Jatibarang	3
+32.12.14	Balongan	3
+32.12.15	Indramayu	3
+32.12.16	Sindang	3
+32.12.17	Cantigi	3
+32.12.18	Lohbener	3
+32.12.19	Arahan	3
+32.12.20	Losarang	3
+32.12.21	Kandanghaur	3
+32.12.22	Bongas	3
+32.12.23	Anjatan	3
+32.12.24	Sukra	3
+32.12.25	Gantar	3
+32.12.26	Trisi	3
+32.12.27	Sukagumiwang	3
+32.12.28	Kedokan Bunder	3
+32.12.29	Pasekan	3
+32.12.30	Tukdana	3
+32.12.31	Patrol	3
+32.13.02	Cisalak	3
+32.13.03	Subang	3
+32.13.04	Kalijati	3
+32.13.05	Pabuaran	3
+32.13.06	Purwadadi	3
+32.13.07	Pagaden	3
+32.13.08	Binong	3
+32.13.09	Ciasem	3
+32.13.10	Pusakanagara	3
+32.13.11	Pamanukan	3
+32.13.12	Jalancagak	3
+32.13.13	Blanakan	3
+32.13.14	Tanjungsiang	3
+32.13.15	Compreng	3
+32.13.17	Cibogo	3
+32.13.18	Cipunagara	3
+32.13.19	Cijambe	3
+32.13.20	Cipeundeuy	3
+32.13.21	Legonkulon	3
+32.13.22	Cikaum	3
+32.13.23	Serangpanjang	3
+32.13.24	Sukasari	3
+32.13.25	Tambakdahan	3
+32.13.26	Kasomalang	3
+32.13.27	Dawuan	3
+32.13.28	Pagaden Barat	3
+32.13.29	Ciater	3
+32.13.30	Pusakajaya	3
+32.14.01	Purwakarta	3
+32.14.02	Campaka	3
+32.14.03	Jatiluhur	3
+32.14.04	Plered	3
+32.14.05	Sukatani	3
+32.14.06	Darangdan	3
+32.14.07	Maniis	3
+32.14.08	Tegalwaru	3
+32.14.09	Wanayasa	3
+32.14.10	Pasawahan	3
+32.14.11	Bojong	3
+32.14.12	Babakancikao	3
+32.14.14	Cibatu	3
+32.14.15	Sukasari	3
+32.14.16	Pondoksalam	3
+32.14.17	Kiarapedes	3
+32.15.01	Karawang Barat	3
+32.15.02	Pangkalan	3
+32.15.03	Telukjambe Timur	3
+32.15.04	Ciampel	3
+32.15.05	Klari	3
+32.15.06	Rengasdengklok	3
+32.15.07	Kutawaluya	3
+32.15.08	Batujaya	3
+32.15.09	Tirtajaya	3
+32.15.10	Pedes	3
+32.15.11	Cibuaya	3
+32.15.12	Pakisjaya	3
+32.15.13	Cikampek	3
+32.15.14	Jatisari	3
+32.15.15	Cilamaya Wetan	3
+32.15.16	Tirtamulya	3
+32.15.17	Telagasari	3
+32.15.18	Rawamerta	3
+32.15.19	Lemahabang	3
+32.15.20	Tempuran	3
+32.15.21	Majalaya	3
+32.15.23	Cilamaya Kulon	3
+32.15.24	Banyusari	3
+32.15.25	Kota Baru	3
+32.15.26	Karawang Timur	3
+32.15.27	Telukjambe Barat	3
+32.15.28	Tegalwaru	3
+32.15.29	Purwasari	3
+32.15.30	Cilebar	3
+32.16.01	Tarumajaya	3
+32.16.02	Babelan	3
+32.16.03	Sukawangi	3
+32.16.04	Tambelang	3
+32.16.05	Tambun Utara	3
+32.16.06	Tambun Selatan	3
+32.16.07	Cibitung	3
+32.16.08	Cikarang Barat	3
+32.16.09	Cikarang Utara	3
+32.16.10	Karang Bahagia	3
+32.16.11	Cikarang Timur	3
+32.16.12	Kedung Waringin	3
+32.16.13	Pebayuran	3
+32.16.14	Sukakarya	3
+32.16.15	Sukatani	3
+32.16.16	Cabangbungin	3
+32.16.17	Muaragembong	3
+32.16.18	Setu	3
+32.16.19	Cikarang Selatan	3
+32.16.20	Cikarang Pusat	3
+32.16.21	Serang Baru	3
+32.16.23	Bojongmangu	3
+32.17.01	Lembang	3
+32.17.02	Parongpong	3
+32.17.03	Cisarua	3
+32.17.04	Cikalongwetan	3
+32.17.05	Cipeundeuy	3
+32.17.06	Ngamprah	3
+32.17.07	Cipatat	3
+32.17.08	Padalarang	3
+32.17.09	Batujajar	3
+32.17.10	Cihampelas	3
+32.17.11	Cililin	3
+32.17.13	Rongga	3
+32.17.14	Sindangkerta	3
+32.17.15	Gununghalu	3
+32.17.16	Saguling	3
+32.18.01	Parigi	3
+32.18.02	Cijulang	3
+32.18.03	Cimerak	3
+32.18.04	Cigugur	3
+32.18.05	Langkaplancar	3
+32.18.06	Mangunjaya	3
+32.18.07	Padaherang	3
+32.18.08	Kalipucang	3
+32.18.09	Pangandaran	3
+32.71.03	Bogor Tengah	3
+32.71.04	Bogor Barat	3
+32.71.05	Bogor Utara	3
+32.71.06	Tanah Sareal	3
+32.72.01	Gunung Puyuh	3
+32.72.02	Cikole	3
+32.72.03	Citamiang	3
+32.72.04	Warudoyong	3
+32.72.05	Baros	3
+32.72.06	Lembursitu	3
+32.72.07	Cibeureum	3
+32.73.01	Sukasari	3
+32.73.02	Coblong	3
+32.73.03	Babakan Ciparay	3
+32.73.04	Bojongloa Kaler	3
+32.73.05	Andir	3
+32.73.06	Cicendo	3
+32.73.07	Sukajadi	3
+32.73.08	Cidadap	3
+32.73.09	Bandung Wetan	3
+32.73.10	Astana Anyar	3
+32.73.11	Regol	3
+32.73.12	Batununggal	3
+32.73.13	Lengkong	3
+32.73.14	Cibeunying Kidul	3
+32.73.15	Bandung Kulon	3
+32.73.16	Kiaracondong	3
+32.73.17	Bojongloa Kidul	3
+32.73.18	Cibeunying Kaler	3
+32.73.19	Sumur Bandung	3
+32.73.20	Antapani	3
+32.73.21	Bandung Kidul	3
+32.73.22	Buahbatu	3
+32.73.23	Rancasari	3
+32.73.24	Arcamanik	3
+32.73.25	Cibiru	3
+32.73.26	Ujungberung	3
+32.73.27	Gedebage	3
+32.74.01	Kejaksan	3
+32.74.02	Lemahwungkuk	3
+32.74.03	Harjamukti	3
+32.74.04	Pekalipan	3
+32.74.05	Kesambi	3
+32.75.01	Bekasi Timur	3
+32.75.02	Bekasi Barat	3
+32.75.03	Bekasi Utara	3
+32.75.04	Bekasi Selatan	3
+32.75.05	Rawalumbu	3
+32.75.06	Medansatria	3
+32.75.07	Bantargebang	3
+32.75.08	Pondokgede	3
+32.75.09	Jatiasih	3
+32.75.10	Jatisampurna	3
+32.75.11	Mustikajaya	3
+32.75.12	Pondokmelati	3
+32.76.01	Pancoran Mas	3
+32.76.02	Cimanggis	3
+32.76.03	Sawangan	3
+32.76.04	Limo	3
+32.76.05	Sukmajaya	3
+32.76.09	Cinere	3
+32.76.10	Tapos	3
+32.76.11	Bojongsari	3
+32.77.01	Cimahi Selatan	3
+32.77.02	Cimahi Tengah	3
+32.77.03	Cimahi Utara	3
+32.78.01	Cihideung	3
+32.78.02	Cipedes	3
+32.78.03	Tawang	3
+32.78.04	Indihiang	3
+32.78.05	Kawalu	3
+32.78.06	Cibeureum	3
+32.78.07	Tamansari	3
+32.78.08	Mangkubumi	3
+32.78.09	Bungursari	3
+32.78.10	Purbaratu	3
+32.79.01	Banjar	3
+32.79.03	Purwaharja	3
+32.79.04	Langensari	3
+33.01.01	Kedungreja	3
+33.01.02	Kesugihan	3
+33.01.03	Adipala	3
+33.01.04	Binangun	3
+33.01.05	Nusawungu	3
+33.01.06	Kroya	3
+33.01.07	Maos	3
+33.01.08	Jeruklegi	3
+33.01.09	Kawunganten	3
+33.01.10	Gandrungmangu	3
+33.01.11	Sidareja	3
+33.01.12	Karangpucung	3
+33.01.13	Cimanggu	3
+33.01.14	Majenang	3
+33.01.15	Wanareja	3
+33.01.16	Dayeuhluhur	3
+33.01.17	Sampang	3
+33.01.18	Cipari	3
+33.01.19	Patimuan	3
+33.01.21	Cilacap Selatan	3
+33.01.22	Cilacap Tengah	3
+33.01.23	Cilacap Utara	3
+33.01.24	Kampung Laut	3
+33.02.01	Lumbir	3
+33.02.02	Wangon	3
+33.02.03	Jatilawang	3
+33.02.04	Rawalo	3
+33.02.05	Kebasen	3
+33.02.06	Kemranjen	3
+33.02.07	Sumpiuh	3
+33.02.08	Tambak	3
+33.02.09	Somagede	3
+33.02.10	Kalibagor	3
+33.02.11	Banyumas	3
+33.02.12	Patikraja	3
+33.02.13	Purwojati	3
+33.02.14	Ajibarang	3
+33.02.15	Gumelar	3
+33.02.16	Pekuncen	3
+33.02.17	Cilongok	3
+33.02.18	Karanglewas	3
+33.02.19	Sokaraja	3
+33.02.21	Sumbang	3
+33.02.22	Baturraden	3
+33.02.23	Kedungbanteng	3
+33.02.24	Purwokerto Selatan	3
+33.02.25	Purwokerto Barat	3
+33.02.26	Purwokerto Timur	3
+33.02.27	Purwokerto Utara	3
+33.03.01	Kemangkon	3
+33.03.02	Bukateja	3
+33.03.03	Kejobong	3
+33.03.04	Kaligondang	3
+33.03.05	Purbalingga	3
+33.03.06	Kalimanah	3
+33.03.07	Kutasari	3
+33.03.08	Mrebet	3
+33.03.09	Bobotsari	3
+33.03.10	Karangreja	3
+33.03.11	Karanganyar	3
+33.03.12	Karangmoncol	3
+33.03.13	Rembang	3
+33.03.15	Padamara	3
+33.03.16	Pengadegan	3
+33.03.17	Karangjambu	3
+33.03.18	Kertanegara	3
+33.04.01	Susukan	3
+33.04.02	Purworeja Klampok	3
+33.04.03	Mandiraja	3
+33.04.04	Purwanegara	3
+33.04.05	Bawang	3
+33.04.06	Banjarnegara	3
+33.04.07	Sigaluh	3
+33.04.08	Madukara	3
+33.04.09	Banjarmangu	3
+33.04.10	Wanadadi	3
+33.04.11	Rakit	3
+33.04.12	Punggelan	3
+33.04.13	Karangkobar	3
+33.04.14	Pagentan	3
+33.04.15	Pejawaran	3
+33.04.16	Batur	3
+33.04.18	Kalibening	3
+33.04.19	Pandanarum	3
+33.04.20	Pagedongan	3
+33.05.02	Buayan	3
+33.05.03	Puring	3
+33.05.04	Petanahan	3
+33.05.05	Klirong	3
+33.05.06	Buluspesantren	3
+33.05.07	Ambal	3
+33.05.08	Mirit	3
+33.05.09	Prembun	3
+33.05.10	Kutowinangun	3
+33.05.11	Alian	3
+33.05.12	Kebumen	3
+33.05.13	Pejagoan	3
+33.05.14	Sruweng	3
+33.05.15	Adimulyo	3
+33.05.16	Kuwarasan	3
+33.05.17	Rowokele	3
+33.05.18	Sempor	3
+33.05.20	Karanganyar	3
+33.05.21	Karanggayam	3
+33.05.22	Sadang	3
+33.05.23	Bonorowo	3
+33.05.24	Padureso	3
+33.05.25	Poncowarno	3
+33.05.26	Karangsambung	3
+33.06.01	Grabag	3
+33.06.02	Ngombol	3
+33.06.03	Purwodadi	3
+33.06.04	Bagelen	3
+33.06.05	Kaligesing	3
+33.06.06	Purworejo	3
+33.06.07	Banyuurip	3
+33.06.08	Bayan	3
+33.06.09	Kutoarjo	3
+33.06.10	Butuh	3
+33.06.11	Pituruh	3
+33.06.12	Kemiri	3
+33.06.13	Bruno	3
+33.06.14	Gebang	3
+33.06.15	Loano	3
+33.06.16	Bener	3
+33.07.02	Kepil	3
+33.07.03	Sapuran	3
+33.07.04	Kaliwiro	3
+33.07.05	Leksono	3
+33.07.06	Selomerto	3
+33.07.07	Kalikajar	3
+33.07.09	Wonosobo	3
+33.07.10	Watumalang	3
+33.07.11	Mojotengah	3
+33.07.12	Garung	3
+33.07.13	Kejajar	3
+33.07.14	Sukoharjo	3
+33.07.15	Kalibawang	3
+33.08.01	Salaman	3
+33.08.02	Borobudur	3
+33.08.03	Ngluwar	3
+33.08.04	Salam	3
+33.08.05	Srumbung	3
+33.08.06	Dukun	3
+33.08.07	Sawangan	3
+33.08.08	Muntilan	3
+33.08.09	Mungkid	3
+33.08.10	Mertoyudan	3
+33.08.11	Tempuran	3
+33.08.12	Kajoran	3
+33.08.13	Kaliangkrik	3
+33.08.14	Bandongan	3
+33.08.15	Candimulyo	3
+33.08.16	Pakis	3
+33.08.17	Ngablak	3
+33.08.18	Grabag	3
+33.08.20	Secang	3
+33.08.21	Windusari	3
+33.09.01	Selo	3
+33.09.02	Ampel	3
+33.09.03	Cepogo	3
+33.09.04	Musuk	3
+33.09.05	Boyolali	3
+33.09.06	Mojosongo	3
+33.09.07	Teras	3
+33.09.08	Sawit	3
+33.09.09	Banyudono	3
+33.09.10	Sambi	3
+33.09.11	Ngemplak	3
+33.09.12	Nogosari	3
+33.09.13	Simo	3
+33.09.14	Karanggede	3
+33.09.15	Klego	3
+33.09.16	Andong	3
+33.09.18	Wonosegoro	3
+33.09.19	Juwangi	3
+33.09.20	Gladagsari	3
+33.09.21	Tamansari	3
+33.09.22	Wonosamodro	3
+33.10.01	Prambanan	3
+33.10.02	Gantiwarno	3
+33.10.03	Wedi	3
+33.10.04	Bayat	3
+33.10.05	Cawas	3
+33.10.06	Trucuk	3
+33.10.07	Kebonarum	3
+33.10.08	Jogonalan	3
+33.10.09	Manisrenggo	3
+33.10.10	Karangnongko	3
+33.10.11	Ceper	3
+33.10.12	Pedan	3
+33.10.13	Karangdowo	3
+33.10.14	Juwiring	3
+33.10.15	Wonosari	3
+33.10.16	Delanggu	3
+33.10.17	Polanharjo	3
+33.10.18	Karanganom	3
+33.10.19	Tulung	3
+33.10.20	Jatinom	3
+33.10.21	Kemalang	3
+33.10.22	Ngawen	3
+33.10.23	Kalikotes	3
+33.10.24	Klaten Utara	3
+33.10.25	Klaten Tengah	3
+33.10.26	Klaten Selatan	3
+33.11.02	Bulu	3
+33.11.03	Tawangsari	3
+33.11.04	Sukoharjo	3
+33.11.05	Nguter	3
+33.11.06	Bendosari	3
+33.11.07	Polokarto	3
+33.11.08	Mojolaban	3
+33.11.10	Baki	3
+33.11.11	Gatak	3
+33.11.12	Kartasura	3
+33.12.01	Pracimantoro	3
+33.12.02	Giritontro	3
+33.12.03	Giriwoyo	3
+33.12.04	Batuwarno	3
+33.12.05	Tirtomoyo	3
+33.12.06	Nguntoronadi	3
+33.12.07	Baturetno	3
+33.12.08	Eromoko	3
+33.12.09	Wuryantoro	3
+33.12.10	Manyaran	3
+33.12.11	Selogiri	3
+33.12.12	Wonogiri	3
+33.12.13	Ngadirojo	3
+33.12.14	Sidoharjo	3
+33.12.15	Jatiroto	3
+33.12.16	Kismantoro	3
+33.12.17	Purwantoro	3
+33.12.18	Bulukerto	3
+33.12.19	Slogohimo	3
+33.12.20	Jatisrono	3
+33.12.21	Jatipurno	3
+33.12.22	Girimarto	3
+33.12.23	Karangtengah	3
+33.12.24	Paranggupito	3
+33.12.25	Puhpelem	3
+33.13.01	Jatipuro	3
+33.13.02	Jatiyoso	3
+33.13.03	Jumapolo	3
+33.13.04	Jumantono	3
+33.13.05	Matesih	3
+33.13.06	Tawangmangu	3
+33.13.08	Karangpandan	3
+33.13.09	Karanganyar	3
+33.13.10	Tasikmadu	3
+33.13.11	Jaten	3
+33.13.12	Colomadu	3
+33.13.13	Gondangrejo	3
+33.13.14	Kebakkramat	3
+33.13.15	Mojogedang	3
+33.13.16	Kerjo	3
+33.13.17	Jenawi	3
+33.14.01	Kalijambe	3
+33.14.02	Plupuh	3
+33.14.03	Masaran	3
+33.14.04	Kedawung	3
+33.14.05	Sambirejo	3
+33.14.06	Gondang	3
+33.14.07	Sambungmacan	3
+33.14.08	Ngrampal	3
+33.14.09	Karangmalang	3
+33.14.10	Sragen	3
+33.14.11	Sidoharjo	3
+33.14.12	Tanon	3
+33.14.13	Gemolong	3
+33.14.14	Miri	3
+33.14.15	Sumberlawang	3
+33.14.16	Mondokan	3
+33.14.17	Sukodono	3
+33.14.19	Tangen	3
+33.14.20	Jenar	3
+33.15.01	Kedungjati	3
+33.15.02	Karangrayung	3
+33.15.03	Penawangan	3
+33.15.04	Toroh	3
+33.15.05	Geyer	3
+33.15.06	Pulokulon	3
+33.15.07	Kradenan	3
+33.15.08	Gabus	3
+33.15.09	Ngaringan	3
+33.15.10	Wirosari	3
+33.15.11	Tawangharjo	3
+33.15.12	Grobogan	3
+33.15.13	Purwodadi	3
+33.15.14	Brati	3
+33.15.15	Klambu	3
+33.15.16	Godong	3
+33.15.17	Gubug	3
+33.15.19	Tanggungharjo	3
+33.16.01	Jati	3
+33.16.02	Randublatung	3
+33.16.03	Kradenan	3
+33.16.04	Kedungtuban	3
+33.16.05	Cepu	3
+33.16.06	Sambong	3
+33.16.07	Jiken	3
+33.16.08	Jepon	3
+33.16.09	Blora	3
+33.16.10	Tunjungan	3
+33.16.11	Banjarejo	3
+33.16.12	Ngawen	3
+33.16.13	Kunduran	3
+33.16.14	Todanan	3
+33.16.15	Bogorejo	3
+33.16.16	Japah	3
+33.17.01	Sumber	3
+33.17.03	Gunem	3
+33.17.04	Sale	3
+33.17.05	Sarang	3
+33.17.06	Sedan	3
+33.17.07	Pamotan	3
+33.17.08	Sulang	3
+33.17.09	Kaliori	3
+33.17.10	Rembang	3
+33.17.11	Pancur	3
+33.17.12	Kragan	3
+33.17.13	Sluke	3
+33.17.14	Lasem	3
+33.18.01	Sukolilo	3
+33.18.02	Kayen	3
+33.18.03	Tambakromo	3
+33.18.04	Winong	3
+33.18.05	Pucakwangi	3
+33.18.06	Jaken	3
+33.18.07	Batangan	3
+33.18.08	Juwana	3
+33.18.09	Jakenan	3
+33.18.10	Pati	3
+33.18.11	Gabus	3
+33.18.12	Margorejo	3
+33.18.13	Gembong	3
+33.18.14	Tlogowungu	3
+33.18.15	Wedarijaksa	3
+33.18.16	Margoyoso	3
+33.18.17	Gunungwungkal	3
+33.18.18	Cluwak	3
+33.18.19	Tayu	3
+33.18.21	Trangkil	3
+33.19.01	Kaliwungu	3
+33.19.02	Kota Kudus	3
+33.19.03	Jati	3
+33.19.04	Undaan	3
+33.19.05	Mejobo	3
+33.19.06	Jekulo	3
+33.19.07	Bae	3
+33.19.09	Dawe	3
+33.20.01	Kedung	3
+33.20.02	Pecangaan	3
+33.20.03	Welahan	3
+33.20.04	Mayong	3
+33.20.05	Batealit	3
+33.20.06	Jepara	3
+33.20.07	Mlonggo	3
+33.20.08	Bangsri	3
+33.20.10	Karimunjawa	3
+33.20.11	Tahunan	3
+33.20.12	Nalumsari	3
+33.20.13	Kalinyamatan	3
+33.20.14	Kembang	3
+33.20.15	Pakis Aji	3
+33.20.16	Donorojo	3
+33.21.01	Mranggen	3
+33.21.02	Karangawen	3
+33.21.03	Guntur	3
+33.21.04	Sayung	3
+33.21.05	Karangtengah	3
+33.21.06	Wonosalam	3
+33.21.07	Dempet	3
+33.21.08	Gajah	3
+33.21.09	Karanganyar	3
+33.21.10	Mijen	3
+33.21.11	Demak	3
+33.21.13	Wedung	3
+33.21.14	Kebonagung	3
+33.22.01	Getasan	3
+33.22.02	Tengaran	3
+33.22.03	Susukan	3
+33.22.04	Suruh	3
+33.22.05	Pabelan	3
+33.22.06	Tuntang	3
+33.22.07	Banyubiru	3
+33.22.08	Jambu	3
+33.22.09	Sumowono	3
+33.22.10	Ambarawa	3
+33.22.11	Bawen	3
+33.22.12	Bringin	3
+33.22.13	Bergas	3
+33.22.15	Pringapus	3
+33.22.16	Bancak	3
+33.22.17	Kaliwungu	3
+33.22.18	Ungaran Barat	3
+33.22.19	Ungaran Timur	3
+33.23.01	Bulu	3
+33.23.02	Tembarak	3
+33.23.03	Temanggung	3
+33.23.04	Pringsurat	3
+33.23.05	Kaloran	3
+33.23.06	Kandangan	3
+33.23.07	Kedu	3
+33.23.08	Parakan	3
+33.23.09	Ngadirejo	3
+33.23.10	Jumo	3
+33.23.11	Tretep	3
+33.23.12	Candiroto	3
+33.23.13	Kranggan	3
+33.23.14	Tlogomulyo	3
+33.23.15	Selopampang	3
+33.23.16	Bansari	3
+33.23.17	Kledung	3
+33.23.18	Bejen	3
+33.23.19	Wonoboyo	3
+33.24.01	Plantungan	3
+33.24.02	Pageruyung	3
+33.24.03	Sukorejo	3
+33.24.04	Patean	3
+33.24.05	Singorojo	3
+33.24.06	Limbangan	3
+33.24.07	Boja	3
+33.24.08	Kaliwungu	3
+33.24.09	Brangsong	3
+33.24.11	Gemuh	3
+33.24.12	Weleri	3
+33.24.13	Cepiring	3
+33.24.14	Patebon	3
+33.24.15	Kendal	3
+33.24.16	Rowosari	3
+33.24.17	Kangkung	3
+33.24.18	Ringinarum	3
+33.24.20	Kaliwungu Selatan	3
+33.25.01	Wonotunggal	3
+33.25.02	Bandar	3
+33.25.03	Blado	3
+33.25.04	Reban	3
+33.25.05	Bawang	3
+33.25.06	Tersono	3
+33.25.07	Gringsing	3
+33.25.08	Limpung	3
+33.25.09	Subah	3
+33.25.10	Tulis	3
+33.25.11	Batang	3
+33.25.12	Warungasem	3
+33.25.13	Kandeman	3
+33.25.14	Pecalungan	3
+33.25.15	Banyuputih	3
+33.26.01	Kandangserang	3
+33.26.02	Paninggaran	3
+33.26.03	Lebakbarang	3
+33.26.04	Petungkriyono	3
+33.26.05	Talun	3
+33.26.06	Doro	3
+33.26.07	Karanganyar	3
+33.26.08	Kajen	3
+33.26.09	Kesesi	3
+33.26.10	Sragi	3
+33.26.12	Wonopringgo	3
+33.26.13	Kedungwuni	3
+33.26.14	Buaran	3
+33.26.15	Tirto	3
+33.26.16	Wiradesa	3
+33.26.17	Siwalan	3
+33.26.18	Karangdadap	3
+33.26.19	Wonokerto	3
+33.27.03	Belik	3
+33.27.04	Watukumpul	3
+33.27.05	Bodeh	3
+33.27.06	Bantarbolang	3
+33.27.07	Randudongkal	3
+33.27.08	Pemalang	3
+33.27.09	Taman	3
+33.27.11	Ampelgading	3
+33.27.12	Comal	3
+33.27.13	Ulujami	3
+33.27.14	Warungpring	3
+33.28.01	Margasari	3
+33.28.02	Bumijawa	3
+33.28.03	Bojong	3
+33.28.04	Balapulang	3
+33.28.05	Pagerbarang	3
+33.28.06	Lebaksiu	3
+33.28.07	Jatinegara	3
+33.28.08	Kedungbanteng	3
+33.28.09	Pangkah	3
+33.28.10	Slawi	3
+33.28.11	Adiwerna	3
+33.28.12	Talang	3
+33.28.13	Dukuhturi	3
+33.28.15	Kramat	3
+33.28.16	Suradadi	3
+33.28.17	Warureja	3
+33.28.18	Dukuhwaru	3
+33.29.01	Salem	3
+33.29.02	Bantarkawung	3
+33.29.03	Bumiayu	3
+33.29.04	Paguyangan	3
+33.29.05	Sirampog	3
+33.29.06	Tonjong	3
+33.29.07	Jatibarang	3
+33.29.08	Wanasari	3
+33.29.09	Brebes	3
+33.29.10	Songgom	3
+33.29.11	Kersana	3
+33.29.12	Losari	3
+33.29.15	Larangan	3
+33.29.16	Ketanggungan	3
+33.29.17	Banjarharjo	3
+33.71.01	Magelang Selatan	3
+33.71.02	Magelang Utara	3
+33.71.03	Magelang Tengah	3
+33.72.01	Laweyan	3
+33.72.02	Serengan	3
+33.72.05	Banjarsari	3
+33.73.01	Sidorejo	3
+33.73.02	Tingkir	3
+33.73.03	Argomulyo	3
+33.73.04	Sidomukti	3
+33.74.01	Semarang Tengah	3
+33.74.02	Semarang Utara	3
+33.74.03	Semarang Timur	3
+33.74.04	Gayamsari	3
+33.74.05	Genuk	3
+33.74.06	Pedurungan	3
+33.74.08	Candisari	3
+33.74.09	Gajahmungkur	3
+33.74.10	Tembalang	3
+33.74.11	Banyumanik	3
+33.74.12	Gunungpati	3
+33.74.13	Semarang Barat	3
+33.74.14	Mijen	3
+33.74.15	Ngaliyan	3
+33.74.16	Tugu	3
+33.75.01	Pekalongan Barat	3
+33.75.02	Pekalongan Timur	3
+33.75.03	Pekalongan Utara	3
+33.75.04	Pekalongan Selatan	3
+33.76.04	Margadana	3
+34.01.01	Temon	3
+34.01.02	Wates	3
+34.01.03	Panjatan	3
+34.01.04	Galur	3
+34.01.05	Lendah	3
+34.01.06	Sentolo	3
+34.01.07	Pengasih	3
+34.01.08	Kokap	3
+34.01.09	Girimulyo	3
+34.01.10	Nanggulan	3
+34.01.11	Samigaluh	3
+34.01.12	Kalibawang	3
+34.02.01	Srandakan	3
+34.02.02	Sanden	3
+34.02.04	Pundong	3
+34.02.05	Bambanglipuro	3
+34.02.06	Pandak	3
+34.02.07	Pajangan	3
+34.02.08	Bantul	3
+34.02.09	Jetis	3
+34.02.10	Imogiri	3
+34.02.11	Dlingo	3
+34.02.12	Banguntapan	3
+34.02.13	Pleret	3
+34.02.14	Piyungan	3
+34.02.15	Sewon	3
+34.02.16	Kasihan	3
+34.02.17	Sedayu	3
+34.03.01	Wonosari	3
+34.03.02	Nglipar	3
+34.03.03	Playen	3
+34.03.04	Patuk	3
+34.03.05	Paliyan	3
+34.03.06	Panggang	3
+34.03.07	Tepus	3
+34.03.09	Karangmojo	3
+34.03.10	Ponjong	3
+34.03.11	Rongkop	3
+34.03.12	Semin	3
+34.03.13	Ngawen	3
+34.03.14	Gedangsari	3
+34.03.15	Saptosari	3
+34.03.16	Girisubo	3
+34.03.17	Tanjungsari	3
+34.03.18	Purwosari	3
+34.04.01	Gamping	3
+34.04.02	Godean	3
+34.04.03	Moyudan	3
+34.04.04	Minggir	3
+34.04.05	Seyegan	3
+34.04.06	Mlati	3
+34.04.07	Depok	3
+34.04.08	Berbah	3
+34.04.09	Prambanan	3
+34.04.10	Kalasan	3
+34.04.13	Sleman	3
+34.04.14	Tempel	3
+34.04.15	Turi	3
+34.04.16	Pakem	3
+34.04.17	Cangkringan	3
+34.71.01	Tegalrejo	3
+34.71.02	Jetis	3
+34.71.03	Gondokusuman	3
+34.71.04	Danurejan	3
+34.71.05	Gedongtengen	3
+34.71.06	Ngampilan	3
+34.71.07	Wirobrajan	3
+34.71.08	Mantrijeron	3
+34.71.09	Kraton	3
+34.71.10	Gondomanan	3
+34.71.11	Pakualaman	3
+34.71.12	Mergangsan	3
+34.71.13	Umbulharjo	3
+34.71.14	Kotagede	3
+35.01.01	Donorojo	3
+35.01.02	Pringkuku	3
+35.01.03	Punung	3
+35.01.05	Kebonagung	3
+35.01.06	Arjosari	3
+35.01.07	Nawangan	3
+35.01.08	Bandar	3
+35.01.09	Tegalombo	3
+35.01.10	Tulakan	3
+35.01.11	Ngadirojo	3
+35.01.12	Sudimoro	3
+35.02.01	Slahung	3
+35.02.02	Ngrayun	3
+35.02.03	Bungkal	3
+35.02.04	Sambit	3
+35.02.05	Sawoo	3
+35.02.06	Sooko	3
+35.02.07	Pulung	3
+35.02.08	Mlarak	3
+35.02.09	Jetis	3
+35.02.10	Siman	3
+35.02.11	Balong	3
+35.02.12	Kauman	3
+35.02.13	Badegan	3
+35.02.14	Sampung	3
+35.02.15	Sukorejo	3
+35.02.16	Babadan	3
+35.02.17	Ponorogo	3
+35.02.18	Jenangan	3
+35.02.19	Ngebel	3
+35.02.20	Jambon	3
+35.03.01	Panggul	3
+35.03.02	Munjungan	3
+35.03.03	Pule	3
+35.03.04	Dongko	3
+35.03.05	Tugu	3
+35.03.06	Karangan	3
+35.03.07	Kampak	3
+35.03.08	Watulimo	3
+35.03.09	Bendungan	3
+35.03.10	Gandusari	3
+35.03.11	Trenggalek	3
+35.03.12	Pogalan	3
+35.03.14	Suruh	3
+35.04.01	Tulungagung	3
+35.04.02	Boyolangu	3
+35.04.03	Kedungwaru	3
+35.04.04	Ngantru	3
+35.04.05	Kauman	3
+35.04.06	Pagerwojo	3
+35.04.07	Sendang	3
+35.04.08	Karangrejo	3
+35.04.09	Gondang	3
+35.04.10	Sumbergempol	3
+35.04.11	Ngunut	3
+35.04.12	Pucanglaban	3
+35.04.13	Rejotangan	3
+35.04.14	Kalidawir	3
+35.04.15	Besuki	3
+35.04.16	Campurdarat	3
+35.04.17	Bandung	3
+35.04.18	Pakel	3
+35.05.01	Wonodadi	3
+35.05.02	Udanawu	3
+35.05.03	Srengat	3
+35.05.04	Kademangan	3
+35.05.05	Bakung	3
+35.05.06	Ponggok	3
+35.05.07	Sanankulon	3
+35.05.08	Wonotirto	3
+35.05.09	Nglegok	3
+35.05.10	Kanigoro	3
+35.05.12	Sutojayan	3
+35.05.13	Panggungrejo	3
+35.05.14	Talun	3
+35.05.15	Gandusari	3
+35.05.16	Binangun	3
+35.05.17	Wlingi	3
+35.05.18	Doko	3
+35.05.19	Kesamben	3
+35.05.20	Wates	3
+35.05.21	Selorejo	3
+35.05.22	Selopuro	3
+35.06.01	Semen	3
+35.06.02	Mojo	3
+35.06.03	Kras	3
+35.06.04	Ngadiluwih	3
+35.06.05	Kandat	3
+35.06.06	Wates	3
+35.06.07	Ngancar	3
+35.06.08	Puncu	3
+35.06.09	Plosoklaten	3
+35.06.10	Gurah	3
+35.06.11	Pagu	3
+35.06.12	Gampengrejo	3
+35.06.13	Grogol	3
+35.06.14	Papar	3
+35.06.15	Purwoasri	3
+35.06.16	Plemahan	3
+35.06.17	Pare	3
+35.06.18	Kepung	3
+35.06.19	Kandangan	3
+35.06.20	Tarokan	3
+35.06.21	Kunjang	3
+35.06.22	Banyakan	3
+35.06.24	Kayen Kidul	3
+35.06.25	Ngasem	3
+35.06.26	Badas	3
+35.07.01	Donomulyo	3
+35.07.02	Pagak	3
+35.07.03	Bantur	3
+35.07.04	Sumbermanjing Wetan	3
+35.07.05	Dampit	3
+35.07.06	Ampelgading	3
+35.07.07	Poncokusumo	3
+35.07.08	Wajak	3
+35.07.09	Turen	3
+35.07.10	Gondanglegi	3
+35.07.11	Kalipare	3
+35.07.12	Sumberpucung	3
+35.07.13	Kepanjen	3
+35.07.14	Bululawang	3
+35.07.15	Tajinan	3
+35.07.16	Tumpang	3
+35.07.17	Jabung	3
+35.07.18	Pakis	3
+35.07.19	Pakisaji	3
+35.07.20	Ngajum	3
+35.07.21	Wagir	3
+35.07.22	Dau	3
+35.07.23	Karang Ploso	3
+35.07.24	Singosari	3
+35.07.25	Lawang	3
+35.07.26	Pujon	3
+35.07.27	Ngantang	3
+35.07.28	Kasembon	3
+35.07.29	Gedangan	3
+35.07.30	Tirtoyudo	3
+35.07.31	Kromengan	3
+35.07.32	Wonosari	3
+35.07.33	Pagelaran	3
+35.08.01	Tempursari	3
+35.08.02	Pronojiwo	3
+35.08.03	Candipuro	3
+35.08.04	Pasirian	3
+35.08.05	Tempeh	3
+35.08.06	Kunir	3
+35.08.07	Yosowilangun	3
+35.08.08	Rowokangkung	3
+35.08.09	Tekung	3
+35.08.10	Lumajang	3
+35.08.11	Pasrujambe	3
+35.08.12	Senduro	3
+35.08.14	Padang	3
+35.08.15	Sukodono	3
+35.08.16	Kedungjajang	3
+35.08.17	Jatiroto	3
+35.08.18	Randuagung	3
+35.08.19	Klakah	3
+35.08.20	Ranuyoso	3
+35.08.21	Sumbersuko	3
+35.09.01	Jombang	3
+35.09.02	Kencong	3
+35.09.03	Sumberbaru	3
+35.09.04	Gumukmas	3
+35.09.05	Umbulsari	3
+35.09.06	Tanggul	3
+35.09.07	Semboro	3
+35.09.08	Puger	3
+35.09.09	Bangsalsari	3
+35.09.10	Balung	3
+35.09.11	Wuluhan	3
+35.09.12	Ambulu	3
+35.09.13	Rambipuji	3
+35.09.14	Panti	3
+35.09.15	Sukorambi	3
+35.09.16	Jenggawah	3
+35.09.17	Ajung	3
+35.09.18	Tempurejo	3
+35.09.19	Kaliwates	3
+35.09.20	Patrang	3
+35.09.21	Sumbersari	3
+35.09.22	Arjasa	3
+35.09.23	Mumbulsari	3
+35.09.25	Jelbuk	3
+35.09.26	Mayang	3
+35.09.27	Kalisat	3
+35.09.28	Ledokombo	3
+35.09.29	Sukowono	3
+35.09.30	Silo	3
+35.09.31	Sumberjambe	3
+35.10.01	Pesanggaran	3
+35.10.02	Bangorejo	3
+35.10.03	Purwoharjo	3
+35.10.04	Tegaldlimo	3
+35.10.05	Muncar	3
+35.10.06	Cluring	3
+35.10.07	Gambiran	3
+35.10.08	Srono	3
+35.10.09	Genteng	3
+35.10.10	Glenmore	3
+35.10.11	Kalibaru	3
+35.10.12	Singojuruh	3
+35.10.13	Rogojampi	3
+35.10.14	Kabat	3
+35.10.15	Glagah	3
+35.10.16	Banyuwangi	3
+35.10.17	Giri	3
+35.10.18	Wongsorejo	3
+35.10.19	Songgon	3
+35.10.20	Sempu	3
+35.10.21	Kalipuro	3
+35.10.22	Siliragung	3
+35.10.24	Licin	3
+35.10.25	Blimbingsari	3
+35.11.01	Maesan	3
+35.11.02	Tamanan	3
+35.11.03	Tlogosari	3
+35.11.04	Sukosari	3
+35.11.05	Pujer	3
+35.11.06	Grujugan	3
+35.11.07	Curahdami	3
+35.11.08	Tenggarang	3
+35.11.09	Wonosari	3
+35.11.10	Tapen	3
+35.11.11	Bondowoso	3
+35.11.13	Tegalampel	3
+35.11.14	Klabang	3
+35.11.15	Cermee	3
+35.11.16	Prajekan	3
+35.11.17	Pakem	3
+35.11.18	Sumberwringin	3
+35.11.19	Sempol	3
+35.11.20	Binakal	3
+35.11.21	Taman Krocok	3
+35.11.22	Botolinggo	3
+35.11.23	Jambesari Darus Sholah	3
+35.12.01	Jatibanteng	3
+35.12.02	Besuki	3
+35.12.03	Suboh	3
+35.12.05	Kendit	3
+35.12.06	Panarukan	3
+35.12.07	Situbondo	3
+35.12.08	Panji	3
+35.12.09	Mangaran	3
+35.12.10	Kapongan	3
+35.12.11	Arjasa	3
+35.12.12	Jangkar	3
+35.12.13	Asembagus	3
+35.12.14	Banyuputih	3
+35.12.15	Sumbermalang	3
+35.12.16	Banyuglugur	3
+35.12.17	Bungatan	3
+35.13.01	Sukapura	3
+35.13.02	Sumber	3
+35.13.03	Kuripan	3
+35.13.04	Bantaran	3
+35.13.05	Leces	3
+35.13.06	Banyuanyar	3
+35.13.07	Tiris	3
+35.13.08	Krucil	3
+35.13.09	Gading	3
+35.13.10	Pakuniran	3
+35.13.11	Kotaanyar	3
+35.13.12	Paiton	3
+35.13.13	Besuk	3
+35.13.14	Kraksaan	3
+35.13.15	Krejengan	3
+35.13.16	Pejarakan	3
+35.13.17	Maron	3
+35.13.18	Gending	3
+35.13.19	Dringu	3
+35.13.20	Tegalsiwalan	3
+35.13.21	Sumberasih	3
+35.13.23	Tongas	3
+35.13.24	Lumbang	3
+35.14.01	Purwodadi	3
+35.14.02	Tutur	3
+35.14.03	Puspo	3
+35.14.04	Lumbang	3
+35.14.05	Pasrepan	3
+35.14.06	Kejayan	3
+35.14.07	Wonorejo	3
+35.14.08	Purwosari	3
+35.14.09	Sukorejo	3
+35.14.10	Prigen	3
+35.14.11	Pandaan	3
+35.14.12	Gempol	3
+35.14.13	Beji	3
+35.14.14	Bangil	3
+35.14.15	Rembang	3
+35.14.16	Kraton	3
+35.14.18	Gondangwetan	3
+35.14.19	Winongan	3
+35.14.20	Grati	3
+35.14.21	Nguling	3
+35.14.22	Lekok	3
+35.14.23	Rejoso	3
+35.14.24	Tosari	3
+35.15.01	Tarik	3
+35.15.02	Prambon	3
+35.15.03	Krembung	3
+35.15.04	Porong	3
+35.15.05	Jabon	3
+35.15.06	Tanggulangin	3
+35.15.07	Candi	3
+35.15.08	Sidoarjo	3
+35.15.09	Tulangan	3
+35.15.11	Krian	3
+35.15.12	Balongbendo	3
+35.15.13	Taman	3
+35.15.14	Sukodono	3
+35.15.15	Buduran	3
+35.15.17	Sedati	3
+35.15.18	Waru	3
+35.16.01	Jatirejo	3
+35.16.02	Gondang	3
+35.16.03	Pacet	3
+35.16.04	Trawas	3
+35.16.05	Ngoro	3
+35.16.06	Pungging	3
+35.16.07	Kutorejo	3
+35.16.08	Mojosari	3
+35.16.09	Dlanggu	3
+35.16.10	Bangsal	3
+35.16.11	Puri	3
+35.16.12	Trowulan	3
+35.16.13	Sooko	3
+35.16.14	Gedeg	3
+35.16.16	Jetis	3
+35.16.17	Dawarblandong	3
+35.16.18	Mojoanyar	3
+35.17.01	Perak	3
+35.17.02	Gudo	3
+35.17.03	Ngoro	3
+35.17.04	Bareng	3
+35.17.05	Wonosalam	3
+35.17.06	Mojoagung	3
+35.17.07	Mojowarno	3
+35.17.08	Diwek	3
+35.17.09	Jombang	3
+35.17.10	Peterongan	3
+35.17.11	Sumobito	3
+35.17.12	Kesamben	3
+35.17.13	Tembelang	3
+35.17.15	Plandaan	3
+35.17.16	Kabuh	3
+35.17.17	Kudu	3
+35.17.18	Bandarkedungmulyo	3
+35.17.19	Jogoroto	3
+35.17.20	Megaluh	3
+35.17.21	Ngusikan	3
+35.18.01	Sawahan	3
+35.18.02	Ngetos	3
+35.18.03	Berbek	3
+35.18.04	Loceret	3
+35.18.05	Pace	3
+35.18.06	Prambon	3
+35.18.07	Ngronggot	3
+35.18.08	Kertosono	3
+35.18.09	Patianrowo	3
+35.18.10	Baron	3
+35.18.11	Tanjunganom	3
+35.18.12	Sukomoro	3
+35.18.13	Nganjuk	3
+35.18.15	Wilangan	3
+35.18.16	Rejoso	3
+35.18.17	Gondang	3
+35.18.18	Ngluyu	3
+35.18.19	Lengkong	3
+35.18.20	Jatikalen	3
+35.19.01	Kebonsari	3
+35.19.02	Dolopo	3
+35.19.03	Geger	3
+35.19.04	Dagangan	3
+35.19.05	Kare	3
+35.19.06	Gemarang	3
+35.19.07	Wungu	3
+35.19.08	Madiun	3
+35.19.09	Jiwan	3
+35.19.10	Balerejo	3
+35.19.11	Mejayan	3
+35.19.12	Saradan	3
+35.19.13	Pilangkenceng	3
+35.19.15	Wonoasri	3
+35.20.01	Poncol	3
+35.20.02	Parang	3
+35.20.03	Lembeyan	3
+35.20.04	Takeran	3
+35.20.05	Kawedanan	3
+35.20.06	Magetan	3
+35.20.07	Plaosan	3
+35.20.08	Panekan	3
+35.20.10	Bendo	3
+35.20.11	Maospati	3
+35.20.12	Barat	3
+35.20.13	Karangrejo	3
+35.20.14	Karas	3
+35.20.15	Kartoharjo	3
+35.20.16	Ngariboyo	3
+35.20.17	Nguntoronadi	3
+35.20.18	Sidorejo	3
+35.21.01	Sine	3
+35.21.02	Ngrambe	3
+35.21.03	Jogorogo	3
+35.21.04	Kendal	3
+35.21.05	Geneng	3
+35.21.06	Kwadungan	3
+35.21.07	Karangjati	3
+35.21.08	Padas	3
+35.21.09	Ngawi	3
+35.21.10	Paron	3
+35.21.11	Kedunggalar	3
+35.21.12	Widodaren	3
+35.21.14	Pangkur	3
+35.21.15	Bringin	3
+35.21.16	Pitu	3
+35.21.17	Karanganyar	3
+35.21.18	Gerih	3
+35.21.19	Kasreman	3
+35.22.01	Ngraho	3
+35.22.02	Tambakrejo	3
+35.22.03	Ngambon	3
+35.22.04	Ngasem	3
+35.22.05	Bubulan	3
+35.22.06	Dander	3
+35.22.07	Sugihwaras	3
+35.22.08	Kedungadem	3
+35.22.09	Kepohbaru	3
+35.22.10	Baureno	3
+35.22.11	Kanor	3
+35.22.12	Sumberejo	3
+35.22.13	Balen	3
+35.22.14	Kapas	3
+35.22.15	Bojonegoro	3
+35.22.16	Kalitidu	3
+35.22.17	Malo	3
+35.22.18	Purwosari	3
+35.22.19	Padangan	3
+35.22.20	Kasiman	3
+35.22.21	Temayang	3
+35.22.23	Trucuk	3
+35.22.24	Sukosewu	3
+35.22.25	Kedewan	3
+35.22.26	Gondang	3
+35.22.27	Sekar	3
+35.22.28	Gayam	3
+35.23.01	Kenduruan	3
+35.23.02	Jatirogo	3
+35.23.03	Bangilan	3
+35.23.04	Bancar	3
+35.23.05	Senori	3
+35.23.06	Tambakboyo	3
+35.23.07	Singgahan	3
+35.23.08	Kerek	3
+35.23.09	Parengan	3
+35.23.10	Montong	3
+35.23.11	Soko	3
+35.23.12	Jenu	3
+35.23.13	Merakurak	3
+35.23.15	Semanding	3
+35.23.16	Tuban	3
+35.23.17	Plumpang	3
+35.23.18	Palang	3
+35.23.19	Widang	3
+35.23.20	Grabagan	3
+35.24.01	Sukorame	3
+35.24.02	Bluluk	3
+35.24.03	Modo	3
+35.24.04	Ngimbang	3
+35.24.05	Babat	3
+35.24.06	Kedungpring	3
+35.24.07	Brondong	3
+35.24.08	Laren	3
+35.24.09	Sekaran	3
+35.24.10	Maduran	3
+35.24.11	Sambeng	3
+35.24.12	Sugio	3
+35.24.13	Pucuk	3
+35.24.14	Paciran	3
+35.24.15	Solokuro	3
+35.24.16	Mantup	3
+35.24.17	Sukodadi	3
+35.24.18	Karanggeneng	3
+35.24.19	Kembangbahu	3
+35.24.20	Kalitengah	3
+35.24.21	Turi	3
+35.24.22	Lamongan	3
+35.24.23	Tikung	3
+35.24.24	Karangbinangun	3
+35.24.25	Deket	3
+35.24.26	Glagah	3
+35.25.01	Dukun	3
+35.25.02	Balongpanggang	3
+35.25.03	Panceng	3
+35.25.04	Benjeng	3
+35.25.05	Duduksampeyan	3
+35.25.06	Wringinanom	3
+35.25.07	Ujungpangkah	3
+35.25.08	Kedamean	3
+35.25.09	Sidayu	3
+35.25.10	Manyar	3
+35.25.11	Cerme	3
+35.25.12	Bungah	3
+35.25.13	Menganti	3
+35.25.15	Driyorejo	3
+35.25.16	Gresik	3
+35.25.17	Sangkapura	3
+35.25.18	Tambak	3
+35.26.01	Bangkalan	3
+35.26.02	Socah	3
+35.26.03	Burneh	3
+35.26.04	Kamal	3
+35.26.05	Arosbaya	3
+35.26.06	Geger	3
+35.26.07	Klampis	3
+35.26.08	Sepulu	3
+35.26.09	Tanjung Bumi	3
+35.26.10	Kokop	3
+35.26.11	Kwanyar	3
+35.26.12	Labang	3
+35.26.13	Tanah Merah	3
+35.26.15	Blega	3
+35.26.16	Modung	3
+35.26.17	Konang	3
+35.26.18	Galis	3
+35.27.01	Sreseh	3
+35.27.02	Torjun	3
+35.27.03	Sampang	3
+35.27.04	Camplong	3
+35.27.05	Omben	3
+35.27.06	Kedungdung	3
+35.27.07	Jrengik	3
+35.27.08	Tambelangan	3
+35.27.09	Banyuates	3
+35.27.10	Robatal	3
+35.27.11	Sokobanah	3
+35.27.12	Ketapang	3
+35.27.13	Pangarengan	3
+35.28.01	Tlanakan	3
+35.28.02	Pademawu	3
+35.28.03	Galis	3
+35.28.04	Pamekasan	3
+35.28.05	Proppo	3
+35.28.06	Palenggaan	3
+35.28.07	Pegantenan	3
+35.28.08	Larangan	3
+35.28.10	Waru	3
+35.28.11	Batumarmar	3
+35.28.12	Kadur	3
+35.28.13	Pasean	3
+35.29.01	Kota Sumenep	3
+35.29.02	Kalianget	3
+35.29.03	Manding	3
+35.29.04	Talango	3
+35.29.05	Bluto	3
+35.29.06	Saronggi	3
+35.29.07	Lenteng	3
+35.29.08	Giliginting	3
+35.29.09	Guluk-Guluk	3
+35.29.10	Ganding	3
+35.29.11	Pragaan	3
+35.29.12	Ambunten	3
+35.29.13	Pasongsongan	3
+35.29.14	Dasuk	3
+35.29.15	Rubaru	3
+35.29.16	Batang Batang	3
+35.29.17	Batuputih	3
+35.29.18	Dungkek	3
+35.29.19	Gapura	3
+35.29.20	Gayam	3
+35.29.21	Nonggunong	3
+35.29.23	Masalembu	3
+35.29.24	Arjasa	3
+35.29.25	Sapeken	3
+35.29.26	Batuan	3
+35.29.27	Kangayan	3
+35.71.01	Mojoroto	3
+35.71.02	Kota	3
+35.72.03	Sananwetan	3
+35.73.01	Blimbing	3
+35.73.02	Klojen	3
+35.73.03	Kedungkandang	3
+35.73.04	Sukun	3
+35.73.05	Lowokwaru	3
+35.74.01	Kademangan	3
+35.74.02	Wonoasih	3
+35.74.03	Mayangan	3
+35.74.04	Kanigaran	3
+35.74.05	Kedopok	3
+35.75.04	Panggungrejo	3
+35.76.01	Prajuritkulon	3
+35.76.02	Magersari	3
+35.76.03	Kranggan	3
+35.77.01	Kartoharjo	3
+35.77.02	Manguharjo	3
+35.77.03	Taman	3
+35.78.01	Karang Pilang	3
+35.78.02	Wonocolo	3
+35.78.03	Rungkut	3
+35.78.04	Wonokromo	3
+35.78.05	Tegalsari	3
+35.78.06	Sawahan	3
+35.78.07	Genteng	3
+35.78.08	Gubeng	3
+35.78.09	Sukolilo	3
+35.78.10	Tambaksari	3
+35.78.11	Simokerto	3
+35.78.12	Pabean Cantian	3
+35.78.13	Bubutan	3
+35.78.14	Tandes	3
+35.78.15	Krembangan	3
+35.78.16	Semampir	3
+35.78.17	Kenjeran	3
+35.78.18	Lakarsantri	3
+35.78.19	Benowo	3
+35.78.20	Wiyung	3
+35.78.21	Dukuh Pakis	3
+35.78.22	Gayungan	3
+35.78.23	Jambangan	3
+35.78.24	Tenggilis Mejoyo	3
+35.78.25	Gunung Anyar	3
+35.78.26	Mulyorejo	3
+35.78.27	Sukomanunggal	3
+35.78.28	Asem Rowo	3
+35.78.29	Bulak	3
+35.78.30	Pakal	3
+35.78.31	Sambikerep	3
+35.79.01	Batu	3
+35.79.02	Bumiaji	3
+36.01.01	Sumur	3
+36.01.02	Cimanggu	3
+36.01.03	Cibaliung	3
+36.01.04	Cikeusik	3
+36.01.05	Cigeulis	3
+36.01.06	Panimbang	3
+36.01.07	Angsana	3
+36.01.08	Munjul	3
+36.01.09	Pagelaran	3
+36.01.10	Bojong	3
+36.01.11	Picung	3
+36.01.12	Labuan	3
+36.01.13	Menes	3
+36.01.14	Saketi	3
+36.01.15	Cipeucang	3
+36.01.16	Jiput	3
+36.01.17	Mandalawangi	3
+36.01.18	Cimanuk	3
+36.01.19	Kaduhejo	3
+36.01.20	Banjar	3
+36.01.21	Pandeglang	3
+36.01.22	Cadasari	3
+36.01.23	Cisata	3
+36.01.24	Patia	3
+36.01.25	Karang Tanjung	3
+36.01.26	Cikedal	3
+36.01.28	Carita	3
+36.01.29	Sukaresmi	3
+36.01.30	Mekarjaya	3
+36.01.31	Sindangresmi	3
+36.01.32	Pulosari	3
+36.01.33	Koroncong	3
+36.01.34	Majasari	3
+36.01.35	Sobang	3
+36.02.01	Malingping	3
+36.02.02	Panggarangan	3
+36.02.03	Bayah	3
+36.02.04	Cipanas	3
+36.02.05	Muncang	3
+36.02.06	Leuwidamar	3
+36.02.07	Bojongmanik	3
+36.02.08	Gunungkencana	3
+36.02.09	Banjarsari	3
+36.02.10	Cileles	3
+36.02.11	Cimarga	3
+36.02.12	Sajira	3
+36.02.13	Maja	3
+36.02.14	Rangkasbitung	3
+36.02.15	Warunggunung	3
+36.02.16	Cijaku	3
+36.02.17	Cikulur	3
+36.02.18	Cibadak	3
+36.02.19	Cibeber	3
+36.02.20	Cilograng	3
+36.02.21	Wanasalam	3
+36.02.22	Sobang	3
+36.02.23	Curug bitung	3
+36.02.24	Kalanganyar	3
+36.02.25	Lebakgedong	3
+36.02.26	Cihara	3
+36.02.28	Cigemlong	3
+36.03.01	Balaraja	3
+36.03.02	Jayanti	3
+36.03.03	Tigaraksa	3
+36.03.04	Jambe	3
+36.03.05	Cisoka	3
+36.03.06	Kresek	3
+36.03.07	Kronjo	3
+36.03.08	Mauk	3
+36.03.09	Kemiri	3
+36.03.10	Sukadiri	3
+36.03.11	Rajeg	3
+36.03.12	Pasar Kemis	3
+36.03.13	Teluknaga	3
+36.03.14	Kosambi	3
+36.03.15	Pakuhaji	3
+36.03.16	Sepatan	3
+36.03.17	Curug	3
+36.03.18	Cikupa	3
+36.03.19	Panongan	3
+36.03.20	Legok	3
+36.03.22	Pagedangan	3
+36.03.23	Cisauk	3
+36.03.27	Sukamulya	3
+36.03.28	Kelapa Dua	3
+36.03.29	Sindang Jaya	3
+36.03.30	Sepatan Timur	3
+36.03.32	Gunung Kaler	3
+36.03.33	Mekar Baru	3
+36.04.05	Kramatwatu	3
+36.04.06	Waringinkurung	3
+36.04.07	Bojonegara	3
+36.04.08	Pulo Ampel	3
+36.04.09	Ciruas	3
+36.04.11	Kragilan	3
+36.04.12	Pontang	3
+36.04.13	Tirtayasa	3
+36.04.14	Tanara	3
+36.04.15	Cikande	3
+36.04.16	Kibin	3
+36.04.17	Carenang	3
+36.04.18	Binuang	3
+36.04.19	Petir	3
+36.04.20	Tunjung Teja	3
+36.04.22	Baros	3
+36.04.23	Cikeusal	3
+36.04.24	Pamarayan	3
+36.04.26	Jawilan	3
+36.04.27	Ciomas	3
+36.04.28	Pabuaran	3
+36.04.30	Anyar	3
+36.04.31	Cinangka	3
+36.04.32	Mancak	3
+36.04.33	Gunungsari	3
+36.04.34	Bandung	3
+36.04.35	Lebak Wangi	3
+36.71.01	Tangerang	3
+36.71.02	Jatiuwung	3
+36.71.03	Batuceper	3
+36.71.04	Benda	3
+36.71.05	Cipondoh	3
+36.71.06	Ciledug	3
+36.71.07	Karawaci	3
+36.71.10	Neglasari	3
+36.71.11	Pinang	3
+36.71.12	Karang Tengah	3
+36.71.13	Larangan	3
+36.72.01	Cibeber	3
+36.72.02	Cilegon	3
+36.72.03	Pulomerak	3
+36.72.04	Ciwandan	3
+36.72.05	Jombang	3
+36.72.06	Gerogol	3
+36.72.07	Purwakarta	3
+36.72.08	Citangkil	3
+36.73.01	Serang	3
+36.73.02	Kasemen	3
+36.73.03	Walantaka	3
+36.73.06	Taktakan	3
+36.74.01	Serpong	3
+36.74.02	Serpong Utara	3
+36.74.03	Pondok Aren	3
+36.74.04	Ciputat	3
+36.74.05	Ciputat Timur	3
+36.74.06	Pamulang	3
+51.01.01	Negara	3
+51.01.02	Mendoyo	3
+51.01.03	Pekutatan	3
+51.01.04	Melaya	3
+51.02.01	Selemadeg	3
+51.02.02	Selemadeg Timur	3
+51.02.03	Selemadeg Barat	3
+51.02.04	Kerambitan	3
+51.02.05	Tabanan	3
+51.02.06	Kediri	3
+51.02.07	Marga	3
+51.02.08	Penebel	3
+51.02.09	Baturiti	3
+51.02.10	Pupuan	3
+51.03.03	Abiansemal	3
+51.03.04	Petang	3
+51.03.05	Kuta Selatan	3
+51.03.06	Kuta Utara	3
+51.04.01	Sukawati	3
+51.04.02	Blahbatuh	3
+51.04.03	Gianyar	3
+51.04.04	Tampaksiring	3
+51.04.05	Ubud	3
+51.04.06	Tegallalang	3
+51.04.07	Payangan	3
+51.05.04	Dawan	3
+51.06.01	Susut	3
+51.06.02	Bangli	3
+51.06.03	Tembuku	3
+51.06.04	Kintamani	3
+51.07.01	Rendang	3
+51.07.02	Sidemen	3
+51.07.04	Karangasem	3
+51.07.05	Abang	3
+51.07.06	Bebandem	3
+51.07.07	Selat	3
+51.08.01	Gerokgak	3
+51.08.02	Seririt	3
+51.08.03	Busungbiu	3
+51.08.04	Banjar	3
+51.08.07	Sawan	3
+51.08.08	Kubutambahan	3
+51.08.09	Tejakula	3
+51.71.01	Denpasar Selatan	3
+51.71.02	Denpasar Timur	3
+51.71.03	Denpasar Barat	3
+51.71.04	Denpasar Utara	3
+52.01.01	Gerung	3
+52.01.03	Narmada	3
+52.01.07	Sekotong	3
+52.01.08	Labuapi	3
+52.01.09	Gunungsari	3
+52.01.12	Lingsar	3
+52.01.13	Lembar	3
+52.01.14	Batu Layar	3
+52.01.15	Kuripan	3
+52.02.01	Praya	3
+52.02.02	Jonggat	3
+52.02.04	Pujut	3
+52.02.05	Praya Barat	3
+52.02.06	Praya Timur	3
+52.02.07	Janapria	3
+52.02.08	Pringgarata	3
+52.02.09	Kopang	3
+52.02.10	Praya Tengah	3
+52.02.11	Praya Barat Daya	3
+52.02.12	Batukliang Utara	3
+52.03.01	Keruak	3
+52.03.02	Sakra	3
+52.03.03	Terara	3
+52.03.04	Sikur	3
+52.03.05	Masbagik	3
+52.03.06	Sukamulia	3
+52.03.07	Selong	3
+52.03.08	Pringgabaya	3
+52.03.09	Aikmel	3
+52.03.10	Sambelia	3
+52.03.11	Montong Gading	3
+52.03.12	Pringgasela	3
+52.03.14	Wanasaba	3
+52.03.15	Sembalun	3
+52.03.16	Suwela	3
+52.03.17	Labuhan Haji	3
+52.03.18	Sakra Timur	3
+52.03.19	Sakra Barat	3
+52.03.20	Jerowaru	3
+52.03.21	Lenek	3
+52.04.02	Lunyuk	3
+52.04.05	Alas	3
+52.04.06	Utan	3
+52.04.07	Batu Lanteh	3
+52.04.08	Sumbawa	3
+52.04.09	Moyo Hilir	3
+52.04.10	Moyo Hulu	3
+52.04.11	Ropang	3
+52.04.12	Lape	3
+52.04.13	Plampang	3
+52.04.14	Empang	3
+52.04.17	Alas Barat	3
+52.04.18	Labuhan Badas	3
+52.04.19	Labangka	3
+52.04.20	Buer	3
+52.04.21	Rhee	3
+52.04.22	Unter Iwes	3
+52.04.23	Moyo Utara	3
+52.04.24	Maronge	3
+52.04.25	Tarano	3
+52.04.26	Lopok	3
+52.04.29	Lantung	3
+52.05.01	Dompu	3
+52.05.02	Kempo	3
+52.05.03	Hu'u	3
+52.05.04	Kilo	3
+52.05.05	Woja	3
+52.05.06	Pekat	3
+52.05.07	Manggalewa	3
+52.05.08	Pajo	3
+52.06.01	Monta	3
+52.06.02	Bolo	3
+52.06.03	Woha	3
+52.06.04	Belo	3
+52.06.05	Wawo	3
+52.06.06	Sape	3
+52.06.07	Wera	3
+52.06.08	Donggo	3
+52.06.09	Sanggar	3
+52.06.10	Ambalawi	3
+52.06.11	Langgudu	3
+52.06.12	Lambu	3
+52.06.13	Madapangga	3
+52.06.14	Tambora	3
+52.06.15	Soromandi	3
+52.06.16	Parado	3
+52.06.17	Lambitu	3
+52.06.18	Palibelo	3
+52.07.04	Sekongkang	3
+52.07.05	Brang Rea	3
+52.07.06	Poto Tano	3
+52.07.07	Brang Ene	3
+52.07.08	Maluk	3
+52.08.01	Tanjung	3
+52.08.02	Gangga	3
+52.08.03	Kayangan	3
+52.08.04	Bayan	3
+52.08.05	Pemenang	3
+52.71.01	Ampenan	3
+52.71.02	Mataram	3
+52.71.05	Selaprang	3
+52.71.06	Sandubaya	3
+52.72.01	RasanaE Barat	3
+52.72.02	RasanaE Timur	3
+52.72.03	Asakota	3
+52.72.04	Raba	3
+52.72.05	Mpunda	3
+53.01.04	Semau	3
+53.01.05	Kupang Barat	3
+53.01.06	Kupang Timur	3
+53.01.07	Sulamu	3
+53.01.08	Kupang Tengah	3
+53.01.09	Amarasi	3
+53.01.10	Fatuleu	3
+53.01.12	Amfoang Selatan	3
+53.01.13	Amfoang Utara	3
+53.01.16	Nekamese	3
+53.01.17	Amarasi Barat	3
+53.01.18	Amarasi Selatan	3
+53.01.19	Amarasi Timur	3
+53.01.20	Amabi Oefeto Timur	3
+53.01.21	Amfoang Barat Daya	3
+53.01.22	Amfoang Barat Laut	3
+53.01.23	Semau Selatan	3
+53.01.24	Taebenu	3
+53.01.25	Amabi Oefeto	3
+53.01.26	Amfoang Timur	3
+53.01.27	Fatuleu Barat	3
+53.01.28	Fatuleu Tengah	3
+53.01.30	Amfoang Tengah	3
+53.02.01	Kota Soe	3
+53.02.02	Mollo Selatan	3
+53.02.03	Mollo Utara	3
+53.02.04	Amanuban Timur	3
+53.02.05	Amanuban Tengah	3
+53.02.06	Amanuban Selatan	3
+53.02.07	Amanuban Barat	3
+53.02.08	Amanatun Selatan	3
+53.02.09	Amanatun Utara	3
+53.02.11	Kuanfatu	3
+53.02.12	Fatumnasi	3
+53.02.13	Polen	3
+53.02.14	Batu Putih	3
+53.02.15	Boking	3
+53.02.16	Toianas	3
+53.02.18	Oenino	3
+53.02.19	Kolbano	3
+53.02.20	Kot olin	3
+53.02.21	Kualin	3
+53.02.22	Mollo Barat	3
+53.02.23	Kok Baun	3
+53.02.24	Noebana	3
+53.02.25	Santian	3
+53.02.26	Noebeba	3
+53.02.27	Kuatnana	3
+53.02.28	Fautmolo	3
+53.02.29	Fatukopa	3
+53.02.30	Mollo Tengah	3
+53.02.31	Tobu	3
+53.02.32	Nunbena	3
+53.03.01	Miomaffo Timur	3
+53.03.02	Miomaffo Barat	3
+53.03.03	Biboki Selatan	3
+53.03.04	Noemuti	3
+53.03.05	Kota Kefamenanu	3
+53.03.06	Biboki Utara	3
+53.03.07	Biboki Anleu	3
+53.03.08	Insana	3
+53.03.09	Insana Utara	3
+53.03.10	Noemuti Timur	3
+53.03.11	Miomaffo Tengah	3
+53.03.12	Musi	3
+53.03.13	Mutis	3
+53.03.14	Bikomi Selatan	3
+53.03.15	Bikomi Tengah	3
+53.03.16	Bikomi Nilulat	3
+53.03.17	Bikomi Utara	3
+53.03.18	Naibenu	3
+53.03.19	Insana Fafinesu	3
+53.03.22	Biboki Tan Pah	3
+53.03.23	Biboki Moenleu	3
+53.03.24	Biboki Feotleu	3
+53.04.01	Lamaknen	3
+53.04.02	TasifetoTimur	3
+53.04.03	Raihat	3
+53.04.04	Tasifeto Barat	3
+53.04.05	Kakuluk Mesak	3
+53.04.12	Kota Atambua	3
+53.04.13	Raimanuk	3
+53.04.17	Lasiolat	3
+53.04.18	Lamaknen Selatan	3
+53.04.21	Atambua Barat	3
+53.04.22	Atambua Selatan	3
+53.04.23	Nanaet Duabesi	3
+53.05.01	Teluk Mutiara	3
+53.05.02	Alor Barat Laut	3
+53.05.03	Alor Barat Daya	3
+53.05.04	Alor Selatan	3
+53.05.05	Alor Timur	3
+53.05.06	Pantar	3
+53.05.07	Alor Tengah Utara	3
+53.05.08	Alor Timur Laut	3
+53.05.09	Pantar Barat	3
+53.05.10	Kabola	3
+53.05.11	Pulau Pura	3
+53.05.12	Mataru	3
+53.05.13	Pureman	3
+53.05.14	Pantar Timur	3
+53.05.15	Lembur	3
+53.05.16	Pantar Tengah	3
+53.05.17	Pantar Baru Laut	3
+53.06.01	Wulanggitang	3
+53.06.02	Titehena	3
+53.06.03	Larantuka	3
+53.06.04	Ile Mandiri	3
+53.06.05	Tanjung Bunga	3
+53.06.06	Solor Barat	3
+53.06.07	Solor Timur	3
+53.06.08	Adonara Barat	3
+53.06.09	Wotan Ulumando	3
+53.06.10	Adonara Timur	3
+53.06.12	Witihama	3
+53.06.13	Ile Boleng	3
+53.06.14	Demon Pagong	3
+53.06.15	Lewolema	3
+53.06.16	Ile Bura	3
+53.06.17	Adonara	3
+53.06.18	Adonara Tengah	3
+53.06.19	Solor Selatan	3
+53.07.02	Mego	3
+53.07.03	Lela	3
+53.07.04	Nita	3
+53.07.05	Alok	3
+53.07.06	Palue	3
+53.07.07	Nelle	3
+53.07.08	Talibura	3
+53.07.09	Waigete	3
+53.07.10	Kewapante	3
+53.07.11	Bola	3
+53.07.12	Magepanda	3
+53.07.13	Waiblama	3
+53.07.14	Alok Barat	3
+53.07.16	Koting	3
+53.07.17	Tana Wawo	3
+53.07.18	Hewokloang	3
+53.07.19	Kangae	3
+53.07.20	Doreng	3
+53.07.21	Mapitara	3
+53.08.01	Nangapanda	3
+53.08.02	Pulau Ende	3
+53.08.03	Ende	3
+53.08.04	Ende Selatan	3
+53.08.05	Ndona	3
+53.08.06	Detusoko	3
+53.08.07	Wewaria	3
+53.08.08	Wolowaru	3
+53.08.09	Wolojita	3
+53.08.10	Maurole	3
+53.08.11	Maukaro	3
+53.08.12	Lio Timur	3
+53.08.13	Kota Baru	3
+53.08.14	Kelimutu	3
+53.08.15	Detukeli	3
+53.08.17	Ndori	3
+53.08.18	Ende Utara	3
+53.08.19	Ende Tengah	3
+53.08.20	Ende Timur	3
+53.08.21	Lepembusu Kelisoke	3
+53.09.01	Aimere	3
+53.09.02	Golewa	3
+53.09.06	Bajawa	3
+53.09.07	Soa	3
+53.09.09	Riung	3
+53.09.14	Riung Barat	3
+53.09.15	Bajawa Utara	3
+53.09.16	Wolomeze	3
+53.09.18	Golewa Selatan	3
+53.09.19	Golewa Barat	3
+53.09.20	Inerie	3
+53.10.01	Wae Rii	3
+53.10.03	Ruteng	3
+53.10.05	Satar Mese	3
+53.10.06	Cibal	3
+53.10.11	Reok	3
+53.10.12	Langke Rembong	3
+53.10.13	Satar Mese Barat	3
+53.10.14	Rahong Utara	3
+53.10.15	Lelak	3
+53.10.16	Reok Barat	3
+53.10.17	Cibal barat	3
+53.10.18	Satar Mese Utara	3
+53.11.01	Kota Waingapu	3
+53.11.02	Haharu	3
+53.11.04	Nggaha Ori Angu	3
+53.11.05	Tabundung	3
+53.11.06	Pinu Pahar	3
+53.11.07	Pandawai	3
+53.11.08	Umalulu	3
+53.11.09	Rindi	3
+53.11.10	Pahunga Lodu	3
+53.11.11	Wulla Waijelu	3
+53.11.12	Paberiwai	3
+53.11.13	Karera	3
+53.11.14	Kahaungu Eti	3
+53.11.15	Matawai La Pawu	3
+53.11.16	Kambera	3
+53.11.19	Katala Hamu Lingu	3
+53.11.20	Kanatang	3
+53.11.21	Ngadu Ngala	3
+53.11.22	Mahu	3
+53.12.04	Tana Righu	3
+53.12.10	Loli	3
+53.12.11	Wanokaka	3
+53.12.12	Lamboya	3
+53.12.15	Kota Waikabubak	3
+53.12.18	Laboya Barat	3
+53.13.01	Naga Wutung	3
+53.13.02	Atadei	3
+53.13.04	Lebatukan	3
+53.13.05	Nubatukan	3
+53.13.06	Omesuri	3
+53.13.07	Buyasuri	3
+53.13.08	Wulandoni	3
+53.13.09	Ile Ape Timur	3
+53.14.01	Rote Barat Daya	3
+53.14.03	Lobalain	3
+53.14.04	Rote Tengah	3
+53.14.05	Pantai Baru	3
+53.14.06	Rote Timur	3
+53.14.07	Rote Barat	3
+53.14.08	Rote Selatan	3
+53.14.09	Ndao Nuse	3
+53.14.10	Landu Leko	3
+53.14.11	Loaholu	3
+53.15.01	Macang Pacar	3
+53.15.02	Kuwus	3
+53.15.03	Lembor	3
+53.15.05	Komodo	3
+53.15.06	Boleng	3
+53.15.07	Welak	3
+53.15.08	Ndoso	3
+53.15.09	Lembor Selatan	3
+53.15.10	Mbeliling	3
+53.15.11	Pacar	3
+53.15.12	Kuwus Barat	3
+53.16.01	Aesesa	3
+53.16.03	Boawae	3
+53.16.04	Mauponggo	3
+53.16.05	Wolowae	3
+53.16.06	Keo Tengah	3
+53.16.07	Aesesa Selatan	3
+53.17.01	Katiku Tana	3
+53.17.02	Umbu Ratu Nggay Barat	3
+53.17.03	Mamboro	3
+53.17.05	Katiku Tana Selatan	3
+53.17.06	Umbu Ratu Nggay Tengah	3
+53.18.01	Loura	3
+53.18.02	Wewewa Utara	3
+53.18.03	Wewewa Timur	3
+53.18.04	Wewewa Barat	3
+53.18.05	Wewewa Selatan	3
+53.18.06	Kodi Bangedo	3
+53.18.07	Kodi	3
+53.18.09	Kota Tambolaka	3
+53.18.10	Wewewa Tengah	3
+53.18.11	Kodi Balaghar	3
+53.19.01	Borong	3
+53.19.02	Lamba Leda Selatan	3
+53.19.03	Lamba Leda	3
+53.19.04	Sambi Rampas	3
+53.19.06	Kota Komba	3
+53.19.07	Rana Mese	3
+53.19.08	Lamba Leda Timur	3
+53.19.09	Elar Selatan	3
+53.19.10	Kota Komba Utara	3
+53.19.11	Lamba Leda Utara	3
+53.19.12	Congkar	3
+53.20.01	Sabu Barat	3
+53.20.03	Sabu Timur	3
+53.20.04	Sabu Liae	3
+53.20.05	Hawu Mehara	3
+53.20.06	Raijua	3
+53.21.01	Malaka Tengah	3
+53.21.02	Malaka Barat	3
+53.21.03	Wewiku	3
+53.21.04	Weliman	3
+53.21.05	Rinhat	3
+53.21.06	Io Kufeu	3
+53.21.07	Sasitamean	3
+53.21.09	Malaka Timur	3
+53.21.10	Kobalima Timur	3
+53.21.11	Kobalima	3
+53.21.12	Botin Leobele	3
+53.71.02	Maulafa	3
+53.71.03	Kelapa Lima	3
+53.71.04	Oebobo	3
+53.71.05	Kota Raja	3
+53.71.06	Kota Lama	3
+61.01.01	Sambas	3
+61.01.02	Teluk Keramat	3
+61.01.03	Jawai	3
+61.01.04	Tebas	3
+61.01.05	Pemangkat	3
+61.01.06	Sejangkung	3
+61.01.07	Selakau	3
+61.01.08	Paloh	3
+61.01.09	Sajingan Besar	3
+61.01.10	Subah	3
+61.01.11	Galing	3
+61.01.12	Tekarang	3
+61.01.13	Semparuk	3
+61.01.14	Sajad	3
+61.01.15	Sebawi	3
+61.01.16	Jawai Selatan	3
+61.01.17	Tangaran	3
+61.01.19	Selakau Timur	3
+61.02.01	Mempawah Hilir	3
+61.02.07	Sungai Pinyuh	3
+61.02.08	Jongkat	3
+61.02.12	Sungai Kunyit	3
+61.02.15	Segedong	3
+61.02.16	Anjongan	3
+61.02.17	Sadaniang	3
+61.02.18	Mempawah Timur	3
+61.03.01	Kapuas	3
+61.03.02	Mukok	3
+61.03.03	Noyan	3
+61.03.04	Jangkang	3
+61.03.06	Beduai	3
+61.03.07	Sekayam	3
+61.03.08	Kembayan	3
+61.03.09	Parindu	3
+61.03.10	Tayan Hulu	3
+61.03.11	Tayan Hilir	3
+61.03.12	Balai	3
+61.03.13	Toba	3
+61.03.20	Meliau	3
+61.03.21	Entikong	3
+61.04.01	Matan Hilir Utara	3
+61.04.02	Marau	3
+61.04.04	Kendawangan	3
+61.04.05	Sandai	3
+61.04.07	Sungai Laur	3
+61.04.08	Simpang Hulu	3
+61.04.11	Nanga Tayap	3
+61.04.12	Matan Hilir Selatan	3
+61.04.13	Tumbang Titi	3
+61.04.16	Delta Pawan	3
+61.04.17	Muara Pawan	3
+61.04.18	Benua Kayong	3
+61.04.19	Hulu Sungai	3
+61.04.20	Simpang Dua	3
+61.04.21	Air Upas	3
+61.04.22	Singkup	3
+61.04.24	Pemahan	3
+61.04.25	Sungai Melayu Rayak	3
+61.05.01	Sintang	3
+61.05.02	Tempunak	3
+61.05.03	Sepauk	3
+61.05.04	Ketungau Hilir	3
+61.05.05	Ketungau Tengah	3
+61.05.06	Ketungau Hulu	3
+61.05.07	Dedai	3
+61.05.08	Kayan Hilir	3
+61.05.09	Kayan Hulu	3
+61.05.14	Serawai	3
+61.05.19	Kelam Permai	3
+61.05.20	Sungai Tebelian	3
+61.05.21	Binjai Hulu	3
+61.06.01	Putussibau Utara	3
+61.06.02	Bika	3
+61.06.03	Embaloh Hilir	3
+61.06.04	Embaloh Hulu	3
+61.06.05	Bunut Hilir	3
+61.06.06	Bunut Hulu	3
+61.06.07	Jongkong	3
+61.06.08	Hulu Gurung	3
+61.06.09	Selimbau	3
+61.06.10	Semitau	3
+61.06.11	Seberuang	3
+61.06.12	Batang Lupar	3
+61.06.14	Badau	3
+61.06.15	Silat Hilir	3
+61.06.16	Silat Hulu	3
+61.06.17	Putussibau Selatan	3
+61.06.18	Kalis	3
+61.06.19	Boyan Tanjung	3
+61.06.20	Mentebah	3
+61.06.21	Pengkadan	3
+61.06.22	Suhaid	3
+61.06.23	Puring Kencana	3
+61.07.03	Ledo	3
+61.07.04	Bengkayang	3
+61.07.05	Seluas	3
+61.07.06	Sanggau Ledo	3
+61.07.07	Jagoi Babang	3
+61.07.08	Monterado	3
+61.07.09	Teriak	3
+61.07.10	Suti Semarang	3
+61.07.11	Capkala	3
+61.07.12	Siding	3
+61.07.13	Lumar	3
+61.07.14	Sungai Betung	3
+61.07.15	Sungai Raya Kepulauan	3
+61.07.16	Lembah Bawang	3
+61.07.17	Tujuh Belas	3
+61.08.01	Ngabang	3
+61.08.02	Mempawah Hulu	3
+61.08.04	Mandor	3
+61.08.05	Air Besar	3
+61.08.06	Menyuke	3
+61.08.07	Sengah Temila	3
+61.08.08	Meranti	3
+61.08.09	Kuala Behe	3
+61.08.10	Sebangki	3
+61.08.11	Jelimpo	3
+61.09.01	Sekadau Hilir	3
+61.09.02	Sekadau Hulu	3
+61.09.03	Nanga Taman	3
+61.09.04	Nanga Mahap	3
+61.09.05	Belitang Hilir	3
+61.09.06	Belitang Hulu	3
+61.09.07	Belitang	3
+61.10.01	Belimbing	3
+61.10.02	Nanga Pinoh	3
+61.10.03	Ella Hilir	3
+61.10.04	Menukung	3
+61.10.05	Sayan	3
+61.10.06	Tanah Pinoh	3
+61.10.07	Sokan	3
+61.10.08	Pinoh Utara	3
+61.10.09	Pinoh Selatan	3
+61.10.10	Belimbing Hulu	3
+61.11.02	Simpang Hilir	3
+61.11.03	Teluk Batang	3
+61.11.04	Pulau Maya	3
+61.11.05	Seponti	3
+61.11.06	Kepulauan Karimata	3
+61.12.01	Sungai Raya	3
+61.12.02	Kuala Mandor B	3
+61.12.03	Sungai Ambawang	3
+61.12.04	Terentang	3
+61.12.05	Batu Ampar	3
+61.12.06	Kubu	3
+61.71.01	Pontianak Selatan	3
+61.71.02	Pontianak Timur	3
+61.71.03	Pontianak Barat	3
+61.71.04	Pontianak Utara	3
+61.71.05	Pontianak Kota	3
+61.71.06	Pontianak Tenggara	3
+61.72.01	Singkawang Tengah	3
+61.72.02	Singkawang Barat	3
+61.72.03	Singkawang Timur	3
+61.72.04	Singkawang Utara	3
+61.72.05	Singkawang Selatan	3
+62.01.01	Kumai	3
+62.01.03	Kotawaringin Lama	3
+62.01.04	Arut Utara	3
+62.01.05	Pangkalan Lada	3
+62.01.06	Pangkalan Banteng	3
+62.02.01	Kota Besi	3
+62.02.02	Cempaga	3
+62.02.03	Mentaya Hulu	3
+62.02.04	Parenggean	3
+62.02.05	Baamang	3
+62.02.06	Mentawa Baru Ketapang	3
+62.02.07	Mentaya Hilir Utara	3
+62.02.08	Mentaya Hilir Selatan	3
+62.02.09	Pulau Hanaut	3
+62.02.10	Antang Kalang	3
+62.02.11	Teluk Sampit	3
+62.02.12	Seranau	3
+62.02.13	Cempaga Hulu	3
+62.02.14	Telawang	3
+62.02.15	Bukit Santuai	3
+62.02.16	Tualan Hulu	3
+62.02.17	Telaga Antang	3
+62.03.02	Kapuas Hilir	3
+62.03.03	Kapuas Timur	3
+62.03.04	Kapuas Kuala	3
+62.03.05	Kapuas Barat	3
+62.03.06	Pulau Petak	3
+62.03.07	Kapuas Murung	3
+62.03.08	Basarang	3
+62.03.09	Mantangai	3
+62.03.11	Kapuas Tengah	3
+62.03.12	Kapuas Hulu	3
+62.03.13	Tamban Catur	3
+62.03.14	Pasak Talawang	3
+62.03.15	Mandau Talawang	3
+62.03.16	Dadahup	3
+62.03.17	Bataguh	3
+62.04.01	Jenamas	3
+62.04.02	Dusun Hilir	3
+62.04.03	Karau Kuala	3
+62.04.04	Dusun Utara	3
+62.04.06	Dusun Selatan	3
+62.05.01	Montallat	3
+62.05.02	Gunung Timang	3
+62.05.03	Gunung Purei	3
+62.05.04	Teweh Timur	3
+62.05.05	Teweh Tengah	3
+62.05.06	Lahei	3
+62.05.08	Teweh Selatan	3
+62.05.09	Lahei Barat	3
+62.06.01	Kamipang	3
+62.06.02	Katingan Hilir	3
+62.06.03	Tewang Sangalang Garing	3
+62.06.04	Pulau Malan	3
+62.06.05	Katingan Tengah	3
+62.06.06	Sanaman Mantikei	3
+62.06.07	Marikit	3
+62.06.08	Katingan Hulu	3
+62.06.10	Katingan Kuala	3
+62.06.11	Tasik Payawan	3
+62.06.12	Petak Malai	3
+62.06.13	Bukit Raya	3
+62.07.01	Seruyan Hilir	3
+62.07.02	Seruyan Tengah	3
+62.07.03	Danau Sembuluh	3
+62.07.04	Hanau	3
+62.07.05	Seruyan Hulu	3
+62.07.07	Seruyan Raya	3
+62.07.08	Danau Seluluk	3
+62.07.09	Batu Ampar	3
+62.07.10	Suling Tambun	3
+62.08.01	Sukamara	3
+62.08.02	Jelai	3
+62.08.03	Balai Riam	3
+62.08.04	Pantai Lunci	3
+62.08.05	Permata Kecubung	3
+62.09.01	Lamandau	3
+62.09.02	Delang	3
+62.09.03	Bulik	3
+62.09.04	Bulik Timur	3
+62.09.05	Menthobi Raya	3
+62.09.06	Sematu Jaya	3
+62.09.08	Batang Kawa	3
+62.10.01	Sepang	3
+62.10.02	Kurun	3
+62.10.03	Tewah	3
+62.10.04	Kahayan Hulu Utara	3
+62.10.05	Rungan	3
+62.10.06	Manuhing	3
+62.10.07	Mihing Raya	3
+62.10.08	Damang Batu	3
+62.10.09	Miri Manasa	3
+62.10.10	Rungan Hulu	3
+62.10.12	Rungan Barat	3
+62.11.01	Pandih Batu	3
+62.11.02	Kahayan Kuala	3
+62.11.03	Kahayan Tengah	3
+62.11.04	Banama Tingang	3
+62.11.05	Kahayan Hilir	3
+62.11.06	Maliku	3
+62.11.07	Jabiren Raya	3
+62.11.08	Sebangau Kuala	3
+62.12.01	Murung	3
+62.12.03	Laung Tuhup	3
+62.12.04	Permata Intan	3
+62.12.05	Sumber Barito	3
+62.12.06	Barito Tuhup Raya	3
+62.12.07	Tanah Siang Selatan	3
+62.12.08	Sungai Babuat	3
+62.12.09	Seribu Riam	3
+62.12.10	Uut Murung	3
+62.13.01	Dusun Timur	3
+62.13.04	Awang	3
+62.13.05	Dusun Tengah	3
+62.13.06	Pematang Karau	3
+62.13.07	Paju Epat	3
+62.13.08	Raren Batuah	3
+62.13.09	Paku	3
+62.13.10	Karusen Janang	3
+62.71.01	Pahandut	3
+62.71.02	Bukit Batu	3
+62.71.03	Jekan Raya	3
+62.71.04	Sabangau	3
+62.71.05	Rakumpit	3
+63.01.01	Takisung	3
+63.01.02	Jorong	3
+63.01.03	Pelaihari	3
+63.01.04	Kurau	3
+63.01.05	Bati Bati	3
+63.01.06	Panyipatan	3
+63.01.07	Kintap	3
+63.01.08	Tambang Ulang	3
+63.01.09	Batu Ampar	3
+63.01.10	Bajuin	3
+63.01.11	Bumi Makmur	3
+63.02.01	Pulau Sembilan	3
+63.02.02	Pulau Laut Barat	3
+63.02.03	Pulau Laut Selatan	3
+63.02.04	Pulau Laut Timur	3
+63.02.05	Pulau Sebuku	3
+63.02.06	Pulaulaut Utara	3
+63.02.07	Kelumpang Selatan	3
+63.02.08	Kelumpang Hulu	3
+63.02.09	Kelumpang Tengah	3
+63.02.10	Kelumpang Utara	3
+63.02.11	Pamukan Selatan	3
+63.02.12	Sampanahan	3
+63.02.13	Pamukan Utara	3
+63.02.14	Hampang	3
+63.02.16	Pulau Laut Tengah	3
+63.02.17	Kelumpang Hilir	3
+63.02.18	Kelumpang Barat	3
+63.02.19	Pamukan Barat	3
+63.02.20	Pulau Laut Kepulauan	3
+63.02.21	Pulau Laut Tanjung Selayar	3
+63.02.22	Pulaulaut Sigam	3
+63.03.01	Aluh Aluh	3
+63.03.02	Kertak Hanyar	3
+63.03.03	Gambut	3
+63.03.04	Sungai Tabuk	3
+63.03.05	Martapura	3
+63.03.06	Karang Intan	3
+63.03.07	Astambul	3
+63.03.08	Simpang Empat	3
+63.03.09	Pengaron	3
+63.03.10	Sungai Pinang	3
+63.03.11	Aranio	3
+63.03.12	Mataraman	3
+63.03.14	Martapura Barat	3
+63.03.15	Martapura Timur	3
+63.03.16	Sambung Makmur	3
+63.03.17	Paramasan	3
+63.03.18	Telaga Bauntung	3
+63.03.19	Tatah Makmur	3
+63.03.20	Cintapuri Darussalam	3
+63.04.01	Tabunganen	3
+63.04.02	Tamban	3
+63.04.03	Anjir Pasar	3
+63.04.04	Anjir Muara	3
+63.04.05	Alalak	3
+63.04.06	Mandastana	3
+63.04.07	Rantau Badauh	3
+63.04.08	Belawang	3
+63.04.09	Cerbon	3
+63.04.10	Bakumpai	3
+63.04.11	Kuripan	3
+63.04.12	Tabukan	3
+63.04.13	Mekarsari	3
+63.04.15	Marabahan	3
+63.04.16	Wanaraya	3
+63.04.17	Jejangkit	3
+63.05.01	Binuang	3
+63.05.02	Tapin Selatan	3
+63.05.03	Tapin Tengah	3
+63.05.04	Tapin Utara	3
+63.05.05	Candi Laras Selatan	3
+63.05.06	Candi Laras Utara	3
+63.05.07	Bakarangan	3
+63.05.09	Bungur	3
+63.05.10	Lokpaikat	3
+63.05.11	Salam Babaris	3
+63.05.12	Hatungun	3
+63.06.01	Sungai Raya	3
+63.06.02	Padang Batung	3
+63.06.03	Telaga Langsat	3
+63.06.04	Angkinang	3
+63.06.05	Kandangan	3
+63.06.06	Simpur	3
+63.06.08	Daha Utara	3
+63.06.09	Kalumpang	3
+63.06.10	Loksado	3
+63.06.11	Daha Barat	3
+63.07.01	Haruyan	3
+63.07.02	Batu Benawa	3
+63.07.03	Labuan Amas Selatan	3
+63.07.04	Labuan Amas Utara	3
+63.07.05	Pandawan	3
+63.07.07	Batang Alai Selatan	3
+63.07.08	Batang Alai Utara	3
+63.07.09	Hantakan	3
+63.07.10	Batang Alai Timur	3
+63.07.11	Limpasu	3
+63.08.01	Danau Panggang	3
+63.08.02	Babirik	3
+63.08.03	Sungai Pandan	3
+63.08.04	Amuntai Selatan	3
+63.08.05	Amuntai Tengah	3
+63.08.06	Amuntai Utara	3
+63.08.07	Banjang	3
+63.08.09	Paminggir	3
+63.08.10	Sungai Tabukan	3
+63.09.01	Banua Lawas	3
+63.09.02	Kelua	3
+63.09.03	Tanta	3
+63.09.04	Tanjung	3
+63.09.05	Haruai	3
+63.09.06	Murung Pudak	3
+63.09.07	Muara Uya	3
+63.09.09	Pugaan	3
+63.09.10	Upau	3
+63.09.11	Jaro	3
+63.09.12	Bintang Ara	3
+63.10.01	Batu Licin	3
+63.10.02	Kusan Hilir	3
+63.10.03	Sungai Loban	3
+63.10.04	Satui	3
+63.10.05	Kusan Hulu	3
+63.10.06	Simpang Empat	3
+63.10.07	Karang Bintang	3
+63.10.09	Angsana	3
+63.10.10	Kuranji	3
+63.10.11	Kusan Tengah	3
+63.10.12	Teluk Kepayang	3
+63.11.01	Juai	3
+63.11.02	Halong	3
+63.11.03	Awayan	3
+63.11.05	Lampihong	3
+63.11.06	Paringin	3
+63.11.07	Paringin Selatan	3
+63.11.08	Tebing Tinggi	3
+63.71.01	Banjarmasin Selatan	3
+63.71.02	Banjarmasin Timur	3
+63.71.03	Banjarmasin Barat	3
+63.71.04	Banjarmasin Utara	3
+63.71.05	Banjarmasin Tengah	3
+63.72.04	Banjarbaru Utara	3
+63.72.05	Banjarbaru Selatan	3
+63.72.06	Liang Anggang	3
+64.01.01	Batu Sopang	3
+64.01.02	Tanjung Harapan	3
+64.01.03	Paser Belengkong	3
+64.01.04	Tanah Grogot	3
+64.01.05	Kuaro	3
+64.01.06	Long Ikis	3
+64.01.07	Muara Komam	3
+64.01.09	Batu Engau	3
+64.01.10	Muara Samu	3
+64.02.01	Muara Muntai	3
+64.02.02	Loa Kulu	3
+64.02.03	Loa Janan	3
+64.02.04	Anggana	3
+64.02.05	Muara Badak	3
+64.02.06	Tenggarong	3
+64.02.07	Sebulu	3
+64.02.08	Kota Bangun	3
+64.02.09	Kenohan	3
+64.02.10	Kembang Janggut	3
+64.02.11	Muara Kaman	3
+64.02.12	Tabang	3
+64.02.13	Samboja	3
+64.02.14	Muara Jawa	3
+64.02.15	Sanga Sanga	3
+64.02.16	Tenggarong Seberang	3
+64.02.17	Marang Kayu	3
+64.02.18	Muara Wis	3
+64.02.19	Kota Bangun Darat	3
+64.02.20	Semboja Barat	3
+64.03.02	Talisayan	3
+64.03.03	Sambaliung	3
+64.03.04	Segah	3
+64.03.05	Tanjung Redeb	3
+64.03.06	Gunung Tabur	3
+64.03.07	Pulau Derawan	3
+64.03.08	Biduk-Biduk	3
+64.03.09	Teluk Bayur	3
+64.03.10	Tabalar	3
+64.03.11	Maratua	3
+64.03.12	Batu Putih	3
+64.03.13	Biatan	3
+64.07.06	Melak	3
+64.07.07	Barong Tongkok	3
+64.07.08	Damai	3
+64.07.09	Muara Lawa	3
+64.07.10	Muara Pahu	3
+64.07.11	Jempang	3
+64.07.12	Bongan	3
+64.07.13	Penyinggahan	3
+64.07.14	Bentian Besar	3
+64.07.15	Linggang Bigung	3
+64.07.16	Nyuatan	3
+64.07.18	Mook Manaar Bulatn	3
+64.07.19	Tering	3
+64.07.20	Sekolaq Darat	3
+64.08.01	Muara Ancalong	3
+64.08.02	Muara Wahau	3
+64.08.03	Muara Bengkal	3
+64.08.04	Sangatta Utara	3
+64.08.05	Sangkulirang	3
+64.08.06	Busang	3
+64.08.07	Telen	3
+64.08.08	Kombeng	3
+64.08.09	Bengalon	3
+64.08.12	Sangatta Selatan	3
+64.08.13	Teluk Pandan	3
+64.08.14	Rantau Pulung	3
+64.08.15	Kaubun	3
+64.08.16	Karangan	3
+64.08.17	Batu Ampar	3
+64.08.18	Long Mesangat	3
+64.09.01	Penajam	3
+64.09.03	Babulu	3
+64.09.04	Sepaku	3
+64.11.01	Long Bagun	3
+64.11.04	Long Apari	3
+64.11.05	Long Pahangai	3
+64.71.01	Balikpapan Timur	3
+64.71.02	Balikpapan Barat	3
+64.71.03	Balikpapan Utara	3
+64.71.04	Balikpapan Tengah	3
+64.71.05	Balikpapan Selatan	3
+64.71.06	Balikpapan Kota	3
+64.72.01	Palaran	3
+64.72.02	Samarinda Seberang	3
+64.72.03	Samarinda Ulu	3
+64.72.04	Samarinda Ilir	3
+64.72.05	Samarinda Utara	3
+64.72.06	Sungai Kunjang	3
+64.72.10	Loa Janan Ilir	3
+64.74.01	Bontang Utara	3
+64.74.02	Bontang Selatan	3
+64.74.03	Bontang Barat	3
+65.01.01	Tanjung Palas	3
+65.01.02	Tanjung Palas Barat	3
+65.01.03	Tanjung Palas Utara	3
+65.01.04	Tanjung Palas Timur	3
+65.01.05	Tanjung Selor	3
+65.01.06	Tanjung Palas Tengah	3
+65.01.07	Peso	3
+65.01.08	Peso Hilir	3
+65.01.09	Sekatak	3
+65.01.10	Bunyu	3
+65.02.01	Mentarang	3
+65.02.02	Malinau Kota	3
+65.02.03	Pujungan	3
+65.02.04	Kayan Hilir	3
+65.02.05	Kayan Hulu	3
+65.02.06	Malinau Selatan	3
+65.02.07	Malinau Utara	3
+65.02.08	Malinau Barat	3
+65.02.09	Sungai Boh	3
+65.02.10	Kayan Selatan	3
+65.02.11	Bahau Hulu	3
+65.02.12	Mentarang Hulu	3
+65.02.13	Malinau Selatan Hilir	3
+65.02.14	Malinau Selatan Hulu	3
+65.02.15	Sungai Tubu	3
+65.03.01	Sebatik	3
+65.03.02	Nunukan	3
+65.03.03	Sembakung	3
+65.03.04	Lumbis	3
+65.03.05	Krayan	3
+65.03.06	Sebuku	3
+65.03.07	Krayan Selatan	3
+65.03.08	Sebatik Barat	3
+65.03.09	Nunukan Selatan	3
+65.03.10	Sebatik Timur	3
+65.03.11	Sebatik Utara	3
+65.03.12	Sebatik Tengah	3
+65.03.13	Sei Menggaris	3
+65.03.14	Tulin Onsoi	3
+65.03.15	Lumbis Ogong	3
+65.03.16	Sembakung Atulai	3
+65.03.18	Krayan Timur	3
+65.03.19	Krayan Barat	3
+65.03.20	Lumbis Pansiangan	3
+65.03.21	Lumbis Hulu	3
+65.04.01	Sesayap	3
+65.04.02	Sesayap Hilir	3
+65.04.03	Tana Lia	3
+65.04.04	Betayau	3
+65.04.05	Muruk Rian	3
+65.71.01	Tarakan Barat	3
+65.71.02	Tarakan Tengah	3
+65.71.03	Tarakan Timur	3
+65.71.04	Tarakan Utara	3
+71.01.09	Dumoga Barat	3
+71.01.10	Dumoga Timur	3
+71.01.11	Dumoga Utara	3
+71.01.12	Lolak	3
+71.01.13	Bolaang	3
+71.01.14	Lolayan	3
+71.01.19	Passi Barat	3
+71.01.20	Poigar	3
+71.01.31	Bolaang Timur	3
+71.01.32	Bilalang	3
+71.01.33	Dumoga	3
+71.01.34	Dumoga Tenggara	3
+71.01.35	Dumoga Tengah	3
+71.02.01	Tondano Barat	3
+71.02.02	Tondano Timur	3
+71.02.03	Eris	3
+71.02.04	Kombi	3
+71.02.05	Lembean Timur	3
+71.02.06	Kakas	3
+71.02.07	Tompaso	3
+71.02.08	Remboken	3
+71.02.09	Langowan Timur	3
+71.02.10	Langowan Barat	3
+71.02.11	Sonder	3
+71.02.12	Kawangkoan	3
+71.02.13	Pineleng	3
+71.02.14	Tombulu	3
+71.02.15	Tombariri	3
+71.02.16	Tondano Utara	3
+71.02.17	Langowan Selatan	3
+71.02.18	Tondano Selatan	3
+71.02.19	Langowan Utara	3
+71.02.21	Kawangkoan Utara	3
+71.02.22	Kawangkoan Barat	3
+71.02.23	Mandolang	3
+71.02.24	Tombariri Timur	3
+71.02.25	Tompaso Barat	3
+71.03.08	Tabukan Utara	3
+71.03.09	Nusa Tabukan	3
+71.03.10	Manganitu Selatan	3
+71.03.11	Tatoareng	3
+71.03.12	Tamako	3
+71.03.14	Tabukan Tengah	3
+71.03.15	Tabukan Selatan	3
+71.03.16	Kendahe	3
+71.03.17	Tahuna	3
+71.03.19	Tabukan Selatan Tengah	3
+71.03.20	Tabukan Selatan Tenggara	3
+71.03.23	Tahuna Barat	3
+71.03.24	Tahuna Timur	3
+71.03.25	Kepulauan Marore	3
+71.04.01	Lirung	3
+71.04.03	Rainis	3
+71.04.04	Essang	3
+71.04.06	Kabaruan	3
+71.04.07	Melonguane	3
+71.04.08	Gemeh	3
+71.04.09	Damau	3
+71.04.10	Tampan' Amma	3
+71.04.11	Salibabu	3
+71.04.12	Kalongan	3
+71.04.13	Miangas	3
+71.04.14	Beo Utara	3
+71.04.15	Pulutan	3
+71.04.16	Melonguane Timur	3
+71.04.17	Moronge	3
+71.04.18	Beo Selatan	3
+71.04.19	Essang Selatan	3
+71.05.01	Modoinding	3
+71.05.02	Tompaso Baru	3
+71.05.03	Ranoyapo	3
+71.05.07	Motoling	3
+71.05.08	Sinonsayang	3
+71.05.09	Tenga	3
+71.05.10	Amurang	3
+71.05.12	Tumpaan	3
+71.05.13	Tareran	3
+71.05.15	Kumelembuai	3
+71.05.16	Maesaan	3
+71.05.17	Amurang Barat	3
+71.05.18	Amurang Timur	3
+71.05.19	Tatapaan	3
+71.05.22	Motoling Timur	3
+71.05.23	Suluun Tareran	3
+71.06.01	Kema	3
+71.06.02	Kauditan	3
+71.06.03	Airmadidi	3
+71.06.04	Wori	3
+71.06.05	Dimembe	3
+71.06.06	Likupang Barat	3
+71.06.07	Likupang Timur	3
+71.06.08	Kalawat	3
+71.06.10	Likupang Selatan	3
+71.07.01	Ratahan	3
+71.07.02	Pusomaen	3
+71.07.03	Belang	3
+71.07.04	Ratatotok	3
+71.07.05	Tombatu	3
+71.07.06	Touluaan	3
+71.07.07	Touluaan Selatan	3
+71.07.08	Silian Raya	3
+71.07.09	Tombatu Timur	3
+71.07.11	Pasan	3
+71.07.12	Ratahan Timur	3
+71.08.01	Sangkub	3
+71.08.02	Bintauna	3
+71.08.03	Bolangitang Timur	3
+71.08.04	Bolangitang Barat	3
+71.08.05	Kaidipang	3
+71.08.06	Pinogaluman	3
+71.09.03	Tagulandang	3
+71.09.04	Siau Timur Selatan	3
+71.09.05	Siau Barat Selatan	3
+71.09.06	Tagulandang Utara	3
+71.09.07	Biaro	3
+71.09.08	Siau Barat Utara	3
+71.09.09	Siau Tengah	3
+71.09.10	Tagulandang Selatan	3
+71.10.01	Tutuyan	3
+71.10.02	Kotabunan	3
+71.10.03	Nuangan	3
+71.10.06	Motongkad	3
+71.10.07	Mooat	3
+71.11.01	Bolaang Uki	3
+71.11.02	Posigadan	3
+71.11.03	Pinolosian	3
+71.11.04	Pinolosian Tengah	3
+71.11.05	Pinolosian Timur	3
+71.11.06	Helumo	3
+71.11.07	Tomini	3
+71.71.01	Bunaken	3
+71.71.03	Singkil	3
+71.71.04	Wenang	3
+71.71.05	Tikala	3
+71.71.06	Sario	3
+71.71.07	Wanea	3
+71.71.08	Mapanget	3
+71.71.09	Malalayang	3
+71.71.10	Bunaken Kepulauan	3
+71.71.11	Paal Dua	3
+71.72.01	Lembeh Selatan	3
+71.72.02	Madidir	3
+71.72.03	Ranowulu	3
+71.72.04	Aertembaga	3
+71.72.05	Matuari	3
+71.72.08	Lembeh Utara	3
+71.73.01	Tomohon Selatan	3
+71.73.02	Tomohon Tengah	3
+71.73.03	Tomohon Utara	3
+71.73.04	Tomohon Barat	3
+71.73.05	Tomohon Timur	3
+71.74.01	Kotamobagu Utara	3
+71.74.02	Kotamobagu Timur	3
+71.74.03	Kotamobagu Selatan	3
+71.74.04	Kotamobagu Barat	3
+72.01.01	Batui	3
+72.01.02	Bunta	3
+72.01.03	Kintom	3
+72.01.04	Luwuk	3
+72.01.05	Lamala	3
+72.01.06	Balantak	3
+72.01.07	Pagimana	3
+72.01.08	Bualemo	3
+72.01.09	Toili	3
+72.01.10	Masama	3
+72.01.11	Luwuk Timur	3
+72.01.12	Toili Barat	3
+72.01.13	Nuhon	3
+72.01.14	Moilong	3
+72.01.15	Batui Selatan	3
+72.01.16	Lobu	3
+72.01.17	Simpang Raya	3
+72.01.18	Balantak Selatan	3
+72.01.19	Balantak Utara	3
+72.01.20	Luwuk Selatan	3
+72.01.22	Mantoh	3
+72.01.23	Nambo	3
+72.02.01	Poso Kota	3
+72.02.02	Poso Pesisir	3
+72.02.03	Lage	3
+72.02.04	Pamona Puselemba	3
+72.02.05	Pamona Timur	3
+72.02.06	Pamona Selatan	3
+72.02.07	Lore Utara	3
+72.02.08	Lore Tengah	3
+72.02.09	Lore Selatan	3
+72.02.18	Poso Pesisir Utara	3
+72.02.19	Poso Pesisir Selatan	3
+72.02.21	Poso Kota Selatan	3
+72.02.22	Poso Kota Utara	3
+72.02.23	Lore Barat	3
+72.02.24	Lore Timur	3
+72.02.25	Lore Piore	3
+72.02.26	Pamona Tenggara	3
+72.02.27	Pamona Utara	3
+72.03.04	Rio Pakava	3
+72.03.06	Dampelas	3
+72.03.08	Banawa	3
+72.03.09	Labuan	3
+72.03.10	Sindue	3
+72.03.11	Sirenja	3
+72.03.14	Sojol	3
+72.03.18	Banawa Selatan	3
+72.03.19	Tanantovea	3
+72.03.21	Pinembani	3
+72.03.24	Sindue Tombusabora	3
+72.03.25	Sindue Tobata	3
+72.03.27	Banawa Tengah	3
+72.03.30	Sojol Utara	3
+72.03.31	Balaesang Tanjung	3
+72.04.01	Dampal Selatan	3
+72.04.02	Dampal Utara	3
+72.04.03	Dondo	3
+72.04.05	Ogodeide	3
+72.04.06	Lampasio	3
+72.04.07	Baolan	3
+72.04.08	Galang	3
+72.04.09	Toli-Toli Utara	3
+72.04.10	Dako Pemean	3
+72.05.01	Momunu	3
+72.05.02	Lakea	3
+72.05.03	Bokat	3
+72.05.04	Bunobogu	3
+72.05.05	Paleleh	3
+72.05.06	Biau	3
+72.05.07	Tiloan	3
+72.05.09	Gadung	3
+72.05.10	Karamat	3
+72.05.11	Paleleh Barat	3
+72.06.05	Bungku Tengah	3
+72.06.06	Bungku Selatan	3
+72.06.07	Menui Kepulauan	3
+72.06.08	Bungku Barat	3
+72.06.09	Bumi Raya	3
+72.06.10	Bahodopi	3
+72.06.15	Bungku Pesisir	3
+72.06.18	Bungku Timur	3
+72.07.03	Totikum	3
+72.07.04	Tinangkung	3
+72.07.05	Liang	3
+72.07.06	Bulagi	3
+72.07.07	Buko	3
+72.07.09	Bulagi Selatan	3
+72.07.11	Tinangkung Selatan	3
+72.07.15	Totikum Selatan	3
+72.07.17	Bulagi Utara	3
+72.07.18	Buko Selatan	3
+72.07.19	Tinangkung Utara	3
+72.08.01	Parigi	3
+72.08.02	Ampibabo	3
+72.08.03	Tinombo	3
+72.08.04	Moutong	3
+72.08.05	Tomini	3
+72.08.06	Sausu	3
+72.08.07	Bolano Lambunu	3
+72.08.08	Kasimbar	3
+72.08.09	Torue	3
+72.08.10	Tinombo Selatan	3
+72.08.11	Parigi Selatan	3
+72.08.12	Mepanga	3
+72.08.13	Toribulu	3
+72.08.14	Taopa	3
+72.08.15	Balinggi	3
+72.08.16	Parigi Barat	3
+72.08.17	Siniu	3
+72.08.18	Palasa	3
+72.08.19	Parigi Utara	3
+72.08.21	Bolano	3
+72.08.22	Ongka Malino	3
+72.08.23	Sidoan	3
+72.09.01	Una Una	3
+72.09.02	Togean	3
+72.09.03	Walea Kepulauan	3
+72.09.04	Ampana Tete	3
+72.09.05	Ampana Kota	3
+72.09.06	Ulubongka	3
+72.09.07	Tojo Barat	3
+72.09.09	Walea Besar	3
+72.09.10	Ratolindo	3
+72.09.11	Batudaka	3
+72.09.12	Talatako	3
+72.10.01	Sigi Biromaru	3
+72.10.02	Palolo	3
+72.10.03	Nokilalaki	3
+72.10.04	Lindu	3
+72.10.05	Kulawi	3
+72.10.06	Kulawi Selatan	3
+72.10.07	Pipikoro	3
+72.10.09	Dolo Selatan	3
+72.10.10	Tanambulava	3
+72.10.11	Dolo Barat	3
+72.10.13	Kinovaro	3
+72.10.14	Marawola	3
+72.10.15	Marawola Barat	3
+72.11.01	Banggai	3
+72.11.02	Banggai Utara	3
+72.11.03	Bokan Kepulauan	3
+72.11.04	Bangkurung	3
+72.11.05	Labobo	3
+72.11.07	Banggai Tengah	3
+72.12.01	Petasia	3
+72.12.02	Petasia Timur	3
+72.12.03	Lembo Raya	3
+72.12.04	Lembo	3
+72.12.05	Mori Atas	3
+72.12.06	Mori Utara	3
+72.12.07	Soyo Jaya	3
+72.12.08	Bungku Utara	3
+72.12.09	Mamosalato	3
+72.12.10	Petasia Barat	3
+72.71.03	Palu Selatan	3
+72.71.04	Palu Utara	3
+72.71.05	Ulujadi	3
+72.71.06	Tatanga	3
+72.71.07	Tawaeli	3
+72.71.08	Mantikulore	3
+73.01.01	Benteng	3
+73.01.02	Bontoharu	3
+73.01.03	Bontomatene	3
+73.01.04	Bontomanai	3
+73.01.05	Bontosikuyu	3
+73.01.06	Pasimasunggu	3
+73.01.07	Pasimarannu	3
+73.01.08	Taka Bonerate	3
+73.01.09	Pasilambena	3
+73.01.10	Pasimasunggu Timur	3
+73.02.01	Gantarang	3
+73.02.02	Ujung Bulu	3
+73.02.03	Bonto Bahari	3
+73.02.04	Bonto Tiro	3
+73.02.05	Herlang	3
+73.02.06	Kajang	3
+73.02.07	Bulukumpa	3
+73.02.08	Kindang	3
+73.02.09	Ujungloe	3
+73.03.02	Bantaeng	3
+73.03.03	Eremerasa	3
+73.03.04	Tompo Bulu	3
+73.03.05	Pajukukang	3
+73.03.06	Uluere	3
+73.03.07	Gantarang Keke	3
+73.03.08	Sinoa	3
+73.04.01	Bangkala	3
+73.04.02	Tamalatea	3
+73.04.03	Binamu	3
+73.04.04	Batang	3
+73.04.05	Kelara	3
+73.04.07	Bontoramba	3
+73.04.08	Turatea	3
+73.04.09	Arungkeke	3
+73.04.10	Rumbia	3
+73.04.11	Tarowang	3
+73.05.01	Mappakasunggu	3
+73.05.02	Mangarabombang	3
+73.05.03	Polongbangkeng Selatan	3
+73.05.04	Polongbangkeng Utara	3
+73.05.05	Galesong Selatan	3
+73.05.06	Galesong Utara	3
+73.05.07	Pattallassang	3
+73.05.09	Galesong	3
+73.05.10	Kepulauan Tanakeke	3
+73.05.11	Polongbangkeng Timur	3
+73.05.12	Laikang	3
+73.06.01	Bontonompo	3
+73.06.02	Bajeng	3
+73.06.03	Tompobulu	3
+73.06.04	Tinggimoncong	3
+73.06.05	Parangloe	3
+73.06.06	Bontomarannu	3
+73.06.07	Pallangga	3
+73.06.08	Somba Opu	3
+73.06.09	Bungaya	3
+73.06.10	Tombolopao	3
+73.06.11	Biringbulu	3
+73.06.12	Barombong	3
+73.06.13	Pattallasang	3
+73.06.14	Manuju	3
+73.06.15	Bontolempangang	3
+73.06.16	Bontonompo Selatan	3
+73.06.17	Parigi	3
+73.06.18	Bajeng Barat	3
+73.07.01	Sinjai Barat	3
+73.07.02	Sinjai Selatan	3
+73.07.03	Sinjai Timur	3
+73.07.04	Sinjai Tengah	3
+73.07.05	Sinjai Utara	3
+73.07.06	Bulupoddo	3
+73.07.08	Tellu Limpoe	3
+73.07.09	Pulau Sembilan	3
+73.08.01	Bontocani	3
+73.08.02	Kahu	3
+73.08.03	Kajuara	3
+73.08.04	Salomekko	3
+73.08.05	Tonra	3
+73.08.06	Libureng	3
+73.08.07	Mare	3
+73.08.08	Sibulue	3
+73.08.09	Barebbo	3
+73.08.10	Cina	3
+73.08.11	Ponre	3
+73.08.12	Lappariaja	3
+73.08.13	Lamuru	3
+73.08.14	Ulaweng	3
+73.08.15	Palakka	3
+73.08.16	Awangpone	3
+73.08.17	Tellu Siattinge	3
+73.08.19	Dua Boccoe	3
+73.08.20	Cenrana	3
+73.08.21	Tanete Riattang	3
+73.08.22	Tanete Riattang Barat	3
+73.08.23	Tanete Riattang Timur	3
+73.08.24	Amali	3
+73.08.25	Tellulimpoe	3
+73.08.26	Bengo	3
+73.08.27	Patimpeng	3
+73.09.01	Mandai	3
+73.09.02	Camba	3
+73.09.04	Maros Baru	3
+73.09.05	Bontoa	3
+73.09.06	Malllawa	3
+73.09.07	Tanralili	3
+73.09.08	Marusu	3
+73.09.09	Simbang	3
+73.09.10	Cenrana	3
+73.09.11	Tompobulu	3
+73.09.12	Lau	3
+73.09.13	Moncongloe	3
+73.09.14	Turikale	3
+73.10.01	Liukang Tangaya	3
+73.10.02	Liukang Kalmas	3
+73.10.03	Liukang Tupabbiring	3
+73.10.04	Pangkajene	3
+73.10.05	Balocci	3
+73.10.08	Marang	3
+73.10.09	Segeri	3
+73.10.10	Minasa Tene	3
+73.10.11	Mandalle	3
+73.10.12	Tondong Tallasa	3
+73.10.13	Liukang Tupabbiring Utara	3
+73.11.01	Tanete Riaja	3
+73.11.02	Tanete Rilau	3
+73.11.03	Barru	3
+73.11.04	Soppeng Riaja	3
+73.11.05	Mallusetasi	3
+73.11.06	Pujananting	3
+73.11.07	Balusu	3
+73.12.01	Marioriwawo	3
+73.12.03	Lilirilau	3
+73.12.04	Lalabata	3
+73.12.05	Marioriawa	3
+73.12.06	Donri Donri	3
+73.12.07	Ganra	3
+73.12.08	Citta	3
+73.13.01	Sabangparu	3
+73.13.02	Pammana	3
+73.13.03	Takkalalla	3
+73.13.04	Sajoanging	3
+73.13.05	Majauleng	3
+73.13.06	Tempe	3
+73.13.08	Tanasitolo	3
+73.13.09	Maniangpajo	3
+73.13.10	Pitumpanua	3
+73.13.11	Bola	3
+73.13.12	Penrang	3
+73.13.13	Gilireng	3
+73.13.14	Keera	3
+73.14.01	Panca Lautang	3
+73.14.02	Tellu Limpoe	3
+73.14.03	Watang Pulu	3
+73.14.05	Panca Rijang	3
+73.14.06	Kulo	3
+73.14.07	Maritengngae	3
+73.14.08	Watang Sidenreng	3
+73.14.09	Dua Pitue	3
+73.14.10	Pitu Riawa	3
+73.14.11	Pitu Riase	3
+73.15.01	Mattiro Sompe	3
+73.15.02	Suppa	3
+73.15.03	Mattiro Bulu	3
+73.15.04	Watang Sawitto	3
+73.15.05	Patampanua	3
+73.15.06	Duampanua	3
+73.15.08	Cempa	3
+73.15.09	Tiroang	3
+73.15.10	Lanrisang	3
+73.15.11	Paleteang	3
+73.15.12	Batulappa	3
+73.16.01	Maiwa	3
+73.16.02	Enrekang	3
+73.16.03	Baraka	3
+73.16.04	Anggeraja	3
+73.16.05	Alla	3
+73.16.06	Bungin	3
+73.16.07	Cendana	3
+73.16.09	Malua	3
+73.16.10	Buntu Batu	3
+73.16.11	Masalle	3
+73.16.12	Baroko	3
+73.17.01	Basse Sangtempe	3
+73.17.02	Larompong	3
+73.17.03	Suli	3
+73.17.04	Bajo	3
+73.17.05	Bua Ponrang	3
+73.17.06	Walenrang	3
+73.17.07	Belopa	3
+73.17.08	Bua	3
+73.17.09	Lamasi	3
+73.17.10	Larompong Selatan	3
+73.17.11	Ponrang	3
+73.17.12	Latimojong	3
+73.17.13	Kamanre	3
+73.17.14	Belopa Utara	3
+73.17.15	Walenrang Barat	3
+73.17.16	Walenrang Utara	3
+73.17.17	Walenrang Timur	3
+73.17.18	Lamasi Timur	3
+73.17.19	Suli Barat	3
+73.17.20	Bajo Barat	3
+73.17.21	Ponrang Selatan	3
+73.17.22	Basse Sangtempe Utara	3
+73.18.02	Bittuang	3
+73.18.03	Bonggakaradeng	3
+73.18.05	Makale	3
+73.18.09	Simbuang	3
+73.18.11	Rantetayo	3
+73.18.12	Mengkendek	3
+73.18.13	Sangalla	3
+73.18.19	Gandangbatu Sillanan	3
+73.18.20	Rembon	3
+73.18.27	Makale Utara	3
+73.18.28	Mappak	3
+73.18.29	Makale Selatan	3
+73.18.31	Masanda	3
+73.18.33	Sangalla Selatan	3
+73.18.34	Sangalla Utara	3
+73.18.35	Malimbong Balepe	3
+73.18.38	Kurra	3
+73.22.01	Malangke	3
+73.22.02	Bone Bone	3
+73.22.03	Masamba	3
+73.22.04	Sabbang	3
+73.22.05	Rongkong	3
+73.22.06	Sukamaju	3
+73.22.07	Seko	3
+73.22.08	Malangke Barat	3
+73.22.09	Rampi	3
+73.22.10	Mappedeceng	3
+73.22.12	Tana Lili	3
+73.22.13	Sukamaju Selatan	3
+73.22.14	Baebunta Selatan	3
+73.22.15	Sabbang Selatan	3
+73.24.01	Mangkutana	3
+73.24.02	Nuha	3
+73.24.03	Towuti	3
+73.24.04	Malili	3
+73.24.05	Angkona	3
+73.24.06	Wotu	3
+73.24.08	Tomoni	3
+73.24.09	Tomoni Timur	3
+73.24.10	Kalaena	3
+73.24.11	Wasuponda	3
+73.26.01	Rantepao	3
+73.26.02	Sesean	3
+73.26.03	Nanggala	3
+73.26.04	Rindingallo	3
+73.26.05	Buntao	3
+73.26.06	Sa'dan	3
+73.26.07	Sanggalangi	3
+73.26.08	Sopai	3
+73.26.09	Tikala	3
+73.26.10	Balusu	3
+73.26.12	Dende' Piongan Napo	3
+73.26.13	Buntu Pepasan	3
+73.26.14	Baruppu	3
+73.26.15	Kesu	3
+73.26.16	Tondon	3
+73.26.17	Bangkelekila	3
+73.26.18	Rantebua	3
+73.26.19	Sesean Suloara	3
+73.26.20	Kapala Pitu	3
+73.26.21	Awan Rante Karua	3
+73.71.01	Mariso	3
+73.71.02	Mamajang	3
+73.71.03	Makassar	3
+73.71.04	Ujung Pandang	3
+73.71.05	Wajo	3
+73.71.08	Ujung Tanah	3
+73.71.09	Panakkukang	3
+73.71.10	Tamalate	3
+73.71.11	Biringkanaya	3
+73.71.12	Manggala	3
+73.71.13	Rappocini	3
+73.71.14	Tamalanrea	3
+73.71.15	Kepulauan Sangkarrang	3
+73.72.01	Bacukiki	3
+73.72.02	Ujung	3
+73.72.03	Soreang	3
+73.72.04	Bacukiki Barat	3
+73.73.01	Wara	3
+73.73.02	Wara Utara	3
+73.73.04	Telluwanua	3
+73.73.05	Wara Timur	3
+73.73.06	Wara Barat	3
+73.73.07	Sendana	3
+73.73.08	Mungkajang	3
+73.73.09	Bara	3
+74.01.01	Wundulako	3
+74.01.04	Kolaka	3
+74.01.07	Pomalaa	3
+74.01.08	Watubangga	3
+74.01.10	Wolo	3
+74.01.12	Baula	3
+74.01.14	Latambaga	3
+74.01.18	Tanggetada	3
+74.01.20	Samaturu	3
+74.01.25	Polinggona	3
+74.01.27	Iwoimendaa	3
+74.02.01	Lambuya	3
+74.02.02	Unaaha	3
+74.02.03	Wawotobi	3
+74.02.04	Pondidaha	3
+74.02.05	Sampara	3
+74.02.10	Abuki	3
+74.02.11	Soropia	3
+74.02.15	Tongauna	3
+74.02.16	Latoma	3
+74.02.17	Puriala	3
+74.02.18	Uepai	3
+74.02.19	Wonggeduku	3
+74.02.20	Besulutu	3
+74.02.21	Bondoala	3
+74.02.23	Routa	3
+74.02.24	Anggaberi	3
+74.02.25	Meluhu	3
+74.02.28	Amonggedo	3
+74.02.31	Asinua	3
+74.02.33	Kapoiala	3
+74.02.36	Lalonggasumeeto	3
+74.02.37	Onembute	3
+74.02.38	Padangguni	3
+74.02.39	Morosi	3
+74.02.40	Anggalomoare	3
+74.02.41	Wonggeduku Barat	3
+74.02.42	Tongauna Utara	3
+74.03.06	Napabalano	3
+74.03.07	Maligano	3
+74.03.13	Wakorumba Selatan	3
+74.03.14	Lasalepa	3
+74.03.15	Batalaiworu	3
+74.03.16	Katobu	3
+74.03.17	Duruka	3
+74.03.18	Lohia	3
+74.03.19	Watopute	3
+74.03.20	Kontunaga	3
+74.03.23	Kabangka	3
+74.03.24	Kabawo	3
+74.03.25	Parigi	3
+74.03.27	Tongkuno	3
+74.03.28	Pasir Putih	3
+74.03.30	Kontu Kowuna	3
+74.03.31	Marobo	3
+74.03.32	Tongkuno Selatan	3
+74.03.33	Pasi Kolaga	3
+74.03.34	Batukara	3
+74.03.37	Towea	3
+74.04.11	Pasarwajo	3
+74.04.23	Lasalimu	3
+74.04.24	Lasalimu Selatan	3
+74.04.27	Siotapina	3
+74.04.28	Wolowa	3
+74.04.29	Wabula	3
+74.05.01	Tinanggea	3
+74.05.02	Angata	3
+74.05.03	Andoolo	3
+74.05.04	Palangga	3
+74.05.05	Landono	3
+74.05.06	Lainea	3
+74.05.07	Konda	3
+74.05.08	Ranomeeto	3
+74.05.09	Kolono	3
+74.05.10	Moramo	3
+74.05.11	Laonti	3
+74.05.12	Lalembuu	3
+74.05.13	Benua	3
+74.05.14	Palangga Selatan	3
+74.05.15	Mowila	3
+74.05.16	Moramo Utara	3
+74.05.17	Buke	3
+74.05.18	Wolasi	3
+74.05.19	Laeya	3
+74.05.20	Baito	3
+74.05.21	Basala	3
+74.05.22	Ranomeeto Barat	3
+74.05.23	Kolono Timur	3
+74.05.25	Andoolo Barat	3
+74.06.01	Poleang	3
+74.06.02	Poleang Timur	3
+74.06.03	Rarowatu	3
+74.06.04	Rumbia	3
+74.06.05	Kabaena	3
+74.06.06	Kabaena Timur	3
+74.06.07	Poleang Barat	3
+74.06.08	Mata Oleo	3
+74.06.09	Rarowatu Utara	3
+74.06.10	Poleang Utara	3
+74.06.11	Poleang Selatan	3
+74.06.12	Poleang Tenggara	3
+74.06.13	Kabaena Selatan	3
+74.06.14	Kabaena Barat	3
+74.06.15	Kabaena Utara	3
+74.06.16	Kabaena Tengah	3
+74.06.17	Kep. Masaloka Raya	3
+74.06.20	Tontonunu	3
+74.06.21	Lantari Jaya	3
+74.06.22	Mata Usu	3
+74.07.01	Wangi-Wangi	3
+74.07.02	Kaledupa	3
+74.07.03	Tomia	3
+74.07.04	Binongko	3
+74.07.05	Wangi Wangi Selatan	3
+74.07.06	Kaledupa Selatan	3
+74.07.07	Tomia Timur	3
+74.07.08	Togo Binongko	3
+74.08.01	Lasusua	3
+74.08.03	Batu Putih	3
+74.08.04	Rante Angin	3
+74.08.05	Kodeoha	3
+74.08.06	Ngapa	3
+74.08.08	Lambai	3
+74.08.09	Watunohu	3
+74.08.10	Pakue Tengah	3
+74.08.11	Pakue Utara	3
+74.08.12	Porehu	3
+74.08.13	Katoi	3
+74.08.14	Tiwu	3
+74.08.15	Tolala	3
+74.09.01	Asera	3
+74.09.03	Langgikima	3
+74.09.04	Molawe	3
+74.09.05	Lasolo	3
+74.09.06	Lembo	3
+74.09.07	Sawa	3
+74.09.08	Oheo	3
+74.09.09	Andowia	3
+74.09.10	Motui	3
+74.09.11	Wawolesea	3
+74.09.13	Landawe	3
+74.10.01	Kulisusu	3
+74.10.02	Kambowa	3
+74.10.03	Bonegunu	3
+74.10.04	Kulisusu Barat	3
+74.10.05	Kulisusu Utara	3
+74.10.06	Wakorumba Utara	3
+74.11.01	Tirawuta	3
+74.11.04	Poli Polia	3
+74.11.05	Lambandia	3
+74.11.06	Lalolae	3
+74.11.07	Mowewe	3
+74.11.08	Uluiwoi	3
+74.11.09	Tinondo	3
+74.11.10	Aere	3
+74.11.11	Ueesi	3
+74.11.12	Dangia	3
+74.12.01	Wawonii Barat	3
+74.12.02	Wawonii Utara	3
+74.12.04	Wawonii Timur	3
+74.12.05	Wawonii Tenggara	3
+74.12.06	Wawonii Selatan	3
+74.12.07	Wawonii Tengah	3
+74.13.01	Sawerigadi	3
+74.13.02	Barangka	3
+74.13.03	Lawa	3
+74.13.04	Wadaga	3
+74.13.05	Tiworo Selatan	3
+74.13.06	Maginti	3
+74.13.07	Tiworo Tengah	3
+74.13.08	Tiworo Utara	3
+74.13.09	Tiworo Kepulauan	3
+74.13.11	Napano Kusambi	3
+74.14.02	Mawasangka Timur	3
+74.14.03	Mawasangka Tengah	3
+74.14.04	Mawasangka	3
+74.14.05	Talaga Raya	3
+74.14.06	Gu	3
+74.14.07	Sangia Wambulu	3
+74.15.01	Batauga	3
+74.15.02	Sampolawa	3
+74.15.03	Lapandewa	3
+74.15.04	Batu Atas	3
+74.15.07	Kadatua	3
+74.71.01	Mandonga	3
+74.71.02	Kendari	3
+74.71.03	Baruga	3
+74.71.04	Poasia	3
+74.71.05	Kendari Barat	3
+74.71.06	Abeli	3
+74.71.07	Wua-Wua	3
+74.71.08	Kadia	3
+74.71.09	Puuwatu	3
+74.71.10	Kambu	3
+74.71.11	Nambo	3
+74.72.01	Betoambari	3
+74.72.02	Wolio	3
+74.72.03	Sorawolio	3
+74.72.04	Bungi	3
+74.72.05	Kokalukuna	3
+74.72.06	Murhum	3
+74.72.08	Batupoaro	3
+75.01.01	Limboto	3
+75.01.02	Telaga	3
+75.01.03	Batudaa	3
+75.01.04	Tibawa	3
+75.01.05	Batudaa Pantai	3
+75.01.09	Boliyohuto	3
+75.01.10	Telaga Biru	3
+75.01.11	Bongomeme	3
+75.01.13	Tolangohula	3
+75.01.14	Mootilango	3
+75.01.16	Pulubala	3
+75.01.18	Tilango	3
+75.01.19	Tabongo	3
+75.01.20	Biluhu	3
+75.01.21	Asparaga	3
+75.01.22	Talaga Jaya	3
+75.01.23	Bilato	3
+75.01.24	Dungaliyo	3
+75.02.01	Paguyaman	3
+75.02.02	Wonosari	3
+75.02.03	Dulupi	3
+75.02.04	Tilamuta	3
+75.02.05	Mananggu	3
+75.02.07	Paguyaman Pantai	3
+75.03.01	Tapa	3
+75.03.02	Kabila	3
+75.03.03	Suwawa	3
+75.03.04	Bonepantai	3
+75.03.05	Bulango Utara	3
+75.03.06	Tilongkabila	3
+75.03.07	Botupingge	3
+75.03.08	Kabila Bone	3
+75.03.09	Bone	3
+75.03.10	Bone Raya	3
+75.03.11	Suwawa Timur	3
+75.03.12	Suwawa Selatan	3
+75.03.13	Suwawa Tengah	3
+75.03.15	Bulango Selatan	3
+75.03.16	Bulango Timur	3
+75.03.17	Bulawa	3
+75.03.18	Pinogu	3
+75.04.01	Popayato	3
+75.04.02	Lemito	3
+75.04.03	Randangan	3
+75.04.04	Marisa	3
+75.04.05	Paguat	3
+75.04.06	Patilanggio	3
+75.04.07	Taluditi	3
+75.04.08	Dengilo	3
+75.04.09	Buntulia	3
+75.04.10	Duhiadaa	3
+75.04.12	Popayato Timur	3
+75.04.13	Popayato Barat	3
+75.05.01	Atinggola	3
+75.05.02	Kwandang	3
+75.05.03	Anggrek	3
+75.05.04	Sumalata	3
+75.05.05	Tolinggula	3
+75.05.06	Gentuma Raya	3
+75.05.07	Tomolito	3
+75.05.08	Ponelo Kepulauan	3
+75.05.09	Monano	3
+75.05.10	Biau	3
+75.71.02	Kota Selatan	3
+75.71.03	Kota Utara	3
+75.71.04	Dungingi	3
+75.71.05	Kota Timur	3
+75.71.06	Kota Tengah	3
+75.71.07	Sipatana	3
+75.71.08	Dumbo Raya	3
+75.71.09	Hulonthalangi	3
+76.01.01	Bambalamotu	3
+76.01.02	Pasangkayu	3
+76.01.03	Baras	3
+76.01.04	Sarudu	3
+76.01.05	Dapurang	3
+76.01.06	Duripoku	3
+76.01.07	Bulu Taba	3
+76.01.08	Tikke Raya	3
+76.01.09	Pedongga	3
+76.01.10	Bambaira	3
+76.01.11	Sarjo	3
+76.01.12	Lariang	3
+76.02.02	Tapalang	3
+76.02.03	Kalukku	3
+76.02.04	Kalumpang	3
+76.02.07	Papalang	3
+76.02.08	Sampaga	3
+76.02.11	Tommo	3
+76.02.12	Simboro dan Kepulauan	3
+76.02.13	Tapalang Barat	3
+76.02.15	Bonehau	3
+76.02.16	Kep. Bala Balakang	3
+76.03.01	Mambi	3
+76.03.02	Aralle	3
+76.03.03	Mamasa	3
+76.03.05	Tabulahan	3
+76.03.06	Sumarorong	3
+76.03.07	Messawa	3
+76.03.08	Sesenapadang	3
+76.03.09	Tanduk Kalua	3
+76.03.10	Tabang	3
+76.03.11	Bambang	3
+76.03.12	Balla	3
+76.03.13	Nosu	3
+76.03.14	Tawalian	3
+76.03.15	Rantebulahan Timur	3
+76.03.16	Buntumalangka	3
+76.04.01	Tinambung	3
+76.04.02	Campalagian	3
+76.04.03	Wonomulyo	3
+76.04.04	Polewali	3
+76.04.05	Tutar	3
+76.04.06	Binuang	3
+76.04.07	Tapango	3
+76.04.08	Mapilli	3
+76.04.09	Matangnga	3
+76.04.10	Luyo	3
+76.04.11	Limboro	3
+76.04.14	Matakali	3
+76.04.15	Allu	3
+76.04.16	Bulo	3
+76.05.01	Banggae	3
+76.05.02	Pamboang	3
+76.05.03	Sendana	3
+76.05.04	Malunda	3
+76.05.05	Ulumanda	3
+76.05.06	Tammerodo Sendana	3
+76.05.07	Tubo Sendana	3
+76.05.08	Banggae Timur	3
+76.06.01	Tobadak	3
+76.06.02	Pangale	3
+76.06.04	Topoyo	3
+76.06.05	Karossa	3
+81.01.01	Amahai	3
+81.01.02	Teon Nila Serua	3
+81.01.06	Seram Utara	3
+81.01.09	Banda	3
+81.01.11	Tehoru	3
+81.01.12	Saparua	3
+81.01.13	Pulau Haruku	3
+81.01.15	Leihitu	3
+81.01.16	Nusa Laut	3
+81.01.17	Kota Masohi	3
+81.01.20	Seram Utara Barat	3
+81.01.21	Teluk Elpaputih	3
+81.01.22	Leihitu Barat	3
+81.01.23	Telutih	3
+81.01.24	Seram Utara Timur Seti	3
+81.01.25	Seram Utara Timur Kobi	3
+81.01.26	Saparua Timur	3
+81.02.01	Kei Kecil	3
+81.02.03	Kei Besar	3
+81.02.04	Kei Besar Selatan	3
+81.02.05	Kei Besar Utara Timur	3
+81.02.13	Kei Kecil Timur	3
+81.02.14	Kei Kecil Barat	3
+81.02.15	Manyeuw	3
+81.02.16	Hoat Sorbay	3
+81.02.17	Kei Besar Utara Barat	3
+81.02.18	Kei Besar Selatan Barat	3
+81.02.19	Kei Kecil Timur Selatan	3
+81.03.03	Wertamrian	3
+81.03.04	Wermaktian	3
+81.03.05	Tanimbar Utara	3
+81.03.06	Fordata	3
+81.03.07	Wuar Labobar	3
+81.03.08	Kormomolin	3
+81.03.09	Nirunmas	3
+81.03.18	Molu Maru	3
+81.04.01	Namlea	3
+81.04.02	Air Buaya	3
+81.04.03	Waeapo	3
+81.04.06	Waplau	3
+81.04.10	Batabual	3
+81.04.11	Lolong Guba	3
+81.04.13	Fena Leisela	3
+81.04.14	Teluk Kaiely	3
+81.04.15	Lilialy	3
+81.05.01	Bula	3
+81.05.02	Seram Timur	3
+81.05.03	Werinama	3
+81.05.04	Pulau Gorom	3
+81.05.05	Wakate	3
+81.05.06	Tutuk Tolu	3
+81.05.07	Siwalalat	3
+81.05.09	Pulau Panjang	3
+81.05.10	Teor	3
+81.05.11	Gorom Timur	3
+81.05.12	Bula Barat	3
+81.05.13	Kian Darat	3
+81.05.14	Siritaun Wida Timur	3
+81.05.15	Teluk Waru	3
+81.06.01	Kairatu	3
+81.06.02	Seram Barat	3
+81.06.03	Taniwel	3
+81.06.04	Huamual Belakang	3
+81.06.06	Inamosol	3
+81.06.07	Kairatu Barat	3
+81.06.08	Huamual	3
+81.06.09	Kepulauan Manipa	3
+81.06.10	Taniwel Timur	3
+81.06.11	Elpaputih	3
+81.07.01	Pulau-Pulau Aru	3
+81.07.02	Aru Selatan	3
+81.07.03	Aru Tengah	3
+81.07.04	Aru Utara	3
+81.07.05	Aru Utara Timur Batuley	3
+81.07.06	Sir-Sir	3
+81.07.07	Aru Tengah Timur	3
+81.07.09	Aru Selatan Timur	3
+81.07.10	Aru Selatan Utara	3
+81.08.01	Moa Lakor	3
+81.08.02	Damer	3
+81.08.03	Mndona Hiera	3
+81.08.04	Pulau-Pulau Babar	3
+81.08.05	Pulau-pulau Babar Timur	3
+81.08.06	Wetar	3
+81.08.07	Pulau-pulau Terselatan	3
+81.08.08	Pulau Leti	3
+81.08.09	Pulau Masela	3
+81.08.10	Dawelor Dawera	3
+81.08.11	Pulau Wetang	3
+81.08.12	Pulau Lakor	3
+81.08.13	Wetar Utara	3
+81.08.14	Wetar Barat	3
+81.08.16	Kepulauan Romang	3
+81.09.01	Namrole	3
+81.09.02	Waesama	3
+81.09.03	Ambalau	3
+81.09.04	Kepala Madan	3
+81.09.05	Leksula	3
+81.09.06	Fena Fafan	3
+81.71.01	Nusaniwe	3
+81.71.02	Sirimau	3
+81.71.03	Baguala	3
+81.71.04	Teluk Ambon	3
+81.72.01	Pulau Dullah Utara	3
+81.72.02	Pulau Dullah Selatan	3
+81.72.03	Tayando Tam	3
+81.72.04	Pulau-Pulau Kur	3
+81.72.05	Kur Selatan	3
+82.01.01	Jailolo	3
+82.01.02	Loloda	3
+82.01.04	Sahu	3
+82.01.05	Jailolo Selatan	3
+82.01.08	Ibu Selatan	3
+82.01.09	Sahu Timur	3
+82.01.10	Loloda Tengah	3
+82.02.01	Weda	3
+82.02.02	Patani	3
+82.02.03	Pulau Gebe	3
+82.02.04	Weda Utara	3
+82.02.05	Weda Selatan	3
+82.02.06	Patani Utara	3
+82.02.07	Weda Tengah	3
+82.02.08	Patani Barat	3
+82.02.09	Weda Timur	3
+82.02.10	Patani Timur	3
+82.03.05	Tobelo	3
+82.03.06	Tobelo Selatan	3
+82.03.07	Kao	3
+82.03.08	Malifut	3
+82.03.09	Loloda Utara	3
+82.03.10	Tobelo Utara	3
+82.03.11	Tobelo Tengah	3
+82.03.12	Tobelo Timur	3
+82.03.13	Tobelo Barat	3
+82.03.14	Galela Barat	3
+82.03.15	Galela Utara	3
+82.03.16	Galela Selatan	3
+82.03.20	Kao Utara	3
+82.03.21	Kao Barat	3
+82.03.22	Kao Teluk	3
+82.04.01	Pulau Makian	3
+82.04.02	Kayoa	3
+82.04.03	Gane Timur	3
+82.04.04	Gane Barat	3
+82.04.05	Obi Selatan	3
+82.04.06	Obi	3
+82.04.07	Bacan Timur	3
+82.04.08	Bacan	3
+82.04.10	Makian Barat	3
+82.04.11	Kayoa Barat	3
+82.04.12	Kayoa Selatan	3
+82.04.13	Kayoa Utara	3
+82.04.14	Bacan Barat Utara	3
+82.04.15	Kasiruta Barat	3
+82.04.16	Kasiruta Timur	3
+82.04.17	Bacan Selatan	3
+82.04.18	Kepulauan Botanglomang	3
+82.04.19	Mandioli Selatan	3
+82.04.20	Mandioli Utara	3
+82.04.21	Bacan Timur Selatan	3
+82.04.22	Bacan Timur Tengah	3
+82.04.23	Gane Barat Selatan	3
+82.04.24	Gane Barat Utara	3
+82.04.25	Kepulauan Joronga	3
+82.04.28	Obi Barat	3
+82.04.29	Obi Timur	3
+82.04.30	Obi Utara	3
+82.05.01	Mangoli Timur	3
+82.05.02	Sanana	3
+82.05.03	Sulabesi Barat	3
+82.05.06	Mangoli Barat	3
+82.05.07	Sulabesi Tengah	3
+82.05.08	Sulabesi Timur	3
+82.05.09	Sulabesi Selatan	3
+82.05.10	Mangoli Utara Timur	3
+82.05.11	Mangoli Tengah	3
+82.05.12	Mangoli Selatan	3
+82.05.13	Mangoli Utara	3
+82.05.18	Sanana Utara	3
+82.06.01	Wasile	3
+82.06.02	Maba	3
+82.06.03	Maba Selatan	3
+82.06.05	Wasile Tengah	3
+82.06.06	Wasile Utara	3
+82.06.07	Wasile Timur	3
+82.06.08	Maba Tengah	3
+82.06.09	Maba Utara	3
+82.06.10	Kota Maba	3
+82.07.01	Morotai Selatan	3
+82.07.02	Morotai Selatan Barat	3
+82.07.03	Morotai Jaya	3
+82.07.04	Morotai Utara	3
+82.08.01	Taliabu Barat	3
+82.08.02	Taliabu Barat Laut	3
+82.08.03	Lede	3
+82.08.04	Taliabu Utara	3
+82.08.05	Taliabu Timur	3
+82.08.06	Taliabu Timur Selatan	3
+82.08.07	Taliabu Selatan	3
+82.08.08	Tabona	3
+82.71.01	Pulau Ternate	3
+82.71.02	Kota Ternate Selatan	3
+82.71.03	Kota Ternate Utara	3
+82.71.06	Kota Ternate Tengah	3
+82.71.07	Pulau Hiri	3
+82.71.08	Ternate Barat	3
+82.72.01	Tidore	3
+82.72.02	Oba Utara	3
+82.72.03	Oba	3
+82.72.04	Tidore Selatan	3
+82.72.05	Tidore Utara	3
+82.72.06	Oba Tengah	3
+82.72.07	Oba Selatan	3
+82.72.08	Tidore Timur	3
+91.03.01	Sentani	3
+91.03.02	Sentani Timur	3
+91.03.03	Depapre	3
+91.03.04	Sentani Barat	3
+91.03.05	Kemtuk	3
+91.03.06	Kemtuk Gresi	3
+91.03.07	Nimboran	3
+91.03.08	Nimbokrang	3
+91.03.09	Unurum Guay	3
+91.03.10	Demta	3
+91.03.11	Kaureh	3
+91.03.12	Ebungfao	3
+91.03.13	Waibu	3
+91.03.14	Nambluong	3
+91.03.15	Yapsi	3
+91.03.16	Airu	3
+91.03.17	Raveni Rara	3
+91.03.19	Yokari	3
+91.05.01	Yapen Selatan	3
+91.05.02	Yapen Barat	3
+91.05.03	Yapen Timur	3
+91.05.04	Angkaisera	3
+91.05.05	Poom	3
+91.05.06	Kosiwo	3
+91.05.07	Yapen Utara	3
+91.05.08	Raimbawi	3
+91.05.09	Teluk Ampimoi	3
+91.05.10	Kepulauan Ambai	3
+91.05.11	Wonawa	3
+91.05.12	Windesi	3
+91.05.14	Pulau Yerui	3
+91.05.15	Anotaurei	3
+91.05.16	Yawakukat	3
+91.05.17	Nusawani	3
+91.06.01	Biak Kota	3
+91.06.02	Biak Utara	3
+91.06.03	Biak Timur	3
+91.06.04	Numfor Barat	3
+91.06.05	Numfor Timur	3
+91.06.08	Biak Barat	3
+91.06.09	Warsa	3
+91.06.10	Padaido	3
+91.06.11	Yendidori	3
+91.06.12	Samofa	3
+91.06.13	Yawosi	3
+91.06.14	Andey	3
+91.06.15	Swandiwe	3
+91.06.16	Bruyadori	3
+91.06.17	Orkeri	3
+91.06.18	Poiru	3
+91.06.19	Aimando Padaido	3
+91.06.20	Oridek	3
+91.10.02	Tor Atas	3
+91.10.03	Pantai Barat	3
+91.10.04	Pantai Timur	3
+91.10.05	Bonggo	3
+91.10.09	Apawer Hulu	3
+91.10.12	Sarmi Selatan	3
+91.10.13	Sarmi Timur	3
+91.10.14	Pantai Timur Bagian Barat	3
+91.10.15	Bonggo Timur	3
+91.11.01	Waris	3
+91.11.02	Arso	3
+91.11.03	Senggi	3
+91.11.05	Skanto	3
+91.11.06	Arso Timur	3
+91.11.08	Arso Barat	3
+91.11.09	Mannem	3
+91.11.10	Yaffi	3
+91.11.11	Kaisenar	3
+91.15.01	Waropen Bawah	3
+91.15.03	Masirei	3
+91.15.07	Risei Sayati	3
+91.15.08	Urei Faisei	3
+91.15.09	Inggerus	3
+91.15.10	Kirihi	3
+91.15.11	Oudate	3
+91.15.12	Wapoga	3
+91.19.01	Supiori Selatan	3
+91.19.02	Supiori Utara	3
+91.19.03	Supiori Timur	3
+91.19.04	Kepulauan Aruri	3
+91.19.05	Supiori Barat	3
+91.20.01	Mamberamo Tengah	3
+91.20.02	Mamberamo Hulu	3
+91.20.03	Rufaer	3
+91.20.04	Mamberamo Tengah Timur	3
+91.20.05	Mamberamo Hilir	3
+91.20.06	Waropen Atas	3
+91.20.07	Benuki	3
+91.20.08	Sawai	3
+91.71.01	Jayapura Utara	3
+91.71.03	Abepura	3
+91.71.04	Muara Tami	3
+91.71.05	Heram	3
+92.01.01	Makbon	3
+92.01.04	Beraur	3
+92.01.05	Salawati	3
+92.01.06	Seget	3
+92.01.07	Aimas	3
+92.01.08	Klamono	3
+92.01.10	Sayosa	3
+92.01.12	Segun	3
+92.01.13	Mayamuk	3
+92.01.14	Salawati Selatan	3
+92.01.17	Klabot	3
+92.01.18	Klawak	3
+92.01.20	Maudus	3
+92.01.39	Mariat	3
+92.01.40	Klayili	3
+92.01.41	Klaso	3
+92.01.42	Moisegen	3
+92.01.43	Sorong	3
+92.01.44	Bagun	3
+92.01.45	Wemak	3
+92.01.46	Sunook	3
+92.01.47	Buk	3
+92.01.48	Saengkeduk	3
+92.01.49	Malabotom	3
+92.01.50	Konhir	3
+92.01.51	Klasafet	3
+92.01.52	Hobard	3
+92.01.53	Salawati Tengah	3
+92.01.54	Botain	3
+92.02.03	Warmare	3
+92.02.04	Prafi	3
+92.02.05	Masni	3
+92.02.12	Manokwari Barat	3
+92.02.13	Manokwari Timur	3
+92.02.14	Manokwari Utara	3
+92.02.15	Manokwari Selatan	3
+92.02.21	Sidey	3
+92.03.01	Fak-Fak	3
+92.03.02	Fak-Fak Barat	3
+92.03.03	Fak-Fak Timur	3
+92.03.04	Kokas	3
+92.03.05	Fak-Fak Tengah	3
+92.03.06	Karas	3
+92.03.07	Bomberay	3
+92.03.08	Kramongmongga	3
+92.03.09	Teluk Patipi	3
+92.03.10	Pariwari	3
+92.03.11	Wartutin	3
+92.03.13	Arguni	3
+92.03.14	Mbahamdandara	3
+92.03.15	Kayauni	3
+92.03.16	Furwagi	3
+92.03.17	Tomage	3
+92.04.01	Teminabuan	3
+92.04.04	Inanwatan	3
+92.04.06	Sawiat	3
+92.04.09	Kokoda	3
+92.04.10	Moswaren	3
+92.04.11	Seremuk	3
+92.04.12	Wayer	3
+92.04.14	Kais	3
+92.04.15	Konda	3
+92.04.20	Matemani	3
+92.04.22	Saifi	3
+92.04.24	Fokour	3
+92.04.25	Salkma	3
+92.04.26	Kais Darat	3
+92.05.01	Misool (Misool Utara)	3
+92.05.02	Waigeo Utara	3
+92.05.03	Waigeo Selatan	3
+92.05.04	Salawati Utara	3
+92.05.05	Kepulauan Ayau	3
+92.05.06	Misool Timur	3
+92.05.07	Waigeo Barat	3
+92.05.08	Waigeo Timur	3
+92.05.09	Teluk Mayalibit	3
+92.05.10	Kofiau	3
+92.05.11	Meos Mansar	3
+92.05.13	Misool Selatan	3
+92.05.14	Warwarbomi	3
+92.05.15	Waigeo Barat Kepulauan	3
+92.05.16	Misool Barat	3
+92.05.17	Kepulauan Sembilan	3
+92.05.18	Kota Waisai	3
+92.05.19	Tiplol Mayalibit	3
+92.05.21	Salawati Barat	3
+92.05.22	Salawati Tengah	3
+92.05.23	Supnin	3
+92.05.24	Ayau	3
+92.05.25	Batanta Selatan	3
+92.06.01	Bintuni	3
+92.06.02	Merdey	3
+92.06.03	Babo	3
+92.06.04	Aranday	3
+92.06.05	Moskona Selatan	3
+92.06.06	Moskona Utara	3
+92.06.07	Wamesa	3
+92.06.08	Fafurwar	3
+92.06.09	Tembuni	3
+92.06.10	Kuri	3
+92.06.11	Manimeri	3
+92.06.12	Tuhiba	3
+92.06.13	Dataran Beimes	3
+92.06.14	Sumuri	3
+92.06.15	Kaitaro	3
+92.06.16	Aroba	3
+92.06.17	Masyeta	3
+92.06.18	Biscoop	3
+92.06.19	Tomu	3
+92.06.22	Moskona Barat	3
+92.06.23	Meyado	3
+92.06.24	Moskona Timur	3
+92.07.01	Wasior	3
+92.07.02	Windesi	3
+92.07.03	Teluk Duairi	3
+92.07.04	Wondiboy	3
+92.07.05	Wamesa	3
+92.07.06	Rumberpon	3
+92.07.07	Naikere	3
+92.07.08	Rasiei	3
+92.07.09	Kuri Wamesa	3
+92.07.10	Roon	3
+92.07.11	Roswar	3
+92.07.12	Nikiwar	3
+92.07.13	Soug Jaya	3
+92.08.01	Kaimana	3
+92.08.02	Buruway	3
+92.08.03	Teluk Arguni Atas	3
+92.08.05	Kambrau	3
+92.08.06	Teluk Arguni Bawah	3
+92.08.07	Yamor	3
+92.09.01	Fef	3
+92.09.02	Miyah	3
+92.09.03	Yembun	3
+92.09.04	Kwoor	3
+92.09.05	Sausapor	3
+92.09.06	Abun	3
+92.09.07	Syujak	3
+92.09.08	Moraid	3
+92.09.09	Kebar	3
+92.09.10	Amberbaken	3
+92.09.11	Senopi	3
+92.09.12	Mubrani	3
+92.09.14	Bamusbama	3
+92.09.15	Ases	3
+92.09.16	Miyah Selatan	3
+92.09.17	Ireres	3
+92.09.18	Tobouw	3
+92.09.19	Wilhem Roumbouts	3
+92.09.20	Tinggouw	3
+92.09.21	Kwesefo	3
+92.09.22	Mawabuan	3
+92.09.23	Kebar Timur	3
+92.09.24	Kebar Selatan	3
+92.09.25	Manekar	3
+92.09.26	Mpur	3
+92.09.27	Amberbaken Barat	3
+92.09.28	Kasi	3
+92.09.29	Selemkai	3
+92.10.01	Aifat	3
+92.10.02	Aifat Utara	3
+92.10.03	Aifat Timur	3
+92.10.04	Aifat Selatan	3
+92.10.05	Aitinyo Barat	3
+92.10.06	Aitinyo	3
+92.10.07	Aitinyo Utara	3
+92.10.08	Ayamaru	3
+92.10.09	Ayamaru Utara	3
+92.10.10	Ayamaru Timur	3
+92.10.11	Mare	3
+92.10.12	Aifat Timur Tengah	3
+92.10.14	Aifat Timur Selatan	3
+92.10.15	Ayamaru Selatan	3
+92.10.16	Ayamaru Jaya	3
+92.10.17	Ayamaru Selatan Jaya	3
+92.10.18	Ayamaru Timur Selatan	3
+92.10.19	Ayamaru Utara Timur	3
+92.10.20	Ayamaru Tengah	3
+92.10.21	Ayamaru Barat	3
+92.10.22	Aitinyo Tengah	3
+92.10.23	Aitinyo Raya	3
+92.10.24	Mare Selatan	3
+92.11.01	Ransiki	3
+92.11.02	Oransbari	3
+92.11.03	Neney	3
+92.11.05	Momi Waren	3
+92.11.06	Tahota	3
+92.12.01	Anggi	3
+92.12.02	Anggi Gida	3
+92.12.03	Membey	3
+92.12.04	Sururey	3
+92.12.05	Didohu	3
+92.12.06	Taige	3
+92.12.07	Catubouw	3
+92.12.08	Testega	3
+92.12.09	Minyambaouw	3
+92.71.02	Sorong Timur	3
+92.71.03	Sorong Barat	3
+92.71.04	Sorong Kepulauan	3
+92.71.05	Sorong Utara	3
+92.71.06	Sorong Manoi	3
+92.71.07	Sorong Kota	3
+92.71.08	Klaurung	3
+92.71.09	Malaimsimsa	3
+92.71.10	Maladum Mes	3
+93.01.01	Merauke	3
+93.01.02	Muting	3
+93.01.03	Okaba	3
+93.01.04	Kimaam	3
+93.01.05	Semangga	3
+93.01.06	Tanah Miring	3
+93.01.07	Jagebob	3
+93.01.08	Sota	3
+93.01.09	Ulilin	3
+93.01.10	Elikobal	3
+93.01.11	Kurik	3
+93.01.12	Naukenjerai	3
+93.01.13	Animha	3
+93.01.14	Malind	3
+93.01.15	Tubang	3
+93.01.16	Ngguti	3
+93.01.17	Kaptel	3
+93.01.18	Tabonji	3
+93.01.19	Waan	3
+93.01.20	Ilwayab	3
+93.02.01	Mandobo	3
+93.02.02	Mindiptana	3
+93.02.03	Waropko	3
+93.02.04	Kouh	3
+93.02.05	Jair	3
+93.02.06	Bomakia	3
+93.02.07	Kombut	3
+93.02.08	Iniyandit	3
+93.02.09	Arimop	3
+93.02.10	Fofi	3
+93.02.11	Ambatkwi	3
+93.02.12	Manggelum	3
+93.02.13	Firiwage	3
+93.02.14	Yaniruma	3
+93.02.15	Subur	3
+93.02.16	Kombay	3
+93.02.17	Ninati	3
+93.02.18	Sesnuk	3
+93.02.19	Ki	3
+93.02.20	Kawagit	3
+93.03.01	Obaa	3
+93.03.02	Mambioman Bapai	3
+93.03.03	Citak-Mitak	3
+93.03.04	Edera	3
+93.03.05	Haju	3
+93.03.06	Assue	3
+93.03.07	Kaibar	3
+93.03.08	Passue	3
+93.03.09	Minyamur	3
+93.03.10	Venaha	3
+93.03.11	Syahcame	3
+93.03.12	Yakomi	3
+93.03.13	Bamgi	3
+93.03.14	Passue Bawah	3
+93.04.01	Agats	3
+93.04.02	Atsj	3
+93.04.03	Sawa Erma	3
+93.04.04	Akat	3
+93.04.05	Fayit	3
+93.04.06	Pantai Kasuari	3
+93.04.07	Suator	3
+93.04.08	Suru-suru	3
+93.04.09	Kolf Braza	3
+93.04.10	Unir Sirau	3
+93.04.11	Joerat	3
+93.04.12	Pulau Tiga	3
+93.04.13	Jetsy	3
+93.04.15	Kopay	3
+93.04.16	Safan	3
+93.04.17	Sirets	3
+93.04.18	Ayip	3
+93.04.19	Betcbamu	3
+93.04.20	Joutu	3
+93.04.21	Aswi	3
+93.04.22	Awyu	3
+93.04.23	Koroway Buluanop	3
+93.04.24	Tomor Birip	3
+93.04.25	Sor Ep	3
+94.01.01	Nabire	3
+94.01.02	Napan	3
+94.01.03	Yaur	3
+94.01.04	Uwapa	3
+94.01.05	Wanggar	3
+94.01.06	Siriwo	3
+94.01.07	Makimi	3
+94.01.08	Teluk Umar	3
+94.01.10	Yaro	3
+94.01.11	Wapoga	3
+94.01.12	Nabire Barat	3
+94.01.13	Moora	3
+94.01.14	Dipa	3
+94.01.15	Menou	3
+94.02.01	Mulia	3
+94.02.02	Ilu	3
+94.02.03	Fawi	3
+94.02.04	Mewoluk	3
+94.02.05	Yamo	3
+94.02.06	Nume	3
+94.02.07	Torere	3
+94.02.08	Tingginambut	3
+94.02.09	Pagaleme	3
+94.02.10	Gurage	3
+94.02.11	Irimuli	3
+94.02.12	Muara	3
+94.02.13	Ilamburawi	3
+94.02.14	Yambi	3
+94.02.16	Molanikime	3
+94.02.17	Dokome	3
+94.02.18	Kalome	3
+94.02.19	Wanwi	3
+94.02.20	Yamoneri	3
+94.02.21	Waegi	3
+94.02.23	Gubume	3
+94.02.24	Taganombak	3
+94.02.25	Dagai	3
+94.02.26	Kiyage	3
+94.03.01	Paniai Timur	3
+94.03.02	Paniai Barat	3
+94.03.03	Aradide	3
+94.03.04	Bogabaida	3
+94.03.05	Bibida	3
+94.03.06	Dumadama	3
+94.03.07	Siriwo	3
+94.03.08	Kebo	3
+94.03.09	Yatamo	3
+94.03.10	Ekadide	3
+94.03.11	Wegee Muka	3
+94.03.12	Wegee Bino	3
+94.03.13	Pugo Dagi	3
+94.03.14	Muye	3
+94.03.15	Nakama	3
+94.03.16	Teluk Deya	3
+94.03.17	Yagai	3
+94.03.18	Youtadi	3
+94.03.19	Baya Biru	3
+94.03.20	Deiyai Miyo	3
+94.03.21	Dogomo	3
+94.03.22	Aweida	3
+94.03.23	Topiyai	3
+94.04.01	Mimika Baru	3
+94.04.02	Agimuga	3
+94.04.03	Mimika Timur	3
+94.04.04	Mimika Barat	3
+94.04.05	Jita	3
+94.04.06	Jila	3
+94.04.07	Mimika Timur Jauh	3
+94.04.08	Mimika Tengah	3
+94.04.09	Kuala Kencana	3
+94.04.10	Tembagapura	3
+94.04.11	Mimika Barat Jauh	3
+94.04.12	Mimika Barat Tengah	3
+94.04.13	Kwamki Narama	3
+94.04.14	Hoya	3
+94.04.15	Iwaka	3
+94.04.17	Amar	3
+94.04.18	Alama	3
+94.05.01	Ilaga	3
+94.05.02	Wangbe	3
+94.05.03	Beoga	3
+94.05.04	Doufo	3
+94.05.05	Pogoma	3
+94.05.06	Sinak	3
+94.05.07	Agandugume	3
+94.05.08	Gome	3
+94.05.09	Dervos	3
+94.05.10	Beoga Barat	3
+94.05.11	Beoga Timur	3
+94.05.12	Ogamanim	3
+94.05.13	Kembru	3
+94.05.14	Bina	3
+94.05.15	Sinak Barat	3
+94.05.16	Mage'abume	3
+94.05.17	Yugumuak	3
+94.05.18	Ilaga Utara	3
+94.05.19	Mabugi	3
+94.05.20	Omukia	3
+94.05.21	Lambewi	3
+94.05.22	Oneri	3
+94.05.23	Amungkalpia	3
+94.05.24	Gome Utara	3
+94.05.25	Erelmakawia	3
+94.06.02	Mapia	3
+94.06.03	Piyaiye	3
+94.06.04	Kamu Utara	3
+94.06.05	Sukikai Selatan	3
+94.06.06	Mapia Barat	3
+94.06.09	Mapia Tengah	3
+94.06.10	Dogiyai	3
+94.07.01	Sugapa	3
+94.07.02	Homeyo	3
+94.07.03	Wandai	3
+94.07.04	Biandoga	3
+94.07.05	Agisiga	3
+94.07.06	Hitadipa	3
+94.07.07	Ugimba	3
+94.07.08	Tomosiga	3
+94.08.01	Tigi	3
+94.08.03	Bowobado	3
+94.08.04	Tigi Barat	3
+94.08.05	Kapiraya	3
+95.01.01	Wamena	3
+95.01.02	Kurulu	3
+95.01.03	Asologaima	3
+95.01.04	Hubikosi	3
+95.01.05	Bolakme	3
+95.01.06	Walelagama	3
+95.01.07	Musatfak	3
+95.01.08	Wolo	3
+95.01.09	Asolokobal	3
+95.01.10	Pelebaga	3
+95.01.11	Yalengga	3
+95.01.12	Trikora	3
+95.01.13	Napua	3
+95.01.14	Walaik	3
+95.01.15	Wouma	3
+95.01.16	Hubikiak	3
+95.01.17	Ibele	3
+95.01.18	Taelarek	3
+95.01.19	Itlay Hisage	3
+95.01.20	Siepkosi	3
+95.01.21	Usilimo	3
+95.01.22	Wita Waya	3
+95.01.23	Libarek	3
+95.01.24	Wadangku	3
+95.01.25	Pisugi	3
+95.01.27	Tagime	3
+95.01.28	Molagalome	3
+95.01.29	Tagineri	3
+95.01.30	Silo Karno Doga	3
+95.01.31	Piramid	3
+95.01.32	Muliama	3
+95.01.33	Bugi	3
+95.01.34	Bpiri	3
+95.01.35	Welesi	3
+95.01.36	Asotipo	3
+95.01.37	Maima	3
+95.01.38	Popugoba	3
+95.01.39	Wame	3
+95.01.40	Wesaput	3
+95.02.01	Oksibil	3
+95.02.02	Kiwirok	3
+95.02.03	Okbibab	3
+95.02.05	Batom	3
+95.02.06	Borme	3
+95.02.07	Kiwirok Timur	3
+95.02.08	Aboy	3
+95.02.09	Pepera	3
+95.02.10	Bime	3
+95.02.11	Alemsom	3
+95.02.12	Okbape	3
+95.02.13	Kalomdol	3
+95.02.14	Oksop	3
+95.02.15	Serambakon	3
+95.02.16	Ok Aom	3
+95.02.17	Kawor	3
+95.02.18	Awinbon	3
+95.02.19	Tarup	3
+95.02.20	Okhika	3
+95.02.22	Oklip	3
+95.02.23	Okbemtau	3
+95.02.24	Oksebang	3
+95.02.25	Okbab	3
+95.02.26	Batani	3
+95.02.27	Weime	3
+95.02.28	Murkim	3
+95.02.29	Mofinop	3
+95.02.30	Jetfa	3
+95.02.31	Teiraplu	3
+95.02.32	Eipumek	3
+95.02.33	Pamek	3
+95.02.34	Nongme	3
+95.03.01	Kurima	3
+95.03.02	Anggruk	3
+95.03.03	Ninia	3
+95.03.04	Silimo	3
+95.03.05	Samenage	3
+95.03.06	Nalca	3
+95.03.07	Dekai	3
+95.03.08	Obio	3
+95.03.09	Suru Suru	3
+95.03.10	Wusama	3
+95.03.11	Amuma	3
+95.03.12	Musaik	3
+95.03.13	Pasema	3
+95.03.14	Hogio	3
+95.03.15	Mugi	3
+95.03.17	Werima	3
+95.03.18	Tangma	3
+95.03.19	Ukha	3
+95.03.20	Panggema	3
+95.03.21	Kosarek	3
+95.03.22	Nipsan	3
+95.03.23	Ubahak	3
+95.03.24	Pronggoli	3
+95.03.25	Walma	3
+95.03.26	Yahuliambut	3
+95.03.27	Hereapini	3
+95.03.28	Ubalihi	3
+95.03.29	Talambo	3
+95.03.30	Puldama	3
+95.03.31	Endomen	3
+95.03.32	Kona	3
+95.03.33	Dirwemna	3
+95.03.34	Holuon	3
+95.03.35	Lolat	3
+95.03.36	Soloikma	3
+95.03.37	Sela	3
+95.03.38	Korupun	3
+95.03.39	Langda	3
+95.03.40	Bomela	3
+95.03.41	Suntamon	3
+95.03.42	Seradala	3
+95.03.43	Sobaham	3
+95.03.44	Kabianggama	3
+95.03.46	Kwikma	3
+95.03.47	Hilipuk	3
+95.03.48	Duram	3
+95.03.49	Yogosem	3
+95.03.50	Kayo	3
+95.03.51	Sumo	3
+95.04.01	Karubaga	3
+95.04.02	Bokondini	3
+95.04.03	Kanggime	3
+95.04.04	Kembu	3
+95.04.05	Goyage	3
+95.04.06	Wunim	3
+95.04.07	Wina	3
+95.04.08	Umagi	3
+95.04.09	Panaga	3
+95.04.10	Woniki	3
+95.04.11	Kubu	3
+95.04.12	Konda/ Kondaga	3
+95.04.13	Nelawi	3
+95.04.14	Kuari	3
+95.04.15	Bokoneri	3
+95.04.16	Bewani	3
+95.04.17	Nabunage	3
+95.04.18	Gilubandu	3
+95.04.19	Nunggawi	3
+95.04.20	Gundagi	3
+95.04.21	Numba	3
+95.04.22	Timori	3
+95.04.23	Dundu	3
+95.04.24	Geya	3
+95.04.25	Egiam	3
+95.04.26	Poganeri	3
+95.04.27	Kamboneri	3
+95.04.28	Airgaram	3
+95.04.29	Wari/Taiyeve II	3
+95.04.30	Dow	3
+95.04.31	Tagineri	3
+95.04.32	Yuneri	3
+95.04.33	Wakuwo	3
+95.04.34	Gika	3
+95.04.35	Telenggeme	3
+95.04.36	Anawi	3
+95.04.37	Wenam	3
+95.04.38	Wugi	3
+95.04.39	Danime	3
+95.04.40	Tagime	3
+95.04.41	Kai	3
+95.04.42	Aweku	3
+95.04.43	Bogonuk	3
+95.04.46	Yuko	3
+95.05.01	Kobakma	3
+95.05.02	Kelila	3
+95.05.03	Eragayam	3
+95.05.04	Megambilis	3
+95.05.05	Ilugwa	3
+95.06.01	Elelim	3
+95.06.02	Apalapsili	3
+95.06.03	Abenaho	3
+95.06.05	Welarek	3
+95.07.01	Tiom	3
+95.07.02	Pirime	3
+95.07.03	Makki	3
+95.07.04	Gamelia	3
+95.07.05	Dimba	3
+95.07.06	Melagineri	3
+95.07.07	Balingga	3
+95.07.08	Tiomneri	3
+95.07.09	Kuyawage	3
+95.07.10	Poga	3
+95.07.11	Niname	3
+95.07.12	Nogi	3
+95.07.13	Yiginua	3
+95.07.14	Tiom Ollo	3
+95.07.15	Yugungwi	3
+95.07.16	Mokoni	3
+95.07.17	Wereka	3
+95.07.18	Milimbo	3
+95.07.19	Wiringgambut	3
+95.07.20	Gollo	3
+95.07.21	Awina	3
+95.07.22	Ayumnati	3
+95.07.23	Wano Barat	3
+95.07.24	Goa Balim	3
+95.07.25	Bruwa	3
+95.07.26	Balingga Barat	3
+95.07.27	Gupura	3
+95.07.28	Kolawa	3
+95.07.29	Gelok Beam	3
+95.07.30	Kuly Lanny	3
+95.07.31	Lannyna	3
+95.07.32	Karu	3
+95.07.33	Yiluk	3
+95.07.34	Guna	3
+95.07.35	Kelulome	3
+95.07.36	Nikogwe	3
+95.07.37	Muara	3
+95.07.38	Buguk Gona	3
+95.07.39	Melagi	3
+95.08.01	Kenyam	3
+95.08.02	Mapenduma	3
+95.08.04	Wosak	3
+95.08.05	Geselma	3
+95.08.06	Mugi	3
+95.08.07	Mbuwa	3
+95.08.08	Gearek	3
+95.08.09	Koroptak	3
+95.08.10	Kegayem	3
+95.08.11	Paro	3
+95.08.12	Mebarok	3
+95.08.13	Yenggelo	3
+95.08.14	Kilmid	3
+95.08.15	Alama	3
+95.08.16	Yal	3
+95.08.17	Mam	3
+95.08.18	Dal	3
+95.08.19	Nirkuri	3
+95.08.20	Inikgal	3
+95.08.21	Iniye	3
+95.08.22	Mbulmu Yalma	3
+95.08.23	Mbua Tengah	3
+95.08.24	Embetpen	3
+95.08.25	Kora	3
+95.08.26	Wusi	3
+95.08.27	Pija	3
+95.08.28	Moba	3
+95.08.29	Wutpaga	3
+95.08.30	Nenggeagin	3
+95.08.31	Krepkuri	3
+95.08.32	Pasir Putih	3
+\.
+
+
+--
+-- TOC entry 3511 (class 0 OID 0)
+-- Dependencies: 234
+-- Name: d_kelas_kelas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.d_kelas_kelas_id_seq', 116, true);
+
+
+--
+-- TOC entry 3512 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: d_kelas_mahasiswa_kelas_mahasiswa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.d_kelas_mahasiswa_kelas_mahasiswa_id_seq', 3470, true);
+
+
+--
+-- TOC entry 3513 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: d_kuliah_kuliah_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.d_kuliah_kuliah_id_seq', 348, true);
+
+
+--
+-- TOC entry 3514 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: d_kuliah_nilai_kuliah_nilai_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.d_kuliah_nilai_kuliah_nilai_id_seq', 10410, true);
+
+
+--
+-- TOC entry 3515 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: d_kurikulum_kurikulum_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.d_kurikulum_kurikulum_id_seq', 222, true);
+
+
+--
+-- TOC entry 3516 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: d_kurikulum_mk_kurikulum_mk_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.d_kurikulum_mk_kurikulum_mk_id_seq', 222, true);
+
+
+--
+-- TOC entry 3517 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: m_dosen_dosen_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.m_dosen_dosen_id_seq', 264, true);
+
+
+--
+-- TOC entry 3518 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: m_jenjang_jenjang_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.m_jenjang_jenjang_id_seq', 7, true);
+
+
+--
+-- TOC entry 3519 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: m_jurusan_jurusan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.m_jurusan_jurusan_id_seq', 7, true);
+
+
+--
+-- TOC entry 3520 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: m_mahasiswa_mahasiswa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.m_mahasiswa_mahasiswa_id_seq', 3470, true);
+
+
+--
+-- TOC entry 3521 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: m_matakuliah_matakuliah_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.m_matakuliah_matakuliah_id_seq', 222, true);
+
+
+--
+-- TOC entry 3522 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: m_prodi_prodi_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.m_prodi_prodi_id_seq', 37, true);
+
+
+--
+-- TOC entry 3523 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: r_agama_agama_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.r_agama_agama_id_seq', 6, true);
+
+
+--
+-- TOC entry 3283 (class 2606 OID 18389)
+-- Name: d_kelas_mahasiswa d_kelas_mahasiswa_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kelas_mahasiswa
+    ADD CONSTRAINT d_kelas_mahasiswa_pk PRIMARY KEY (kelas_mahasiswa_id);
+
+
+--
+-- TOC entry 3285 (class 2606 OID 18391)
+-- Name: d_kelas_mahasiswa d_kelas_mahasiswa_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kelas_mahasiswa
+    ADD CONSTRAINT d_kelas_mahasiswa_unique UNIQUE (kelas_id, mahasiswa_id);
+
+
+--
+-- TOC entry 3281 (class 2606 OID 18363)
+-- Name: d_kelas d_kelas_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kelas
+    ADD CONSTRAINT d_kelas_pk PRIMARY KEY (kelas_id);
+
+
+--
+-- TOC entry 3289 (class 2606 OID 18438)
+-- Name: d_kuliah_nilai d_kuliah_nilai_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kuliah_nilai
+    ADD CONSTRAINT d_kuliah_nilai_pk PRIMARY KEY (kuliah_nilai_id);
+
+
+--
+-- TOC entry 3287 (class 2606 OID 18415)
+-- Name: d_kuliah d_kuliah_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kuliah
+    ADD CONSTRAINT d_kuliah_pk PRIMARY KEY (kuliah_id);
+
+
+--
+-- TOC entry 3277 (class 2606 OID 18309)
+-- Name: d_kurikulum_mk d_kurikulum_mk_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kurikulum_mk
+    ADD CONSTRAINT d_kurikulum_mk_pk PRIMARY KEY (kurikulum_mk_id);
+
+
+--
+-- TOC entry 3275 (class 2606 OID 18292)
+-- Name: d_kurikulum d_kurikulum_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kurikulum
+    ADD CONSTRAINT d_kurikulum_pk PRIMARY KEY (kurikulum_id);
+
+
+--
+-- TOC entry 3273 (class 2606 OID 18285)
+-- Name: d_periode d_periode_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_periode
+    ADD CONSTRAINT d_periode_pk PRIMARY KEY (periode_id);
+
+
+--
+-- TOC entry 3279 (class 2606 OID 18341)
+-- Name: m_dosen m_dosen_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_dosen
+    ADD CONSTRAINT m_dosen_pk PRIMARY KEY (dosen_id);
+
+
+--
+-- TOC entry 3257 (class 2606 OID 18188)
+-- Name: r_jenjang m_jenjang_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.r_jenjang
+    ADD CONSTRAINT m_jenjang_pk PRIMARY KEY (jenjang_id);
+
+
+--
+-- TOC entry 3255 (class 2606 OID 18181)
+-- Name: m_jurusan m_jurusan_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_jurusan
+    ADD CONSTRAINT m_jurusan_pk PRIMARY KEY (jurusan_id);
+
+
+--
+-- TOC entry 3263 (class 2606 OID 18225)
+-- Name: m_mahasiswa m_mahasiswa_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_mahasiswa
+    ADD CONSTRAINT m_mahasiswa_pk PRIMARY KEY (mahasiswa_id);
+
+
+--
+-- TOC entry 3265 (class 2606 OID 18227)
+-- Name: m_mahasiswa m_mahasiswa_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_mahasiswa
+    ADD CONSTRAINT m_mahasiswa_unique UNIQUE (nim);
+
+
+--
+-- TOC entry 3271 (class 2606 OID 18270)
+-- Name: m_matakuliah m_matakuliah_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_matakuliah
+    ADD CONSTRAINT m_matakuliah_pk PRIMARY KEY (matakuliah_id);
+
+
+--
+-- TOC entry 3259 (class 2606 OID 18195)
+-- Name: m_prodi m_prodi_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_prodi
+    ADD CONSTRAINT m_prodi_pk PRIMARY KEY (prodi_id);
+
+
+--
+-- TOC entry 3261 (class 2606 OID 18213)
+-- Name: m_prodi m_prodi_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_prodi
+    ADD CONSTRAINT m_prodi_unique UNIQUE (prodi_kode);
+
+
+--
+-- TOC entry 3269 (class 2606 OID 18243)
+-- Name: r_agama r_agama_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.r_agama
+    ADD CONSTRAINT r_agama_pk PRIMARY KEY (agama_id);
+
+
+--
+-- TOC entry 3267 (class 2606 OID 18258)
+-- Name: r_wilayah r_wilayah_unique; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.r_wilayah
+    ADD CONSTRAINT r_wilayah_unique UNIQUE (wilayah_id);
+
+
+--
+-- TOC entry 3303 (class 2606 OID 18375)
+-- Name: d_kelas d_kelas_d_periode_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kelas
+    ADD CONSTRAINT d_kelas_d_periode_fk FOREIGN KEY (periode_id) REFERENCES public.d_periode(periode_id);
+
+
+--
+-- TOC entry 3304 (class 2606 OID 18370)
+-- Name: d_kelas d_kelas_m_dosen_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kelas
+    ADD CONSTRAINT d_kelas_m_dosen_fk FOREIGN KEY (dosen_id) REFERENCES public.m_dosen(dosen_id);
+
+
+--
+-- TOC entry 3305 (class 2606 OID 18365)
+-- Name: d_kelas d_kelas_m_prodi_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kelas
+    ADD CONSTRAINT d_kelas_m_prodi_fk FOREIGN KEY (prodi_id) REFERENCES public.m_prodi(prodi_id);
+
+
+--
+-- TOC entry 3306 (class 2606 OID 18392)
+-- Name: d_kelas_mahasiswa d_kelas_mahasiswa_d_kelas_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kelas_mahasiswa
+    ADD CONSTRAINT d_kelas_mahasiswa_d_kelas_fk FOREIGN KEY (kelas_id) REFERENCES public.d_kelas(kelas_id);
+
+
+--
+-- TOC entry 3307 (class 2606 OID 18397)
+-- Name: d_kelas_mahasiswa d_kelas_mahasiswa_m_mahasiswa_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kelas_mahasiswa
+    ADD CONSTRAINT d_kelas_mahasiswa_m_mahasiswa_fk FOREIGN KEY (mahasiswa_id) REFERENCES public.m_mahasiswa(mahasiswa_id);
+
+
+--
+-- TOC entry 3308 (class 2606 OID 18426)
+-- Name: d_kuliah d_kuliah_d_kelas_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kuliah
+    ADD CONSTRAINT d_kuliah_d_kelas_fk FOREIGN KEY (kelas_id) REFERENCES public.d_kelas(kelas_id);
+
+
+--
+-- TOC entry 3309 (class 2606 OID 18416)
+-- Name: d_kuliah d_kuliah_d_kurikulum_mk_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kuliah
+    ADD CONSTRAINT d_kuliah_d_kurikulum_mk_fk FOREIGN KEY (kurikulum_mk_id) REFERENCES public.d_kurikulum_mk(kurikulum_mk_id);
+
+
+--
+-- TOC entry 3310 (class 2606 OID 18421)
+-- Name: d_kuliah d_kuliah_m_dosen_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kuliah
+    ADD CONSTRAINT d_kuliah_m_dosen_fk FOREIGN KEY (dosen_id) REFERENCES public.m_dosen(dosen_id);
+
+
+--
+-- TOC entry 3311 (class 2606 OID 18439)
+-- Name: d_kuliah_nilai d_kuliah_nilai_d_kuliah_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kuliah_nilai
+    ADD CONSTRAINT d_kuliah_nilai_d_kuliah_fk FOREIGN KEY (kuliah_id) REFERENCES public.d_kuliah(kuliah_id);
+
+
+--
+-- TOC entry 3312 (class 2606 OID 18444)
+-- Name: d_kuliah_nilai d_kuliah_nilai_m_mahasiswa_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kuliah_nilai
+    ADD CONSTRAINT d_kuliah_nilai_m_mahasiswa_fk FOREIGN KEY (mahasiswa_id) REFERENCES public.m_mahasiswa(mahasiswa_id);
+
+
+--
+-- TOC entry 3296 (class 2606 OID 18298)
+-- Name: d_kurikulum d_kurikulum_d_periode_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kurikulum
+    ADD CONSTRAINT d_kurikulum_d_periode_fk FOREIGN KEY (periode_id) REFERENCES public.d_periode(periode_id);
+
+
+--
+-- TOC entry 3297 (class 2606 OID 18293)
+-- Name: d_kurikulum d_kurikulum_m_prodi_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kurikulum
+    ADD CONSTRAINT d_kurikulum_m_prodi_fk FOREIGN KEY (prodi_id) REFERENCES public.m_prodi(prodi_id);
+
+
+--
+-- TOC entry 3298 (class 2606 OID 18310)
+-- Name: d_kurikulum_mk d_kurikulum_mk_d_kurikulum_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kurikulum_mk
+    ADD CONSTRAINT d_kurikulum_mk_d_kurikulum_fk FOREIGN KEY (kurikulum_id) REFERENCES public.d_kurikulum(kurikulum_id);
+
+
+--
+-- TOC entry 3299 (class 2606 OID 18315)
+-- Name: d_kurikulum_mk d_kurikulum_mk_m_matakuliah_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.d_kurikulum_mk
+    ADD CONSTRAINT d_kurikulum_mk_m_matakuliah_fk FOREIGN KEY (matakuliah_id) REFERENCES public.m_matakuliah(matakuliah_id);
+
+
+--
+-- TOC entry 3300 (class 2606 OID 18347)
+-- Name: m_dosen m_dosen_m_prodi_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_dosen
+    ADD CONSTRAINT m_dosen_m_prodi_fk FOREIGN KEY (prodi_id) REFERENCES public.m_prodi(prodi_id);
+
+
+--
+-- TOC entry 3301 (class 2606 OID 18342)
+-- Name: m_dosen m_dosen_r_agama_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_dosen
+    ADD CONSTRAINT m_dosen_r_agama_fk FOREIGN KEY (agama_id) REFERENCES public.r_agama(agama_id);
+
+
+--
+-- TOC entry 3302 (class 2606 OID 18352)
+-- Name: m_dosen m_dosen_r_wilayah_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_dosen
+    ADD CONSTRAINT m_dosen_r_wilayah_fk FOREIGN KEY (kota_id) REFERENCES public.r_wilayah(wilayah_id);
+
+
+--
+-- TOC entry 3292 (class 2606 OID 18228)
+-- Name: m_mahasiswa m_mahasiswa_m_prodi_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_mahasiswa
+    ADD CONSTRAINT m_mahasiswa_m_prodi_fk FOREIGN KEY (prodi_id) REFERENCES public.m_prodi(prodi_id);
+
+
+--
+-- TOC entry 3293 (class 2606 OID 18244)
+-- Name: m_mahasiswa m_mahasiswa_r_agama_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_mahasiswa
+    ADD CONSTRAINT m_mahasiswa_r_agama_fk FOREIGN KEY (agama_id) REFERENCES public.r_agama(agama_id);
+
+
+--
+-- TOC entry 3294 (class 2606 OID 18259)
+-- Name: m_mahasiswa m_mahasiswa_r_wilayah_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_mahasiswa
+    ADD CONSTRAINT m_mahasiswa_r_wilayah_fk FOREIGN KEY (kota_id) REFERENCES public.r_wilayah(wilayah_id);
+
+
+--
+-- TOC entry 3295 (class 2606 OID 18271)
+-- Name: m_matakuliah m_matakuliah_m_prodi_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_matakuliah
+    ADD CONSTRAINT m_matakuliah_m_prodi_fk FOREIGN KEY (prodi_id) REFERENCES public.m_prodi(prodi_id);
+
+
+--
+-- TOC entry 3290 (class 2606 OID 18203)
+-- Name: m_prodi m_prodi_m_jenjang_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_prodi
+    ADD CONSTRAINT m_prodi_m_jenjang_fk FOREIGN KEY (jenjang_id) REFERENCES public.r_jenjang(jenjang_id);
+
+
+--
+-- TOC entry 3291 (class 2606 OID 18198)
+-- Name: m_prodi m_prodi_m_jurusan_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.m_prodi
+    ADD CONSTRAINT m_prodi_m_jurusan_fk FOREIGN KEY (jurusan_id) REFERENCES public.m_jurusan(jurusan_id);
+
+
+-- Completed on 2025-09-28 14:24:40
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict bL7gYvsFaMEDe89cwKQXmq1XXZalAymeafPxuFbCdTgiBMDsJYbOqsJbZGEqjoJ
+
